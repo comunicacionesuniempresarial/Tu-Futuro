@@ -1,18 +1,31 @@
-import { createClient } from "@supabase/supabase-js";
+import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 
-const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+/**
+ * Cliente Supabase con service_role (solo server, nunca exponer al cliente).
+ *
+ * Inicialización diferida (lazy): el módulo se puede importar sin que las env
+ * vars estén presentes — necesario para que `next build` no reviente en el
+ * paso "Collecting page data" en Vercel, donde las env vars se inyectan solo
+ * en runtime. El error solo se lanza cuando una función realmente intenta
+ * usar el cliente (en runtime), no al importar el módulo (en build time).
+ */
+let _supabase: SupabaseClient | null = null;
 
-if (!supabaseUrl || !supabaseServiceRoleKey) {
-  throw new Error(
-    "Supabase no configurado: agrega SUPABASE_URL y SUPABASE_SERVICE_ROLE_KEY " +
-      "en .env.local (Dashboard → Project Settings → API)"
-  );
+function getSupabase(): SupabaseClient {
+  if (_supabase) return _supabase;
+  const url = process.env.SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!url || !key) {
+    throw new Error(
+      "Supabase no configurado: agrega SUPABASE_URL y SUPABASE_SERVICE_ROLE_KEY " +
+        "en las env vars (Vercel → Settings → Environment Variables)"
+    );
+  }
+  _supabase = createClient(url, key, {
+    auth: { persistSession: false, autoRefreshToken: false },
+  });
+  return _supabase;
 }
-
-const supabase = createClient(supabaseUrl, supabaseServiceRoleKey, {
-  auth: { persistSession: false, autoRefreshToken: false },
-});
 
 /**
  * Lead as read from Postgres (snake_case columns → propiedades de la app).
@@ -205,6 +218,7 @@ export interface LeadFilters {
 export async function upsertLead(
   lead: LeadRowInsert
 ): Promise<{ ok: boolean; id?: number }> {
+  const supabase = getSupabase();
   const row: Record<string, unknown> = {
     nombre: lead.nombre,
     email: lead.email,
@@ -288,6 +302,7 @@ export async function upsertLead(
 export async function getLeads(
   filters: LeadFilters = {}
 ): Promise<{ leads: LeadRow[]; total: number }> {
+  const supabase = getSupabase();
   const {
     search,
     archetype,
@@ -339,6 +354,7 @@ export async function updateLead(
   id: number,
   patch: { estado?: string; notas?: string }
 ): Promise<{ ok: boolean }> {
+  const supabase = getSupabase();
   const { error } = await supabase
     .from("leads")
     .update({ ...patch, actualizado_en: new Date().toISOString() })
@@ -353,6 +369,7 @@ export async function updateLead(
 export async function deleteLead(
   id: number
 ): Promise<{ ok: boolean; deleted: boolean }> {
+  const supabase = getSupabase();
   const { data, error } = await supabase
     .from("leads")
     .delete()
@@ -374,6 +391,7 @@ export interface AdminMetrics {
  * que el comportamiento anterior de la hoja.
  */
 export async function getMetrics(): Promise<AdminMetrics> {
+  const supabase = getSupabase();
   const now = new Date();
   const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000).toISOString();
   const monthAgo = new Date(
