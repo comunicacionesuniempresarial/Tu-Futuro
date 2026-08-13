@@ -56,7 +56,7 @@ export default function Header({ audioButton }: { audioButton?: ReactNode }) {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-40 bg-white shadow-md">
-      <div className="w-full px-6 py-2 flex items-center justify-between gap-4">
+      <div className="w-full px-4 sm:px-6 py-2 flex items-center justify-between gap-4">
         {/* Logo */}
         <Link href="/" className="flex items-center shrink-0" aria-label="Uniempresarial - Inicio">
           <img
@@ -73,7 +73,7 @@ export default function Header({ audioButton }: { audioButton?: ReactNode }) {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-sm font-medium text-[#0a0a0a] hover:text-[#0033A5] transition-colors"
+                className="text-sm font-medium text-[#0a0a0a] hover:text-[#0033A5] transition-colors py-2"
               >
                 {link.label}
               </Link>
@@ -94,7 +94,7 @@ export default function Header({ audioButton }: { audioButton?: ReactNode }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={social.label}
-                className="text-slate-600 hover:text-[#D51933] transition-colors"
+                className="text-slate-600 hover:text-[#D51933] transition-colors p-2"
               >
                 {social.icon}
               </a>
@@ -106,7 +106,7 @@ export default function Header({ audioButton }: { audioButton?: ReactNode }) {
         <div className="md:hidden flex items-center gap-2">
           {audioButton}
           <button
-            className="flex flex-col gap-1.5 p-2 -mr-2"
+            className="flex flex-col gap-1.5 p-2.5 -mr-2"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label={mobileOpen ? "Cerrar menú" : "Abrir menú"}
             aria-expanded={mobileOpen}

@@ -74,17 +74,17 @@ export default function RankingFull({
                   </div>
                   <div className="flex items-center gap-1.5 text-xs flex-wrap">
                     {(program.modality === "presencial" || hasTwin) && (
-                      <span className="text-[10px] font-bold text-[#16a34a] bg-[#16a34a]/10 px-1 py-0.5 rounded">
+                      <span className="text-xs font-bold text-[#16a34a] bg-[#16a34a]/10 px-1.5 py-0.5 rounded">
                         Presencial
                       </span>
                     )}
                     {(program.modality === "virtual" || hasTwin) && (
-                      <span className="text-[10px] font-bold text-[#0033A5] bg-[#0033A5]/10 px-1 py-0.5 rounded">
+                      <span className="text-xs font-bold text-[#0033A5] bg-[#0033A5]/10 px-1.5 py-0.5 rounded">
                         Virtual
                       </span>
                     )}
                     {isModalityMatch && (
-                      <span className="text-[10px] font-bold text-[#D51933] bg-[#D51933]/10 px-1 py-0.5 rounded">
+                      <span className="text-xs font-bold text-[#D51933] bg-[#D51933]/10 px-1.5 py-0.5 rounded">
                         Recomendado
                       </span>
                     )}
