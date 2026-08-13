@@ -1,9 +1,75 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+
+/**
+ * Placeholder con efecto typewriter: cicla frases genéricas mientras
+ * el campo está vacío. Nunca revela credenciales reales.
+ * Se detiene en cuanto el usuario escribe (active = false).
+ */
+function useTypewriter(phrases: string[], active: boolean) {
+  const [text, setText] = useState("");
+  const phrasesRef = useRef(phrases);
+  phrasesRef.current = phrases;
+
+  useEffect(() => {
+    if (!active) {
+      setText("");
+      return;
+    }
+    let pIdx = 0;
+    let cIdx = 0;
+    let deleting = false;
+    let timer: ReturnType<typeof setTimeout>;
+
+    const tick = () => {
+      const phrase = phrasesRef.current[pIdx] ?? "";
+      if (!deleting) {
+        cIdx += 1;
+        setText(phrase.slice(0, cIdx));
+        if (cIdx >= phrase.length) {
+          timer = setTimeout(() => {
+            deleting = true;
+            tick();
+          }, 1600);
+          return;
+        }
+        timer = setTimeout(tick, 65);
+      } else {
+        cIdx -= 1;
+        setText(phrase.slice(0, cIdx));
+        if (cIdx <= 0) {
+          deleting = false;
+          pIdx = (pIdx + 1) % phrasesRef.current.length;
+          timer = setTimeout(tick, 450);
+          return;
+        }
+        timer = setTimeout(tick, 30);
+      }
+    };
+
+    timer = setTimeout(tick, 250);
+    return () => clearTimeout(timer);
+  }, [active]);
+
+  return text;
+}
+
+// Frases genéricas — no exponen el correo ni claves reales.
+const EMAIL_HINTS = [
+  "Ingresa el correo…",
+  "Correo autorizado…",
+  "Escribe tu correo…",
+];
+
+const PASSWORD_HINTS = [
+  "Ingresa la contraseña…",
+  "Tu clave de acceso…",
+  "Escribe tu contraseña…",
+];
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -11,6 +77,9 @@ export default function AdminLoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const emailPlaceholder = useTypewriter(EMAIL_HINTS, email.length === 0);
+  const passwordPlaceholder = useTypewriter(PASSWORD_HINTS, password.length === 0);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -65,8 +134,9 @@ export default function AdminLoginPage() {
         <div className="bg-white rounded-3xl p-6 md:p-8 shadow-xl shadow-slate-200/60 border border-slate-200/70">
           <form onSubmit={handleSubmit} className="space-y-5">
             <div className="space-y-2">
-              <label className="block text-sm font-semibold text-slate-900">Correo</label>
+              <label htmlFor="admin-email" className="block text-sm font-semibold text-slate-900">Correo</label>
               <input
+                id="admin-email"
                 type="email"
                 name="email"
                 autoComplete="email"
@@ -74,13 +144,14 @@ export default function AdminLoginPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 className="w-full p-4 rounded-xl bg-white border-2 border-slate-200 text-slate-900 placeholder-slate-400 focus:border-[#D51933] focus:outline-none transition-colors"
-                placeholder="comunicacionesuniempresarial@gmail.com"
+                placeholder={emailPlaceholder}
               />
             </div>
 
             <div className="space-y-2">
-              <label className="block text-sm font-semibold text-slate-900">Contraseña</label>
+              <label htmlFor="admin-password" className="block text-sm font-semibold text-slate-900">Contraseña</label>
               <input
+                id="admin-password"
                 type="password"
                 name="password"
                 autoComplete="current-password"
@@ -88,7 +159,7 @@ export default function AdminLoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 className="w-full p-4 rounded-xl bg-white border-2 border-slate-200 text-slate-900 placeholder-slate-400 focus:border-[#D51933] focus:outline-none transition-colors"
-                placeholder="••••••••"
+                placeholder={passwordPlaceholder}
               />
             </div>
 
