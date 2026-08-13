@@ -492,9 +492,9 @@ const layer4Questions: Question[] = [
     type: "single-choice",
     text: "Imagina tu semana de estudio ideal: ¿cómo la pasarías?",
     options: [
-      "Entre campus, clases y trabajo con compañeros",
-      "Desde casa, con mi propio horario",
-      "Una mezcla de ambos",
+      "Llena de actividad: clases, proyectos en equipo y gente alrededor todo el día",
+      "Tranquila y a mi ritmo: avanzo con mis tiempos, conectado desde donde esté",
+      "Mezclada: unos días con clases y compañeros, otros días por mi cuenta",
     ],
   },
   {
@@ -502,13 +502,13 @@ const layer4Questions: Question[] = [
     layer: 4,
     dimension: "modality-discipline",
     type: "likert-5",
-    text: "Cuando estudias por tu cuenta, ¿qué tan bien logras mantenerte al día?",
+    text: "Cuando estudias por tu cuenta, sin que nadie te esté recordando las fechas, ¿qué tan bien logras mantenerte al día?",
     options: [
-      "Muy mal",
-      "Mal",
+      "Muy mal: me pierdo entre tantas cosas",
+      "Mal: se me escapan varias",
       "Regular",
-      "Bien",
-      "Muy bien",
+      "Bien: cumplo con lo importante",
+      "Muy bien: soy súper organizado/a",
     ],
   },
   {
@@ -516,10 +516,10 @@ const layer4Questions: Question[] = [
     layer: 4,
     dimension: "modality-access",
     type: "binary",
-    text: "Para aprender y concentrarte, ¿qué prefieres?",
+    text: "Cuando tienes que aprender algo nuevo, ¿en qué ambiente rindes mejor?",
     options: [
-      "Trabajar por mi cuenta, en mi propio espacio",
-      "Compartir con un grupo y profesores cerca",
+      "Solo/a, en mi espacio y a mi propio ritmo",
+      "Con un grupo, resolviendo las dudas al momento",
     ],
   },
 ];
