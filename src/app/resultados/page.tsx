@@ -114,6 +114,17 @@ export default function ResultadosPage() {
   const router = useRouter();
   const { isCompleted, resetTest } = useTestStore();
   const [data, setData] = useState<ResultsData | null>(null);
+  // Zustand persist hidrata async desde localStorage; en el primer render
+  // isCompleted es el default (false) hasta que hidrata. Sin este guard,
+  // el redirect a /test disparaba prematuramente (race condition).
+  const [hasHydrated, setHasHydrated] = useState(false);
+
+  useEffect(() => {
+    const unsub = useTestStore.persist.onFinishHydration(() => setHasHydrated(true));
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- hidratación del store Zustand persist
+    if (useTestStore.persist.hasHydrated()) setHasHydrated(true);
+    return () => unsub();
+  }, []);
 
   // Lee sessionStorage tras la hidratación, no en el initializer del estado:
   // leerlo durante el primer render del cliente genera hydration mismatch
@@ -124,13 +135,16 @@ export default function ResultadosPage() {
   }, []);
 
   useEffect(() => {
+    // No decidir el redirect hasta que el store se hidrate: si no,
+    // isCompleted=false (default) causaría un redirect prematuro a /test.
+    if (!hasHydrated) return;
     if (!data && !isCompleted) {
       router.push("/test");
     }
-  }, [data, isCompleted, router]);
+  }, [data, isCompleted, router, hasHydrated]);
 
-  if (!data) {
-    if (isCompleted) {
+  if (!hasHydrated || !data) {
+    if (hasHydrated && isCompleted) {
       return <MissingResults />;
     }
     return (
