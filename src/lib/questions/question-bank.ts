@@ -35,7 +35,7 @@ const layer1Questions: Question[] = [
       "Meterle mano a algo y dejarlo mejor de lo que estaba",
       "Proponer un plan para el grupo y lograr que todos se animen",
       "Ponerte al día con alguien y terminar dándole un consejo útil",
-      "Inventar algo original que nadie más tendría",
+      "Inventar algo que a nadie más se le ocurriría",
       "Perderte en un tema que te da curiosidad hasta entenderlo a fondo",
     ],
     riasecWeights: [
@@ -103,7 +103,7 @@ const layer1Questions: Question[] = [
     options: [
       "El que arma la maqueta y la deja funcionando perfecta",
       "El que averigua por qué pasan las cosas y lo demuestra",
-      "El que se encarga de que todo se vea original y llamativo",
+      "El que se encarga de que todo se vea llamativo y diferente",
       "El que acompaña a los que van perdidos hasta que entiendan",
       "El que organiza y motiva al grupo para ganar la presentación",
     ],
@@ -287,7 +287,7 @@ const layer1Questions: Question[] = [
     options: [
       "Arreglar cualquier cosa con tus manos, por muy dañada que esté",
       "Resolver cualquier misterio con solo pensar",
-      "Crear algo tan original que todos se queden mirándolo",
+      "Crear algo tan único que todos se queden mirándolo",
       "Hacer que quien hable contigo se sienta mucho mejor",
       "Convencer a cualquier persona de lo que propongas",
     ],
@@ -318,7 +318,7 @@ const layer2Questions: Question[] = [
     options: [
       "La que requiere cálculos y fórmulas",
       "La de análisis de textos largos",
-      "La de crear algo original",
+      "La de crear algo propio",
       "La de trabajar en equipo",
     ],
     aptitudeWeights: [
