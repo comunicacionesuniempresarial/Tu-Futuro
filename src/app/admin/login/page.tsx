@@ -74,7 +74,7 @@ export default function AdminLoginPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 className="w-full p-4 rounded-xl bg-white border-2 border-slate-200 text-slate-900 placeholder-slate-400 focus:border-[#D51933] focus:outline-none transition-colors"
-                placeholder="admin@uniempresarial.edu.co"
+                placeholder="comunicacionesuniempresarial@gmail.com"
               />
             </div>
 

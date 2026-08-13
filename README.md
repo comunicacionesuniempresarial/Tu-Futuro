@@ -77,7 +77,7 @@ cp .env.local.example .env.local
 | `SUPABASE_SERVICE_ROLE_KEY` | service_role key (solo server, nunca exponer al cliente) |
 | `NEXTAUTH_SECRET` | Secreto aleatorio (`openssl rand -base64 32`) |
 | `NEXTAUTH_URL` | Solo dev local: `http://localhost:3000`. En Vercel usar `AUTH_URL` |
-| `ADMIN_EMAILS` | Comma-separated: `admin@uniempresarial.edu.co` |
+| `ADMIN_EMAILS` | Comma-separated: `comunicacionesuniempresarial@gmail.com` |
 | `ADMIN_PASSWORDS` | Comma-separated (deben coincidir 1:1 con ADMIN_EMAILS) |
 
 ### 3. Base de datos
