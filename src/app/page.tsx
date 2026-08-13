@@ -246,7 +246,7 @@ export default function HomePage() {
       <Header audioButton={audioButton} />
 
       {/* Hero Section — Asymmetric layout with carousel */}
-      <section className="relative min-h-screen flex items-center overflow-hidden">
+      <section className="relative min-h-screen flex items-start sm:items-center overflow-hidden">
         {/* Background carousel — light veil keeps imagery alive */}
         <div className="absolute inset-0 z-0">
           <BackgroundCarousel slides={heroSlides} onActiveChange={setHeroActive} intervalMs={8000} />
