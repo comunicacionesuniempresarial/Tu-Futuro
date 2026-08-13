@@ -20,6 +20,12 @@
 
 html {
   scroll-behavior: smooth;
+  /* Previene el rubber-banding / overscroll horizontal en iOS Safari
+     (espacio negro al arrastrar la pagina de costado).
+     overflow-x en html es lo que realmente recorta el documento raiz;
+     body solo no alcanza en iOS. */
+  overflow-x: hidden;
+  overscroll-behavior-x: none;
 }
 
 body {
@@ -29,6 +35,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  /* Contexto de posicionamiento para que overflow-x:hidden recorte
+     correctamente los elementos absolutos (blobs decorativos). */
+  position: relative;
+  width: 100%;
 }
 
 /* ── Scrollbar ── */
