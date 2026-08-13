@@ -245,7 +245,7 @@ export default function ResultadosPage() {
         <div className="relative text-center space-y-5 animate-fade-in">
           {/* Decorative glow */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-[#0033A5]/10 rounded-full blur-3xl" />
-          <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight relative z-10">
+          <h1 className="text-3xl lg:text-5xl font-extrabold tracking-tight relative z-10">
             <span className="gradient-text">Tu resultado</span>
           </h1>
           <p className="text-slate-600 text-lg relative z-10">

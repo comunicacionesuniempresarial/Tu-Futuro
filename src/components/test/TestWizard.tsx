@@ -82,7 +82,7 @@ function LayerTransition({
           <p className="text-[#0033A5]/60 text-sm font-bold uppercase tracking-widest mb-2">
             Capa {layer} de 4
           </p>
-          <h2 className="text-4xl md:text-5xl font-black text-slate-900">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900">
             {LAYER_NAMES[layer]}
           </h2>
         </div>

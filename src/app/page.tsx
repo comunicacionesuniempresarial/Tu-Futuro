@@ -256,19 +256,19 @@ export default function HomePage() {
         </div>
 
         {/* Hero Content — Chaptr-style asymmetric */}
-        <div className="relative z-10 w-full px-6 pt-28 pb-20">
+        <div className="relative z-10 w-full px-6 sm:px-10 pt-24 sm:pt-28 lg:pt-28 pb-16 sm:pb-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left: Bold typography */}
             <div className="space-y-8 glass-light rounded-3xl p-8 lg:p-12">
-              <h1 className="text-6xl md:text-8xl lg:text-9xl font-extrabold tracking-tight leading-[0.85] animate-slide-up">
+              <h1 className="text-5xl sm:text-6xl lg:text-8xl xl:text-9xl font-extrabold tracking-tight leading-[0.85] animate-slide-up">
                 <span className="gradient-text drop-shadow-[0_0_30px_rgba(0,51,165,0.25)]">Descubre</span>
                 <br />
                 <span className="text-slate-900">tu carrera</span>
                 <br />
-                <span className="text-slate-900 font-extrabold text-5xl md:text-6xl lg:text-7xl">ideal</span>
+                <span className="text-slate-900 font-extrabold text-4xl sm:text-5xl lg:text-6xl xl:text-7xl">ideal</span>
               </h1>
 
-              <p className="text-2xl md:text-3xl text-slate-600 max-w-lg leading-relaxed animate-fade-in font-medium" style={{ animationDelay: "0.3s" }}>
+              <p className="text-xl sm:text-2xl lg:text-3xl text-slate-600 max-w-lg leading-relaxed animate-fade-in font-medium" style={{ animationDelay: "0.3s" }}>
                 25 preguntas. 4 capas. 8 arquetipos. 12 programas. Un resultado que puede
                 cambiar tu futuro.
               </p>
@@ -352,7 +352,7 @@ export default function HomePage() {
             <span className="text-sm font-semibold tracking-widest text-[#D51933] uppercase">
               Cómo funciona
             </span>
-            <h2 className="text-4xl md:text-5xl font-extrabold mt-4 tracking-tight leading-tight">
+            <h2 className="text-4xl lg:text-5xl font-extrabold mt-4 tracking-tight leading-tight">
               No es solo un test.
               <br />
               <span className="text-[#D51933]">Es tu mapa de futuro.</span>
@@ -389,7 +389,7 @@ export default function HomePage() {
             <span className="text-sm font-semibold tracking-widest text-[#D51933] uppercase">
               Tu perfil profesional
             </span>
-            <h2 className="text-4xl md:text-5xl font-extrabold mt-4 tracking-tight leading-tight">
+            <h2 className="text-4xl lg:text-5xl font-extrabold mt-4 tracking-tight leading-tight">
               8 arquetipos basados en
               <br />
               <span className="gradient-text">los tipos de Jung.</span>
@@ -434,7 +434,7 @@ export default function HomePage() {
               { value: "12", label: "Programas" },
             ].map((stat, i) => (
               <div key={i} className="text-center space-y-2">
-                <div className="text-4xl md:text-5xl font-extrabold gradient-text">
+                <div className="text-4xl lg:text-5xl font-extrabold gradient-text">
                   {stat.value}
                 </div>
                 <div className="text-sm text-gray-500 uppercase tracking-wider font-medium">
@@ -459,7 +459,7 @@ export default function HomePage() {
             <span className="text-sm font-semibold tracking-widest text-[#D51933] uppercase">
               Qué obtienes
             </span>
-            <h2 className="text-4xl md:text-5xl font-extrabold mt-4 tracking-tight leading-tight">
+            <h2 className="text-4xl lg:text-5xl font-extrabold mt-4 tracking-tight leading-tight">
               Resultados que
               <br />
               <span className="text-[#D51933]">sí puedes usar.</span>
@@ -496,7 +496,7 @@ export default function HomePage() {
             <span className="text-sm font-semibold tracking-widest text-[#D51933] uppercase">
               Programas del Modelo Dual
             </span>
-            <h2 className="text-4xl md:text-5xl font-extrabold mt-4 tracking-tight leading-tight">
+            <h2 className="text-4xl lg:text-5xl font-extrabold mt-4 tracking-tight leading-tight">
               Tu carrera entre
               <br />
               <span className="gradient-text">7 carreras, 5 también en virtual.</span>
@@ -541,7 +541,7 @@ export default function HomePage() {
         }`}
       >
         <div className="px-6 md:px-10 text-center">
-          <h2 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6">
+          <h2 className="text-4xl lg:text-6xl font-extrabold tracking-tight mb-6">
             25 preguntas separan
             <br />
             <span className="gradient-text">tu futuro de la indecisión.</span>

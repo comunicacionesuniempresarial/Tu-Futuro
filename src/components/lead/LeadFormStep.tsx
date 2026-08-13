@@ -153,7 +153,7 @@ export default function LeadFormStep({ esPrueba = false }: { esPrueba?: boolean 
         <div className="w-full max-w-lg animate-fade-in">
           {/* Hero text */}
           <div className="text-center mb-10">
-            <h1 className="text-4xl md:text-5xl font-black tracking-tight mb-3">
+            <h1 className="text-4xl lg:text-5xl font-black tracking-tight mb-3">
               <span className="gradient-text">Casi listo</span>
             </h1>
             <p className="text-slate-500 text-lg md:text-xl font-medium">
