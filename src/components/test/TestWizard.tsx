@@ -25,6 +25,9 @@ const backgroundSlides: BackgroundSlide[] = [
   { type: "image", src: "/images/moodboard-campus-1.jpeg" },
   { type: "image", src: "/images/moodboard-campus-2.jpeg" },
   { type: "image", src: "/images/moodboard-campus-3.jpeg" },
+  { type: "image", src: "/images/moodboard-campus-4.jpeg" },
+  { type: "image", src: "/images/moodboard-campus-5.jpeg" },
+  { type: "image", src: "/images/moodboard-campus-6.jpeg" },
 ];
 
 /** Layer transition screen displayed between layers */
