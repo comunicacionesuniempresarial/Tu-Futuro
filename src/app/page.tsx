@@ -260,15 +260,15 @@ export default function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left: Bold typography */}
             <div className="space-y-8 glass-light rounded-3xl p-8 lg:p-12">
-              <h1 className="text-5xl sm:text-6xl lg:text-8xl xl:text-9xl font-extrabold tracking-tight leading-[0.85] animate-slide-up">
+              <h1 className="text-5xl lg:text-8xl xl:text-9xl font-extrabold tracking-tight leading-[0.85] animate-slide-up">
                 <span className="gradient-text drop-shadow-[0_0_30px_rgba(0,51,165,0.25)]">Descubre</span>
                 <br />
                 <span className="text-slate-900">tu carrera</span>
                 <br />
-                <span className="text-slate-900 font-extrabold text-4xl sm:text-5xl lg:text-6xl xl:text-7xl">ideal</span>
+                <span className="text-slate-900 font-extrabold text-4xl lg:text-6xl xl:text-7xl">ideal</span>
               </h1>
 
-              <p className="text-xl sm:text-2xl lg:text-3xl text-slate-600 max-w-lg leading-relaxed animate-fade-in font-medium" style={{ animationDelay: "0.3s" }}>
+              <p className="text-xl lg:text-3xl text-slate-600 max-w-lg leading-relaxed animate-fade-in font-medium" style={{ animationDelay: "0.3s" }}>
                 25 preguntas. 4 capas. 8 arquetipos. 12 programas. Un resultado que puede
                 cambiar tu futuro.
               </p>
