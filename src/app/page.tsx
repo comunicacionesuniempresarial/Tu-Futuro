@@ -256,28 +256,28 @@ export default function HomePage() {
         </div>
 
         {/* Hero Content — Chaptr-style asymmetric */}
-        <div className="relative z-10 w-full px-6 sm:px-10 pt-24 sm:pt-28 lg:pt-28 pb-16 sm:pb-20">
+        <div className="relative z-10 w-full px-6 sm:px-10 pt-24 sm:pt-28 lg:pt-28 pb-16 sm:pb-20 [@media(max-height:500px)]:pt-14 [@media(max-height:500px)]:pb-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left: Bold typography */}
-            <div className="space-y-8 glass-light rounded-3xl p-8 lg:p-12">
-              <h1 className="text-5xl lg:text-8xl 2xl:text-9xl font-extrabold tracking-tight leading-[0.85] animate-slide-up">
+            <div className="space-y-8 glass-light rounded-3xl p-8 lg:p-12 [@media(max-height:500px)]:space-y-4 [@media(max-height:500px)]:p-6">
+              <h1 className="text-5xl lg:text-8xl 2xl:text-9xl font-extrabold tracking-tight leading-[0.85] animate-slide-up [@media(max-height:500px)]:text-4xl">
                 <span className="gradient-text drop-shadow-[0_0_30px_rgba(0,51,165,0.25)]">Descubre</span>
                 <br />
                 <span className="text-slate-900">tu carrera</span>
                 <br />
-                <span className="text-slate-900 font-extrabold text-4xl lg:text-6xl 2xl:text-7xl">ideal</span>
+                <span className="text-slate-900 font-extrabold text-4xl lg:text-6xl 2xl:text-7xl [@media(max-height:500px)]:text-3xl">ideal</span>
               </h1>
 
-              <p className="text-xl lg:text-3xl text-slate-600 max-w-lg leading-relaxed animate-fade-in font-medium" style={{ animationDelay: "0.3s" }}>
+              <p className="text-xl lg:text-3xl text-slate-600 max-w-lg leading-relaxed animate-fade-in font-medium [@media(max-height:500px)]:text-base" style={{ animationDelay: "0.3s" }}>
                 25 preguntas. 4 capas. 8 arquetipos. 12 programas. Un resultado que puede
                 cambiar tu futuro.
               </p>
 
-              <div className="flex flex-wrap items-center gap-4 animate-slide-up" style={{ animationDelay: "0.4s" }}>
+              <div className="flex flex-wrap items-center gap-4 animate-slide-up [@media(max-height:500px)]:gap-3" style={{ animationDelay: "0.4s" }}>
                 <Link
                   href="/test"
                   onClick={handleStart}
-                  className="group relative inline-flex items-center gap-3 bg-white text-[#0a0a0a] font-bold text-lg px-8 py-4 rounded-2xl border border-slate-200 transition-all duration-300 hover:bg-gradient-to-r hover:from-[#D51933] hover:to-[#0033A5] hover:text-white hover:scale-105 hover:border-transparent"
+                  className="group relative inline-flex items-center gap-3 bg-white text-[#0a0a0a] font-bold text-lg px-8 py-4 rounded-2xl border border-slate-200 transition-all duration-300 hover:bg-gradient-to-r hover:from-[#D51933] hover:to-[#0033A5] hover:text-white hover:scale-105 hover:border-transparent [@media(max-height:500px)]:text-base [@media(max-height:500px)]:px-6 [@media(max-height:500px)]:py-3"
                 >
                   Empezar el test
                   <svg
@@ -290,7 +290,7 @@ export default function HomePage() {
                   </svg>
                 </Link>
 
-                <div className="flex items-center gap-6 text-sm text-slate-500 font-medium">
+                <div className="flex items-center gap-6 text-sm text-slate-500 font-medium [@media(max-height:500px)]:hidden">
                   <span className="flex items-center gap-2">
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
