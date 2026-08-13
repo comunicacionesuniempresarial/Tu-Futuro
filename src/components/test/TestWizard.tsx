@@ -363,22 +363,25 @@ export default function TestWizard({ esPrueba = false }: { esPrueba?: boolean })
 
       {/* Header with progress */}
       <div className="sticky top-0 z-40 glass-light">
-        <div className="w-full px-6 py-4 space-y-2 relative">
-          <ProgressBar
-            currentStep={displayStep}
-            totalSteps={TOTAL_STEPS}
-            dimension={currentQuestion?.dimension}
-          />
-          {!isDisclaimer && (
-            <LayerIndicator layer={currentLayer} />
-          )}
+        <div className="w-full px-6 py-4 relative">
+          <div className="flex items-start gap-4">
+            <div className="flex-1 space-y-2 min-w-0">
+              <ProgressBar
+                currentStep={displayStep}
+                totalSteps={TOTAL_STEPS}
+                dimension={currentQuestion?.dimension}
+              />
+              {!isDisclaimer && (
+                <LayerIndicator layer={currentLayer} />
+              )}
+            </div>
 
-          {/* Audio toggle — dentro del header sticky, sutil, sin fixed */}
-          <button
-            onClick={toggleAudio}
-            className="absolute top-1/2 -translate-y-1/2 right-6 flex items-center justify-center w-8 h-8 text-slate-600 hover:text-[#0033A5] transition-colors"
-            aria-label={audioPlaying ? "Pausar música" : "Reproducir música"}
-          >
+            {/* Audio toggle — dentro del header sticky, sutil, en flujo */}
+            <button
+              onClick={toggleAudio}
+              className="flex items-center justify-center w-8 h-8 shrink-0 mt-0.5 text-slate-600 hover:text-[#0033A5] transition-colors"
+              aria-label={audioPlaying ? "Pausar música" : "Reproducir música"}
+            >
             {audioPlaying ? (
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
@@ -389,6 +392,7 @@ export default function TestWizard({ esPrueba = false }: { esPrueba?: boolean })
               </svg>
             )}
           </button>
+          </div>
         </div>
       </div>
 

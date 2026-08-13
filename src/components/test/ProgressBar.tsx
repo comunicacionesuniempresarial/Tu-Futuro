@@ -52,23 +52,23 @@ export default function ProgressBar({
   return (
     <div className="w-full space-y-2">
       {/* Top row: question counter + dimension */}
-      <div className="flex items-center justify-between text-lg">
-        <div className="flex items-center gap-3">
+      <div className="flex items-center justify-between gap-3 text-base sm:text-lg">
+        <div className="flex items-center gap-2 min-w-0">
           {currentStep > 0 ? (
-            <span className="text-slate-900 font-black">
+            <span className="text-slate-900 font-black whitespace-nowrap">
               Pregunta {currentStep} de {totalSteps}
             </span>
           ) : (
-            <span className="text-slate-900 font-black">Bienvenido</span>
+            <span className="text-slate-900 font-black whitespace-nowrap">Bienvenido</span>
           )}
           {displayDimension && (
             <>
               <span className="text-[#0033A5]/30">·</span>
-              <span className="text-slate-500 font-semibold">{displayDimension}</span>
+              <span className="text-slate-500 font-semibold truncate">{displayDimension}</span>
             </>
           )}
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 shrink-0">
           <span className="text-[#0033A5] text-base font-black">
             {Math.round(progress)}%
           </span>
