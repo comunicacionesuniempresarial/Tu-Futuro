@@ -254,8 +254,8 @@ export default function HomePage() {
         <div className="absolute inset-0 z-0">
           <BackgroundCarousel slides={heroSlides} onActiveChange={setHeroActive} intervalMs={8000} />
           {/* Light veil — imagery stays alive, text stays readable */}
-          <div className="absolute inset-0 bg-white/45" />
-          <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-white/25 to-white/65" />
+          <div className="absolute inset-0 bg-white/35" />
+          <div className="absolute inset-0 bg-gradient-to-b from-white/10 via-white/30 to-white/65" />
         </div>
 
         {/* Hero Content — Chaptr-style asymmetric */}

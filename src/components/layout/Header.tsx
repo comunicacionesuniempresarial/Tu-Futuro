@@ -55,7 +55,7 @@ export default function Header({ audioButton }: { audioButton?: ReactNode }) {
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-40 bg-white shadow-md">
+    <header className="fixed top-0 left-0 right-0 z-40 bg-white/70 backdrop-blur-md shadow-sm">
       <div className="w-full px-4 sm:px-6 py-2 flex items-center justify-between gap-4">
         {/* Logo */}
         <Link href="/" className="flex items-center shrink-0" aria-label="Uniempresarial - Inicio">
