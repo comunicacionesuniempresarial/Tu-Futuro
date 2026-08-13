@@ -1,16 +1,13 @@
 import type { Metadata } from "next";
 import { Sora } from "next/font/google";
 import "./globals.css";
+import { siteUrl } from "@/lib/site-url";
 
 const sora = Sora({
   variable: "--font-sora",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700", "800"],
 });
-
-// metadataBase: en Vercel apunta al dominio real vía AUTH_URL/NEXTAUTH_URL
-const siteUrl =
-  process.env.AUTH_URL || process.env.NEXTAUTH_URL || "http://localhost:3000";
 
 export const metadata: Metadata = {
   title: {
