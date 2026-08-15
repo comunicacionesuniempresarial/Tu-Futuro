@@ -2,17 +2,21 @@
 # Vocational guidance web platform for Colombian secondary students
 
 context: |
-  Fresh rebuild of a vocational guidance platform.
-  Target stack: React 19 + Next.js 15 + Supabase (auth, DB, storage).
-  Audience: Colombian secondary students (guidance/career orientation).
-  No existing code — greenfield project.
+  Vocational guidance platform for Colombian secondary students (career
+  orientation, RIASEC-based scoring).
+  Built project (not greenfield): production live on Vercel at
+  tu-futuro-dual.vercel.app. Stack: Next.js 16.3.0 App Router + React 19.2.8 +
+  Tailwind CSS 4 + Supabase (auth/DB/storage) + NextAuth v5 beta + Zustand 5 +
+  Zod 4. Tests: 141 Vitest 4 unit tests (5 files in src/lib/__tests__); the
+  build pipeline gates on `tsc --noEmit && vitest run`.
 
-strict_tdd: false
+strict_tdd: true
 
 testing:
-  runner: none
-  framework: none
-  unit: false
+  runner: vitest
+  framework: vitest
+  test_command: npx vitest run
+  unit: true
   integration: false
   e2e: false
   coverage: false
