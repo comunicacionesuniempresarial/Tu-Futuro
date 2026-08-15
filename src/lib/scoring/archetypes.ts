@@ -23,7 +23,7 @@ import { cosineSimilarity } from "./riasec";
  */
 export const ARCHETYPES: readonly Archetype[] = [
   {
-    id: "constructor",
+    id: "realizador",
     name: "El Constructor",
     emoji: "⚙️",
     description:
@@ -111,13 +111,13 @@ export const ARCHETYPES: readonly Archetype[] = [
 /**
  * Mapping from dominant+secondary RIASEC pair to archetype ID.
  *
- * Key format: "Dominant,Secondary" (e.g., "R,I" → "constructor").
+ * Key format: "Dominant,Secondary" (e.g., "R,I" → "realizador").
  * Only direct mappings are listed — unmatched pairs fall back to cosine.
  */
 export const MAPPING_TABLE: Record<string, string> = {
-  "R,I": "constructor",
-  "R,A": "constructor",
-  "R,C": "constructor",
+  "R,I": "realizador",
+  "R,A": "realizador",
+  "R,C": "realizador",
   "I,R": "investigador",
   "I,A": "investigador",
   "I,C": "analista",

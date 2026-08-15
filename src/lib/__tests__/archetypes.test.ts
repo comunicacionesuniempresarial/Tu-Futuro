@@ -101,7 +101,7 @@ describe("ARCHETYPES definitions", () => {
 
   it("all expected archetype IDs exist", () => {
     const expectedIds = [
-      "constructor",
+      "realizador",
       "investigador",
       "creador",
       "connecting",
@@ -126,8 +126,8 @@ describe("MAPPING_TABLE", () => {
     expect(Object.keys(MAPPING_TABLE).length).toBeGreaterThan(0);
   });
 
-  it("maps R+I to constructor", () => {
-    expect(MAPPING_TABLE["R,I"]).toBe("constructor");
+  it("maps R+I to realizador", () => {
+    expect(MAPPING_TABLE["R,I"]).toBe("realizador");
   });
 
   it("maps I+R to investigador", () => {
@@ -181,9 +181,9 @@ describe("determineArchetype", () => {
     expect(result).toHaveProperty("riasecProfile");
   });
 
-  it("high R + high I → constructor", () => {
+  it("high R + high I → realizador", () => {
     const result = determineArchetype(ENGINEER_PROFILE);
-    expect(result.id).toBe("constructor");
+    expect(result.id).toBe("realizador");
   });
 
   it("high E + high S → leader", () => {
@@ -210,7 +210,7 @@ describe("determineArchetype", () => {
   it("all-equal profile uses cosine fallback", () => {
     // All equal → no dominant pair → cosine fallback
     const result = determineArchetype(AMBIGUOUS_PROFILE);
-    expect(["constructor", "investigador", "creador", "connecting",
+    expect(["realizador", "investigador", "creador", "connecting",
       "estratega", "analista", "visionario", "leader"]).toContain(result.id);
   });
 
@@ -221,9 +221,9 @@ describe("determineArchetype", () => {
       R: 0.7, I: 0.7, A: 0.1, S: 0.1, E: 0.1, C: 0.1,
     };
     const result = determineArchetype(tiedProfile);
-    // R,I pair → constructor; I,R pair → investigador
+    // R,I pair → realizador; I,R pair → investigador
     // Since both are 0.7, tiebreaking applies
-    expect(["constructor", "investigador"]).toContain(result.id);
+    expect(["realizador", "investigador"]).toContain(result.id);
   });
 
   it("returns deterministic results for same input", () => {
@@ -398,7 +398,7 @@ describe("near-tie epsilon guard", () => {
     expect(ARCHETYPES.map((a) => a.id)).toContain(result.id);
     // Should be the cosine winner of an all-0.5 vector (which is the same for all
     // non-zero vector archetype entries — all cosine to ~0.707). With equal
-    // cosine and `>` strict, the first archetype (constructor) wins by iteration
+    // cosine and `>` strict, the first archetype (realizador) wins by iteration
     // order — that's deterministic and OK, but we don't assert WHICH one since
     // the cosine path doesn't make a value judgment; we just assert stability.
     const result2 = determineArchetype(allEqual);
