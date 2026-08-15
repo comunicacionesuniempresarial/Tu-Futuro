@@ -252,7 +252,7 @@ export default function HomePage() {
       <section className="relative min-h-screen flex items-start sm:items-center overflow-hidden">
         {/* Background carousel — light veil keeps imagery alive */}
         <div className="absolute inset-0 z-0">
-          <BackgroundCarousel slides={heroSlides} onActiveChange={setHeroActive} intervalMs={8000} />
+          <BackgroundCarousel slides={heroSlides} onActiveChange={setHeroActive} intervalMs={6500} />
           {/* Light veil — imagery stays alive, text stays readable */}
           <div className="absolute inset-0 bg-white/35" />
           <div className="absolute inset-0 bg-gradient-to-b from-white/10 via-white/30 to-white/65" />

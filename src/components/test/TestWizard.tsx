@@ -358,7 +358,7 @@ export default function TestWizard({ esPrueba = false }: { esPrueba?: boolean })
     <div className="min-h-screen bg-gradient-to-br from-[#FFF3F0] via-white to-[#E8EEFF] flex flex-col relative overflow-hidden">
       {/* Background carousel — visible through a light veil */}
       <div className="absolute inset-0 z-0">
-        <BackgroundCarousel slides={backgroundSlides} intervalMs={8000} />
+        <BackgroundCarousel slides={backgroundSlides} intervalMs={6500} />
         {/* Light veil — imagery stays alive, text stays readable */}
         <div className="absolute inset-0 bg-white/45" />
         <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-white/25 to-white/65" />
