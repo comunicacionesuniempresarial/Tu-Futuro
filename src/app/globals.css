@@ -2,13 +2,45 @@
 
 @theme inline {
   --font-sora: var(--font-sora);
-  --color-dark: #0a0a0a;
-  --color-dark-elevated: #1a1a1a;
-  --color-neon-green: #00ff88;
-  --color-neon-pink: #ff0080;
-  --color-neon-violet: #D51933;
-  --color-surface: #141414;
-  --color-surface-hover: #1e1e1e;
+  --font-heading: var(--font-heading);
+  --font-body: var(--font-body);
+  --color-bg: var(--color-bg);
+  --color-surface: var(--color-surface);
+  --color-surface-hover: var(--color-surface-hover);
+  --color-border: var(--color-border);
+  --color-text-primary: var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-neon-primary: var(--color-neon-primary);
+  --color-neon-secondary: var(--color-neon-secondary);
+  --color-neon-accent: var(--color-neon-accent);
+  --color-neon-green: var(--color-neon-green);
+  --color-neon-pink: var(--color-neon-pink);
+  --color-neon-violet: var(--color-neon-violet);
+}
+
+/* ── CSS Custom Properties: Dark/Neon Palette ── */
+:root {
+  /* Fonts */
+  --font-heading: "Sora", "Space Grotesk", sans-serif;
+  --font-body: "Inter", "Sora", sans-serif;
+
+  /* Core Dark Canvas */
+  --color-bg: #050505;
+  --color-surface: #0d0d0d;
+  --color-surface-hover: #1a1a1a;
+  --color-border: #2a2a2a;
+
+  /* Text */
+  --color-text-primary: #fafafa;
+  --color-text-secondary: #a1a1aa;
+
+  /* Neon Accents — Brand colors on dark canvas (user decision: combination) */
+  --color-neon-primary: #D51933;
+  --color-neon-secondary: #0033A5;
+  --color-neon-accent: #D51933;
+  --color-neon-green: #D51933;
+  --color-neon-pink: #0033A5;
+  --color-neon-violet: #0033A5;
 }
 
 /* ── Base Reset ── */
@@ -20,23 +52,17 @@
 
 html {
   scroll-behavior: smooth;
-  /* Previene el rubber-banding / overscroll horizontal en iOS Safari
-     (espacio negro al arrastrar la pagina de costado).
-     overflow-x en html es lo que realmente recorta el documento raiz;
-     body solo no alcanza en iOS. */
   overflow-x: hidden;
   overscroll-behavior-x: none;
 }
 
 body {
-  background: #0a0a0a;
-  color: #ffffff;
-  font-family: var(--font-sora), "Sora", sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
-  /* Contexto de posicionamiento para que overflow-x:hidden recorte
-     correctamente los elementos absolutos (blobs decorativos). */
   position: relative;
   width: 100%;
 }
@@ -47,22 +73,22 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #0a0a0a;
+  background: var(--color-bg);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #333;
+  background: var(--color-border);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: var(--color-neon-primary);
 }
 
 /* ── Selection ── */
 ::selection {
-  background: rgba(124, 58, 237, 0.4);
-  color: white;
+  background: rgba(213, 25, 51, 0.3);
+  color: var(--color-text-primary);
 }
 
 /* ── Animations ── */
@@ -174,32 +200,41 @@ body {
 
 /* ── Glass effect ── */
 .glass {
-  background: rgba(20, 20, 20, 0.8);
+  background: rgba(13, 13, 13, 0.8);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--color-border);
 }
 
-/* ── Glass light (bright palette — content floats over visible imagery) ── */
-.glass-light {
-  background: rgba(255, 255, 255, 0.86);
-  backdrop-filter: blur(16px) saturate(1.4);
-  -webkit-backdrop-filter: blur(16px) saturate(1.4);
-  border: 1px solid rgba(255, 255, 255, 0.55);
-}
-
-/* ── Brand border (red → blue) — bright interior ── */
-.brand-border {
+/* ── Neon border ── */
+.neon-border {
   position: relative;
   border: 1px solid transparent;
   background:
-    linear-gradient(rgba(255, 255, 255, 0.94), rgba(255, 255, 255, 0.94)) padding-box,
-    linear-gradient(135deg, #D51933, #0033A5) border-box;
+    linear-gradient(var(--color-surface), var(--color-surface)) padding-box,
+    linear-gradient(135deg, var(--color-neon-primary), var(--color-neon-secondary)) border-box;
 }
 
-/* ── Brand solid gradient (red → blue) ── */
-.brand-gradient {
-  background: linear-gradient(135deg, #D51933, #0033A5);
+/* ── Neon glow utilities (brand) ── */
+.neon-glow-primary {
+  box-shadow:
+    0 0 20px rgba(213, 25, 51, 0.4),
+    0 0 40px rgba(213, 25, 51, 0.2),
+    inset 0 0 20px rgba(213, 25, 51, 0.1);
+}
+
+.neon-glow-secondary {
+  box-shadow:
+    0 0 20px rgba(0, 51, 165, 0.4),
+    0 0 40px rgba(0, 51, 165, 0.2),
+    inset 0 0 20px rgba(0, 51, 165, 0.1);
+}
+
+.neon-glow-accent {
+  box-shadow:
+    0 0 20px rgba(213, 25, 51, 0.4),
+    0 0 40px rgba(213, 25, 51, 0.2),
+    inset 0 0 20px rgba(213, 25, 51, 0.1);
 }
 
 /* ── Pop-in (selected checkmark feedback) ── */
@@ -221,9 +256,9 @@ body {
   animation: pop-in 0.25s ease-out forwards;
 }
 
-/* ── Gradient text (brand red → blue) ── */
-.gradient-text {
-  background: linear-gradient(135deg, #D51933, #0033A5);
+/* ── Gradient text (neon) ── */
+.gradient-text-neon {
+  background: linear-gradient(135deg, var(--color-neon-primary), var(--color-neon-secondary));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -239,4 +274,32 @@ body {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* ── Utility classes for reduced motion ── */
+.reduce-motion {
+  animation: none !important;
+  transition: none !important;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .motion-safe\:animate-fade-in {
+    animation: fade-in 0.6s ease-out forwards;
+  }
+
+  .motion-safe\:animate-slide-up {
+    animation: slide-up 0.8s ease-out forwards;
+  }
+
+  .motion-safe\:transition-all {
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+  }
+}
+
+/* ── Focus visible for accessibility ── */
+:focus-visible {
+  outline: 2px solid var(--color-neon-primary);
+  outline-offset: 2px;
 }
