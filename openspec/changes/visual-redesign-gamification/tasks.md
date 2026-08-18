@@ -49,15 +49,15 @@ Bases: PR#1→feature/visual-redesign; PR#2→PR#1 branch; PR#3→PR#2 branch. T
 
 ## PR #3 — Results + Share Cards (base: PR #2 branch) [TDD: RED then GREEN]
 
-- [ ] 3.1 **lib/share-card/radar-svg.ts** — pure SVG radar drawing. *TDD*: `radar-svg.test.ts` snapshot SVG for sample profile. *AC*: dark/neon radar.
-- [ ] 3.2 **lib/share-card/generate.ts** — `generateShareCardSVG` + `svgToPngBlob`. *TDD*: `generate.test.ts` asserts archetype emoji+name+radar present; `svgToPngBlob` returns valid Blob. *AC*: 1200x630 composition.
-- [ ] 3.3 **shared/hooks/useShareCard.ts** — SVG→PNG→`navigator.share`→download→clipboard. *TDD*: `useShareCard.test.tsx` mocks share/absent, asserts fallback chain. *AC*: Web Share primary, PNG+clipboard fallback.
-- [ ] 3.4 **results/ShareCard.tsx** — SVG compose + export + share affordance. *TDD*: `ShareCard.test.tsx` asserts button → blob → share/fallback. *AC*: spec share-cards AC 1-6.
-- [ ] 3.5 **results/ConfettiTrigger.tsx** — `canvas-confetti` + reduced-motion guard, fires once. *TDD*: `ConfettiTrigger.test.tsx` asserts single fire, none under reduced motion. *AC*: confetti once.
-- [ ] 3.6 **results/{ArchetypeCard,RadarChart,ModalityCard,ProgramCard,GapAnalysis,RankingFull}.tsx** — dark/neon restyle. *TDD*: per-component tests assert dark bg + neon accent. *AC*: results-display polish AC 2.
-- [ ] 3.7 **results/ResultsPage.tsx** — dark layout, confetti trigger, share affordance. *TDD*: `ResultsPage.test.tsx` (mock sessionStorage) asserts confetti once + share button. *AC*: results-display AC 1,3.
-- [ ] 3.8 **app/resultados/page.tsx** — delegate to `ResultsPage`, keep sessionStorage load. *TDD*: re-run. *AC*: data flow intact.
-- [ ] 3.9 **Delete src/components/results/*.tsx** (6) — removed, replaced by slice. *TDD*: full suite green, no import errors. *AC*: no dead refs.
+- [x] 3.1 **lib/share-card/radar-svg.ts** — pure SVG radar drawing. *TDD*: `radar-svg.test.ts` snapshot SVG for sample profile. *AC*: dark/neon radar.
+- [x] 3.2 **lib/share-card/generate.ts** — `generateShareCardSVG` + `svgToPngBlob`. *TDD*: `generate.test.ts` asserts archetype emoji+name+radar present; `svgToPngBlob` returns valid Blob. *AC*: 1200x630 composition.
+- [x] 3.3 **shared/hooks/useShareCard.ts** — SVG→PNG→`navigator.share`→download→clipboard. *TDD*: `useShareCard.test.tsx` mocks share/absent, asserts fallback chain. *AC*: Web Share primary, PNG+clipboard fallback.
+- [x] 3.4 **results/ShareCard.tsx** — SVG compose + export + share affordance. *TDD*: `ShareCard.test.tsx` asserts button → blob → share/fallback. *AC*: spec share-cards AC 1-6.
+- [x] 3.5 **results/ConfettiTrigger.tsx** — `canvas-confetti` + reduced-motion guard, fires once. *TDD*: `ConfettiTrigger.test.tsx` asserts single fire, none under reduced motion. *AC*: confetti once.
+- [x] 3.6 **results/{ArchetypeCard,RadarChart,ModalityCard,ProgramCard,GapAnalysis,RankingFull}.tsx** — dark/neon restyle. *TDD*: per-component tests assert dark bg + neon accent. *AC*: results-display polish AC 2.
+- [x] 3.7 **results/ResultsPage.tsx** — dark layout, confetti trigger, share affordance. *TDD*: `ResultsPage.test.tsx` (mock sessionStorage) asserts confetti once + share button. *AC*: results-display AC 1,3.
+- [x] 3.8 **app/resultados/page.tsx** — delegate to `ResultsPage`, keep sessionStorage load. *TDD*: re-run. *AC*: data flow intact.
+- [x] 3.9 **Delete src/components/results/*.tsx** (6) — removed, replaced by slice. *TDD*: full suite green, no import errors. *AC*: no dead refs.
 
 ## Cross-cutting
 - All slices: TDD `npx vitest run` green; regression `src/lib/__tests__/*` untouched & passing; `tsc --noEmit` clean; respect `prefers-reduced-motion` at trigger points.
