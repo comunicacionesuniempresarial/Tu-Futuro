@@ -256,6 +256,23 @@ body {
   animation: pop-in 0.25s ease-out forwards;
 }
 
+/* ── Segment pulse (HP bar layer completion) ── */
+@keyframes segment-pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animate-segment-pulse {
+  animation: segment-pulse 0.6s ease-out 1;
+}
+
 /* ── Gradient text (neon) ── */
 .gradient-text-neon {
   background: linear-gradient(135deg, var(--color-neon-primary), var(--color-neon-secondary));

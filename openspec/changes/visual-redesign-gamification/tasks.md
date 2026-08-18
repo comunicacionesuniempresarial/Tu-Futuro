@@ -40,12 +40,12 @@ Bases: PR#1→feature/visual-redesign; PR#2→PR#1 branch; PR#3→PR#2 branch. T
 
 ## PR #2 — Wizard (base: PR #1 branch) [TDD: RED then GREEN]
 
-- [ ] 2.1 **wizard/GamifiedProgress.tsx** — 25-segment neon HP bar, layer grouping, animated fill. *TDD*: `GamifiedProgress.test.tsx` asserts 5/12 fill + neon class + segment pulse. *AC*: game-style progress.
-- [ ] 2.2 **wizard/QuestionCard.tsx** — selection pulse + neon ring. *TDD*: `QuestionCard.test.tsx` asserts selection feedback without reload. *AC*: per-answer feedback.
-- [ ] 2.3 **wizard/LayerTransition.tsx** — Framer `AnimatePresence` enter/exit. *TDD*: `LayerTransition.test.tsx` asserts transition classes; suppressed under reduced motion. *AC*: transform-only.
-- [ ] 2.4 **wizard/TestWizard.tsx** — gamified flow, transitions, HP bar, per-answer feedback; keep store + scoring call. *TDD*: `TestWizard.test.tsx` integration (mocked store) asserts Q transition + progress update + no scoring call. *AC*: no scoring coupling.
-- [ ] 2.5 **components/test/TestWizard.tsx** — delegate to new `TestWizard`, preserve store/scoring. *TDD*: existing wizard test still green. *AC*: unchanged scoring behavior.
-- [ ] 2.6 **components/test/QuestionCard.tsx** — delegate to new `QuestionCard`, preserve answer handling. *TDD*: re-run. *AC*: answers recorded only.
+- [x] 2.1 **wizard/GamifiedProgress.tsx** — 25-segment neon HP bar, layer grouping, animated fill. *TDD*: `GamifiedProgress.test.tsx` asserts 5/12 fill + neon class + segment pulse. *AC*: game-style progress.
+- [x] 2.2 **wizard/QuestionCard.tsx** — selection pulse + neon ring. *TDD*: `QuestionCard.test.tsx` asserts selection feedback without reload. *AC*: per-answer feedback.
+- [x] 2.3 **wizard/LayerTransition.tsx** — Framer `AnimatePresence` enter/exit. *TDD*: `LayerTransition.test.tsx` asserts transition classes; suppressed under reduced motion. *AC*: transform-only.
+- [x] 2.4 **wizard/TestWizard.tsx** — gamified flow, transitions, HP bar, per-answer feedback; keep store + scoring call. *TDD*: `TestWizard.test.tsx` integration (mocked store) asserts Q transition + progress update + no scoring call. *AC*: no scoring coupling.
+- [x] 2.5 **components/test/TestWizard.tsx** — delegate to new `TestWizard`, preserve store/scoring. *TDD*: existing wizard test still green. *AC*: unchanged scoring behavior.
+- [x] 2.6 **components/test/QuestionCard.tsx** — delegate to new `QuestionCard`, preserve answer handling. *TDD*: re-run. *AC*: answers recorded only.
 
 ## PR #3 — Results + Share Cards (base: PR #2 branch) [TDD: RED then GREEN]
 
