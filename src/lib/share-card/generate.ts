@@ -45,8 +45,8 @@ export function generateShareCardSVG(
   const brandY = 64 * scale;
   const emojiSize = 92 * scale;
   const emojiX = width * 0.11;
-  const emojiY = height * 0.46;
-  const nameY = emojiY + 96 * scale;
+  const emojiY = height * 0.38;
+  const nameY = emojiY + 88 * scale;
 
   const programsStartY = height * 0.72;
   const programRowHeight = 40 * scale;
@@ -63,15 +63,15 @@ export function generateShareCardSVG(
     : "";
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-label="Tu Futuro Dual — resultado vocacional">
-  <rect width="${width}" height="${height}" fill="#050505" />
-  <rect x="${24 * scale}" y="${24 * scale}" width="${width - 48 * scale}" height="${height - 48 * scale}" fill="none" stroke="#D51933" stroke-width="2" rx="${18 * scale}" />
+  <rect width="${width}" height="${height}" fill="#12131d" />
+  <rect x="${24 * scale}" y="${24 * scale}" width="${width - 48 * scale}" height="${height - 48 * scale}" fill="none" stroke="#e9c400" stroke-width="2" rx="${18 * scale}" />
   <text x="${width * 0.11}" y="${brandY}" font-size="${30 * scale}" font-weight="800" fill="#f5f5f5" font-family="Inter, system-ui, sans-serif">Tu Futuro Dual</text>
   ${studentName}
   <text x="${emojiX}" y="${emojiY}" font-size="${emojiSize}">${data.archetype.emoji}</text>
   <text x="${width * 0.11}" y="${nameY}" font-size="${46 * scale}" font-weight="700" fill="${data.archetype.color}" font-family="Inter, system-ui, sans-serif">${data.archetype.name}</text>
-  <text x="${width * 0.11}" y="${nameY + 34 * scale}" font-size="${18 * scale}" fill="#9ca3af" font-family="Inter, system-ui, sans-serif">Tu arquetipo vocacional</text>
+  <text x="${width * 0.11}" y="${nameY + 48 * scale}" font-size="${18 * scale}" fill="#9ca3af" font-family="Inter, system-ui, sans-serif">Tu arquetipo vocacional</text>
   <g transform="translate(${radarX}, ${radarY})">${radar}</g>
-  <text x="${width * 0.11}" y="${programsStartY - 32 * scale}" font-size="${20 * scale}" font-weight="700" fill="#0033A5" font-family="Inter, system-ui, sans-serif">Carreras afines</text>
+  <text x="${width * 0.11}" y="${programsStartY - 48 * scale}" font-size="${20 * scale}" font-weight="700" fill="#ffe16d" font-family="Inter, system-ui, sans-serif">Carreras afines</text>
   ${programList}
 </svg>`;
 }

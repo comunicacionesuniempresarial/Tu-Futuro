@@ -180,7 +180,7 @@ export default function LeadDetail({ lead, onClose, onDeleted }: LeadDetailProps
                   id="lead-estado"
                   value={estado}
                   onChange={(e) => setEstado(e.target.value)}
-                  className="w-full p-3 rounded-xl bg-white border border-slate-200 text-slate-900 focus:border-[#D51933]/50 focus:outline-none text-sm shadow-sm"
+                  className="w-full p-3 rounded-xl bg-white border border-slate-200 text-slate-900 focus:border-[#22D3EE]/50 focus:outline-none text-sm shadow-sm"
                 >
                   {LEAD_STATUSES.map((status) => (
                     <option key={status} value={status}>
@@ -205,13 +205,13 @@ export default function LeadDetail({ lead, onClose, onDeleted }: LeadDetailProps
                   value={notas}
                   onChange={(e) => setNotas(e.target.value)}
                   placeholder="Ej: llamada realizada, interesado en beca..."
-                  className="w-full p-3 rounded-xl bg-white border border-slate-200 text-slate-900 placeholder-slate-400 focus:border-[#D51933]/50 focus:outline-none text-sm min-h-[96px] resize-y shadow-sm"
+                  className="w-full p-3 rounded-xl bg-white border border-slate-200 text-slate-900 placeholder-slate-400 focus:border-[#22D3EE]/50 focus:outline-none text-sm min-h-[96px] resize-y shadow-sm"
                 />
               </div>
               <button
                 onClick={handleSave}
                 disabled={saving}
-                className="w-full py-3 rounded-xl font-bold bg-gradient-to-r from-[#D51933] to-[#0033A5] text-white shadow-lg shadow-[#D51933]/25 transition-all duration-300 disabled:opacity-50"
+                className="w-full py-3 rounded-xl font-bold bg-gradient-to-r from-[#22D3EE] to-[#E879F9] text-white shadow-lg shadow-[#22D3EE]/25 transition-all duration-300 disabled:opacity-50"
               >
                 {saving ? "Guardando..." : "Guardar cambios"}
               </button>
@@ -237,8 +237,8 @@ export default function LeadDetail({ lead, onClose, onDeleted }: LeadDetailProps
             <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider">
               Arquetipo
             </h4>
-            <div className="bg-[#D51933]/5 border border-[#D51933]/10 rounded-xl p-4">
-              <div className="text-[#D51933] font-bold">{lead.arquetipo}</div>
+            <div className="bg-[#22D3EE]/5 border border-[#22D3EE]/10 rounded-xl p-4">
+              <div className="text-[#22D3EE] font-bold">{lead.arquetipo}</div>
             </div>
           </div>
 
@@ -333,7 +333,7 @@ export default function LeadDetail({ lead, onClose, onDeleted }: LeadDetailProps
                     <div className="flex-1">
                       <div className="text-sm text-slate-700 font-medium">{p.name}</div>
                     </div>
-                    <div className="text-sm font-bold text-[#0033A5]">
+                    <div className="text-sm font-bold text-[#E879F9]">
                       {p.pct}%
                     </div>
                   </div>

@@ -5,13 +5,13 @@ import { useReducedMotion } from "@/features/shared/hooks/useReducedMotion";
 import { LAYER_NAMES, LAYER_DESCRIPTIONS } from "@/stores/test-store";
 
 interface LayerTransitionProps {
-  layer: 1 | 2 | 3 | 4;
+  layer: 1 | 2 | 3;
   onContinue: () => void;
 }
 
 /** Layer icon per layer — simple line SVGs, kept from the previous theme. */
-function LayerIcon({ layer }: { layer: 1 | 2 | 3 | 4 }) {
-  const cls = "w-10 h-10 text-white";
+function LayerIcon({ layer }: { layer: 1 | 2 | 3 }) {
+  const cls = "w-10 h-10 text-[var(--color-deep)]";
   switch (layer) {
     case 1:
       return (
@@ -33,15 +33,6 @@ function LayerIcon({ layer }: { layer: 1 | 2 | 3 | 4 }) {
           <path d="M6 3h12l4 6-10 12L2 9l4-6z" />
           <path d="M2 9h20" />
           <path d="M12 21 8 9l4-6 4 6-4 12" />
-        </svg>
-      );
-    case 4:
-      return (
-        <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-          <path d="M3 21h18" />
-          <path d="M5 21V8l7-5 7 5v13" />
-          <path d="M9 21v-6h6v6" />
-          <path d="M9 11h.01M15 11h.01M9 14h.01M15 14h.01" />
         </svg>
       );
   }
@@ -75,15 +66,23 @@ export default function LayerTransition({
           transition={{ type: "spring", stiffness: 260, damping: 26, mass: 0.9 }}
           className="space-y-8 will-change-transform"
         >
-          <div className="neon-border rounded-3xl p-8 md:p-12 space-y-6 text-center bg-[var(--color-surface)] shadow-[0_8px_40px_rgba(0,51,165,0.10)]">
-            <div className="w-24 h-24 mx-auto rounded-2xl bg-[linear-gradient(135deg,var(--color-neon-primary),var(--color-neon-secondary))] flex items-center justify-center shadow-[0_0_30px_color-mix(in_srgb,var(--color-neon-primary)_35%,transparent)]">
-              <LayerIcon layer={layer} />
+          <div className="glass-panel rounded-3xl p-8 md:p-12 space-y-6 text-center shadow-[0_8px_40px_rgba(0,0,0,0.45)]">
+            <div className="relative w-24 h-24 mx-auto">
+              {!prefersReduced && (
+                <span
+                  aria-hidden="true"
+                  className="absolute inset-0 rounded-2xl border-2 border-[var(--color-neon-primary)]/40 animate-ring-expand"
+                />
+              )}
+              <div className="relative w-24 h-24 rounded-2xl bg-[linear-gradient(135deg,var(--color-neon-primary),var(--color-neon-secondary))] flex items-center justify-center shadow-[0_0_30px_color-mix(in_srgb,var(--color-neon-primary)_35%,transparent)]">
+                <LayerIcon layer={layer} />
+              </div>
             </div>
             <div>
-              <p className="text-[var(--color-neon-secondary)]/60 text-sm font-bold uppercase tracking-widest mb-2">
-                Capa {layer} de 4
+              <p className="text-[var(--color-neon-secondary)] text-sm font-bold uppercase tracking-widest mb-2">
+                Capa {layer} de 3
               </p>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[var(--color-text-primary)]">
+              <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-[var(--color-neon-primary)] drop-shadow-[0_0_18px_color-mix(in_srgb,var(--color-neon-primary)_35%,transparent)]">
                 {LAYER_NAMES[layer]}
               </h2>
             </div>

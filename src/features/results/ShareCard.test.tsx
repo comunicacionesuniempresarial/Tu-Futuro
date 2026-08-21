@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+﻿import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { ShareCard } from "./ShareCard";
 import type { ShareCardData } from "@/lib/share-card/generate";
@@ -10,9 +10,9 @@ const { svgToPngBlobMock } = vi.hoisted(() => ({
 }));
 
 const data: ShareCardData = {
-  archetype: { id: "ingeniero", name: "Ingeniero", emoji: "⚙️", color: "#D51933" },
+  archetype: { id: "ingeniero", name: "Ingeniero", emoji: "âš™ï¸", color: "#22D3EE" },
   riasecProfile: { R: 0.8, I: 0.6, A: 0.3, S: 0.2, E: 0.4, C: 0.5 },
-  topPrograms: [{ id: "ing-software", name: "Ingeniería de Software" }],
+  topPrograms: [{ id: "ing-software", name: "IngenierÃ­a de Software" }],
 };
 
 vi.mock("@/lib/share-card/generate", async (importOriginal) => {
@@ -53,10 +53,10 @@ describe("ShareCard", () => {
   it("renders the generated SVG preview with the archetype and share button", () => {
     render(<ShareCard data={data} />);
 
-    expect(screen.getByText("⚙️")).toBeInTheDocument();
+    expect(screen.getByText("âš™ï¸")).toBeInTheDocument();
     expect(screen.getByText("Ingeniero")).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: /compartir mi resultado/i })
+      screen.getByRole("button", { name: /invocar a otros/i })
     ).toBeInTheDocument();
   });
 
@@ -85,7 +85,7 @@ describe("ShareCard", () => {
     render(<ShareCard data={data} />);
 
     fireEvent.click(
-      screen.getByRole("button", { name: /compartir mi resultado/i })
+      screen.getByRole("button", { name: /invocar a otros/i })
     );
 
     await waitFor(() => expect(shareMock).toHaveBeenCalledTimes(1));
@@ -105,7 +105,7 @@ describe("ShareCard", () => {
 
     render(<ShareCard data={data} />);
     fireEvent.click(
-      screen.getByRole("button", { name: /compartir mi resultado/i })
+      screen.getByRole("button", { name: /invocar a otros/i })
     );
 
     await waitFor(() => expect(click).toHaveBeenCalledTimes(1));

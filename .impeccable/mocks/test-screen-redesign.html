@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html class="dark" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tu Futuro Dual — Test (Identity Scanner)</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Sora:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        "bg-deep": "#120E1A",
+        "bg-base": "#1E1826",
+        "surface": "#241D2E",
+        "surface-elevated": "#2A2235",
+        "border-line": "#2D2540",
+        "border-subtle": "#231C33",
+        "text-primary": "#F5F3FF",
+        "text-secondary": "#9CA3AF",
+        "text-muted": "#6B7280",
+        "neon-cyan": "#22D3EE",
+        "neon-violet": "#8B5CF6",
+        "success": "#4ADE80",
+        "warning": "#FBBF24",
+        "danger": "#F87171",
+        "brand-red": "#D51933",
+        "brand-blue": "#0033A5"
+      },
+      borderRadius: {
+        "md": "12px",
+        "lg": "16px",
+        "xl": "24px",
+        "2xl": "32px"
+      },
+      fontFamily: {
+        "display": ["Sora", "sans-serif"],
+        "body": ["Inter", "sans-serif"]
+      },
+      fontSize: {
+        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+        "headline": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+        "title": ["20px", { "lineHeight": "28px", "fontWeight": "700" }],
+        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "700" }]
+      },
+      boxShadow: {
+        "neon-glow": "0 0 20px rgba(34,211,238,0.4), 0 0 40px rgba(34,211,238,0.2)",
+        "neon-glow-soft": "0 0 12px rgba(34,211,238,0.15)",
+        "neon-glow-violet": "0 0 20px rgba(139,92,246,0.4), 0 0 40px rgba(139,92,246,0.2)",
+        "card": "0 8px 40px rgba(232,121,249,0.14)"
+      }
+    }
+  }
+}
+</script>
+<style>
+  ::selection { background: #22D3EE; color: #120E1A; }
+  html { scrollbar-color: #2D2540 #120E1A; }
+  body { background: #1E1826; color: #F5F3FF; }
+  .neon-border {
+    border: 1px solid transparent;
+    background: linear-gradient(#241D2E, #241D2E) padding-box, linear-gradient(135deg, #22D3EE, #8B5CF6) border-box;
+  }
+  .peer:checked ~ .opt-card { background: #2A2235; border-color: rgba(34,211,238,0.55); box-shadow: 0 0 12px rgba(34,211,238,0.15); }
+  .peer:checked ~ .opt-card .opt-text { color: #F5F3FF; }
+  .peer:checked ~ .opt-card .opt-ring { border-color: #22D3EE; }
+  .peer:checked ~ .opt-card .opt-dot { opacity: 1; transform: scale(1); }
+</style>
+</head>
+<body class="min-h-screen flex flex-col font-body antialiased selection:bg-neon-cyan selection:text-bg-deep">
+
+<!-- Header -->
+<header class="fixed top-0 w-full z-50 border-b border-border-line bg-bg-base/80 backdrop-blur-md">
+  <div class="flex justify-between items-center h-16 px-5 md:px-16 max-w-[1280px] mx-auto">
+    <div class="flex items-center gap-2">
+      <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-neon-cyan to-neon-violet flex items-center justify-center shadow-neon-glow-soft">
+        <span class="material-symbols-outlined text-lg text-bg-deep font-bold">scan</span>
+      </div>
+      <span class="font-display font-extrabold text-lg tracking-tight text-text-primary">Tu Futuro <span class="text-neon-cyan">Dual</span></span>
+    </div>
+    <button class="hidden md:flex items-center gap-2 text-label-caps text-text-secondary hover:text-neon-cyan transition-colors duration-200" type="button">
+      <span class="material-symbols-outlined text-base">save</span>
+      Guardar y salir
+    </button>
+  </div>
+</header>
+
+<!-- Main -->
+<main class="flex-grow pt-24 pb-16 px-5 md:px-16 flex flex-col items-center justify-center relative">
+
+  <!-- Gamified progress: 25 segments grouped by layer (12/5/5/3) -->
+  <div class="w-full max-w-2xl mb-10">
+    <div class="flex justify-between items-baseline mb-3">
+      <div class="flex items-center gap-2">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-neon-cyan/40 bg-neon-cyan/10 text-neon-cyan text-label-caps">
+          <span class="material-symbols-outlined text-xs">psychology</span>
+          Capa 1 · Intereses
+        </span>
+      </div>
+      <span class="text-label-caps text-text-secondary tabular-nums">03 / 25</span>
+    </div>
+    <div class="flex items-stretch gap-1.5" role="progressbar" aria-valuenow="3" aria-valuemin="0" aria-valuemax="25" aria-label="Progreso del test">
+      <!-- Capa 1: 12 segments -->
+      <div class="h-2 flex-1 rounded-full bg-gradient-to-r from-neon-cyan to-neon-violet shadow-neon-glow-soft"></div>
+      <div class="h-2 flex-1 rounded-full bg-gradient-to-r from-neon-cyan to-neon-violet shadow-neon-glow-soft"></div>
+      <div class="h-2 flex-1 rounded-full bg-gradient-to-r from-neon-cyan to-neon-violet shadow-neon-glow-soft"></div>
+      <div class="h-2 flex-1 rounded-full bg-gradient-to-r from-neon-cyan to-neon-violet shadow-neon-glow-soft"></div>
+      <div class="h-2 flex-1 rounded-full bg-gradient-to-r from-neon-cyan to-neon-violet shadow-neon-glow-soft"></div>
+      <div class="h-2 flex-1 rounded-full bg-gradient-to-r from-neon-cyan to-neon-violet shadow-neon-glow-soft"></div>
+      <div class="h-2 flex-1 rounded-full bg-gradient-to-r from-neon-cyan to-neon-violet shadow-neon-glow-soft"></div>
+      <div class="h-2 flex-1 rounded-full bg-gradient-to-r from-neon-cyan to-neon-violet shadow-neon-glow-soft"></div>
+      <div class="h-2 flex-1 rounded-full bg-gradient-to-r from-neon-cyan to-neon-violet shadow-neon-glow-soft"></div>
+      <div class="h-2 flex-1 rounded-full bg-gradient-to-r from-neon-cyan to-neon-violet shadow-neon-glow-soft"></div>
+      <div class="h-2 flex-1 rounded-full bg-gradient-to-r from-neon-cyan to-neon-violet shadow-neon-glow-soft"></div>
+      <div class="h-2 flex-1 rounded-full bg-gradient-to-r from-neon-cyan to-neon-violet shadow-neon-glow-soft"></div>
+      <!-- Capa 2: 5 segments -->
+      <div class="h-2 flex-1 rounded-full bg-border-line"></div>
+      <div class="h-2 flex-1 rounded-full bg-border-line"></div>
+      <div class="h-2 flex-1 rounded-full bg-border-line"></div>
+      <div class="h-2 flex-1 rounded-full bg-border-line"></div>
+      <div class="h-2 flex-1 rounded-full bg-border-line"></div>
+      <!-- Capa 3: 5 segments -->
+      <div class="h-2 flex-1 rounded-full bg-border-line"></div>
+      <div class="h-2 flex-1 rounded-full bg-border-line"></div>
+      <div class="h-2 flex-1 rounded-full bg-border-line"></div>
+      <div class="h-2 flex-1 rounded-full bg-border-line"></div>
+      <div class="h-2 flex-1 rounded-full bg-border-line"></div>
+      <!-- Capa 4: 3 segments -->
+      <div class="h-2 flex-1 rounded-full bg-border-line"></div>
+      <div class="h-2 flex-1 rounded-full bg-border-line"></div>
+      <div class="h-2 flex-1 rounded-full bg-border-line"></div>
+    </div>
+  </div>
+
+  <!-- Question card -->
+  <div class="w-full max-w-2xl bg-surface rounded-2xl border border-border-line p-6 md:p-10 shadow-card relative overflow-hidden">
+    <div class="mb-8">
+      <div class="flex items-center gap-3 mb-3">
+        <span class="text-label-caps text-neon-cyan tabular-nums">Pregunta 03</span>
+        <span class="h-px flex-1 bg-gradient-to-r from-neon-violet/50 to-transparent"></span>
+      </div>
+      <h1 class="font-display font-bold text-headline md:text-[32px] leading-snug text-text-primary">
+        Una tarde libre y sin planes, ¿qué te atrapa más?
+      </h1>
+    </div>
+
+    <!-- Options -->
+    <div class="flex flex-col gap-3">
+      <!-- Option A -->
+      <label class="group relative cursor-pointer block">
+        <input class="peer sr-only" name="q1" type="radio" value="a"/>
+        <div class="opt-card flex items-start gap-4 p-4 md:p-5 rounded-xl bg-bg-base/60 border border-border-line transition-all duration-200 ease-out hover:border-neon-violet/50 hover:bg-surface-elevated">
+          <div class="flex-shrink-0 mt-0.5">
+            <div class="opt-ring w-5 h-5 rounded-full border-2 border-border-line flex items-center justify-center transition-colors duration-200">
+              <div class="opt-dot w-2.5 h-2.5 rounded-full bg-gradient-to-br from-neon-cyan to-neon-violet opacity-0 scale-50 transition-all duration-200"></div>
+            </div>
+          </div>
+          <div class="flex-grow">
+            <p class="opt-text font-body text-body-md text-text-secondary transition-colors duration-200">
+              Meterle mano a algo y dejarlo mejor de lo que estaba
+            </p>
+          </div>
+        </div>
+      </label>
+      <!-- Option B -->
+      <label class="group relative cursor-pointer block">
+        <input class="peer sr-only" name="q1" type="radio" value="b"/>
+        <div class="opt-card flex items-start gap-4 p-4 md:p-5 rounded-xl bg-bg-base/60 border border-border-line transition-all duration-200 ease-out hover:border-neon-violet/50 hover:bg-surface-elevated">
+          <div class="flex-shrink-0 mt-0.5">
+            <div class="opt-ring w-5 h-5 rounded-full border-2 border-border-line flex items-center justify-center transition-colors duration-200">
+              <div class="opt-dot w-2.5 h-2.5 rounded-full bg-gradient-to-br from-neon-cyan to-neon-violet opacity-0 scale-50 transition-all duration-200"></div>
+            </div>
+          </div>
+          <div class="flex-grow">
+            <p class="opt-text font-body text-body-md text-text-secondary transition-colors duration-200">
+              Proponer un plan y lograr que todos se animen
+            </p>
+          </div>
+        </div>
+      </label>
+      <!-- Option C -->
+      <label class="group relative cursor-pointer block">
+        <input class="peer sr-only" name="q1" type="radio" value="c"/>
+        <div class="opt-card flex items-start gap-4 p-4 md:p-5 rounded-xl bg-bg-base/60 border border-border-line transition-all duration-200 ease-out hover:border-neon-violet/50 hover:bg-surface-elevated">
+          <div class="flex-shrink-0 mt-0.5">
+            <div class="opt-ring w-5 h-5 rounded-full border-2 border-border-line flex items-center justify-center transition-colors duration-200">
+              <div class="opt-dot w-2.5 h-2.5 rounded-full bg-gradient-to-br from-neon-cyan to-neon-violet opacity-0 scale-50 transition-all duration-200"></div>
+            </div>
+          </div>
+          <div class="flex-grow">
+            <p class="opt-text font-body text-body-md text-text-secondary transition-colors duration-200">
+              Ponerte al día con alguien y terminar dándole un consejo útil
+            </p>
+          </div>
+        </div>
+      </label>
+      <!-- Option D -->
+      <label class="group relative cursor-pointer block">
+        <input class="peer sr-only" name="q1" type="radio" value="d"/>
+        <div class="opt-card flex items-start gap-4 p-4 md:p-5 rounded-xl bg-bg-base/60 border border-border-line transition-all duration-200 ease-out hover:border-neon-violet/50 hover:bg-surface-elevated">
+          <div class="flex-shrink-0 mt-0.5">
+            <div class="opt-ring w-5 h-5 rounded-full border-2 border-border-line flex items-center justify-center transition-colors duration-200">
+              <div class="opt-dot w-2.5 h-2.5 rounded-full bg-gradient-to-br from-neon-cyan to-neon-violet opacity-0 scale-50 transition-all duration-200"></div>
+            </div>
+          </div>
+          <div class="flex-grow">
+            <p class="opt-text font-body text-body-md text-text-secondary transition-colors duration-200">
+              Inventar algo que a nadie más se le ocurriría
+            </p>
+          </div>
+        </div>
+      </label>
+      <!-- Option E -->
+      <label class="group relative cursor-pointer block">
+        <input class="peer sr-only" name="q1" type="radio" value="e"/>
+        <div class="opt-card flex items-start gap-4 p-4 md:p-5 rounded-xl bg-bg-base/60 border border-border-line transition-all duration-200 ease-out hover:border-neon-violet/50 hover:bg-surface-elevated">
+          <div class="flex-shrink-0 mt-0.5">
+            <div class="opt-ring w-5 h-5 rounded-full border-2 border-border-line flex items-center justify-center transition-colors duration-200">
+              <div class="opt-dot w-2.5 h-2.5 rounded-full bg-gradient-to-br from-neon-cyan to-neon-violet opacity-0 scale-50 transition-all duration-200"></div>
+            </div>
+          </div>
+          <div class="flex-grow">
+            <p class="opt-text font-body text-body-md text-text-secondary transition-colors duration-200">
+              Perderte en un tema que te da curiosidad hasta entenderlo a fondo
+            </p>
+          </div>
+        </div>
+      </label>
+    </div>
+
+    <!-- Actions -->
+    <div class="mt-8 flex justify-end">
+      <button class="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-neon-cyan to-neon-violet text-bg-deep font-display font-bold text-label-caps tracking-wide shadow-neon-glow transition-all duration-200 hover:shadow-[0_0_32px_rgba(34,211,238,0.55)] hover:scale-[1.02] active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neon-cyan" type="button">
+        <span>Siguiente</span>
+        <span class="material-symbols-outlined text-lg group-hover:translate-x-1 transition-transform">arrow_forward</span>
+      </button>
+    </div>
+  </div>
+
+  <p class="mt-6 text-body-md text-text-secondary text-center max-w-md">
+    No hay respuestas correctas o incorrectas — solo queremos saber cómo piensas.
+  </p>
+</main>
+
+<!-- Footer -->
+<footer class="bg-bg-deep text-warm-cream font-label-caps text-label-caps w-full py-10 border-t border-border-line">
+  <div class="flex flex-col md:flex-row justify-between items-center px-5 md:px-16 max-w-[1280px] mx-auto gap-6">
+    <div class="flex items-center gap-2">
+      <span class="font-display font-extrabold text-lg text-text-primary">Tu Futuro <span class="text-neon-cyan">Dual</span></span>
+      <span class="text-text-muted">·</span>
+      <span class="text-text-secondary">Uniempresarial</span>
+    </div>
+    <div class="flex flex-wrap justify-center gap-6">
+      <a class="text-text-secondary hover:text-neon-cyan transition-colors" href="#">Privacidad</a>
+      <a class="text-text-secondary hover:text-neon-cyan transition-colors" href="#">Términos</a>
+      <a class="text-text-secondary hover:text-neon-cyan transition-colors" href="#">Contacto</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

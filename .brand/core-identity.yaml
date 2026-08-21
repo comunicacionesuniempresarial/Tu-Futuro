@@ -1,0 +1,16 @@
+schema_version: 0.1.0
+colors:
+  - name: primary
+    value: "#22d3ee"
+    role: primary
+    source: manual
+    confidence: confirmed
+typography:
+  - name: "Display: Sora / Space Grotesk (extrabold, tracking-tight). Body: Inter (16-18px). Eyebrow labels: small-caps,
+      tracking-widest, cian, 12px."
+    family: "Display: Sora / Space Grotesk (extrabold, tracking-tight). Body: Inter (16-18px). Eyebrow labels: small-caps,
+      tracking-widest, cian, 12px."
+    source: manual
+    confidence: confirmed
+logo: []
+spacing: null

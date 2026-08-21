@@ -70,12 +70,12 @@ export default function AdminLeadsPage() {
       const HEADER_FILL = {
         type: "pattern",
         pattern: "solid",
-        fgColor: { argb: "FF0033A5" },
+        fgColor: { argb: "FFE879F9" },
       } as const;
       const TITLE_FILL = {
         type: "pattern",
         pattern: "solid",
-        fgColor: { argb: "FFD51933" },
+        fgColor: { argb: "FF22D3EE" },
       } as const;
       const BAND_FILL = {
         type: "pattern",

@@ -64,7 +64,7 @@ describe("useReducedMotion", () => {
     expect(result.current).toBe(false);
 
     act(() => {
-      handler?.({ matches: true, media: "", type: "change", currentTarget: null as any } as MediaQueryListEvent);
+      handler?.({ matches: true, media: "", type: "change", currentTarget: null } as MediaQueryListEvent);
     });
 
     expect(result.current).toBe(true);

@@ -1,0 +1,440 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-19T00:00:00Z",
+  "title": "Design System: Tu Futuro Dual",
+  "extensions": {
+    "colorMeta": {
+      "bg": {
+        "role": "background",
+        "displayName": "Deep Violet-Black",
+        "canonical": "#1E1826",
+        "tonalRamp": ["#0D0A11", "#14101A", "#1E1826", "#2A2235", "#362E42", "#4A4258", "#635A70", "#7D7590"]
+      },
+      "surface": {
+        "role": "surface",
+        "displayName": "Surface",
+        "canonical": "#241D2E",
+        "tonalRamp": ["#120E1A", "#1A1522", "#241D2E", "#2E2738", "#3A3245", "#4A4258", "#5E5670", "#766E88"]
+      },
+      "surface-elevated": {
+        "role": "surface-elevated",
+        "displayName": "Surface Elevated",
+        "canonical": "#2A2235",
+        "tonalRamp": ["#1A1522", "#221C2C", "#2A2235", "#342C40", "#403850", "#504860", "#645C78", "#7C7490"]
+      },
+      "deep": {
+        "role": "background-deep",
+        "displayName": "Deep",
+        "canonical": "#120E1A",
+        "tonalRamp": ["#080510", "#0A0814", "#120E1A", "#1A1522", "#221C2C", "#2E2738", "#3A3245", "#4A4258"]
+      },
+      "border": {
+        "role": "border",
+        "displayName": "Border",
+        "canonical": "#2D2540",
+        "tonalRamp": ["#1A1522", "#221C2C", "#2D2540", "#3A3245", "#4A4258", "#5E5670", "#766E88", "#908AA8"]
+      },
+      "border-subtle": {
+        "role": "border-subtle",
+        "displayName": "Border Subtle",
+        "canonical": "#231C33",
+        "tonalRamp": ["#120E1A", "#1A1522", "#231C33", "#2D2540", "#3A3245", "#4A4258", "#5E5670", "#766E88"]
+      },
+      "neon-primary": {
+        "role": "primary",
+        "displayName": "Neon Cyan",
+        "canonical": "#22D3EE",
+        "tonalRamp": ["#0A3540", "#0F4D5C", "#147A8C", "#1AABBF", "#22D3EE", "#5DE0F2", "#96ECF6", "#CFF6FB"]
+      },
+      "neon-secondary": {
+        "role": "secondary",
+        "displayName": "Neon Violet",
+        "canonical": "#8B5CF6",
+        "tonalRamp": ["#2D1A5C", "#3D2478", "#5234A0", "#6B45C0", "#8B5CF6", "#A77BF9", "#C39DFB", "#DFBEFD"]
+      },
+      "text-primary": {
+        "role": "text",
+        "displayName": "Text Primary",
+        "canonical": "#F5F3FF",
+        "tonalRamp": ["#9CA3AF", "#B0B8C4", "#C4CCD8", "#D8DEE8", "#ECF0F4", "#F5F3FF", "#FAFAFE", "#FFFFFF"]
+      },
+      "text-secondary": {
+        "role": "text-secondary",
+        "displayName": "Text Secondary",
+        "canonical": "#9CA3AF",
+        "tonalRamp": ["#4B5563", "#6B7280", "#9CA3AF", "#B0B8C4", "#C4CCD8", "#D8DEE8", "#ECF0F4", "#F5F3FF"]
+      },
+      "text-muted": {
+        "role": "text-muted",
+        "displayName": "Text Muted",
+        "canonical": "#6B7280",
+        "tonalRamp": ["#374151", "#4B5563", "#6B7280", "#9CA3AF", "#B0B8C4", "#C4CCD8", "#D8DEE8", "#ECF0F4"]
+      },
+      "success": {
+        "role": "success",
+        "displayName": "Success Green",
+        "canonical": "#4ADE80",
+        "tonalRamp": ["#14532D", "#166534", "#16A34A", "#22C55E", "#4ADE80", "#86EFAC", "#BBF7D0", "#DCFCE7"]
+      },
+      "warning": {
+        "role": "warning",
+        "displayName": "Warning Amber",
+        "canonical": "#FBBF24",
+        "tonalRamp": ["#78350F", "#92400E", "#D97706", "#F59E0B", "#FBBF24", "#FCD34D", "#FDE68A", "#FEF3C7"]
+      },
+      "danger": {
+        "role": "danger",
+        "displayName": "Danger Red",
+        "canonical": "#F87171",
+        "tonalRamp": ["#7F1D1D", "#991B1B", "#DC2626", "#EF4444", "#F87171", "#FCA5A5", "#FECACA", "#FEE2E2"]
+      },
+      "brand-red": {
+        "role": "brand",
+        "displayName": "Brand Red",
+        "canonical": "#D51933",
+        "tonalRamp": ["#450A0A", "#7F1D1D", "#991B1B", "#B91C1C", "#D51933", "#E03E54", "#EB6374", "#F59BA5"]
+      },
+      "brand-blue": {
+        "role": "brand",
+        "displayName": "Brand Blue",
+        "canonical": "#0033A5",
+        "tonalRamp": ["#000D2E", "#001A5C", "#00267A", "#0033A5", "#1A4DB8", "#3A6CC8", "#6A94D8", "#9ABCE8"]
+      }
+    },
+    "typographyMeta": {
+      "heading": {
+        "displayName": "Sora",
+        "purpose": "Headlines, titles, display text. Futuristic and confident.",
+        "weights": {
+          "display": 800,
+          "headline": 800,
+          "title": 700
+        }
+      },
+      "body": {
+        "displayName": "Inter",
+        "purpose": "Body text, descriptions, UI copy. Clean and readable at small sizes.",
+        "weights": {
+          "body": 400,
+          "label": 700
+        }
+      }
+    },
+    "shadows": [
+      {
+        "name": "neon-glow-primary",
+        "value": "0 0 20px rgba(34,211,238,0.4), 0 0 40px rgba(34,211,238,0.2), inset 0 0 20px rgba(34,211,238,0.1)",
+        "purpose": "Active elements, hover states, focus rings. Creates 'lit up' effect."
+      },
+      {
+        "name": "neon-glow-secondary",
+        "value": "0 0 20px rgba(139,92,246,0.4), 0 0 40px rgba(139,92,246,0.2), inset 0 0 20px rgba(139,92,246,0.1)",
+        "purpose": "Decorative elements, gradient backgrounds."
+      },
+      {
+        "name": "card-shadow",
+        "value": "0 8px 40px rgba(232,121,249,0.14)",
+        "purpose": "Elevated cards, result panels. Subtle but noticeable."
+      },
+      {
+        "name": "glass-effect",
+        "value": "backdrop-filter: blur(12px); background: rgba(18,14,26,0.8)",
+        "purpose": "Overlays, persistent headers, modals."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-standard",
+        "value": "cubic-bezier(0.4, 0, 0.2, 1)",
+        "purpose": "Default easing for state transitions."
+      },
+      {
+        "name": "ease-spring",
+        "value": "cubic-bezier(0.22, 1, 0.36, 1)",
+        "purpose": "Spring-like transitions for pop-in and reveal animations."
+      },
+      {
+        "name": "ease-bounce",
+        "value": "cubic-bezier(0.22, 1, 0.36, 1)",
+        "purpose": "Bouncy transitions for gamification feedback."
+      },
+      {
+        "name": "duration-fast",
+        "value": "150ms",
+        "purpose": "Micro-interactions (button press, scale)."
+      },
+      {
+        "name": "duration-normal",
+        "value": "300ms",
+        "purpose": "State changes (hover, focus, selection)."
+      },
+      {
+        "name": "duration-slow",
+        "value": "600ms",
+        "purpose": "Entrance reveals, page transitions."
+      }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "xl", "value": "1280px" }
+    ],
+    "spacing": {
+      "base": "8px",
+      "sm": "8px",
+      "md": "16px",
+      "lg": "24px",
+      "xl": "32px"
+    },
+    "radii": {
+      "sm": "8px",
+      "md": "12px",
+      "lg": "16px",
+      "xl": "24px",
+      "2xl": "32px",
+      "pill": "9999px"
+    }
+  },
+  "components": [
+    {
+      "name": "Neon Button",
+      "kind": "button",
+      "refersTo": "neon-button",
+      "description": "Primary CTA with brand gradient and neon glow. The main action element.",
+      "html": "<button class=\"ds-btn-primary\">Empezar el test</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 28px; border-radius: 12px; font-weight: 700; color: #fff; background: linear-gradient(135deg, #22D3EE, #8B5CF6); box-shadow: 0 0 24px rgba(34,211,238,0.35); transition: transform 150ms, box-shadow 150ms; will-change: transform; cursor: pointer; border: none; } .ds-btn-primary:hover { box-shadow: 0 0 32px rgba(34,211,238,0.55); transform: scale(1.02); } .ds-btn-primary:active { transform: scale(0.97); } .ds-btn-primary:focus-visible { outline: 2px solid #22D3EE; outline-offset: 2px; }"
+    },
+    {
+      "name": "Question Card",
+      "kind": "card",
+      "refersTo": "question-card",
+      "description": "Answer option in the test wizard. Shows neon border when selected.",
+      "html": "<button class=\"ds-question-card\" data-selected=\"false\"><div class=\"ds-option-indicator\">A</div><span class=\"ds-option-text\">Opción de respuesta</span></button>",
+      "css": ".ds-question-card { width: 100%; text-align: left; padding: 16px 20px; border-radius: 16px; border: 1px solid #2D2540; background: #241D2E; backdrop-filter: blur(8px); transition: all 300ms; will-change: transform; cursor: pointer; } .ds-question-card:hover { background: #2A2235; border-color: rgba(139,92,246,0.5); } .ds-question-card[data-selected=\"true\"] { border: 1px solid transparent; background: linear-gradient(#2A2235, #2A2235) padding-box, linear-gradient(135deg, #22D3EE, #8B5CF6) border-box; box-shadow: 0 0 20px rgba(34,211,238,0.4), 0 0 40px rgba(34,211,238,0.2); } .ds-option-indicator { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.125rem; } .ds-question-card[data-selected=\"false\"] .ds-option-indicator { background: rgba(139,92,246,0.15); color: #8B5CF6; } .ds-question-card[data-selected=\"true\"] .ds-option-indicator { background: linear-gradient(135deg, #22D3EE, #8B5CF6); color: #fff; } .ds-option-text { flex: 1; font-size: 1.25rem; font-weight: 600; } .ds-question-card[data-selected=\"false\"] .ds-option-text { color: #9CA3AF; } .ds-question-card[data-selected=\"true\"] .ds-option-text { color: #F5F3FF; }"
+    },
+    {
+      "name": "Animated Card",
+      "kind": "card",
+      "refersTo": "animated-card",
+      "description": "Generic card with scroll-reveal entrance and hover lift.",
+      "html": "<div class=\"ds-animated-card\"><p>Contenido de la card</p></div>",
+      "css": ".ds-animated-card { border-radius: 16px; border: 1px solid #2D2540; background: #241D2E; padding: 24px; transition: opacity 500ms, transform 500ms; will-change: transform; } .ds-animated-card:hover { transform: translateY(-4px); }"
+    },
+    {
+      "name": "Gamified Progress Bar",
+      "kind": "custom",
+      "refersTo": "gamified-progress",
+      "description": "HP-style segmented progress bar with neon fill and layer grouping.",
+      "html": "<div class=\"ds-progress\" role=\"progressbar\" aria-valuenow=\"12\" aria-valuemax=\"25\"><div class=\"ds-progress-segment filled\"></div><div class=\"ds-progress-segment filled\"></div><div class=\"ds-progress-segment active\"></div><div class=\"ds-progress-segment\"></div></div>",
+      "css": ".ds-progress { display: flex; align-items: stretch; gap: 6px; width: 100%; } .ds-progress-segment { height: 10px; flex: 1; border-radius: 9999px; background: #2D2540; transition: transform 300ms; will-change: transform; } .ds-progress-segment.filled { background: linear-gradient(135deg, #22D3EE, #8B5CF6); } .ds-progress-segment.active { background: linear-gradient(135deg, #22D3EE, #8B5CF6); box-shadow: 0 0 14px rgba(34,211,238,0.25); transform: scaleY(1.6); }"
+    },
+    {
+      "name": "Neon Border Panel",
+      "kind": "card",
+      "refersTo": "neon-border",
+      "description": "Panel with gradient border (cyan→violet) using padding-box trick.",
+      "html": "<div class=\"ds-neon-panel\"><h3>Título del panel</h3><p>Contenido con borde brillante.</p></div>",
+      "css": ".ds-neon-panel { position: relative; border: 1px solid transparent; border-radius: 24px; padding: 32px; background: linear-gradient(#241D2E, #241D2E) padding-box, linear-gradient(135deg, #22D3EE, #8B5CF6) border-box; }"
+    },
+    {
+      "name": "Lead Form Input",
+      "kind": "input",
+      "refersTo": "lead-form",
+      "description": "Form input with dark background, subtle border, and cyan focus ring.",
+      "html": "<input class=\"ds-input\" type=\"text\" placeholder=\"Tu nombre\" />",
+      "css": ".ds-input { width: 100%; padding: 16px; border-radius: 12px; background: rgba(30,24,38,0.6); border: 1px solid #2D2540; color: #F5F3FF; font-size: 1.125rem; transition: border-color 300ms, box-shadow 300ms; } .ds-input::placeholder { color: #9CA3AF; } .ds-input:focus { border-color: #22D3EE; outline: none; box-shadow: 0 0 0 3px rgba(34,211,238,0.2); }"
+    },
+    {
+      "name": "Pill Badge",
+      "kind": "chip",
+      "refersTo": "pill-badge",
+      "description": "Small rounded badge for metadata, labels, and affinity scores.",
+      "html": "<span class=\"ds-pill\">Neon Cyan</span>",
+      "css": ".ds-pill { display: inline-block; padding: 4px 12px; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; } .ds-pill--cyan { border: 1px solid rgba(34,211,238,0.4); background: rgba(34,211,238,0.1); color: #22D3EE; } .ds-pill--violet { border: 1px solid rgba(232,121,249,0.4); background: rgba(232,121,249,0.1); color: #F0ABFC; }"
+    },
+    {
+      "name": "Layer Transition",
+      "kind": "overlay",
+      "refersTo": "layer-transition",
+      "description": "Full-screen overlay shown between test layers. Displays layer name and description.",
+      "html": "<div class=\"ds-layer-transition\"><div class=\"ds-layer-content\"><span class=\"ds-layer-label\">Capa 2</span><h2>Aptitudes</h2><p>Veamos cómo piensas y resuelves</p></div></div>",
+      "css": ".ds-layer-transition { position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center; background: #120E1A; } .ds-layer-content { text-align: center; animation: layerFadeIn 600ms ease-spring; } .ds-layer-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #22D3EE; } .ds-layer-content h2 { font-size: 2.5rem; font-weight: 800; color: #F5F3FF; margin: 8px 0; } .ds-layer-content p { color: #9CA3AF; font-size: 1.125rem; }"
+    },
+    {
+      "name": "Archetype Card",
+      "kind": "card",
+      "refersTo": "archetype-card",
+      "description": "Displays the student's result archetype with emoji icon and description.",
+      "html": "<div class=\"ds-archetype-card\"><div class=\"ds-archetype-icon\">⚙️</div><h3>El Constructor</h3><p>Optimizas todo lo que tocas.</p><span class=\"ds-pill ds-pill--cyan\">92% afinidad</span></div>",
+      "css": ".ds-archetype-card { border-radius: 24px; border: 1px solid rgba(255,255,255,0.1); background: #241D2E; padding: 32px; text-align: center; } .ds-archetype-icon { width: 96px; height: 96px; border-radius: 16px; background: linear-gradient(135deg, #22D3EE, #8B5CF6); display: flex; align-items: center; justify-content: center; font-size: 3rem; margin: 0 auto 16px; } .ds-archetype-card h3 { font-size: 2.5rem; font-weight: 800; color: #F5F3FF; } .ds-archetype-card p { color: #9CA3AF; margin: 8px 0 16px; }"
+    },
+    {
+      "name": "Share Card",
+      "kind": "card",
+      "refersTo": "share-card",
+      "description": "Result card for sharing on social media. Contains radar chart, archetype, and top programs.",
+      "html": "<div class=\"ds-share-card\"><div class=\"ds-share-radar\"></div><div class=\"ds-share-info\"><h3>El Constructor</h3><p>Ing. Software • Neg. Turísticos</p></div></div>",
+      "css": ".ds-share-card { border-radius: 24px; background: linear-gradient(135deg, #1E1826, #2A2235); padding: 32px; display: flex; gap: 24px; align-items: center; } .ds-share-radar { width: 200px; height: 200px; } .ds-share-info h3 { font-size: 1.5rem; font-weight: 800; color: #F5F3FF; } .ds-share-info p { color: #9CA3AF; }"
+    },
+    {
+      "name": "Modality Card",
+      "kind": "card",
+      "refersTo": "modality-card",
+      "description": "Shows modality recommendation (presencial/virtual) with confidence level.",
+      "html": "<div class=\"ds-modality-card\"><span class=\"ds-pill ds-pill--cyan\">Presencial</span><p>Recomendamos modalidad presencial porque tus respuestas indican preferencia por el entorno presencial.</p></div>",
+      "css": ".ds-modality-card { border-radius: 16px; border: 1px solid #2D2540; background: #241D2E; padding: 20px; } .ds-modality-card p { color: #9CA3AF; margin-top: 8px; font-size: 0.875rem; }"
+    },
+    {
+      "name": "Confetti Trigger",
+      "kind": "effect",
+      "refersTo": "confetti",
+      "description": "Canvas confetti burst shown on results page completion.",
+      "html": "<canvas class=\"ds-confetti\"></canvas>",
+      "css": ".ds-confetti { position: fixed; inset: 0; pointer-events: none; z-index: 100; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Identity Scanner",
+    "overview": "TuFuturoDual se siente como un scanner de identidad gamificado: cada respuesta del estudiante revela una capa más de quién es, con feedback visual inmediato que mantiene la energía alta. La interfaz oscurecida con neón vibrante crea una atmósfera de arcade futurista donde descubrir tu carrera se siente como desbloquear un personaje en un RPG. No es un examen — es un viaje de autodescubrimiento con juicio cero.\n\nEl sistema es playful & futuristic: colores que brillan sobre oscuridad profunda, animaciones que reaccionan al toque del usuario, y transiciones que hacen sentir progreso real. Lo que NO es: institucional, serio, estático, o aburrido. Cada pixel comunica que esto va a ser divertido.",
+    "keyCharacteristics": [
+      "Dark-first canvas con acentos neón que crean contraste dramático",
+      "Gamificación visual: barra de progreso estilo HP, sparkles de feedback, transiciones de capa",
+      "Mobile-first con interacciones optimizadas para una mano",
+      "Animaciones transform/opacity que respetan prefers-reduced-motion",
+      "Glass effects y neon borders como firma visual distintiva"
+    ],
+    "rules": [
+      {
+        "name": "The Neon Restraint Rule",
+        "body": "El cian (#22D3EE) es el ÚNICO protagonista decorativo. Se usa en ≤15% de cualquier pantalla. Su rareza es lo que lo hace poderoso — si todo brilla, nada brilla.",
+        "section": "colors"
+      },
+      {
+        "name": "The Bold Headline Rule",
+        "body": "Todos los títulos usan weight 700-800. Nunca usar font-weight bajo en titulares — la personalidad del scanner se construye con peso visual.",
+        "section": "typography"
+      },
+      {
+        "name": "The Glowing Active Rule",
+        "body": "Los elementos interactivos brillan solo cuando están activos o en hover. En estado flat, son planos. El brillo es feedback, no decoración.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do use el brand gradient (cian→violeta) solo para elementos de acción primaria y progreso.",
+      "Do respeta prefers-reduced-motion en toda animación — transform/opacity only.",
+      "Do usa neon glow como feedback de estado, no como decoración permanente.",
+      "Do mantiene el contraste de texto alto (casi blanco sobre oscuro).",
+      "Do usa el glass effect para overlays y headers persistentes."
+    ],
+    "donts": [
+      "Don't uses sombras negras — usa tonos neón para sombras que refuerzan la marca.",
+      "Don't pongas neon glow en más del 15% de la pantalla simultáneamente.",
+      "Don't uses font-weight bajo en titulares — mantén el peso bold/extrabold.",
+      "Don't inventes tokens que no existen en el CSS — usa los tokens CSS custom properties del sistema.",
+      "Don't uses colores brand (rojo/azul) para elementos interactivos — solo logo, footer, CTA institucional."
+    ]
+  },
+  "product": {
+    "name": "Tu Futuro Dual",
+    "client": "Uniempresarial (Fundación Universitaria Empresarial de la Cámara de Comercio de Bogotá)",
+    "platform": "web",
+    "audience": "Estudiantes de colegio (16-18 años) en etapa de orientación vocacional",
+    "purpose": "Test vocacional gamificado que revela qué carrera del Modelo Dual se alinea con quién es el estudiante",
+    "successMetric": "El estudiante completa el test y deja sus datos (lead)",
+    "flow": "Landing → Test (25 preguntas, 4 capas) → Lead Form → Resultados (arquetipo, radar, ranking, share card)",
+    "modes": {
+      "real": "/test — leads con es_prueba=false",
+      "test": "/test?prueba=1 — leads con es_prueba=true, filtrados del admin"
+    }
+  },
+  "scoring": {
+    "questionBank": {
+      "total": 25,
+      "layers": [
+        {
+          "layer": 1,
+          "name": "Intereses RIASEC",
+          "questions": "Q1-Q12",
+          "count": 12,
+          "format": "single-choice, 5 options",
+          "dimensions": ["R", "I", "A", "S", "E", "C"],
+          "mechanic": "Per-option RIASEC weights → raw scores → normalize by max possible → profile [0,1]"
+        },
+        {
+          "layer": 2,
+          "name": "Aptitudes",
+          "questions": "Q13-Q17",
+          "count": 5,
+          "format": "single-choice, 4 options",
+          "slots": ["logical", "planning", "creative", "social"],
+          "mechanic": "Per-option aptitude weights → accumulate → normalize by max → vector [0,1]"
+        },
+        {
+          "layer": 3,
+          "name": "Valores & Estilo de Vida",
+          "questions": "Q18-Q22",
+          "count": 5,
+          "format": "mix: likert-5, single-choice, binary",
+          "slots": ["autonomy", "risk-tolerance", "flexibility", "helping"],
+          "mechanic": "Likert → linear [0,1]; binary/single → one-hot; secondary RIASEC signal for autonomy"
+        },
+        {
+          "layer": 4,
+          "name": "Modalidad",
+          "questions": "Q23-Q25",
+          "count": 3,
+          "format": "single-choice, likert-5, binary",
+          "mechanic": "Dual-signal: direct (Q23-Q25, weights 0.5/0.3/0.2) + derived (Q18-Q22 + RIASEC)"
+        }
+      ]
+    },
+    "archetypes": {
+      "count": 8,
+      "algorithm": "Dominant+secondary RIASEC → mapping table → cosine fallback (near-tie guard ε=0.05)",
+      "list": [
+        { "id": "realizador", "name": "El Constructor", "emoji": "⚙️", "pair": "R+I" },
+        { "id": "investigador", "name": "El Investigador", "emoji": "🔬", "pair": "I+R" },
+        { "id": "creador", "name": "El Creador", "emoji": "🎨", "pair": "A+S" },
+        { "id": "connecting", "name": "El Conector", "emoji": "🤝", "pair": "S+E" },
+        { "id": "estratega", "name": "El Estratega", "emoji": "♟️", "pair": "E+C" },
+        { "id": "analista", "name": "El Analista", "emoji": "📊", "pair": "I+C" },
+        { "id": "visionario", "name": "El Visionario", "emoji": "🚀", "pair": "E+A" },
+        { "id": "leader", "name": "El Líder", "emoji": "👑", "pair": "E+S" }
+      ]
+    },
+    "modality": {
+      "type": "dual-signal",
+      "signals": [
+        { "name": "direct", "source": "Q23-Q25", "weights": [0.5, 0.3, 0.2] },
+        { "name": "derived", "source": "Q18-Q22 + RIASEC profile" }
+      ],
+      "confidence": {
+        "high": "Both signals agree on same direction",
+        "medium": "Only one signal decisive, no conflict",
+        "low": "Signals conflict (direct wins) or no evidence"
+      },
+      "default": "presencial"
+    },
+    "programs": {
+      "uniqueCareers": 7,
+      "totalPrograms": 12,
+      "list": [
+        { "id": "ing-software", "name": "Ingeniería de Software", "presencial": true, "virtual": true },
+        { "id": "negocios-turisticos", "name": "Negocios Turísticos y Hoteleros", "presencial": true, "virtual": true },
+        { "id": "admin-empresas", "name": "Administración de Empresas", "presencial": true, "virtual": true },
+        { "id": "negocios-internacionales", "name": "Negocios Internacionales", "presencial": true, "virtual": false },
+        { "id": "finanzas", "name": "Finanzas y Comercio Exterior", "presencial": true, "virtual": false },
+        { "id": "ing-industrial", "name": "Ingeniería Industrial", "presencial": true, "virtual": true },
+        { "id": "marketing", "name": "Marketing", "presencial": true, "virtual": true }
+      ],
+      "profileVectors": {
+        "riasec": "6 dimensions [R, I, A, S, E, C], values [0,1]",
+        "aptitude": "4 slots [logical, planning, creative, social], values [0,1]",
+        "values": "4 slots [autonomy, risk-tolerance, flexibility, helping], values [0,1]"
+      },
+      "scoringMethod": "Cosine similarity between student vector and program requirement vector, weighted across 3 layers"
+    }
+  }
+}

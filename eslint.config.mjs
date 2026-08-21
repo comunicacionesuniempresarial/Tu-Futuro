@@ -12,6 +12,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    "docs/build-anim-v4.js",
+    "docs/build-anim-v5.js",
+    "docs/build-anim-v6.js",
   ]),
 ]);
 

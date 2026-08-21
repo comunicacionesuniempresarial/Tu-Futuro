@@ -1,7 +1,7 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { ResultsPage, type ResultsData } from "./ResultsPage";
-import { archetype, modality, profile, results } from "./fixtures";
+import { archetype, profile, results } from "./fixtures";
 
 const { confettiMock, svgToPngBlobMock } = vi.hoisted(() => ({
   confettiMock: vi.fn().mockResolvedValue(undefined),
@@ -19,7 +19,6 @@ vi.mock("@/lib/share-card/generate", async (importOriginal) => {
 
 const resultsData: ResultsData = {
   riasecProfile: profile,
-  modalityResult: modality,
   archetype,
   aptitudeVec: [0.7, 0.6, 0.5, 0.8],
   valuesVec: [0.6, 0.7, 0.5, 0.4],
@@ -39,7 +38,7 @@ const renderWithStoredResults = () => {
 const stubMatchMedia = (matches: boolean) => {
   vi.stubGlobal(
     "matchMedia",
-    vi.fn().mockReturnValue({ matches, addEventListener: vi.fn() })
+    vi.fn().mockReturnValue({ matches, addEventListener: vi.fn(), removeEventListener: vi.fn() })
   );
 };
 
@@ -79,10 +78,10 @@ describe("ResultsPage", () => {
     renderWithStoredResults();
 
     expect(screen.getAllByText(archetype.emoji).length).toBeGreaterThan(0);
-    expect(screen.getByText("Tu resultado")).toBeInTheDocument();
+    expect(screen.getByText("Tu Destino Revelado")).toBeInTheDocument();
     await waitFor(() => expect(confettiMock).toHaveBeenCalledTimes(1));
     expect(
-      screen.getByRole("button", { name: /compartir mi resultado/i })
+      screen.getByRole("button", { name: /invocar a otros/i })
     ).toBeInTheDocument();
   });
 
@@ -129,7 +128,7 @@ describe("ResultsPage", () => {
     const polygons = radar?.querySelectorAll("polygon");
     expect(polygons).toHaveLength(2);
     expect(polygons?.[1]).toHaveAttribute("stroke-dasharray");
-    expect(polygons?.[1]).toHaveAttribute("stroke", "#0033A5");
+    expect(polygons?.[1]).toHaveAttribute("stroke", "#E879F9");
   });
 
   it("shares the card via the Web Share API", async () => {
@@ -138,7 +137,7 @@ describe("ResultsPage", () => {
     renderWithStoredResults();
 
     fireEvent.click(
-      screen.getByRole("button", { name: /compartir mi resultado/i })
+      screen.getByRole("button", { name: /invocar a otros/i })
     );
 
     await waitFor(() => expect(shareMock).toHaveBeenCalledTimes(1));

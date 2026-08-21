@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Propuesta Constelación — TuFuturoDual</title>
+<style>
+  :root {
+    --bg-base: #0B1026;
+    --bg-surface: #111836;
+    --bg-surface-2: #161E42;
+    --neon-primary: #22D3EE;
+    --neon-secondary: #8B5CF6;
+    --star: #FCD34D;
+    --brand-red: #D51933;
+    --text: #F5F3FF;
+    --text-2: #9CA3AF;
+    --border: rgba(139, 92, 246, 0.25);
+    --font: 'Segoe UI', system-ui, sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: var(--font); background: var(--bg-base); color: var(--text); }
+
+  /* ===== BOARD ===== */
+  .board { max-width: 1100px; margin: 0 auto; padding: 48px 24px; }
+  .board-title { text-align: center; margin-bottom: 8px; }
+  .board-title h1 { font-size: 42px; font-weight: 800; letter-spacing: -1px; }
+  .board-title h1 span { background: linear-gradient(90deg, var(--neon-primary), var(--neon-secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .board-sub { text-align: center; color: var(--text-2); margin-bottom: 48px; font-size: 15px; }
+  .board-sub b { color: var(--star); }
+
+  .screen { background: var(--bg-base); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; margin-bottom: 56px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+  .screen-label { display: flex; align-items: center; gap: 10px; padding: 12px 20px; background: var(--bg-surface); border-bottom: 1px solid var(--border); }
+  .screen-label .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--neon-primary); box-shadow: 0 0 8px var(--neon-primary); }
+  .screen-label span { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-2); font-weight: 600; }
+  .screen-body { position: relative; }
+
+  /* ===== STARFIELD ===== */
+  .starfield { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+  .starfield .star { position: absolute; border-radius: 50%; background: #fff; animation: twinkle 3s ease-in-out infinite; }
+  .starfield .nebula { position: absolute; border-radius: 50%; filter: blur(60px); opacity: 0.35; }
+  @keyframes twinkle { 0%,100% { opacity: 0.2; } 50% { opacity: 1; } }
+
+  /* ===== LANDING ===== */
+  .hero { min-height: 520px; position: relative; display: flex; align-items: center; padding: 60px; }
+  .hero-content { position: relative; z-index: 2; max-width: 640px; }
+  .eyebrow { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--neon-primary); font-weight: 700; margin-bottom: 16px; }
+  .hero h1 { font-size: 58px; line-height: 1.02; font-weight: 800; letter-spacing: -1.5px; margin-bottom: 20px; }
+  .hero h1 em { font-family: Georgia, serif; font-style: italic; color: var(--star); }
+  .hero p { font-size: 18px; color: var(--text-2); line-height: 1.6; margin-bottom: 32px; max-width: 480px; }
+  .cta { display: inline-flex; align-items: center; gap: 10px; background: linear-gradient(90deg, var(--neon-primary), var(--neon-secondary)); color: #060B1E; font-weight: 800; padding: 16px 32px; border-radius: 999px; font-size: 16px; box-shadow: 0 8px 30px rgba(34, 211, 238, 0.35); }
+  .cta-red { background: var(--brand-red); color: #fff; box-shadow: 0 8px 30px rgba(213, 25, 51, 0.35); }
+  .hero-stats { display: flex; gap: 32px; margin-top: 40px; }
+  .hero-stats .stat b { display: block; font-size: 26px; color: var(--star); }
+  .hero-stats .stat span { font-size: 12px; color: var(--text-2); letter-spacing: 1px; text-transform: uppercase; }
+  .hero-visual { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); z-index: 1; }
+
+  /* ===== CONSTELLATION SVG ===== */
+  .constellation { width: 380px; height: 380px; }
+  .constellation line { stroke: var(--neon-primary); stroke-width: 1.5; stroke-dasharray: 6 4; animation: dashmove 12s linear infinite; }
+  @keyframes dashmove { to { stroke-dashoffset: -100; } }
+  .constellation .star-dot { fill: var(--star); filter: drop-shadow(0 0 6px var(--star)); }
+  .constellation .star-dot.big { fill: var(--brand-red); filter: drop-shadow(0 0 12px var(--brand-red)); }
+  .constellation .star-dot.cyan { fill: var(--neon-primary); filter: drop-shadow(0 0 8px var(--neon-primary)); }
+  .constellation text { fill: var(--text-2); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; }
+
+  /* ===== WIZARD ===== */
+  .wizard { padding: 48px 56px; position: relative; min-height: 480px; }
+  .wizard-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; }
+  .wizard-top .phase { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--neon-primary); font-weight: 700; }
+  .wizard-top .stars-lit { color: var(--star); font-size: 13px; }
+  .orbit-bar { height: 6px; border-radius: 99px; background: rgba(139,92,246,0.15); position: relative; overflow: visible; margin-bottom: 8px; }
+  .orbit-bar .fill { height: 100%; width: 64%; border-radius: 99px; background: linear-gradient(90deg, var(--neon-primary), var(--neon-secondary)); box-shadow: 0 0 14px rgba(34,211,238,0.6); }
+  .orbit-bar .ship { position: absolute; top: -5px; left: 64%; width: 16px; height: 16px; border-radius: 50%; background: var(--star); box-shadow: 0 0 12px var(--star); transform: translateX(-50%); }
+  .orbit-track { display: flex; justify-content: space-between; margin-bottom: 40px; }
+  .orbit-track .node { width: 10px; height: 10px; border-radius: 50%; background: rgba(139,92,246,0.3); }
+  .orbit-track .node.on { background: var(--star); box-shadow: 0 0 10px var(--star); }
+  .wizard-q { font-size: 30px; font-weight: 800; line-height: 1.25; margin-bottom: 36px; max-width: 600px; }
+  .wizard-q .dim { font-size: 12px; color: var(--neon-primary); letter-spacing: 2px; text-transform: uppercase; display: block; margin-bottom: 10px; font-weight: 700; }
+  .options { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .option { background: var(--bg-surface); border: 1px solid var(--border); border-radius: 16px; padding: 20px 24px; font-size: 16px; color: var(--text); display: flex; align-items: center; gap: 14px; transition: all 0.2s; }
+  .option .key { width: 32px; height: 32px; border-radius: 10px; background: rgba(34,211,238,0.12); color: var(--neon-primary); font-weight: 800; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+  .option.selected { border-color: var(--neon-primary); background: rgba(34,211,238,0.08); box-shadow: 0 0 24px rgba(34,211,238,0.15); }
+  .option.selected .key { background: var(--neon-primary); color: #060B1E; }
+  .option .spark { margin-left: auto; color: var(--star); font-size: 18px; }
+
+  /* ===== RESULTS ===== */
+  .results { padding: 48px 56px; position: relative; min-height: 560px; }
+  .results-header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+  .results-header .eyebrow { margin: 0; }
+  .results h2 { font-size: 34px; font-weight: 800; margin-bottom: 4px; }
+  .results h2 span { background: linear-gradient(90deg, var(--neon-primary), var(--neon-secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .results-sub { color: var(--text-2); margin-bottom: 36px; font-size: 15px; }
+  .results-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; align-items: center; }
+  .archetype-card { background: var(--bg-surface); border: 1px solid var(--border); border-radius: 20px; padding: 32px; position: relative; overflow: hidden; }
+  .archetype-card .glow { position: absolute; top: -60px; right: -60px; width: 200px; height: 200px; border-radius: 50%; background: var(--brand-red); opacity: 0.18; filter: blur(60px); }
+  .archetype-card .badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(213,25,51,0.15); color: #FF8FA3; border: 1px solid rgba(213,25,51,0.35); padding: 6px 14px; border-radius: 999px; font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; }
+  .archetype-card h3 { font-size: 40px; font-weight: 800; margin-bottom: 12px; }
+  .archetype-card p { color: var(--text-2); line-height: 1.6; font-size: 15px; margin-bottom: 20px; }
+  .archetype-card .tags { display: flex; gap: 8px; flex-wrap: wrap; }
+  .archetype-card .tag { background: rgba(34,211,238,0.1); border: 1px solid rgba(34,211,238,0.3); color: var(--neon-primary); padding: 5px 12px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+  .archetype-card .affinity { display: flex; align-items: baseline; gap: 8px; margin-bottom: 20px; }
+  .archetype-card .affinity b { font-size: 30px; color: var(--star); }
+  .archetype-card .affinity span { color: var(--text-2); font-size: 13px; }
+  .radar-panel { background: var(--bg-surface); border: 1px solid var(--border); border-radius: 20px; padding: 24px; text-align: center; }
+  .radar-panel h4 { font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-2); margin-bottom: 8px; }
+  .radar-panel .caption { font-size: 12px; color: var(--star); margin-top: 10px; }
+
+  /* ===== SHARE CARD ===== */
+  .share-wrap { display: flex; justify-content: center; padding: 40px 0; }
+  .share-card { width: 360px; height: 640px; border-radius: 24px; background: linear-gradient(160deg, #0B1026 0%, #161E42 55%, #1A1440 100%); border: 1px solid var(--border); padding: 28px; display: flex; flex-direction: column; position: relative; overflow: hidden; box-shadow: 0 24px 60px rgba(0,0,0,0.6); }
+  .share-card .top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+  .share-card .top .brand { font-size: 13px; font-weight: 800; letter-spacing: 1px; }
+  .share-card .top .brand span { color: var(--neon-primary); }
+  .share-card .top .ig { width: 26px; height: 26px; border: 2px solid var(--text-2); border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: var(--text-2); }
+  .share-card .title { font-size: 22px; font-weight: 800; margin-bottom: 2px; }
+  .share-card .subtitle { font-size: 13px; color: var(--text-2); margin-bottom: 16px; }
+  .share-card .constellation { width: 280px; height: 280px; margin: 0 auto; display: block; }
+  .share-card .class { text-align: center; margin-top: 12px; }
+  .share-card .class .cls-badge { display: inline-block; background: rgba(213,25,51,0.15); border: 1px solid rgba(213,25,51,0.4); color: #FF8FA3; padding: 5px 14px; border-radius: 999px; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; }
+  .share-card .class h5 { font-size: 30px; font-weight: 800; }
+  .share-card .planets { display: flex; justify-content: center; gap: 12px; margin-top: 16px; flex-wrap: wrap; }
+  .share-card .planet { background: rgba(34,211,238,0.08); border: 1px solid rgba(34,211,238,0.25); color: var(--neon-primary); padding: 6px 12px; border-radius: 999px; font-size: 11px; font-weight: 600; }
+  .share-card .cta { margin-top: auto; justify-content: center; width: 100%; font-size: 14px; padding: 14px; }
+  .share-card .footer-note { text-align: center; font-size: 10px; color: var(--text-2); margin-top: 12px; opacity: 0.7; }
+
+  /* ===== PALETTE STRIP ===== */
+  .palette { display: flex; gap: 12px; justify-content: center; margin: 8px 0 40px; }
+  .palette .swatch { width: 64px; height: 64px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.15); position: relative; }
+  .palette .swatch span { position: absolute; bottom: -22px; left: 0; right: 0; text-align: center; font-size: 10px; color: var(--text-2); }
+</style>
+</head>
+<body>
+
+<div class="board">
+  <div class="board-title"><h1>Constelación — <span>el universo de tu futuro</span></h1></div>
+  <div class="board-sub">Propuesta visual · dark celestial · <b>cada respuesta enciende una estrella</b></div>
+
+  <div class="palette">
+    <div class="swatch" style="background:#0B1026"><span>#0B1026</span></div>
+    <div class="swatch" style="background:#111836"><span>#111836</span></div>
+    <div class="swatch" style="background:#22D3EE"><span>#22D3EE</span></div>
+    <div class="swatch" style="background:#8B5CF6"><span>#8B5CF6</span></div>
+    <div class="swatch" style="background:#FCD34D"><span>#FCD34D</span></div>
+    <div class="swatch" style="background:#D51933"><span>#D51933</span></div>
+  </div>
+
+  <!-- ============ LANDING ============ -->
+  <div class="screen">
+    <div class="screen-label"><div class="dot"></div><span>01 · Landing — hero</span></div>
+    <div class="screen-body">
+      <div class="starfield" id="sf1"></div>
+      <div class="hero">
+        <div class="hero-content">
+          <div class="eyebrow">✦ Tu mapa de futuro</div>
+          <h1>Tu futuro es un <em>universo</em> por descubrir</h1>
+          <p>25 preguntas. Cada respuesta enciende una estrella. Al final, tu perfil forma una constelación única — tu firma estelar profesional.</p>
+          <div class="cta">Comenzar el test →</div>
+          <div class="hero-stats">
+            <div class="stat"><b>25</b><span>estrellas</span></div>
+            <div class="stat"><b>4</b><span>sectores</span></div>
+            <div class="stat"><b>8</b><span>constelaciones</span></div>
+            <div class="stat"><b>12</b><span>planetas</span></div>
+          </div>
+        </div>
+        <svg class="constellation hero-visual" viewBox="0 0 400 400">
+          <circle cx="200" cy="200" r="170" fill="none" stroke="rgba(139,92,246,0.15)" stroke-width="1"/>
+          <circle cx="200" cy="200" r="120" fill="none" stroke="rgba(139,92,246,0.1)" stroke-width="1"/>
+          <line x1="200" y1="60" x2="310" y2="150"/>
+          <line x1="310" y1="150" x2="290" y2="280"/>
+          <line x1="290" y1="280" x2="140" y2="320"/>
+          <line x1="140" y1="320" x2="90" y2="200"/>
+          <line x1="90" y1="200" x2="200" y2="60"/>
+          <line x1="200" y1="60" x2="140" y2="320"/>
+          <circle class="star-dot big" cx="200" cy="60" r="7"/>
+          <circle class="star-dot" cx="310" cy="150" r="5"/>
+          <circle class="star-dot cyan" cx="290" cy="280" r="5"/>
+          <circle class="star-dot" cx="140" cy="320" r="5"/>
+          <circle class="star-dot" cx="90" cy="200" r="5"/>
+          <text x="200" y="40" text-anchor="middle">Tu estrella guía</text>
+          <text x="330" y="155">R</text>
+          <text x="310" y="300">A</text>
+          <text x="120" y="345">S</text>
+          <text x="60" y="205">E</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ WIZARD ============ -->
+  <div class="screen">
+    <div class="screen-label"><div class="dot"></div><span>02 · Wizard — cada respuesta enciende una estrella</span></div>
+    <div class="screen-body">
+      <div class="starfield" id="sf2"></div>
+      <div class="wizard">
+        <div class="wizard-top">
+          <div class="phase">✦ Sector 01 · Intereses</div>
+          <div class="stars-lit">★ 8 / 12 estrellas encendidas</div>
+        </div>
+        <div class="orbit-bar"><div class="fill" style="width:64%"></div><div class="ship"></div></div>
+        <div class="orbit-track">
+          <div class="node on"></div><div class="node on"></div><div class="node on"></div><div class="node on"></div>
+          <div class="node on"></div><div class="node on"></div><div class="node on"></div><div class="node on"></div>
+          <div class="node"></div><div class="node"></div><div class="node"></div><div class="node"></div>
+        </div>
+        <div class="wizard-q"><span class="dim">Realista · Energía</span>Una tarde libre y sin planes, ¿qué te atrapa más?</div>
+        <div class="options">
+          <div class="option selected"><div class="key">A</div>Meterle mano a algo y dejarlo mejor de lo que estaba<span class="spark">✦</span></div>
+          <div class="option"><div class="key">B</div>Proponer un plan y lograr que todos se animen</div>
+          <div class="option"><div class="key">C</div>Inventar algo que a nadie se le ocurriría</div>
+          <div class="option"><div class="key">D</div>Perderte en un tema hasta entenderlo a fondo</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ RESULTS ============ -->
+  <div class="screen">
+    <div class="screen-label"><div class="dot"></div><span>03 · Resultados — tu constelación RIASEC</span></div>
+    <div class="screen-body">
+      <div class="starfield" id="sf3"></div>
+      <div class="results">
+        <div class="results-header"><div class="eyebrow">✦ Constelación revelada</div></div>
+        <h2>Tu <span>firma estelar</span> profesional</h2>
+        <div class="results-sub">6 dimensiones. Una constelación única. Esta es la estrella que te guía.</div>
+        <div class="results-grid">
+          <div class="archetype-card">
+            <div class="glow"></div>
+            <div class="badge">✦ Tu estrella guía</div>
+            <div class="affinity"><b>94%</b><span>de afinidad con tu perfil</span></div>
+            <h3>El Constructor</h3>
+            <p>Optimizás todo lo que tocás. Procesos, recursos, tiempo — encontrás la forma más inteligente de hacer las cosas.</p>
+            <div class="tags">
+              <div class="tag">Realista</div>
+              <div class="tag">Convencional</div>
+              <div class="tag">Investigador</div>
+            </div>
+          </div>
+          <div class="radar-panel">
+            <h4>Constelación RIASEC</h4>
+            <svg class="constellation" viewBox="0 0 400 400" style="width:100%;height:auto">
+              <circle cx="200" cy="200" r="150" fill="none" stroke="rgba(139,92,246,0.2)" stroke-width="1"/>
+              <circle cx="200" cy="200" r="100" fill="none" stroke="rgba(139,92,246,0.12)" stroke-width="1"/>
+              <circle cx="200" cy="200" r="50" fill="none" stroke="rgba(139,92,246,0.08)" stroke-width="1"/>
+              <line x1="200" y1="50" x2="200" y2="350"/>
+              <line x1="50" y1="200" x2="350" y2="200"/>
+              <line x1="200" y1="50" x2="340" y2="125"/>
+              <line x1="340" y1="125" x2="260" y2="325"/>
+              <line x1="260" y1="325" x2="140" y2="325"/>
+              <line x1="140" y1="325" x2="60" y2="125"/>
+              <line x1="60" y1="125" x2="200" y2="50"/>
+              <circle class="star-dot big" cx="200" cy="110" r="8"/>
+              <circle class="star-dot" cx="290" cy="160" r="6"/>
+              <circle class="star-dot" cx="250" cy="270" r="5"/>
+              <circle class="star-dot" cx="150" cy="270" r="5"/>
+              <circle class="star-dot" cx="110" cy="160" r="5"/>
+              <circle class="star-dot" cx="200" cy="300" r="4" opacity="0.4"/>
+              <text x="200" y="85" text-anchor="middle">R</text>
+              <text x="310" y="150">I</text>
+              <text x="265" y="295">A</text>
+              <text x="135" y="295">S</text>
+              <text x="90" y="150">E</text>
+              <text x="200" y="335" text-anchor="middle">C</text>
+            </svg>
+            <div class="caption">★ Realista brilla más fuerte en tu mapa</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ SHARE CARD ============ -->
+  <div class="screen">
+    <div class="screen-label"><div class="dot"></div><span>04 · Share card — lista para postear</span></div>
+    <div class="screen-body">
+      <div class="starfield" id="sf4"></div>
+      <div class="share-wrap">
+        <div class="share-card">
+          <div class="starfield" id="sf5"></div>
+          <div class="top">
+            <div class="brand">TuFuturo<span>Dual</span></div>
+            <div class="ig">⛶</div>
+          </div>
+          <div class="title">Mi constelación vocacional</div>
+          <div class="subtitle">Descubrí mi firma estelar profesional</div>
+          <svg class="constellation" viewBox="0 0 400 400">
+            <circle cx="200" cy="200" r="150" fill="none" stroke="rgba(139,92,246,0.2)" stroke-width="1"/>
+            <line x1="200" y1="50" x2="340" y2="125"/>
+            <line x1="340" y1="125" x2="260" y2="325"/>
+            <line x1="260" y1="325" x2="140" y2="325"/>
+            <line x1="140" y1="325" x2="60" y2="125"/>
+            <line x1="60" y1="125" x2="200" y2="50"/>
+            <circle class="star-dot big" cx="200" cy="110" r="9"/>
+            <circle class="star-dot" cx="290" cy="160" r="6"/>
+            <circle class="star-dot" cx="250" cy="270" r="6"/>
+            <circle class="star-dot" cx="150" cy="270" r="5"/>
+            <circle class="star-dot" cx="110" cy="160" r="5"/>
+          </svg>
+          <div class="class">
+            <div class="cls-badge">✦ Tu estrella guía</div>
+            <h5>El Constructor</h5>
+          </div>
+          <div class="planets">
+            <div class="planet">Ing. Industrial</div>
+            <div class="planet">Admin. Empresas</div>
+            <div class="planet">Contaduría</div>
+          </div>
+          <div class="cta cta-red">Descubrí la tuya →</div>
+          <div class="footer-note">Uniempresarial · Modelo Dual</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // Starfield generator
+  function makeStars(id, count) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    for (let i = 0; i < count; i++) {
+      const s = document.createElement('div');
+      s.className = 'star';
+      const size = Math.random() * 2 + 1;
+      s.style.width = size + 'px';
+      s.style.height = size + 'px';
+      s.style.left = Math.random() * 100 + '%';
+      s.style.top = Math.random() * 100 + '%';
+      s.style.animationDelay = Math.random() * 3 + 's';
+      s.style.animationDuration = (Math.random() * 3 + 2) + 's';
+      el.appendChild(s);
+    }
+    // nebulas
+    for (let i = 0; i < 2; i++) {
+      const n = document.createElement('div');
+      n.className = 'nebula';
+      const size = 180 + Math.random() * 160;
+      n.style.width = size + 'px';
+      n.style.height = size + 'px';
+      n.style.left = Math.random() * 80 + '%';
+      n.style.top = Math.random() * 80 + '%';
+      n.style.background = i % 2 ? '#8B5CF6' : '#22D3EE';
+      el.appendChild(n);
+    }
+  }
+  ['sf1','sf2','sf3','sf4','sf5'].forEach((id, i) => makeStars(id, i === 0 ? 40 : 25));
+</script>
+</body>
+</html>

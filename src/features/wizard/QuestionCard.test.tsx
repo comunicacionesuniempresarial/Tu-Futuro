@@ -11,6 +11,20 @@ const singleChoiceQuestion: Question = {
   options: ["Opción A", "Opción B", "Opción C"],
 };
 
+const singleChoiceWithImages: Question = {
+  id: "Q1",
+  layer: 1,
+  dimension: "R",
+  type: "single-choice",
+  text: "¿Qué te atrapa más?",
+  options: ["Opción A", "Opción B", "Opción C"],
+  images: [
+    "/images/cards/forge.webp",
+    "/images/cards/forest.webp",
+    "/images/cards/swamp.webp",
+  ],
+};
+
 const likertQuestion: Question = {
   id: "Q14",
   layer: 2,
@@ -98,21 +112,13 @@ describe("QuestionCard", () => {
       "data-selected",
       "true"
     );
-    expect(container.querySelector('[data-option="1"]')).toHaveAttribute(
-      "data-ring",
-      "true"
-    );
     expect(
       container.querySelector('[data-option="1"] [data-stamp]')
     ).toHaveAttribute("data-stamp", "animated");
 
-    // Unselected options carry neither the ring nor the stamp.
+    // Unselected options carry no stamp.
     expect(container.querySelector('[data-option="0"]')).toHaveAttribute(
       "data-selected",
-      "false"
-    );
-    expect(container.querySelector('[data-option="0"]')).toHaveAttribute(
-      "data-ring",
       "false"
     );
     expect(container.querySelector('[data-option="0"] [data-stamp]')).toBeNull();
@@ -214,5 +220,41 @@ describe("QuestionCard", () => {
       container.querySelector('[data-option="0"] [data-stamp]')
     ).toHaveAttribute("data-stamp", "static");
     expect(container.querySelector('[data-stamp="animated"]')).toBeNull();
+  });
+
+  it("renders images on option cards when provided", () => {
+    mockMatchMedia(false);
+
+    const { container } = render(
+      <QuestionCard
+        question={singleChoiceWithImages}
+        value={undefined}
+        onChange={vi.fn()}
+      />
+    );
+
+    const cards = container.querySelectorAll("[data-option]");
+    expect(cards).toHaveLength(3);
+    // Images are on the inner image area [data-card-image], not on the button itself
+    const imageAreas = container.querySelectorAll("[data-card-image]");
+    expect(imageAreas).toHaveLength(3);
+    expect(imageAreas[0]).toHaveStyle({ backgroundImage: "url('/images/cards/forge.webp')" });
+    expect(imageAreas[1]).toHaveStyle({ backgroundImage: "url('/images/cards/forest.webp')" });
+    expect(imageAreas[2]).toHaveStyle({ backgroundImage: "url('/images/cards/swamp.webp')" });
+  });
+
+  it("renders cards without images when images array is absent (backward compatible)", () => {
+    mockMatchMedia(false);
+
+    const { container } = render(
+      <QuestionCard
+        question={singleChoiceQuestion}
+        value={undefined}
+        onChange={vi.fn()}
+      />
+    );
+
+    expect(container.querySelectorAll("img")).toHaveLength(0);
+    expect(container.querySelectorAll("[data-option]")).toHaveLength(3);
   });
 });

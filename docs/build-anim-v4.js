@@ -1,0 +1,243 @@
+const fs = require('fs');
+const path = require('path');
+
+const outPath = path.join(__dirname, 'propuesta-tcg-v4-animacion.html');
+
+const html = `<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TuFuturo Dual - Reveal Animation v4</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@400;600;700;800;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',system-ui,sans-serif;background:#050810;color:#F1F5F9;overflow:hidden}
+.top{position:fixed;top:22px;left:0;right:0;text-align:center;z-index:60;pointer-events:none}
+.top .badge{display:inline-block;padding:4px 14px;border-radius:999px;font-size:10px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.25);color:#FBBF24;margin-bottom:8px}
+.top h1{font-family:'Cinzel',serif;font-size:20px;font-weight:900;text-shadow:0 2px 20px rgba(0,0,0,.6)}
+.stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.stage::before{content:'';position:absolute;inset:0;background:
+  radial-gradient(1px 1px at 20% 30%,rgba(255,255,255,.3),transparent),
+  radial-gradient(1px 1px at 80% 20%,rgba(255,255,255,.2),transparent),
+  radial-gradient(1.5px 1.5px at 40% 70%,rgba(255,255,255,.25),transparent),
+  radial-gradient(1px 1px at 70% 60%,rgba(255,255,255,.2),transparent),
+  radial-gradient(1px 1px at 15% 80%,rgba(255,255,255,.15),transparent);z-index:0}
+.rays{position:absolute;left:50%;top:50%;width:620px;height:620px;margin:-310px 0 0 -310px;border-radius:50%;background:conic-gradient(from 0deg,transparent 0deg,rgba(251,191,36,.28) 10deg,transparent 20deg,transparent 40deg,rgba(251,191,36,.22) 50deg,transparent 60deg,transparent 90deg,rgba(251,191,36,.24) 100deg,transparent 110deg,transparent 140deg,rgba(251,191,36,.22) 150deg,transparent 160deg);opacity:0;z-index:1;filter:blur(2px)}
+.rays.on{opacity:1;animation:spin 14s linear infinite}
+.rays.soft{opacity:.5}
+@keyframes spin{to{transform:rotate(360deg)}}
+.pack{position:relative;z-index:5;width:150px;height:210px;border-radius:10px;background:linear-gradient(160deg,#2A1F0A,#1A1408 60%,#0E0B04);border:2px solid #8B7340;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;cursor:pointer;box-shadow:0 0 40px rgba(139,115,64,.35),inset 0 0 30px rgba(139,115,64,.15);animation:packPulse 2.2s ease-in-out infinite;transition:transform .2s,box-shadow .2s}
+.pack:hover{transform:translateY(-4px) scale(1.03);box-shadow:0 0 60px rgba(139,115,64,.55),inset 0 0 30px rgba(139,115,64,.2)}
+.pack-face{font-size:40px;filter:drop-shadow(0 0 12px rgba(251,191,36,.5))}
+.pack-name{font-family:'Cinzel',serif;font-weight:900;font-size:13px;color:#E8D5A0;letter-spacing:1px;text-align:center}
+.pack-foil{width:70%;height:2px;background:linear-gradient(90deg,transparent,#FBBF24,transparent);opacity:.6}
+.pack.opening{animation:packShake .3s ease-in}
+.pack.burst{animation:packBurst .5s ease-in forwards;pointer-events:none}
+@keyframes packPulse{0%,100%{box-shadow:0 0 30px rgba(139,115,64,.3),inset 0 0 30px rgba(139,115,64,.12)}50%{box-shadow:0 0 55px rgba(139,115,64,.5),inset 0 0 30px rgba(139,115,64,.2)}}
+@keyframes packShake{0%,100%{transform:rotate(0) scale(1)}25%{transform:rotate(-4deg) scale(1.05)}50%{transform:rotate(3deg) scale(1.08)}75%{transform:rotate(-2deg) scale(1.03)}}
+@keyframes packBurst{0%{transform:scale(1.1);opacity:1}100%{transform:scale(2.4);opacity:0}}
+.pack-hint{position:absolute;left:50%;top:calc(50% + 140px);transform:translateX(-50%);z-index:5;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#94A3B8;animation:hintBlink 1.6s ease-in-out infinite;transition:opacity .3s}
+.pack-hint.hide{opacity:0}
+@keyframes hintBlink{0%,100%{opacity:.45}50%{opacity:1}}
+.fly-card{position:absolute;left:50%;top:50%;width:46px;height:64px;border-radius:5px;background:linear-gradient(160deg,#0C1120,#060912);border:1.5px solid var(--cc);opacity:0;z-index:2;box-shadow:0 0 12px rgba(0,0,0,.6)}
+.fly-card::after{content:'';position:absolute;inset:3px;border-radius:3px;border:1px dashed rgba(255,255,255,.15)}
+.fly-card.fly{animation:flyOut 1.1s ease-out forwards}
+.fly-card.vortexing{animation:converge 1.6s ease-in forwards}
+@keyframes flyOut{0%{transform:translate(-50%,-50%) translate(0,0) rotate(0) scale(.4);opacity:0}15%{opacity:1}100%{transform:translate(-50%,-50%) translate(var(--x),var(--y)) rotate(var(--rot)) scale(1);opacity:1}}
+@keyframes converge{0%{transform:translate(-50%,-50%) translate(var(--x),var(--y)) rotate(var(--rot)) scale(1);opacity:1}100%{transform:translate(-50%,-50%) translate(0,0) rotate(1080deg) scale(.06);opacity:.9}}
+.vortex{position:absolute;left:50%;top:50%;z-index:4;opacity:0;pointer-events:none}
+.vortex.on{opacity:1}
+.vortex .ring{position:absolute;left:0;top:0;border-radius:50%;border:2px dashed rgba(255,255,255,.12)}
+.vortex .r1{width:140px;height:140px;margin:-70px 0 0 -70px;animation:spin 6s linear infinite}
+.vortex .r2{width:200px;height:200px;margin:-100px 0 0 -100px;animation:spin 9s linear infinite reverse;border-color:rgba(251,191,36,.2)}
+.vortex .r3{width:260px;height:260px;margin:-130px 0 0 -130px;animation:spin 12s linear infinite}
+.vortex .core{position:absolute;left:0;top:0;width:90px;height:90px;margin:-45px 0 0 -45px;border-radius:50%;background:#C4A55A}
+.vortex.on .core{animation:coreFlicker 1.6s linear}
+@keyframes coreFlicker{0%{background:#C4A55A;box-shadow:0 0 60px 20px rgba(196,165,90,.5)}16%{background:#60A5FA;box-shadow:0 0 60px 20px rgba(96,165,250,.5)}33%{background:#FB923C;box-shadow:0 0 60px 20px rgba(251,146,60,.5)}50%{background:#FDE047;box-shadow:0 0 60px 20px rgba(253,224,71,.5)}66%{background:#4ADE80;box-shadow:0 0 60px 20px rgba(74,222,128,.5)}83%{background:#C084FC;box-shadow:0 0 60px 20px rgba(192,132,252,.5)}100%{background:#C4A55A;box-shadow:0 0 60px 20px rgba(196,165,90,.5)}}
+.vortex .circle-label{position:absolute;left:0;top:110px;width:100%;text-align:center;font-size:10px;letter-spacing:5px;color:rgba(251,191,36,.85);text-transform:uppercase;font-weight:800}
+.flash{position:absolute;inset:0;background:#fff;opacity:0;z-index:10;pointer-events:none}
+.flash.on{animation:flashOn .65s ease-out}
+@keyframes flashOn{0%{opacity:0}25%{opacity:1}70%{opacity:1}100%{opacity:0}}
+.reveal{position:relative;z-index:20;opacity:0;transform:scale(.5) translateY(60px)}
+.reveal.show{animation:cardIn .7s cubic-bezier(.34,1.56,.64,1) forwards}
+@keyframes cardIn{0%{opacity:0;transform:scale(.5) translateY(60px)}100%{opacity:1;transform:scale(1) translateY(0)}}
+.glow{position:absolute;inset:-80px;background:radial-gradient(circle,rgba(196,165,90,.4),transparent 62%);opacity:0;z-index:0;pointer-events:none}
+.reveal.show .glow{opacity:1;animation:glowPulse 2s ease-in-out infinite}
+@keyframes glowPulse{0%,100%{transform:scale(1);opacity:.75}50%{transform:scale(1.12);opacity:1}}
+.ygo{width:260px;border-radius:12px;overflow:hidden;position:relative;flex-shrink:0;--ct:#1A1408;--ct2:#2A1F0A;--cbg:#0E0B04;--cb:#8B7340;--cgl:rgba(139,115,64,.25);--ctx:#E8D5A0;--ca1:#0C1520;--ca2:#1A2840;--ca3:#2A3850;--cig:rgba(139,115,64,.4);--cr:rgba(139,115,64,.15);--cp:#C4A55A;--ctc:#C4A55A;--cac:#4ADE80;--cec:#C4A55A;--ceh:#FCD34D;--clc:#8B7340;--csc:#FCD34D;--clc2:#8B7340;background:linear-gradient(180deg,var(--ct),var(--cbg));border:3px solid var(--cb);box-shadow:0 0 34px var(--cgl),0 22px 44px rgba(0,0,0,.75)}
+.ygo .shine{position:absolute;inset:0;z-index:6;pointer-events:none;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.35) 50%,transparent 60%);background-size:250% 100%;background-position:120% 0;opacity:0}
+.reveal.show .shine{opacity:1;animation:sweep 1.1s ease-in-out .55s forwards}
+@keyframes sweep{0%{background-position:120% 0}100%{background-position:-20% 0}}
+.ynb{display:flex;justify-content:space-between;align-items:center;padding:7px 10px;background:linear-gradient(180deg,var(--ct2),var(--ct));border-bottom:2px solid var(--cb)}
+.ynb .yn{font-family:'Cinzel',serif;font-size:13px;font-weight:900;color:var(--ctx)}
+.ynb .ys{display:flex;gap:2px}
+.ynb .star{color:var(--gold,#FBBF24);font-size:9px;text-shadow:0 0 6px rgba(251,191,36,.5);opacity:0;transform:scale(0);display:inline-block}
+.ynb .ys.lit .star{animation:starPop .45s cubic-bezier(.34,1.56,.64,1) forwards}
+@keyframes starPop{0%{opacity:0;transform:scale(0) rotate(-90deg)}70%{opacity:1;transform:scale(1.4) rotate(8deg)}100%{opacity:1;transform:scale(1) rotate(0)}}
+.yaf{margin:5px 8px;border-radius:5px;overflow:hidden;border:2px solid var(--cb);background:#060606}
+.ya{height:140px;background:linear-gradient(160deg,var(--ca1),var(--ca2),var(--ca3));display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.ya .ic{font-size:56px;filter:drop-shadow(0 0 20px var(--cig));position:relative;z-index:2}
+.ya .ag{position:absolute;inset:0;background:radial-gradient(circle at 50% 55%,var(--cr),transparent 60%);z-index:1}
+.ytb{margin:5px 8px;padding:4px 8px;background:rgba(0,0,0,.55);border-radius:4px;display:flex;justify-content:space-between;align-items:center;border:1px solid rgba(255,255,255,.04)}
+.ytb .ytt{font-size:9px;font-weight:700;color:var(--ctc)}
+.ytb .ya2{font-size:8px;color:var(--cac);text-transform:uppercase;letter-spacing:1.5px;font-weight:700}
+.yd{margin:5px 8px;padding:7px;background:rgba(0,0,0,.4);border-radius:5px;min-height:56px;border:1px solid rgba(255,255,255,.03)}
+.yd .ef{font-size:9px;color:var(--cec);line-height:1.45;margin-bottom:3px;opacity:0;transform:translateY(8px)}
+.yd .ef b{color:var(--ceh);font-weight:800;display:inline-block}
+.yd.show-ef .ef{animation:fadeUp .5s ease-out .15s forwards}
+.yd .lo{font-size:8px;color:var(--clc);font-style:italic;line-height:1.4;min-height:22px}
+@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+.ysb{display:flex;justify-content:space-between;margin:5px 8px 8px;padding:5px 10px;background:linear-gradient(180deg,var(--ct2),var(--ct));border:1px solid var(--cb);border-radius:5px}
+.ysb .ys2{text-align:center;min-width:70px}
+.ysb .ys2 .v{font-family:'Cinzel',serif;font-size:16px;font-weight:900;color:var(--csc);text-shadow:0 0 8px var(--cgl);display:inline-block}
+.ysb .ys2 .v.done{animation:numPop .35s cubic-bezier(.34,1.56,.64,1)}
+.ysb .ys2 .l{font-size:7px;letter-spacing:1.5px;text-transform:uppercase;color:var(--clc2);font-weight:700}
+@keyframes numPop{0%{transform:scale(1)}50%{transform:scale(1.28)}100%{transform:scale(1)}}
+.replay{position:fixed;bottom:36px;left:50%;transform:translateX(-50%) translateY(20px);opacity:0;pointer-events:none;background:linear-gradient(135deg,#FBBF24,#F59E0B);color:#060B18;border:none;padding:12px 26px;border-radius:999px;font-weight:800;font-size:14px;cursor:pointer;box-shadow:0 8px 24px rgba(251,191,36,.35);transition:all .4s;z-index:50;font-family:'Inter',sans-serif}
+.replay.show{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto}
+.replay:hover{transform:translateX(-50%) translateY(-2px);box-shadow:0 12px 32px rgba(251,191,36,.5)}
+</style>
+</head>
+<body>
+<div class="top"><div class="badge">Reveal animation · TCG v4</div><h1>El ritual de la carta</h1></div>
+<div class="stage" id="stage">
+  <div class="rays" id="rays"></div>
+  <div class="pack" id="pack">
+    <div class="pack-face">📦</div>
+    <div class="pack-name">TuFuturo Dual</div>
+    <div class="pack-foil"></div>
+  </div>
+  <div class="pack-hint" id="hint">Tocá el sobre para abrirlo</div>
+  <div class="cards-wrap" id="cardsWrap"></div>
+  <div class="vortex" id="vortex">
+    <div class="ring r1"></div>
+    <div class="ring r2"></div>
+    <div class="ring r3"></div>
+    <div class="core" id="core"></div>
+    <div class="circle-label">Fusión</div>
+  </div>
+  <div class="flash" id="flash"></div>
+  <div class="reveal" id="reveal">
+    <div class="glow" id="glow"></div>
+    <div class="ygo">
+      <div class="shine"></div>
+      <div class="ynb">
+        <span class="yn">El Forjador</span>
+        <span class="ys">
+          <span class="star" style="animation-delay:0ms">★</span>
+          <span class="star" style="animation-delay:120ms">★</span>
+          <span class="star" style="animation-delay:240ms">★</span>
+          <span class="star" style="animation-delay:360ms">★</span>
+        </span>
+      </div>
+      <div class="yaf"><div class="ya"><div class="ag"></div><span class="ic">🔨</span></div></div>
+      <div class="ytb"><span class="ytt">Monstruo · Efecto</span><span class="ya2">Tierra</span></div>
+      <div class="yd">
+        <div class="ef"><b>Forja</b>: Fusiona 2 cartas de la mano para crear 1 carta más fuerte.</div>
+        <div class="lo" id="flavor"></div>
+      </div>
+      <div class="ysb">
+        <div class="ys2"><span class="v" id="atq">0</span><span class="l">ATQ</span></div>
+        <div class="ys2"><span class="v" id="def">0</span><span class="l">DEF</span></div>
+      </div>
+    </div>
+  </div>
+  <button class="replay" id="replay">↻ Repetir el ritual</button>
+</div>
+<script>
+(function () {
+  var pack = document.getElementById('pack');
+  var hint = document.getElementById('hint');
+  var rays = document.getElementById('rays');
+  var cardsWrap = document.getElementById('cardsWrap');
+  var vortex = document.getElementById('vortex');
+  var flash = document.getElementById('flash');
+  var reveal = document.getElementById('reveal');
+  var flavor = document.getElementById('flavor');
+  var atqEl = document.getElementById('atq');
+  var defEl = document.getElementById('def');
+  var replay = document.getElementById('replay');
+  var COLORS = ['#C4A55A', '#60A5FA', '#FB923C', '#FDE047', '#4ADE80', '#C084FC'];
+
+  pack.addEventListener('click', startRitual);
+  replay.addEventListener('click', function () { location.reload(); });
+
+  function startRitual() {
+    if (pack.classList.contains('opening')) return;
+    pack.classList.add('opening');
+    hint.classList.add('hide');
+    setTimeout(function () { pack.classList.add('burst'); rays.classList.add('on'); }, 300);
+    setTimeout(spawnCards, 380);
+    setTimeout(vortexPhase, 1750);
+  }
+
+  function spawnCards() {
+    for (var i = 0; i < 25; i++) {
+      (function (i) {
+        var c = document.createElement('div');
+        c.className = 'fly-card';
+        c.style.setProperty('--x', (Math.random() * 70 - 35).toFixed(1) + 'vw');
+        c.style.setProperty('--y', (Math.random() * 55 - 27.5).toFixed(1) + 'vh');
+        c.style.setProperty('--rot', (Math.random() * 300 - 150).toFixed(0) + 'deg');
+        c.style.setProperty('--cc', COLORS[i % 6]);
+        cardsWrap.appendChild(c);
+        setTimeout(function (el) { el.classList.add('fly'); }, 40 + i * 14);
+      })(i);
+    }
+  }
+
+  function vortexPhase() {
+    var cards = cardsWrap.querySelectorAll('.fly-card');
+    for (var i = 0; i < cards.length; i++) cards[i].classList.add('vortexing');
+    vortex.classList.add('on');
+    setTimeout(flashPhase, 1650);
+  }
+
+  function flashPhase() {
+    flash.classList.add('on');
+    setTimeout(showCard, 420);
+  }
+
+  function showCard() {
+    cardsWrap.innerHTML = '';
+    vortex.classList.remove('on');
+    flash.classList.remove('on');
+    rays.classList.add('soft');
+    reveal.classList.add('show');
+    setTimeout(function () { reveal.querySelector('.ys').classList.add('lit'); }, 600);
+    setTimeout(countUp, 1050);
+    setTimeout(typeFlavor, 1500);
+    setTimeout(function () { reveal.querySelector('.yd').classList.add('show-ef'); }, 2300);
+    setTimeout(function () { replay.classList.add('show'); }, 3400);
+  }
+
+  function countUp() {
+    var dur = 900;
+    var start = Date.now();
+    function tick() {
+      var p = Math.min(1, (Date.now() - start) / dur);
+      var e = 1 - Math.pow(1 - p, 3);
+      atqEl.textContent = Math.round(92 * e);
+      defEl.textContent = Math.round(78 * e);
+      if (p < 1) requestAnimationFrame(tick);
+      else { atqEl.classList.add('done'); defEl.classList.add('done'); }
+    }
+    tick();
+  }
+
+  var FLAVOR = 'Donde otros ven escombros, él ve piezas sin ensamblar.';
+  function typeFlavor() {
+    var i = 0;
+    var iv = setInterval(function () {
+      flavor.textContent = FLAVOR.slice(0, ++i);
+      if (i >= FLAVOR.length) clearInterval(iv);
+    }, 38);
+  }
+})();
+</script>
+</body>
+</html>`;
+
+fs.writeFileSync(outPath, html, 'utf8');
+console.log('Written:', html.length, 'chars to', outPath);

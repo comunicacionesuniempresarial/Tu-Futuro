@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Propuesta Fórmula — TuFuturoDual</title>
+<style>
+  :root {
+    --bg: #080C18;
+    --bg2: #0E1528;
+    --bg3: #141E38;
+    --neon: #22D3EE;
+    --violet: #A855F7;
+    --violet-dim: rgba(168,85,247,0.3);
+    --gold: #FBBF24;
+    --gold-bright: #FCD34D;
+    --red: #D51933;
+    --green: #4ADE80;
+    --text: #F1F5F9;
+    --text2: #94A3B8;
+    --text3: #64748B;
+    --border: rgba(34,211,238,0.15);
+    --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: var(--font); background: var(--bg); color: var(--text); }
+
+  .page { max-width: 1100px; margin: 0 auto; padding: 48px 24px; }
+  .page-header { text-align: center; margin-bottom: 48px; }
+  .page-header .badge { display: inline-block; padding: 6px 16px; border-radius: 999px; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 16px; background: rgba(168,85,247,0.12); border: 1px solid rgba(168,85,247,0.35); color: var(--violet); }
+  .page-header h1 { font-size: 44px; font-weight: 900; letter-spacing: -1.5px; margin-bottom: 8px; }
+  .page-header h1 .g { background: linear-gradient(135deg, var(--neon), var(--violet)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .page-header .sub { color: var(--text2); font-size: 15px; max-width: 620px; margin: 0 auto; line-height: 1.65; }
+  .page-header .sub b { color: var(--gold); }
+
+  .screen { background: var(--bg2); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; margin-bottom: 48px; box-shadow: 0 24px 80px rgba(0,0,0,0.6); }
+  .screen-label { display: flex; align-items: center; gap: 10px; padding: 12px 20px; background: rgba(0,0,0,0.4); border-bottom: 1px solid var(--border); }
+  .screen-label .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--violet); box-shadow: 0 0 8px var(--violet); }
+  .screen-label span { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--text2); font-weight: 600; }
+
+  /* ===== 01 · DESTILACIÓN ===== */
+  .distill { padding: 60px 40px; text-align: center; position: relative; overflow: hidden; min-height: 420px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .distill .eyebrow { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--violet); font-weight: 800; margin-bottom: 16px; }
+  .distill h2 { font-size: 36px; font-weight: 900; margin-bottom: 12px; }
+  .distill h2 .hl { color: var(--gold); }
+  .distill p { color: var(--text2); max-width: 500px; margin: 0 auto 32px; font-size: 15px; line-height: 1.6; }
+
+  .cauldron { position: relative; width: 200px; height: 200px; margin: 0 auto 24px; }
+  .cauldron .bowl { width: 180px; height: 120px; background: linear-gradient(180deg, var(--bg3), #1E1B4B); border-radius: 0 0 50% 50%; border: 2px solid var(--violet-dim); position: absolute; bottom: 0; left: 10px; overflow: hidden; }
+  .cauldron .bowl .liquid { position: absolute; bottom: 0; left: 0; right: 0; height: 70%; background: linear-gradient(180deg, rgba(34,211,238,0.3), rgba(168,85,247,0.5)); border-radius: 0 0 50% 50%; animation: bubble 2s infinite; }
+  @keyframes bubble { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+  .cauldron .bowl .bubbles { position: absolute; top: 10px; left: 20px; right: 20px; }
+  .cauldron .bowl .bubbles span { display: block; width: 8px; height: 8px; border-radius: 50%; background: rgba(34,211,238,0.4); position: absolute; animation: rise 2s infinite; }
+  .cauldron .bowl .bubbles span:nth-child(1) { left: 20%; animation-delay: 0s; }
+  .cauldron .bowl .bubbles span:nth-child(2) { left: 50%; animation-delay: 0.5s; }
+  .cauldron .bowl .bubbles span:nth-child(3) { left: 75%; animation-delay: 1s; }
+  @keyframes rise { 0% { bottom: 0; opacity: 1; } 100% { bottom: 80px; opacity: 0; } }
+  .cauldron .glow { position: absolute; bottom: -20px; left: -20px; right: -20px; height: 80px; background: radial-gradient(ellipse at 50% 100%, rgba(168,85,247,0.3), transparent 70%); }
+
+  .ingredients { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 24px; }
+  .ing { background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; padding: 10px 14px; display: flex; align-items: center; gap: 8px; }
+  .ing .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .ing .name { font-size: 12px; color: var(--text2); }
+  .ing .val { font-size: 14px; font-weight: 800; color: var(--gold); }
+  .ing .dot.r { background: var(--red); }
+  .ing .dot.c { background: var(--neon); }
+  .ing .dot.i { background: var(--violet); }
+  .ing .dot.e { background: var(--green); }
+  .ing .dot.s { background: var(--gold); }
+  .ing .dot.a { background: #F472B6; }
+
+  .distill .ready { display: inline-block; background: linear-gradient(135deg, rgba(251,191,36,0.12), rgba(168,85,247,0.08)); border: 1px solid rgba(251,191,36,0.3); border-radius: 14px; padding: 16px 28px; }
+  .distill .ready .big { font-size: 20px; font-weight: 900; color: var(--gold); }
+  .distill .ready .sm { font-size: 12px; color: var(--text2); margin-top: 4px; }
+
+  /* ===== 02 · LA FÓRMULA ===== */
+  .formula-layout { display: flex; justify-content: center; gap: 40px; padding: 40px; flex-wrap: wrap; align-items: flex-start; }
+
+  .formula-card { width: 320px; border-radius: 18px; overflow: hidden; background: var(--bg3); border: 2px solid var(--violet); box-shadow: 0 0 50px rgba(168,85,247,0.25), 0 24px 60px rgba(0,0,0,0.7); position: relative; }
+  .formula-card.leg { border-color: var(--gold); box-shadow: 0 0 50px rgba(251,191,36,0.25), 0 24px 60px rgba(0,0,0,0.7); }
+
+  .formula-card .f-top { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: rgba(0,0,0,0.5); }
+  .formula-card .f-top .flask { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--violet), var(--neon)); display: flex; align-items: center; justify-content: center; font-size: 18px; box-shadow: 0 0 12px rgba(168,85,247,0.4); }
+  .formula-card .f-top .fname { font-size: 17px; font-weight: 900; }
+  .formula-card .f-top .frarity { font-size: 10px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--gold); }
+  .formula-card.leg .f-top .frarity { color: var(--gold); }
+
+  .formula-card .f-art { height: 160px; background: linear-gradient(160deg, #0F172A, #1E1B4B, #4C1D95); position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .formula-card .f-art .emblem { font-size: 64px; filter: drop-shadow(0 0 16px rgba(34,211,238,0.4)); position: relative; z-index: 1; }
+  .formula-card .f-art .glow { position: absolute; inset: 0; background: radial-gradient(circle at 50% 60%, rgba(168,85,247,0.25), transparent 60%); }
+
+  .formula-card .f-elements { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(0,0,0,0.3); }
+  .formula-card .f-el { text-align: center; padding: 10px 6px; background: var(--bg3); }
+  .formula-card .f-el b { display: block; font-size: 18px; color: var(--gold-bright); }
+  .formula-card .f-el span { font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: var(--text3); }
+
+  .formula-card .f-props { padding: 14px; }
+  .formula-card .f-prop { background: rgba(168,85,247,0.06); border: 1px solid rgba(168,85,247,0.2); border-radius: 10px; padding: 10px 12px; margin-bottom: 8px; }
+  .formula-card .f-prop .fp-name { font-size: 9px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--violet); margin-bottom: 4px; }
+  .formula-card .f-prop p { font-size: 12px; line-height: 1.45; }
+  .formula-card .f-lore { font-size: 11px; color: var(--text3); font-style: italic; line-height: 1.5; padding-top: 10px; border-top: 1px dashed var(--border); }
+
+  .formula-card .f-bottom { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: rgba(0,0,0,0.5); }
+  .formula-card .f-bottom .f-pow { color: var(--neon); font-weight: 900; font-size: 14px; }
+  .formula-card .f-bottom .f-uni { color: var(--violet); font-weight: 800; font-size: 11px; }
+
+  /* ===== PANEL LATERAL ===== */
+  .panel { max-width: 380px; }
+  .panel h3 { font-size: 24px; font-weight: 900; margin-bottom: 4px; }
+  .panel .type-tag { display: inline-block; padding: 4px 12px; border-radius: 999px; font-size: 10px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 14px; background: rgba(168,85,247,0.12); color: var(--violet); border: 1px solid rgba(168,85,247,0.35); }
+  .panel .desc { color: var(--text2); line-height: 1.6; font-size: 14px; margin-bottom: 18px; }
+  .panel .desc b { color: var(--gold); }
+
+  .panel .uniqueness { background: linear-gradient(135deg, rgba(168,85,247,0.08), rgba(34,211,238,0.06)); border: 1px solid rgba(168,85,247,0.2); border-radius: 14px; padding: 16px; margin-bottom: 16px; }
+  .panel .uniqueness .u-title { font-size: 12px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--violet); margin-bottom: 6px; }
+  .panel .uniqueness p { font-size: 13px; color: var(--text); line-height: 1.5; }
+  .panel .uniqueness .u-stat { margin-top: 10px; display: flex; gap: 16px; }
+  .panel .uniqueness .u-stat div { text-align: center; }
+  .panel .uniqueness .u-stat .u-val { font-size: 22px; font-weight: 900; color: var(--gold); }
+  .panel .uniqueness .u-stat .u-lbl { font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--text3); }
+
+  .panel .programs { margin-bottom: 18px; }
+  .panel .programs h5 { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text3); margin-bottom: 10px; }
+  .panel .programs .prog-list { display: flex; gap: 8px; flex-wrap: wrap; }
+  .panel .programs .prog { background: rgba(34,211,238,0.06); border: 1px solid rgba(34,211,238,0.2); color: var(--neon); padding: 6px 12px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+
+  .panel .btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: 999px; font-weight: 800; font-size: 15px; border: none; cursor: pointer; margin-bottom: 10px; margin-right: 8px; }
+  .panel .btn.share { background: linear-gradient(135deg, var(--neon), var(--violet)); color: #060B18; box-shadow: 0 8px 30px rgba(34,211,238,0.3); }
+  .panel .btn.red { background: var(--red); color: #fff; box-shadow: 0 8px 30px rgba(213,25,51,0.4); }
+
+  /* ===== 03 · COLECCIÓN ===== */
+  .collection { padding: 40px; }
+  .collection h4 { font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--text2); margin-bottom: 20px; }
+  .coll-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .coll-card { border-radius: 14px; overflow: hidden; background: var(--bg3); border: 1px solid var(--border); position: relative; transition: all 0.2s; }
+  .coll-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,0,0,0.5); }
+  .coll-card.owned { border-color: rgba(168,85,247,0.5); }
+  .coll-card .c-art { height: 100px; background: linear-gradient(160deg, #0F172A, #1E1B4B); display: flex; align-items: center; justify-content: center; font-size: 36px; position: relative; }
+  .coll-card .c-art .c-rarity { position: absolute; top: 8px; right: 8px; font-size: 9px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; padding: 3px 10px; border-radius: 999px; }
+  .coll-card .c-art .c-rarity.leg { background: rgba(251,191,36,0.9); color: #1a1a1a; }
+  .coll-card .c-art .c-rarity.epi { background: rgba(168,85,247,0.9); color: #fff; }
+  .coll-card .c-art .c-rarity.rar { background: rgba(34,211,238,0.9); color: #060B18; }
+  .coll-card .c-art .c-rarity.com { background: rgba(100,116,139,0.9); color: #fff; }
+  .coll-card .c-art .c-owned { position: absolute; top: 8px; left: 8px; font-size: 9px; font-weight: 800; color: var(--green); background: rgba(0,0,0,0.6); padding: 2px 8px; border-radius: 999px; }
+  .coll-card .c-body { padding: 10px 12px; }
+  .coll-card .c-body .c-name { font-size: 13px; font-weight: 800; margin-bottom: 2px; }
+  .coll-card .c-body .c-type { font-size: 10px; color: var(--violet); }
+  .coll-card .c-body .c-desc { font-size: 10px; color: var(--text3); margin-top: 4px; line-height: 1.4; }
+  .coll-card.locked { opacity: 0.4; filter: grayscale(0.6); }
+  .coll-card.locked .c-art::after { content: '?'; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 48px; color: var(--text3); background: rgba(0,0,0,0.5); }
+
+  /* ===== 04 · SHARE CARD ===== */
+  .share-stage { display: flex; justify-content: center; gap: 32px; padding: 40px; flex-wrap: wrap; align-items: flex-start; }
+  .share-card { width: 330px; border-radius: 20px; overflow: hidden; background: var(--bg3); border: 2px solid var(--violet); box-shadow: 0 0 60px rgba(168,85,247,0.2), 0 30px 60px rgba(0,0,0,0.7); }
+  .share-card .sh-top { display: flex; justify-content: space-between; align-items: center; padding: 14px 18px; background: rgba(0,0,0,0.5); }
+  .share-card .sh-top .br { font-size: 14px; font-weight: 900; }
+  .share-card .sh-top .br b { color: var(--neon); }
+  .share-card .sh-top .rar { font-size: 10px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--gold); }
+  .share-card .sh-art { height: 200px; background: linear-gradient(160deg, #0F172A, #1E1B4B, #4C1D95); display: flex; align-items: center; justify-content: center; font-size: 80px; position: relative; }
+  .share-card .sh-art .glow { position: absolute; inset: 0; background: radial-gradient(circle at 50% 55%, rgba(168,85,247,0.25), transparent 65%); }
+  .share-card .sh-body { padding: 18px; text-align: center; }
+  .share-card .sh-body .class-tag { display: inline-block; background: rgba(168,85,247,0.12); border: 1px solid rgba(168,85,247,0.35); color: var(--violet); padding: 4px 12px; border-radius: 999px; font-size: 10px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; }
+  .share-card .sh-body h3 { font-size: 28px; font-weight: 900; margin-bottom: 4px; }
+  .share-card .sh-body .tagline { font-size: 12px; color: var(--text2); margin-bottom: 14px; }
+  .share-card .sh-body .formula-text { font-size: 13px; color: var(--text2); line-height: 1.6; margin-bottom: 14px; }
+  .share-card .sh-body .formula-text b { color: var(--gold); }
+  .share-card .sh-programs { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; margin-bottom: 14px; }
+  .share-card .sh-programs .prog { background: rgba(34,211,238,0.06); border: 1px solid rgba(34,211,238,0.2); color: var(--neon); padding: 4px 10px; border-radius: 999px; font-size: 10px; font-weight: 600; }
+  .share-card .sh-cta { display: block; text-align: center; background: linear-gradient(135deg, var(--neon), var(--violet)); color: #060B18; font-weight: 900; padding: 14px; border-radius: 12px; font-size: 14px; }
+  .share-card .sh-foot { text-align: center; font-size: 10px; color: var(--text3); padding: 14px; opacity: 0.7; }
+
+  .share-info { max-width: 340px; }
+  .share-info h3 { font-size: 20px; font-weight: 900; margin-bottom: 8px; }
+  .share-info p { color: var(--text2); font-size: 13px; line-height: 1.6; margin-bottom: 14px; }
+  .share-info .hint { background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; font-size: 12px; color: var(--gold); margin-bottom: 14px; }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <div class="page-header">
+    <div class="badge">✦ Fórmula personal · Sin competencia</div>
+    <h1>TuFuturo<span class="g">Dual</span></h1>
+    <p class="sub">Cada respuesta es un ingrediente. Tus dimensiones son los elementos. Tu fórmula es <b>únicamente tuya</b> — nadie más en el mundo tiene la misma.</p>
+  </div>
+
+  <!-- ===== 01 · DESTILACIÓN ===== -->
+  <div class="screen">
+    <div class="screen-label"><div class="dot"></div><span>01 · Destilación — tu fórmula se está creando</span></div>
+    <div class="distill">
+      <div class="eyebrow">⚗ Laboratorio de fórmulas</div>
+      <h2>Tu fórmula está <span class="hl">lista</span></h2>
+      <p>Mezclamos tus 25 respuestas en el caldero. Cada dimensión RIASEC es un elemento que se destiló hasta formar algo único.</p>
+      <div class="cauldron">
+        <div class="bowl">
+          <div class="liquid"></div>
+          <div class="bubbles"><span></span><span></span><span></span></div>
+        </div>
+        <div class="glow"></div>
+      </div>
+      <div class="ingredients">
+        <div class="ing"><div class="dot r"></div><span class="name">Realista</span><span class="val">92</span></div>
+        <div class="ing"><div class="dot c"></div><span class="name">Convencional</span><span class="val">78</span></div>
+        <div class="ing"><div class="dot i"></div><span class="name">Investigador</span><span class="val">71</span></div>
+        <div class="ing"><div class="dot e"></div><span class="name">Emprendedor</span><span class="val">45</span></div>
+        <div class="ing"><div class="dot s"></div><span class="name">Social</span><span class="val">38</span></div>
+        <div class="ing"><div class="dot a"></div><span class="name">Artístico</span><span class="val">30</span></div>
+      </div>
+      <div class="ready">
+        <div class="big">Tu fórmula es: Constructor</div>
+        <div class="sm">Tipo: Poción de Construcción · Rareza: Legendaria</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 02 · LA FÓRMULA ===== -->
+  <div class="screen">
+    <div class="screen-label"><div class="dot"></div><span>02 · Tu fórmula — El Constructor</span></div>
+    <div class="formula-layout">
+      <div class="formula-card leg">
+        <div class="f-top">
+          <div class="flask">⚗</div>
+          <div class="fname">Fórmula del Constructor</div>
+          <div class="frarity">✦ Legendaria</div>
+        </div>
+        <div class="f-art">
+          <div class="glow"></div>
+          <div class="emblem">🏗️</div>
+        </div>
+        <div class="f-elements">
+          <div class="f-el"><b>92</b><span>Realista</span></div>
+          <div class="f-el"><b>78</b><span>Convencional</span></div>
+          <div class="f-el"><b>71</b><span>Investigador</span></div>
+        </div>
+        <div class="f-props">
+          <div class="f-prop">
+            <div class="fp-name">⚡ Propiedad: Optimización</div>
+            <p>Convertís procesos complejos en sistemas eficientes. Tu superpoder: encontrar la ruta más corta.</p>
+          </div>
+          <div class="f-lore">"No construye cosas. Construye la forma más inteligente de hacer las cosas."</div>
+        </div>
+        <div class="f-bottom">
+          <span class="f-pow">Poder: 92</span>
+          <span class="f-uni">Combinación única</span>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h3>Fórmula del Constructor</h3>
+        <div class="type-tag">✦ Legendaria · Poción de Construcción</div>
+        <p class="desc">Optimizás todo lo que tocás. Procesos, recursos, tiempo — encontrás la forma más inteligente de hacer las cosas. Tu fórmula es <b>poco común</b>: solo el 3% de los estudiantes crean la misma combinación exacta.</p>
+
+        <div class="uniqueness">
+          <div class="u-title">🔮 Tu rareza</div>
+          <p>Tu combinación RIASEC exacta — R·C·I — es poco común. No es "mejor" ni "peor" que otras fórmulas. Es <b>la tuya</b>.</p>
+          <div class="u-stat">
+            <div><div class="u-val">3%</div><div class="u-lbl">Estudiantes</div></div>
+            <div><div class="u-val">6</div><div class="u-lbl">Elementos</div></div>
+            <div><div class="u-val">1</div><div class="u-lbl">Fórmula</div></div>
+          </div>
+        </div>
+
+        <div class="programs">
+          <h5>Programas afines a tu fórmula</h5>
+          <div class="prog-list">
+            <div class="prog">Ing. Industrial</div>
+            <div class="prog">Admin. Empresas</div>
+            <div class="prog">Contaduría</div>
+            <div class="prog">Ing. Civil</div>
+          </div>
+        </div>
+
+        <button class="btn share">Compartir mi fórmula →</button>
+        <button class="btn red">Descargar para Instagram</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 03 · COLECCIÓN ===== -->
+  <div class="screen">
+    <div class="screen-label"><div class="dot"></div><span>03 · Las 8 fórmulas — cuáles desbloqueaste</span></div>
+    <div class="collection">
+      <h4>Catálogo de fórmulas · tu laboratorio</h4>
+      <div class="coll-grid">
+        <div class="coll-card owned">
+          <div class="c-art">🏗️<span class="c-rarity leg">Legendaria</span><span class="c-owned">✦ TU FÓRMULA</span></div>
+          <div class="c-body">
+            <div class="c-name">Constructor</div>
+            <div class="c-type">Poción de Construcción</div>
+            <div class="c-desc">R · C · I — Optimización y eficiencia</div>
+          </div>
+        </div>
+        <div class="coll-card owned">
+          <div class="c-art">🕵️<span class="c-rarity epi">Épica</span><span class="c-owned">Descubierta</span></div>
+          <div class="c-body">
+            <div class="c-name">Investigador</div>
+            <div class="c-type">Elixir de Análisis</div>
+            <div class="c-desc">I · R · C — Curiosidad y descubrimiento</div>
+          </div>
+        </div>
+        <div class="coll-card owned">
+          <div class="c-art">⚡<span class="c-rarity rar">Rara</span><span class="c-owned">Descubierta</span></div>
+          <div class="c-body">
+            <div class="c-name">Estratega</div>
+            <div class="c-type">Tónico de Dirección</div>
+            <div class="c-desc">E · I · S — Visión y liderazgo</div>
+          </div>
+        </div>
+        <div class="coll-card">
+          <div class="c-art">🎨<span class="c-rarity rar">Rara</span></div>
+          <div class="c-body">
+            <div class="c-name">Creador</div>
+            <div class="c-type">Esencia de Innovación</div>
+            <div class="c-desc">A · S · E — Imaginación y expresión</div>
+          </div>
+        </div>
+        <div class="coll-card">
+          <div class="c-art">🤝<span class="c-rarity com">Común</span></div>
+          <div class="c-body">
+            <div class="c-name">Conector</div>
+            <div class="c-type">Poción de Empatía</div>
+            <div class="c-desc">S · E · A — Relaciones y ayuda</div>
+          </div>
+        </div>
+        <div class="coll-card locked">
+          <div class="c-art"></div>
+          <div class="c-body">
+            <div class="c-name">???</div>
+            <div class="c-type">???</div>
+            <div class="c-desc">Completá el test para descubrir</div>
+          </div>
+        </div>
+        <div class="coll-card locked">
+          <div class="c-art"></div>
+          <div class="c-body">
+            <div class="c-name">???</div>
+            <div class="c-type">???</div>
+            <div class="c-desc">Completá el test para descubrir</div>
+          </div>
+        </div>
+        <div class="coll-card locked">
+          <div class="c-art"></div>
+          <div class="c-body">
+            <div class="c-name">???</div>
+            <div class="c-type">???</div>
+            <div class="c-desc">Completá el test para descubrir</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 04 · SHARE CARD ===== -->
+  <div class="screen">
+    <div class="screen-label"><div class="dot"></div><span>04 · Tu fórmula para compartir</span></div>
+    <div class="share-stage">
+      <div class="share-card">
+        <div class="sh-top">
+          <div class="br">TuFuturo<b>Dual</b></div>
+          <div class="rar">✦ Legendaria</div>
+        </div>
+        <div class="sh-art">
+          <div class="glow"></div>
+          <div>🏗️</div>
+        </div>
+        <div class="sh-body">
+          <div class="class-tag">⚗ Mi fórmula</div>
+          <h3>Constructor</h3>
+          <div class="tagline">R · C · I — Poción de Construcción</div>
+          <div class="formula-text">Optimizo lo que toco. Mi superpoder es <b>encontrar la forma más inteligente</b> de hacer las cosas.</div>
+          <div class="sh-programs">
+            <div class="prog">Ing. Industrial</div>
+            <div class="prog">Admin. Empresas</div>
+            <div class="prog">Contaduría</div>
+          </div>
+          <div class="sh-cta">Descubrí tu fórmula →</div>
+        </div>
+        <div class="sh-foot">Uniempresarial · Modelo Dual</div>
+      </div>
+
+      <div class="share-info">
+        <h3>Tu fórmula para postear</h3>
+        <p>La share card muestra tu fórmula: nombre, tipo de poción, elementos que la componen y programas afines. Sin rankings, sin comparaciones — solo <b>esta es mi fórmula</b>.</p>
+        <div class="hint">⚗ El equipo de diseño crea el arte de cada fórmula. El sistema genera la carta con tus elementos RIASEC reales al completar el test.</div>
+        <button class="btn share">Compartir en Instagram</button>
+        <button class="btn red">Descargar PNG</button>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

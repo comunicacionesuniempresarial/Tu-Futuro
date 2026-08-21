@@ -3,6 +3,7 @@ import { MotionGlobalConfig } from "motion/react";
 import DelegateTestWizard from "./TestWizard";
 import FeatureTestWizard from "@/features/wizard/TestWizard";
 import { useTestStore } from "@/stores/test-store";
+import { QUESTION_BANK } from "@/lib/questions/question-bank";
 
 describe("components/test/TestWizard (delegate)", () => {
   beforeAll(() => {
@@ -52,7 +53,7 @@ describe("components/test/TestWizard (delegate)", () => {
     fireEvent.click(screen.getByRole("button", { name: /Entendido, empezar/ }));
 
     expect(
-      screen.getByText("Una tarde libre y sin planes, ¿qué te atrapa más?")
+      screen.getByText(QUESTION_BANK[0].text)
     ).toBeInTheDocument();
     expect(screen.getByRole("progressbar")).toHaveAttribute(
       "aria-valuenow",

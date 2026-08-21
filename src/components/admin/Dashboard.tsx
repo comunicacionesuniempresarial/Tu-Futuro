@@ -69,7 +69,7 @@ export default function Dashboard() {
         <p className="text-slate-500 mb-6">Error al cargar métricas</p>
         <button
           onClick={() => setReloadKey((k) => k + 1)}
-          className="px-4 py-2 rounded-xl bg-white border border-slate-200 text-slate-600 hover:text-[#0033A5] hover:border-[#0033A5]/40 text-sm transition-all duration-300 shadow-sm"
+          className="px-4 py-2 rounded-xl bg-white border border-slate-200 text-slate-600 hover:text-[#E879F9] hover:border-[#E879F9]/40 text-sm transition-all duration-300 shadow-sm"
         >
           Reintentar
         </button>
@@ -86,8 +86,8 @@ export default function Dashboard() {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
         </svg>
       ),
-      color: "text-[#D51933]",
-      bg: "bg-[#D51933]/10",
+      color: "text-[#22D3EE]",
+      bg: "bg-[#22D3EE]/10",
     },
     {
       label: "Esta semana",
@@ -97,8 +97,8 @@ export default function Dashboard() {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
         </svg>
       ),
-      color: "text-[#0033A5]",
-      bg: "bg-[#0033A5]/10",
+      color: "text-[#E879F9]",
+      bg: "bg-[#E879F9]/10",
     },
     {
       label: "Este mes",
@@ -120,7 +120,7 @@ export default function Dashboard() {
         {cards.map((card) => (
           <div
             key={card.label}
-            className="bg-white border border-slate-200/70 rounded-2xl p-6 shadow-sm hover:border-[#0033A5]/30 transition-all duration-300"
+            className="bg-white border border-slate-200/70 rounded-2xl p-6 shadow-sm hover:border-[#E879F9]/30 transition-all duration-300"
           >
             <div className="flex items-center justify-between">
               <div>
@@ -161,14 +161,14 @@ export default function Dashboard() {
                   color: "#0f172a",
                 }}
               />
-              <Bar dataKey="count" fill="#D51933" radius={[6, 6, 0, 0]} />
+              <Bar dataKey="count" fill="#22D3EE" radius={[6, 6, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         ) : (
           <div className="text-center py-12 text-slate-500">
-            <div className="w-14 h-14 mx-auto mb-4 rounded-2xl bg-[#0033A5]/10 flex items-center justify-center">
+            <div className="w-14 h-14 mx-auto mb-4 rounded-2xl bg-[#E879F9]/10 flex items-center justify-center">
               <svg
-                className="w-7 h-7 text-[#0033A5]"
+                className="w-7 h-7 text-[#E879F9]"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"

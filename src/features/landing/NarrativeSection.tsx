@@ -6,7 +6,6 @@ import { useScrollReveal } from "@/features/shared/hooks/useScrollReveal";
 
 interface NarrativeSectionProps {
   id: string;
-  eyebrow: string;
   title: string;
   children: ReactNode;
 }
@@ -17,7 +16,7 @@ interface NarrativeSectionProps {
  * IntersectionObserver. Under `prefers-reduced-motion` it renders revealed
  * immediately.
  */
-export default function NarrativeSection({ id, eyebrow, title, children }: NarrativeSectionProps) {
+export default function NarrativeSection({ id, title, children }: NarrativeSectionProps) {
   const reducedMotion = useReducedMotion();
   const [ref, isVisible] = useScrollReveal<HTMLElement>({ threshold: 0.12 });
   const revealed = reducedMotion || isVisible;
@@ -33,9 +32,6 @@ export default function NarrativeSection({ id, eyebrow, title, children }: Narra
       }`}
     >
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6">
-        <span className="text-sm font-semibold uppercase tracking-widest text-[var(--color-neon-primary)]">
-          {eyebrow}
-        </span>
         <h2
           id={`${id}-heading`}
           className="font-heading mt-4 max-w-2xl text-4xl font-extrabold tracking-tight lg:text-5xl"

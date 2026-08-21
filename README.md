@@ -2,7 +2,7 @@
 
 Plataforma de orientación vocacional para la Fundación Universitaria
 Empresarial de la Cámara de Comercio de Bogotá (Uniempresarial). El
-estudiante completa un test de 25 preguntas basado en el modelo RIASEC
+estudiante completa un test de 15 preguntas basado en el modelo RIASEC
 y obtiene una recomendación personalizada de carrera y modalidad
 (presencial / virtual) dentro del Modelo Dual.
 
@@ -24,7 +24,7 @@ y obtiene una recomendación personalizada de carrera y modalidad
 src/
   app/
     page.tsx              # Landing
-    test/page.tsx         # Test vocacional (25 preguntas en 4 capas)
+    test/page.tsx         # Test vocacional (15 preguntas en 3 capas)
     resultados/page.tsx   # Resultados (arquetipo, RIASEC, top 3, ranking)
     admin/
       page.tsx            # Dashboard (métricas)
@@ -42,7 +42,7 @@ src/
     schemas.ts            # Zod: LeadPayloadSchema, LeadFormSchema, etc.
     programs.ts           # Catálogo de 7 carreras (presencial + virtual)
     scoring/              # Algoritmos de scoring (RIASEC, aptitudes, valores)
-    questions/            # Banco de 25 preguntas
+    questions/            # Banco de 15 preguntas
   components/
     test/TestWizard.tsx   # Orquestador del test
     lead/LeadFormStep.tsx # Captura de datos del lead (form unificado)

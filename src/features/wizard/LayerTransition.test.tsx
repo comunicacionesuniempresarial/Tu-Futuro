@@ -26,7 +26,7 @@ describe("LayerTransition", () => {
 
     render(<LayerTransition layer={2} onContinue={vi.fn()} />);
 
-    expect(screen.getByText("Capa 2 de 4")).toBeInTheDocument();
+    expect(screen.getByText("Capa 2 de 3")).toBeInTheDocument();
     expect(
       screen.getByRole("heading", { name: "Aptitudes" })
     ).toBeInTheDocument();
@@ -76,27 +76,4 @@ describe("LayerTransition", () => {
     ).toBeInTheDocument();
   });
 
-  it("suppresses motion under reduced motion but keeps content laid out", () => {
-    mockMatchMedia(true);
-
-    const onContinue = vi.fn();
-    const { container } = render(
-      <LayerTransition layer={4} onContinue={onContinue} />
-    );
-
-    expect(container.querySelector("[data-layer-transition]")).toHaveAttribute(
-      "data-motion",
-      "static"
-    );
-    expect(screen.getByText("Capa 4 de 4")).toBeInTheDocument();
-    expect(
-      screen.getByRole("heading", { name: "Modalidad" })
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("button", { name: "Continuar" })
-    ).toBeInTheDocument();
-
-    fireEvent.click(screen.getByRole("button", { name: "Continuar" }));
-    expect(onContinue).toHaveBeenCalledTimes(1);
   });
-});

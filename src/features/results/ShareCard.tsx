@@ -44,21 +44,21 @@ export function ShareCard({ data, layout = "default" }: ShareCardProps) {
   return (
     <div data-share-card="true" data-layout={layout}>
       <div
-        className="share-card-preview"
+        className="share-card-preview relative overflow-hidden rounded-2xl border border-[var(--color-neon-primary)]/30 bg-[var(--color-deep)] p-2 shadow-[0_0_32px_color-mix(in_srgb,var(--color-neon-primary)_12%,transparent)]"
         style={{ aspectRatio: `${size.width} / ${size.height}` }}
       >
-        <div dangerouslySetInnerHTML={{ __html: svg }} />
+        <div className="overflow-hidden rounded-xl" dangerouslySetInnerHTML={{ __html: svg }} />
       </div>
       <button
         type="button"
         onClick={handleShare}
         disabled={status === "sharing"}
-        className="share-card-button"
+        className="share-card-button card-glow mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[linear-gradient(135deg,var(--color-neon-primary),var(--color-neon-secondary))] px-6 py-3.5 font-bold text-[var(--color-deep)] transition-transform duration-150 hover:scale-[1.02] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60"
       >
-        {status === "sharing" ? "Generando…" : "Compartir mi resultado"}
+        {status === "sharing" ? "Generando…" : "Invocar a otros (Compartir)"}
       </button>
       {status === "error" && (
-        <p role="alert" className="share-card-error">
+        <p role="alert" className="share-card-error mt-3 text-sm text-[var(--color-error)]">
           No se pudo compartir tu resultado. Probá de nuevo.
         </p>
       )}

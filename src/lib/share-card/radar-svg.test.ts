@@ -114,7 +114,7 @@ describe("renderRadarSVG", () => {
     const svg = renderRadarSVG({ profile: sampleProfile });
 
     expect(svg).toContain("<polygon");
-    expect(svg).toContain('fill="#D51933"');
+    expect(svg).toContain('fill="#22D3EE"');
   });
 
   it("adds a dashed program overlay polygon when a program profile is provided", () => {
@@ -126,7 +126,7 @@ describe("renderRadarSVG", () => {
     const polygons = svg.match(/<polygon/g);
     expect(polygons).toHaveLength(2);
     expect(svg).toContain("stroke-dasharray");
-    expect(svg).toContain('stroke="#0033A5"');
+    expect(svg).toContain('stroke="#E879F9"');
   });
 
   it("keeps the student profile visible under the overlay", () => {

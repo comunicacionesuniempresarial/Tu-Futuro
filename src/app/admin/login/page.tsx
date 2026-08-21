@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -12,12 +12,8 @@ import Link from "next/link";
  */
 function useTypewriter(phrases: string[], active: boolean) {
   const [text, setText] = useState("");
-  const phrasesRef = useRef(phrases);
-  phrasesRef.current = phrases;
-
   useEffect(() => {
     if (!active) {
-      setText("");
       return;
     }
     let pIdx = 0;
@@ -26,7 +22,7 @@ function useTypewriter(phrases: string[], active: boolean) {
     let timer: ReturnType<typeof setTimeout>;
 
     const tick = () => {
-      const phrase = phrasesRef.current[pIdx] ?? "";
+      const phrase = phrases[pIdx] ?? "";
       if (!deleting) {
         cIdx += 1;
         setText(phrase.slice(0, cIdx));
@@ -43,7 +39,7 @@ function useTypewriter(phrases: string[], active: boolean) {
         setText(phrase.slice(0, cIdx));
         if (cIdx <= 0) {
           deleting = false;
-          pIdx = (pIdx + 1) % phrasesRef.current.length;
+          pIdx = (pIdx + 1) % phrases.length;
           timer = setTimeout(tick, 450);
           return;
         }
@@ -53,7 +49,7 @@ function useTypewriter(phrases: string[], active: boolean) {
 
     timer = setTimeout(tick, 250);
     return () => clearTimeout(timer);
-  }, [active]);
+  }, [active, phrases]);
 
   return text;
 }
@@ -113,14 +109,14 @@ export default function AdminLoginPage() {
     <div className="min-h-screen bg-gradient-to-br from-[#FFF3F0] via-white to-[#E8EEFF] flex items-center justify-center px-4 relative overflow-hidden">
       {/* Blobs de marca */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute -top-32 -left-32 w-[480px] h-[480px] rounded-full bg-[#D51933]/10 blur-[120px]" />
-        <div className="absolute bottom-0 -right-40 w-[520px] h-[520px] rounded-full bg-[#0033A5]/15 blur-[130px]" />
+        <div className="absolute -top-32 -left-32 w-[480px] h-[480px] rounded-full bg-[#22D3EE]/10 blur-[120px]" />
+        <div className="absolute bottom-0 -right-40 w-[520px] h-[520px] rounded-full bg-[#E879F9]/15 blur-[130px]" />
       </div>
       <div className="w-full max-w-sm space-y-8 animate-fade-in relative z-10">
         {/* Logo */}
         <div className="text-center">
           <Link href="/" className="inline-flex items-center gap-3 mb-6">
-            <div className="w-14 h-14 bg-gradient-to-br from-[#D51933] to-[#0033A5] rounded-2xl flex items-center justify-center font-bold text-xl text-white shadow-lg shadow-[#D51933]/25">
+            <div className="w-14 h-14 bg-gradient-to-br from-[#22D3EE] to-[#E879F9] rounded-2xl flex items-center justify-center font-bold text-xl text-white shadow-lg shadow-[#22D3EE]/25">
               UF
             </div>
           </Link>
@@ -143,7 +139,7 @@ export default function AdminLoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full p-4 rounded-xl bg-white border-2 border-slate-200 text-slate-900 placeholder-slate-400 focus:border-[#D51933] focus:outline-none transition-colors"
+                className="w-full p-4 rounded-xl bg-white border-2 border-slate-200 text-slate-900 placeholder-slate-400 focus:border-[#22D3EE] focus:outline-none transition-colors"
                 placeholder={emailPlaceholder}
               />
             </div>
@@ -158,7 +154,7 @@ export default function AdminLoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full p-4 rounded-xl bg-white border-2 border-slate-200 text-slate-900 placeholder-slate-400 focus:border-[#D51933] focus:outline-none transition-colors"
+                className="w-full p-4 rounded-xl bg-white border-2 border-slate-200 text-slate-900 placeholder-slate-400 focus:border-[#22D3EE] focus:outline-none transition-colors"
                 placeholder={passwordPlaceholder}
               />
             </div>
@@ -175,7 +171,7 @@ export default function AdminLoginPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full py-4 rounded-xl font-bold bg-gradient-to-r from-[#D51933] to-[#0033A5] text-white shadow-lg shadow-[#D51933]/25 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full py-4 rounded-xl font-bold bg-gradient-to-r from-[#22D3EE] to-[#E879F9] text-white shadow-lg shadow-[#22D3EE]/25 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? "Iniciando sesión..." : "Iniciar sesión"}
             </button>
@@ -183,7 +179,7 @@ export default function AdminLoginPage() {
         </div>
 
         <div className="text-center">
-          <Link href="/" className="text-sm text-slate-400 hover:text-[#0033A5] transition-colors">
+          <Link href="/" className="text-sm text-slate-400 hover:text-[#E879F9] transition-colors">
             ← Volver al sitio
           </Link>
         </div>

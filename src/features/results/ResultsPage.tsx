@@ -7,21 +7,21 @@ import { getProgramById } from "@/lib/programs";
 import { cosineSimilarity } from "@/lib/scoring/riasec";
 import { ARCHETYPES } from "@/lib/scoring/archetypes";
 import { getProgramProfile } from "@/lib/scoring/programs-matrix";
+import { useReducedMotion } from "@/features/shared/hooks/useReducedMotion";
 import {
   RADAR_AXIS_ORDER,
   RADAR_DIMENSION_LABELS,
 } from "@/lib/share-card/radar-svg";
 import type {
   Archetype,
-  ModalityResult,
   RIASECProfile,
   ScoringResult,
 } from "@/lib/scoring/types";
 import BrandHeader from "@/features/landing/BrandHeader";
+import { Footer } from "@/components/shared/Footer";
 import { ConfettiTrigger } from "./ConfettiTrigger";
 import { ArchetypeCard } from "./ArchetypeCard";
 import { RadarChart } from "./RadarChart";
-import { ModalityCard } from "./ModalityCard";
 import { ProgramCard } from "./ProgramCard";
 import { GapAnalysis } from "./GapAnalysis";
 import { RankingFull } from "./RankingFull";
@@ -30,7 +30,6 @@ import type { ShareCardData } from "@/lib/share-card/generate";
 
 export interface ResultsData {
   riasecProfile: RIASECProfile;
-  modalityResult: ModalityResult;
   archetype: Archetype;
   aptitudeVec: number[];
   valuesVec: number[];
@@ -51,34 +50,24 @@ const LAYOUT_OPTIONS: { layout: ShareCardLayout; label: string }[] = [
  */
 export function ResultsPage({ data }: { data: ResultsData }) {
   const { resetTest } = useTestStore();
+  const prefersReduced = useReducedMotion();
   const [selectedProgramId, setSelectedProgramId] = useState<string | null>(
     null
   );
   const [layout, setLayout] = useState<ShareCardLayout>("default");
 
-  const recommendation = data.modalityResult.recommendation;
-  const confidence = data.modalityResult.confidence;
-
+  // Show all programs deduped (no modality filter)
   const filteredResults = useMemo(() => {
-    const dedupedLowResults = (() => {
-      const byBase = new Map<string, ScoringResult>();
-      for (const result of data.rankedResults) {
-        const baseId = result.programId.replace(/-virtual$/, "");
-        const existing = byBase.get(baseId);
-        if (!existing || result.overallScore > existing.overallScore) {
-          byBase.set(baseId, result);
-        }
+    const byBase = new Map<string, ScoringResult>();
+    for (const result of data.rankedResults) {
+      const baseId = result.programId.replace(/-virtual$/, "");
+      const existing = byBase.get(baseId);
+      if (!existing || result.overallScore > existing.overallScore) {
+        byBase.set(baseId, result);
       }
-      return [...byBase.values()];
-    })();
-
-    return confidence === "low"
-      ? dedupedLowResults
-      : data.rankedResults.filter((result) => {
-          const program = getProgramById(result.programId);
-          return program?.modality === recommendation;
-        });
-  }, [data, recommendation, confidence]);
+    }
+    return [...byBase.values()];
+  }, [data]);
 
   const top3 = filteredResults.slice(0, 3);
   const top3Programs = top3.map((result) => ({
@@ -115,9 +104,6 @@ export function ResultsPage({ data }: { data: ResultsData }) {
     .sort((a, b) => b.value - a.value)
     .slice(0, 3);
 
-  const modalityLabel =
-    recommendation === "presencial" ? "Presencial" : "Virtual";
-
   const selectedProfile = selectedProgramId
     ? getProgramProfile(selectedProgramId)?.riasec
     : undefined;
@@ -128,7 +114,7 @@ export function ResultsPage({ data }: { data: ResultsData }) {
         id: data.archetype.id,
         name: data.archetype.name,
         emoji: data.archetype.emoji,
-        color: "#D51933",
+        color: "var(--color-gold-dim)",
       },
       riasecProfile: data.riasecProfile,
       topPrograms: top3Programs.map(({ program }) => ({
@@ -140,88 +126,147 @@ export function ResultsPage({ data }: { data: ResultsData }) {
   );
 
   return (
-    <div data-theme="dark" className="min-h-screen bg-[#050505] text-white">
+    <div data-theme="dark" className="min-h-screen bg-[var(--color-bg)] text-[var(--color-text-primary)] relative overflow-hidden">
+      {/* Ambient Canvas */}
+      <div aria-hidden="true" className="ambient-bg" />
+      <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
+        <div className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full bg-[var(--color-neon-primary)]/5 blur-[140px]" />
+        <div className="absolute top-1/3 -right-40 w-[540px] h-[540px] rounded-full bg-[var(--color-neon-secondary)]/8 blur-[150px]" />
+        <div className="absolute bottom-10 left-1/3 w-[460px] h-[460px] rounded-full bg-[var(--color-primary-container)]/8 blur-[130px]" />
+      </div>
+
       <ConfettiTrigger />
       <BrandHeader />
 
-      <main className="relative z-10 mx-auto max-w-4xl space-y-12 px-4 pt-10 pb-16">
-        {/* Hero result */}
-        <div className="relative space-y-5 text-center">
-          <h1 className="text-3xl font-extrabold tracking-tight lg:text-5xl">
-            <span className="bg-gradient-to-r from-[#D51933] to-[#0033A5] bg-clip-text text-transparent">
-              Tu resultado
+      <main className="relative z-10 mx-auto max-w-5xl px-4 pt-24 pb-16 space-y-10">
+
+        {/* ── HERO: full-width title ── */}
+        <div
+          className={`relative space-y-4 text-center ${
+            prefersReduced ? "" : "animate-fade-in"
+          }`}
+        >
+          <span className="inline-flex items-center gap-2 rounded-full border border-[var(--color-neon-primary)]/40 bg-[var(--color-surface)]/60 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-[var(--color-neon-primary)]">
+            ✦ El códice ha hablado
+          </span>
+          <h1 className="font-display text-4xl font-bold tracking-tight lg:text-6xl">
+            <span className="text-[var(--color-neon-primary)] drop-shadow-[0_0_24px_color-mix(in_srgb,var(--color-neon-primary)_40%,transparent)]">
+              Tu Destino Revelado
             </span>
           </h1>
-          <p className="text-lg text-neutral-400">
-            Descubriste tu arquetipo:{" "}
-            <span className="font-bold text-white">{data.archetype.name}</span>
+          <p className="text-lg text-[var(--color-text-secondary)]">
+            Tu arquetipo mítico:{" "}
+            <span className="font-bold text-[var(--color-text-primary)]">{data.archetype.name}</span>
           </p>
-          <div className="flex items-center justify-center gap-2">
-            <span className="text-neutral-500">Modalidad recomendada:</span>
-            <span
-              data-accent="neon"
-              className="rounded-full border border-[#D51933]/40 bg-[#D51933]/10 px-3 py-1 text-sm font-bold text-[#D51933]"
-            >
-              {modalityLabel}
-            </span>
-          </div>
         </div>
 
-        <ArchetypeCard
-          archetype={data.archetype}
-          affinity={affinity}
-          relatedArchetypes={relatedArchetypes}
-          topDimensions={topDimensions}
-        />
-
-        <div className="space-y-3">
-          <h3 className="flex items-center gap-3 text-2xl font-black text-white">
-            Tu perfil RIASEC
-          </h3>
-          <RadarChart
-            profile={data.riasecProfile}
-            programProfile={selectedProfile}
+        {/* ── ARCHETYPE CARD: full-width, image as background ── */}
+        <div
+          className={prefersReduced ? "" : "animate-persona-pop"}
+          style={prefersReduced ? undefined : { animationDelay: "100ms" }}
+        >
+          <ArchetypeCard
+            archetype={data.archetype}
+            affinity={affinity}
+            relatedArchetypes={relatedArchetypes}
+            topDimensions={topDimensions}
           />
         </div>
 
-        <ModalityCard modality={data.modalityResult} />
+        {/* ── RADAR: Tu Sello de Poder — below the archetype ── */}
+        <div
+          className={`glass-panel rounded-3xl border border-[var(--color-border)] p-6 md:p-8 ${
+            prefersReduced ? "" : "animate-slide-up"
+          }`}
+          style={prefersReduced ? undefined : { animationDelay: "200ms" }}
+        >
+          <div className="text-center mb-6">
+            <h2 className="font-display text-2xl font-bold text-[var(--color-neon-primary)]">
+              Tu Sello de Poder
+            </h2>
+            <p className="mt-1 text-sm text-[var(--color-text-secondary)]">
+              Tu perfil RIASEC — la firma única de tu mente
+            </p>
+          </div>
+          <RadarChart
+            profile={data.riasecProfile}
+            programProfile={selectedProfile}
+            className="rounded-full border-[var(--color-neon-primary)]/40 mx-auto"
+          />
+        </div>
 
-        <div className="space-y-5">
-          <h3 className="text-2xl font-black text-white">Tus 3 carreras ideales</h3>
-          <p className="text-sm leading-relaxed text-neutral-400">
-            Ordenamos los programas por afinidad con tu personalidad, tus
-            aptitudes y tu estilo de vida. El primero es tu mejor coincidencia.
-            Tocá una carrera para ver su requisito sobre tu radar.
-          </p>
-          <div className="space-y-3">
+        {/* ── TU MANO INICIAL: top 3 programs ── */}
+        <div
+          className={`space-y-6 ${prefersReduced ? "" : "animate-slide-up"}`}
+          style={prefersReduced ? undefined : { animationDelay: "300ms" }}
+        >
+          <div className="text-center">
+            <h2 className="font-display text-3xl font-black text-[var(--color-neon-primary)]">
+              Tu Mano Inicial
+            </h2>
+            <p className="mt-2 text-sm leading-relaxed text-[var(--color-text-secondary)] max-w-xl mx-auto">
+              Ordenamos los programas por afinidad con tu personalidad, tus
+              aptitudes y tu estilo de vida. La primera carta es tu mejor
+              coincidencia. Tocá una carrera para ver su requisito sobre tu
+              radar.
+            </p>
+          </div>
+          <div className="flex flex-col items-center gap-4 md:flex-row md:items-end md:justify-center md:gap-0 md:-space-x-8 lg:-space-x-12">
             {top3Programs.map((result, index) => (
-              <ProgramCard
+              <div
                 key={result.programId}
-                program={result.program}
-                result={result}
-                rank={index + 1}
-                isExpanded
-                modalityRecommendation={
-                  confidence === "low" ? undefined : recommendation
+                className={`relative ${
+                  index === 0 ? "md:z-30" : index === 1 ? "md:z-20" : "md:z-10"
+                } ${
+                  index === 0
+                    ? "md:order-2"
+                    : index === 1
+                      ? "md:order-1 md:rotate-[-6deg] md:origin-bottom-right"
+                      : "md:order-3 md:rotate-[6deg] md:origin-bottom-left"
+                }`}
+                style={
+                  prefersReduced
+                    ? undefined
+                    : { animationDelay: `${350 + index * 80}ms` }
                 }
-                onClick={(program) =>
-                  setSelectedProgramId((current) =>
-                    current === program.id ? null : program.id
-                  )
-                }
-              />
+              >
+                <ProgramCard
+                  program={result.program}
+                  result={result}
+                  rank={index + 1}
+                  isExpanded={index === 0}
+                  modalityRecommendation={undefined}
+                  onClick={(program) =>
+                    setSelectedProgramId((current) =>
+                      current === program.id ? null : program.id
+                    )
+                  }
+                />
+              </div>
             ))}
           </div>
         </div>
 
-        <GapAnalysis
-          riasecProfile={data.riasecProfile}
-          topProgramIds={top3.map((result) => result.programId)}
-        />
+        {/* ── GAP ANALYSIS ── */}
+        <div
+          className={prefersReduced ? "" : "animate-slide-up"}
+          style={prefersReduced ? undefined : { animationDelay: "400ms" }}
+        >
+          <GapAnalysis
+            riasecProfile={data.riasecProfile}
+            topProgramIds={top3.map((result) => result.programId)}
+          />
+        </div>
 
-        <div className="space-y-4">
+        {/* ── SHARE CARD ── */}
+        <div
+          className={`space-y-4 ${prefersReduced ? "" : "animate-slide-up"}`}
+          style={prefersReduced ? undefined : { animationDelay: "450ms" }}
+        >
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <h3 className="text-2xl font-black text-white">Compartí tu resultado</h3>
+            <h2 className="font-display text-xl font-bold text-[var(--color-text-primary)]">
+              Compartí tu resultado
+            </h2>
             <div className="flex gap-2" aria-label="Formato de la tarjeta">
               {LAYOUT_OPTIONS.map((option) => (
                 <button
@@ -229,7 +274,7 @@ export function ResultsPage({ data }: { data: ResultsData }) {
                   type="button"
                   onClick={() => setLayout(option.layout)}
                   aria-pressed={layout === option.layout}
-                  className="rounded-full border border-white/10 bg-white/[0.03] px-4 py-1.5 text-xs font-bold text-neutral-300 transition-colors hover:border-[#D51933]/40 hover:text-white"
+                  className="rounded-full border border-[var(--color-border)] bg-[var(--color-surface)]/60 px-4 py-1.5 text-xs font-bold text-[var(--color-text-secondary)] transition-colors hover:border-[var(--color-neon-primary)]/50 hover:text-[var(--color-neon-primary)]"
                 >
                   {option.label}
                 </button>
@@ -239,36 +284,117 @@ export function ResultsPage({ data }: { data: ResultsData }) {
           <ShareCard data={shareData} layout={layout} />
         </div>
 
-        <RankingFull
-          results={filteredResults}
-          modalityRecommendation={
-            confidence === "low" ? undefined : recommendation
-          }
-        />
-
-        <div className="flex flex-col items-center justify-center gap-4 pt-2 sm:flex-row">
-          <Link
-            href="/test"
-            onClick={resetTest}
-            className="inline-flex items-center gap-3 rounded-2xl bg-gradient-to-r from-[#D51933] to-[#0033A5] px-8 py-4 text-lg font-bold text-white shadow-lg shadow-[#D51933]/25 transition-all duration-300 hover:scale-105"
-          >
-            Repetir el test
-          </Link>
-          <Link
-            href="/"
-            className="inline-flex items-center gap-3 rounded-2xl border border-white/15 px-8 py-4 text-lg font-bold text-neutral-300 transition-all duration-300 hover:border-[#0033A5] hover:text-white"
-          >
-            Volver al inicio
-          </Link>
+        {/* ── FULL RANKING ── */}
+        <div
+          className={prefersReduced ? "" : "animate-slide-up"}
+          style={prefersReduced ? undefined : { animationDelay: "500ms" }}
+        >
+          <RankingFull
+            results={filteredResults}
+            modalityRecommendation={undefined}
+          />
         </div>
 
-        <div className="pt-4 pb-8 text-center text-xs text-neutral-500">
-          <p>
-            Los resultados son una guía basada en auto-percepción y no
-            constituyen un diagnóstico psicológico certificado.
-          </p>
+        {/* ── ACTIONS ── */}
+        <div
+          className={`grid grid-cols-1 gap-6 lg:grid-cols-2 ${
+            prefersReduced ? "" : "animate-slide-up"
+          }`}
+          style={prefersReduced ? undefined : { animationDelay: "550ms" }}
+        >
+          {/* Invoca tu Cupo */}
+          <div className="space-y-4 glass-panel rounded-2xl border border-[var(--color-neon-secondary)]/30 p-6">
+            <h3 className="font-display text-lg font-bold text-[var(--color-neon-secondary)]">
+              Invoca tu Cupo
+            </h3>
+            <p className="text-sm text-[var(--color-text-secondary)]">
+              Dejá tus datos y te contactamos para asegurar tu lugar en la carrera.
+            </p>
+            <div className="space-y-3">
+              <div>
+                <label className="block text-sm font-semibold text-[var(--color-text-muted)] mb-1">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  placeholder="tu@email.com"
+                  className="w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-deep)]/50 px-4 py-3 text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] focus:border-[var(--color-neon-primary)] focus:outline-none focus:ring-1 focus:ring-[var(--color-neon-primary)]/50 transition-colors"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-semibold text-[var(--color-text-muted)] mb-1">
+                  Carrera
+                </label>
+                <div className="w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-deep)]/30 px-4 py-3 text-[var(--color-text-secondary)]">
+                  {top3Programs.length > 0 ? top3Programs[0].program.name : "—"}
+                </div>
+              </div>
+              <div>
+                <label className="block text-sm font-semibold text-[var(--color-text-muted)] mb-1">
+                  Teléfono
+                </label>
+                <input
+                  type="tel"
+                  placeholder="3XX XXX XXXX"
+                  className="w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-deep)]/50 px-4 py-3 text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] focus:border-[var(--color-neon-primary)] focus:outline-none focus:ring-1 focus:ring-[var(--color-neon-primary)]/50 transition-colors"
+                />
+              </div>
+            </div>
+            <button
+              type="button"
+              className="w-full rounded-2xl bg-[var(--color-neon-primary)] px-6 py-3.5 text-lg font-bold text-[var(--color-deep)] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_24px_color-mix(in_srgb,var(--color-neon-primary)_40%,transparent)]"
+            >
+              Invocar ✦
+            </button>
+          </div>
+
+          {/* Navigation actions */}
+          <div className="space-y-4 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)]/80 p-6">
+            <div className="space-y-3">
+              <button
+                type="button"
+                className="w-full inline-flex items-center justify-center gap-3 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)]/60 px-6 py-4 text-base font-bold text-[var(--color-text-secondary)] transition-all duration-300 hover:border-[var(--color-neon-primary)] hover:text-[var(--color-neon-primary)]"
+              >
+                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="7 10 12 15 17 10" />
+                  <line x1="12" y1="15" x2="12" y2="3" />
+                </svg>
+                Descargar resultados
+              </button>
+              <button
+                type="button"
+                className="w-full inline-flex items-center justify-center gap-3 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)]/60 px-6 py-4 text-base font-bold text-[var(--color-text-secondary)] transition-all duration-300 hover:border-[var(--color-neon-primary)] hover:text-[var(--color-neon-primary)]"
+              >
+                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="18" cy="5" r="3" />
+                  <circle cx="6" cy="12" r="3" />
+                  <circle cx="18" cy="19" r="3" />
+                  <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+                  <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+                </svg>
+                Compartir con un amigo
+              </button>
+              <Link
+                href="/test"
+                onClick={resetTest}
+                className="card-glow inline-flex w-full items-center justify-center gap-3 rounded-2xl bg-[linear-gradient(135deg,var(--color-neon-primary),var(--color-neon-secondary))] px-6 py-4 text-base font-bold text-[var(--color-deep)] transition-all duration-300 hover:scale-[1.02]"
+              >
+                Repetir el test
+              </Link>
+              <Link
+                href="/"
+                className="inline-flex w-full items-center justify-center gap-3 rounded-2xl border border-[var(--color-border)] px-6 py-4 text-base font-bold text-[var(--color-text-secondary)] transition-all duration-300 hover:border-[var(--color-neon-primary)] hover:text-[var(--color-neon-primary)]"
+              >
+                Volver al inicio
+              </Link>
+            </div>
+          </div>
         </div>
+
       </main>
+
+      <Footer disclaimer="Los resultados son una gu&#237;a basada en auto-percepci&#243;n y no constituyen un diagn&#243;stico psicol&#243;gico certificado." />
     </div>
   );
 }

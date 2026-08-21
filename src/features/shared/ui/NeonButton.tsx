@@ -42,7 +42,7 @@ export default function NeonButton({
     [href, onClick]
   );
 
-  const sharedClasses = `inline-flex items-center justify-center gap-2 rounded-xl px-7 py-3.5 font-bold text-white transition-transform duration-150 will-change-transform data-[pressed=true]:scale-[0.97] bg-[linear-gradient(135deg,var(--color-neon-primary),var(--color-neon-secondary))] shadow-[0_0_24px_color-mix(in_srgb,var(--color-neon-primary)_35%,transparent)] hover:shadow-[0_0_32px_color-mix(in_srgb,var(--color-neon-primary)_55%,transparent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-neon-primary)] ${className}`;
+  const sharedClasses = `inline-flex items-center justify-center gap-2 rounded-xl px-7 py-3.5 font-bold text-[var(--color-deep)] transition-transform duration-150 will-change-transform data-[pressed=true]:scale-[0.97] bg-[linear-gradient(135deg,var(--color-neon-primary),var(--color-neon-secondary))] shadow-[0_0_24px_color-mix(in_srgb,var(--color-neon-primary)_35%,transparent)] hover:shadow-[0_0_32px_color-mix(in_srgb,var(--color-neon-primary)_55%,transparent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-neon-primary)] ${className}`;
 
   const dataProps = {
     "data-pressed": pressed,

@@ -45,4 +45,24 @@ describe("ProgramCard", () => {
 
     expect(screen.getByText(/recomendado: presencial/i)).toBeInTheDocument();
   });
+
+  it("renders the program image when provided", () => {
+    const programWithImage = { ...program, image: "/images/programs/software.webp" };
+    render(
+      <ProgramCard program={programWithImage} result={result} rank={1} />
+    );
+
+    const img = screen.getByRole("img", { name: programWithImage.name });
+    expect(img).toHaveAttribute("src", "/images/programs/software.webp");
+    expect(img).toHaveAttribute("loading", "lazy");
+  });
+
+  it("does not render an image when image is not provided", () => {
+    const programNoImage = { ...program, image: undefined };
+    const { container } = render(
+      <ProgramCard program={programNoImage} result={result} rank={1} />
+    );
+
+    expect(screen.queryByRole("img")).not.toBeInTheDocument();
+  });
 });

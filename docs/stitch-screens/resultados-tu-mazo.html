@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TuFuturoDual - Resultados</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline": "#938ea2",
+                    "inverse-surface": "#e2e1f1",
+                    "primary-container": "#7042f8",
+                    "on-secondary-fixed": "#221b00",
+                    "surface-dim": "#12131d",
+                    "secondary-container": "#ffdb3c",
+                    "on-tertiary": "#003732",
+                    "secondary-fixed": "#ffe16d",
+                    "tertiary-fixed": "#61f9e9",
+                    "on-primary-fixed": "#1e0060",
+                    "inverse-primary": "#6533ed",
+                    "on-tertiary-fixed-variant": "#005049",
+                    "on-primary-fixed-variant": "#4c00d3",
+                    "tertiary": "#3adccc",
+                    "surface-container-highest": "#333440",
+                    "primary-fixed": "#e7deff",
+                    "secondary-fixed-dim": "#e9c400",
+                    "on-error-container": "#ffdad6",
+                    "surface-variant": "#333440",
+                    "on-tertiary-fixed": "#00201d",
+                    "on-background": "#e2e1f1",
+                    "on-secondary-fixed-variant": "#544600",
+                    "background": "#12131d",
+                    "on-secondary-container": "#725f00",
+                    "surface-container-low": "#1a1b26",
+                    "error-container": "#93000a",
+                    "on-surface-variant": "#cac3d9",
+                    "secondary": "#fff9ef",
+                    "on-primary": "#350097",
+                    "surface-tint": "#ccbeff",
+                    "inverse-on-surface": "#2f303b",
+                    "surface-bright": "#383844",
+                    "on-tertiary-container": "#77ffef",
+                    "tertiary-fixed-dim": "#3adccc",
+                    "primary": "#ccbeff",
+                    "surface-container": "#1e1f2a",
+                    "on-primary-container": "#eee6ff",
+                    "tertiary-container": "#00766d",
+                    "surface-container-lowest": "#0c0d18",
+                    "surface": "#12131d",
+                    "on-secondary": "#3a3000",
+                    "outline-variant": "#484456",
+                    "error": "#ffb4ab",
+                    "on-error": "#690005",
+                    "primary-fixed-dim": "#ccbeff",
+                    "surface-container-high": "#282935",
+                    "on-surface": "#e2e1f1"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-mobile": "16px",
+                    "card-gap": "16px",
+                    "unit": "8px",
+                    "gutter": "24px",
+                    "margin-desktop": "64px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["EB Garamond"],
+                    "body-rg": ["Plus Jakarta Sans"],
+                    "headline-lg-mobile": ["EB Garamond"],
+                    "display-hero": ["EB Garamond"],
+                    "title-md": ["Plus Jakarta Sans"],
+                    "label-caps": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "body-rg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "display-hero": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined[data-weight="fill"] {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        /* Foil Shimmer Effect */
+        .card-foil {
+            position: relative;
+            overflow: hidden;
+        }
+        .card-foil::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.1) 40%,
+                rgba(233, 196, 0, 0.4) 50%,
+                rgba(255, 255, 255, 0.1) 60%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: rotate(45deg) translate(-100%, -100%);
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+            z-index: 10;
+        }
+        .group:hover .card-foil::after, .card-foil:hover::after {
+            transform: rotate(45deg) translate(100%, 100%);
+        }
+
+        /* Ambient Magical Float */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(2deg); }
+        }
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        /* Particle Float */
+        @keyframes particleUp {
+            0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-20vh) scale(1.2); opacity: 0; }
+        }
+        .particle {
+            position: fixed;
+            background: rgba(233, 196, 0, 0.6);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: particleUp 15s linear infinite;
+            z-index: 0;
+            box-shadow: 0 0 10px rgba(233, 196, 0, 0.8);
+        }
+
+        /* Custom Scrollbar for form */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
+        ::-webkit-scrollbar-thumb { background: rgba(233, 196, 0, 0.5); border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen font-body-rg text-body-rg antialiased relative overflow-x-hidden">
+<!-- Global Background -->
+<div class="fixed inset-0 z-0 bg-cover bg-center transition-opacity duration-1000" data-alt="A breathtaking sunset over a vast, lush valley painted in a rich, tactile Ghibli-inspired watercolor style. The sky is ablaze with deep oranges, purples, and gold. Ethereal, glowing geometric particles and faintly shimmering ancient runes drift through the air like magical pollen. The scene is majestic, mysterious, and deeply atmospheric, setting a tone of high-stakes destiny." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD0f8kM9F472K7_0ptI4JJSyU2HJ7q32GWSHl1fpTtxDD73K6fpi4dt2adTetGG5neN_NPiYK-rMz52Frd__gLAfdsYEix_xb0QWCy4gQmrHoMS_vxqBN_OCA1eO2gjlcYznggY26j8QME3cwzlz8ILSs57LBSrjne2UY8echCVsloG3tiB5_zzQTXguPktTG8wfq-tLJJGPPvDWy5rfOqsHtEq6xO1uOAb1kJ9nxARvi0h3ysF7-0')">
+<div class="absolute inset-0 bg-surface-dim/80 backdrop-blur-sm"></div>
+</div>
+<!-- Particles Generator (Vanilla JS) -->
+<script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const container = document.body;
+            for(let i=0; i<15; i++) {
+                let p = document.createElement('div');
+                p.className = 'particle';
+                p.style.left = Math.random() * 100 + 'vw';
+                p.style.width = Math.random() * 6 + 2 + 'px';
+                p.style.height = p.style.width;
+                p.style.animationDuration = Math.random() * 10 + 10 + 's';
+                p.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(p);
+            }
+        });
+    </script>
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-desktop py-4 max-w-full border-b border-secondary-fixed/30 bg-surface-container-low/90 backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.4)]">
+<div class="font-headline-lg text-headline-lg font-bold text-secondary-fixed-dim drop-shadow-[0_0_8px_rgba(233,196,0,0.5)]">TuFuturoDual</div>
+<div class="hidden md:flex gap-gutter items-center">
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-300 hover:bg-primary-container/20 hover:text-primary-fixed-dim transition-all duration-300 px-3 py-2 rounded-md" href="#">El Duelo</a>
+<a class="text-secondary-fixed-dim border-b-2 border-secondary-fixed-dim pb-1 font-bold scale-95 duration-150 ease-out" href="#">Tu Mazo</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-300 hover:bg-primary-container/20 hover:text-primary-fixed-dim transition-all duration-300 px-3 py-2 rounded-md" href="#">La Academia</a>
+</div>
+<div class="flex gap-4">
+<button class="text-primary dark:text-primary-fixed hover:bg-primary-container/20 p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+<button class="text-primary dark:text-primary-fixed hover:bg-primary-container/20 p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="relative z-10 pt-[120px] pb-margin-desktop px-margin-mobile md:px-margin-desktop max-w-7xl mx-auto flex flex-col gap-12">
+<!-- Header -->
+<header class="text-center space-y-4 animate-float">
+<h1 class="font-display-hero text-display-hero text-secondary-fixed drop-shadow-[0_0_15px_rgba(255,225,109,0.4)]">Tu Destino Revelado</h1>
+<p class="font-title-md text-title-md text-on-surface-variant max-w-2xl mx-auto">El códice ha hablado. Has sido invocado a tomar el manto de una nueva era.</p>
+</header>
+<!-- The Arena: Main Archetype & Stats -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center">
+<!-- Left: Stats (Radar Chart Seal) -->
+<div class="lg:col-span-4 flex justify-center lg:justify-end order-2 lg:order-1">
+<div class="relative w-64 h-64 md:w-80 md:h-80 rounded-full bg-surface-container-low/40 border border-secondary-fixed/20 backdrop-blur-xl shadow-[0_0_40px_rgba(0,0,0,0.6)] flex items-center justify-center p-4">
+<!-- Placeholder for Radar Chart Graphic -->
+<div class="w-full h-full rounded-full bg-cover bg-center mix-blend-screen opacity-80" data-alt="A glowing, intricate magical seal styled as a power level radar chart. The design features geometric concentric circles in bright teal and gold against a dark, cosmic background. Runes and nodes on the chart glow brightly, representing attributes like intellect, agility, and power in a mystical, high-contrast aesthetic reminiscent of an ancient grimoire interface." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD37f1BDbv7FRwxEVYsNR1SOg8NA0Kp3RomDo2_4laN4-OAjmUs_CHYmPvS_JEz9ZOpm3fhQ9wA8D3HJPaQdkkOfkG7Q1jf_UypSYTm9JOWrCtPQ2UXZ2H0WvIXCpxfU_sLfbUT3tbgNCWs3Q-KEqc-YyTKaYlRaUHhDsE4yymVzFPbyhWsuvkQQSXFfdBiJBXXULiyDhpxQaGARDOSl8C__pbwjHEBLfI_6qXiwg6Loea1IRplMlw')">
+</div>
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<span class="font-headline-lg text-headline-lg text-secondary-fixed opacity-50 drop-shadow-md">Sello de Poder</span>
+</div>
+</div>
+</div>
+<!-- Center: Majestic Archetype Card -->
+<div class="lg:col-span-4 flex justify-center order-1 lg:order-2 z-20">
+<div class="group relative w-full max-w-[340px] aspect-[2/3] rounded-xl bg-surface-container-highest border-2 border-secondary-fixed-dim shadow-[0_0_30px_rgba(233,196,0,0.4)] card-foil transition-transform duration-500 hover:scale-105 cursor-pointer flex flex-col overflow-hidden">
+<!-- Card Image -->
+<div class="h-3/5 w-full bg-cover bg-top" data-alt="A majestic, high-fantasy portrait of 'El Mago de las Finanzas'. A figure cloaked in elegant, structured garments weaving glowing golden coins and holographic data streams through the air. The art style blends tactile, painted Ghibli warmth with sharp, brutalist technological accents. The lighting is dramatic, focusing on the character's focused expression against a dark, mystical library backdrop." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDGg8p0WialINq0Iz7nFc9YDd08MDvQC9mbdtHO0KrjbppjfXWOe-rNUgyH9DbZaBO1kcASFNyQ9426X988fOiid6DPXBJB6O54ez8mWTUYva9RvElckNsXq5H7HG4fvfH9wWYWjOoivwdgq2Hlsk-tkznLctKSqn2cqdha1XajXJkU7ihqooysJiIFNmoY_cpM6BFcHdQJxeRoQnzrbka6c5606wi0NounwH8f2x8dRC0Rp-lybl0')">
+</div>
+<!-- Card Content -->
+<div class="flex-1 p-6 bg-gradient-to-t from-surface-dim via-surface-container-highest to-transparent relative flex flex-col justify-end">
+<div class="absolute top-0 left-0 w-full h-[1px] bg-secondary-fixed-dim/50"></div>
+<div class="flex items-center gap-2 mb-2">
+<span class="inline-flex items-center px-2 py-1 rounded-full bg-tertiary-container/30 border border-tertiary/50 text-tertiary font-label-caps text-label-caps">
+<span class="material-symbols-outlined text-[14px] mr-1" data-icon="auto_awesome">auto_awesome</span>
+                                Arquetipo Mítico
+                            </span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-secondary-fixed leading-tight mb-2">El Mago de las Finanzas</h2>
+<p class="font-body-rg text-body-rg text-on-surface-variant text-sm line-clamp-3">Dominador de los mercados y tejedor de fortunas. Tu visión estratégica altera el flujo del oro y el código.</p>
+</div>
+</div>
+</div>
+<!-- Right: Modality Trap Card -->
+<div class="lg:col-span-4 flex justify-center lg:justify-start order-3">
+<div class="group w-full max-w-[280px] bg-surface-container-low/80 backdrop-blur-md border border-primary-fixed/30 rounded-lg p-6 shadow-xl card-foil hover:-translate-y-2 transition-transform duration-300">
+<div class="flex justify-between items-start mb-4">
+<span class="font-label-caps text-label-caps text-primary-fixed tracking-wider">Carta de Modalidad</span>
+<span class="material-symbols-outlined text-primary text-2xl" data-icon="vpn_lock">vpn_lock</span>
+</div>
+<h3 class="font-title-md text-title-md text-inverse-surface mb-1">Presencial</h3>
+<p class="font-body-rg text-body-rg text-outline text-sm mb-6">El combate se libra en el terreno físico. Sinergia directa con aliados.</p>
+<!-- Confidence Meter -->
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-label-caps text-label-caps text-on-surface-variant">
+<span>Afinidad</span>
+<span class="text-secondary-fixed">92%</span>
+</div>
+<div class="w-full h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary to-secondary-container w-[92%] shadow-[0_0_10px_rgba(255,219,60,0.5)]"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Spread of Destiny: Top 3 Careers -->
+<section class="mt-12 space-y-8">
+<div class="text-center">
+<h3 class="font-headline-lg text-headline-lg text-inverse-surface">Tu Mano Inicial</h3>
+<p class="font-body-rg text-body-rg text-outline">Las carreras duales con mayor resonancia para ti.</p>
+</div>
+<!-- Fan Layout for Cards -->
+<div class="flex flex-col md:flex-row justify-center items-center gap-6 md:-space-x-12 pt-8 pb-12 overflow-hidden px-4">
+<!-- Card 1 -->
+<div class="relative w-64 h-96 bg-surface-container border border-outline-variant rounded-xl p-4 shadow-2xl md:rotate-[-8deg] md:translate-y-4 hover:rotate-0 hover:translate-y-0 hover:z-30 transition-all duration-300 card-foil group bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]">
+<div class="h-32 bg-surface-dim rounded-lg mb-4 flex items-center justify-center border border-secondary/10 bg-cover bg-center" data-alt="A magical, glowing icon of a golden abacus floating inside a crystalline sphere. The style is detailed, mystical, and painted with Ghibli-like warmth against a dark, cosmic background, representing a career in Accounting." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCxY-6DDOP0g856HW3ovgHPMIuBFjUkVUNk3PXVO1sJnnpon4pbSaRPbadeEn3eax7N7Vzq3S_u8wdwcW1seQXhSBQ9kRTBKfolC_5i5BUJcyGgcUYEzVJLz-d_EDBNRhQfzbp8DPKJiRiVT-92iOcKez9cLfOCtCM2HWU8FlOAfwo8KU3VqWcbjCAMlYOvjnqhc3DXHqvferOyTW4KRLRY1yc9c9RmcF3l0zURFKz5nKiIkHya8bQ')"></div>
+<div class="font-label-caps text-label-caps text-tertiary mb-1">Épica</div>
+<h4 class="font-title-md text-title-md text-on-surface mb-2 leading-tight">Finanzas y Contabilidad</h4>
+<p class="text-sm text-on-surface-variant line-clamp-3">Controla los recursos del reino. Domina las leyes del intercambio y la prosperidad.</p>
+<div class="absolute bottom-4 right-4 text-secondary-fixed font-bold text-xl drop-shadow-md">I</div>
+</div>
+<!-- Card 2 (Center, slightly elevated) -->
+<div class="relative w-64 h-96 bg-surface-container-high border-2 border-primary/50 rounded-xl p-4 shadow-[0_10px_30px_rgba(112,66,248,0.3)] z-20 hover:scale-105 transition-all duration-300 card-foil group bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]">
+<div class="h-32 bg-surface-dim rounded-lg mb-4 flex items-center justify-center border border-primary/30 bg-cover bg-center" data-alt="A glowing holographic shield and ancient runes forming a complex software architecture diagram. The aesthetic blends high-tech cybersecurity with ancient magic, illuminated by bright purple and teal light." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCtRJo8HUsVFLZDdD5vMwwqcshOEnHa8cUPn_haiBBlyfcqu3RLuus1DCRewuEbgTL4es8dRIEE1rpLgRqgKi5z-tmwv_D1EzFFGJz9H6hSxbVy7JabEvpMi-hEUkML5C-E8PjNbsAaRv57yWQOzylfNkKE4lB60sR60wF19JViP_f6HrG_k0L4JllCTFIigPAdOI5aWC2OtfwAfBMv3oNyDPYVY3POjPP1X0MXV4gprlay8DfNZo4')"></div>
+<div class="font-label-caps text-label-caps text-primary-fixed mb-1">Legendaria</div>
+<h4 class="font-title-md text-title-md text-primary-fixed-dim mb-2 leading-tight">Ingeniería de Software</h4>
+<p class="text-sm text-on-surface-variant line-clamp-3">Forja las herramientas del mañana. Escribe los hechizos que moverán el mundo digital.</p>
+<div class="absolute bottom-4 right-4 text-primary-fixed-dim font-bold text-xl drop-shadow-md">II</div>
+</div>
+<!-- Card 3 -->
+<div class="relative w-64 h-96 bg-surface-container border border-outline-variant rounded-xl p-4 shadow-2xl md:rotate-[8deg] md:translate-y-4 hover:rotate-0 hover:translate-y-0 hover:z-30 transition-all duration-300 card-foil group bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]">
+<div class="h-32 bg-surface-dim rounded-lg mb-4 flex items-center justify-center border border-secondary/10 bg-cover bg-center" data-alt="A stylized, glowing geometric map of trade routes interlinked by beams of light. The art represents global business administration, depicted as a magical strategic war table with golden and teal accents." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuArj146LvaaZoxM89YjchOvkdMCLz15OPW_u5MffzV9EX3rTmxLX1wX3GXkzW-Be0rN_pSqTKHouhaQCbWbZoJ0dx2jiupv181L91JuOlFdAZAJKAgeCwCd961a1nxGj1gM64iTaV3Z5iKixp1h1NztgyjWvJyavI3WYWjtF5QN1YYuh8yQYf6ruiEQnYl_8E29dUN5OkN9JEiHTSaIKvG2pOsEyHzPyziCYahukRpaM0cMrudPHNs')"></div>
+<div class="font-label-caps text-label-caps text-tertiary mb-1">Épica</div>
+<h4 class="font-title-md text-title-md text-on-surface mb-2 leading-tight">Administración Global</h4>
+<p class="text-sm text-on-surface-variant line-clamp-3">Lidera clanes enteros hacia la victoria económica. Tu estrategia define el futuro.</p>
+<div class="absolute bottom-4 right-4 text-secondary-fixed font-bold text-xl drop-shadow-md">III</div>
+</div>
+</div>
+</section>
+<!-- Lead Form & Actions -->
+<section class="max-w-4xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-gutter mt-8">
+<!-- Form: Sella tu Contrato -->
+<div class="bg-surface-container-low/90 backdrop-blur-2xl border border-secondary-fixed/20 rounded-xl p-8 relative overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
+<!-- Parchment texture overlay -->
+<div class="absolute inset-0 opacity-10 pointer-events-none mix-blend-overlay bg-[url('https://www.transparenttextures.com/patterns/parchment.png')]"></div>
+<h3 class="font-headline-lg text-headline-lg text-secondary-fixed mb-2 flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="edit_document">edit_document</span>
+                    Sella tu Contrato
+                </h3>
+<p class="font-body-rg text-body-rg text-on-surface-variant mb-6 text-sm">Reclama tu destino. Introduce tus datos para recibir el grimorio completo de tu carrera.</p>
+<form class="space-y-4 relative z-10">
+<div>
+<label class="block font-label-caps text-label-caps text-outline mb-1" for="name">Nombre de Invocador</label>
+<input class="w-full bg-surface-dim/50 border-b border-outline-variant focus:border-tertiary focus:ring-0 text-inverse-surface placeholder-outline-variant transition-colors rounded-t-md px-4 py-2" id="name" placeholder="Ej. Arturo" type="text"/>
+</div>
+<div>
+<label class="block font-label-caps text-label-caps text-outline mb-1" for="email">Orbe de Comunicación (Email)</label>
+<input class="w-full bg-surface-dim/50 border-b border-outline-variant focus:border-tertiary focus:ring-0 text-inverse-surface placeholder-outline-variant transition-colors rounded-t-md px-4 py-2" id="email" placeholder="correo@dominio.com" type="email"/>
+</div>
+<button class="w-full mt-6 bg-secondary-container hover:bg-secondary-fixed text-on-secondary-container font-title-md text-title-md py-3 rounded-lg shadow-[0_0_15px_rgba(255,219,60,0.3)] hover:shadow-[0_0_25px_rgba(255,219,60,0.6)] transition-all duration-300 card-foil text-center flex justify-center items-center gap-2" type="button">
+<span>Reclamar Destino</span>
+<span class="material-symbols-outlined" data-icon="send">send</span>
+</button>
+</form>
+</div>
+<!-- Share Actions -->
+<div class="flex flex-col justify-center gap-6 p-6">
+<div class="text-center md:text-left">
+<h3 class="font-title-md text-title-md text-inverse-surface mb-2">¿Listo para el duelo?</h3>
+<p class="font-body-rg text-body-rg text-outline">Comparte tu arquetipo y desafía a otros a descubrir el suyo.</p>
+</div>
+<button class="flex items-center justify-center gap-3 w-full bg-primary-container/20 hover:bg-primary-container/40 border border-primary/50 text-primary-fixed-dim font-title-md text-title-md py-4 rounded-lg transition-all duration-300 group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform" data-icon="share">share</span>
+                    Invocar a otros (Compartir)
+                </button>
+<button class="flex items-center justify-center gap-3 w-full bg-transparent hover:bg-surface-container border border-outline-variant text-on-surface font-title-md text-title-md py-4 rounded-lg transition-all duration-300">
+<span class="material-symbols-outlined" data-icon="download">download</span>
+                    Descargar Carta
+                </button>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-gutter px-margin-desktop flex flex-col items-center gap-unit mt-auto bg-surface-container-lowest dark:bg-surface-container-lowest bg-[url('https://www.transparenttextures.com/patterns/parchment.png')] border-t border-secondary-fixed/20 flat no shadows relative z-10">
+<div class="font-headline-lg text-headline-lg text-secondary-fixed mb-4">TuFuturoDual</div>
+<div class="flex gap-6 mb-4">
+<a class="text-outline hover:text-tertiary hover:opacity-80 transition-opacity hover:translate-y-[-2px] transition-transform font-label-caps text-label-caps" href="#">Privacidad</a>
+<a class="text-outline hover:text-tertiary hover:opacity-80 transition-opacity hover:translate-y-[-2px] transition-transform font-label-caps text-label-caps" href="#">Términos</a>
+<a class="text-outline hover:text-tertiary hover:opacity-80 transition-opacity hover:translate-y-[-2px] transition-transform font-label-caps text-label-caps" href="#">Hechizos</a>
+</div>
+<p class="text-tertiary dark:text-tertiary-fixed font-label-caps text-label-caps opacity-70">© 2024 TuFuturoDual - El Códice de Destinos</p>
+</footer>
+</body></html>

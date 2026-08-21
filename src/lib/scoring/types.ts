@@ -88,6 +88,8 @@ export interface Question {
   text: string;
   /** Option labels in Spanish (Colombiano). */
   options: string[];
+  /** Optional fantasy-themed images for each option (index-matched to options). */
+  images?: string[];
   /**
    * Per-dimension weights for each option. Only present for Layer 1
    * questions where RIASEC scoring applies.

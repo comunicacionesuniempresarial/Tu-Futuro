@@ -1,0 +1,162 @@
+{
+  "schema_version": "0.4.0",
+  "generated_at": "2026-08-18T20:20:34.739Z",
+  "source": "current-brand",
+  "brand": {
+    "client_name": "TuFuturoDual",
+    "website_url": null
+  },
+  "evidence": {
+    "pages_sampled": 0,
+    "screenshots_analyzed": 0,
+    "page_types": [],
+    "viewports": [],
+    "computed_elements": 0,
+    "css_custom_properties": 0
+  },
+  "colors": {
+    "brand": [
+      {
+        "role": "primary",
+        "name": "primary",
+        "value": "#22d3ee",
+        "confidence": "high",
+        "provenance": [
+          "manual"
+        ]
+      }
+    ],
+    "semantic": [],
+    "additional": [],
+    "dark": [],
+    "mood": {
+      "temperature": "cool",
+      "contrast": "medium",
+      "brightness": "mixed"
+    }
+  },
+  "typography": {
+    "families": [
+      {
+        "family": "Display: Sora / Space Grotesk (extrabold, tracking-tight). Body: Inter (16-18px). Eyebrow labels: small-caps, tracking-widest, cian, 12px.",
+        "role": "ui",
+        "character": "neo-grotesk sans",
+        "confidence": "high",
+        "evidence_count": 0
+      }
+    ],
+    "scale": [],
+    "character": [
+      "neo-grotesk sans"
+    ]
+  },
+  "shape": {
+    "radius_scale": [],
+    "corner_style": "sharp",
+    "values": [],
+    "dominant_style": "sharp"
+  },
+  "depth": {
+    "shadow_scale": [],
+    "elevation_style": "flat",
+    "shadows": []
+  },
+  "spacing": {
+    "base_unit": null,
+    "scale": [],
+    "common_values": [],
+    "component_spacing": [],
+    "section_spacing": [],
+    "confidence": "low"
+  },
+  "layout": {
+    "content_width": null,
+    "density": "balanced",
+    "grid_feel": "modular responsive grid"
+  },
+  "components": {
+    "button": {
+      "count": 0,
+      "dominant_fill": null,
+      "dominant_text": null,
+      "dominant_radius": null,
+      "dominant_shadow": null,
+      "notes": [
+        "No representative instances observed in the evidence bundle"
+      ]
+    },
+    "card": {
+      "count": 0,
+      "dominant_fill": null,
+      "dominant_text": null,
+      "dominant_radius": null,
+      "dominant_shadow": null,
+      "notes": [
+        "No representative instances observed in the evidence bundle"
+      ]
+    },
+    "input": {
+      "count": 0,
+      "dominant_fill": null,
+      "dominant_text": null,
+      "dominant_radius": null,
+      "dominant_shadow": null,
+      "notes": [
+        "No representative instances observed in the evidence bundle"
+      ]
+    },
+    "navigation": {
+      "count": 0,
+      "dominant_fill": null,
+      "dominant_text": null,
+      "dominant_radius": null,
+      "dominant_shadow": null,
+      "notes": [
+        "No representative instances observed in the evidence bundle"
+      ]
+    },
+    "badge": {
+      "count": 0,
+      "dominant_fill": null,
+      "dominant_text": null,
+      "dominant_radius": null,
+      "dominant_shadow": null,
+      "notes": [
+        "No representative instances observed in the evidence bundle"
+      ]
+    },
+    "variants": {
+      "buttons": [],
+      "inputs": [],
+      "badges": []
+    }
+  },
+  "motion": {
+    "tone": "Keep motion quick, restrained, and product-like.",
+    "duration_tokens": [],
+    "easing_tokens": []
+  },
+  "personality": {
+    "adjectives": [
+      "confident",
+      "calm",
+      "composed"
+    ],
+    "tone": "confident, calm, composed",
+    "warmth": "cool",
+    "precision": "precise",
+    "positioning": "balanced",
+    "rationale": [
+      "Color temperature reads as cool with medium contrast.",
+      "Corners feel sharp and elevation feels flat.",
+      "Layout density trends balanced, which pushes the system toward a balanced reading."
+    ]
+  },
+  "ambiguities": [
+    "No extraction-evidence.json was available, so component and layout guidance was inferred from the current brand state only.",
+    "No reliable radius scale was detected from the rendered evidence.",
+    "No reusable shadow scale was detected; the brand may be intentionally flat or the crawl missed deeper component states.",
+    "Content width could not be inferred from CSS variables or computed styles.",
+    "Typography hierarchy looks shallow — heading/body/UI roles may collapse to a single family."
+  ]
+}

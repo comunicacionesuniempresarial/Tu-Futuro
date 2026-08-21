@@ -6,6 +6,7 @@ export interface Program {
   description: string;
   whyDualModel: string;
   displayOrder: number;
+  image?: string;
 }
 
 export const programs: Program[] = [
@@ -19,6 +20,7 @@ export const programs: Program[] = [
     whyDualModel:
       "En el Modelo Dual trabajas en empresas de tecnología reales desde el primer semestre. Aplicas lo que aprendes en clase en proyectos con clientes verdaderos, construyendo un portafolio profesional antes de graduarte.",
     displayOrder: 1,
+    image: "/images/programs/software.webp",
   },
   {
     id: "negocios-turisticos",
@@ -30,6 +32,7 @@ export const programs: Program[] = [
     whyDualModel:
       "El Modelo Dual te inserta en hoteles, resorts y agencias de turismo reales. Gestionas operaciones, atiendes clientes y aprendes el negocio desde adentro, con mentores que viven la industria cada día.",
     displayOrder: 2,
+    image: "/images/programs/turismo.webp",
   },
   {
     id: "admin-empresas",
@@ -41,6 +44,7 @@ export const programs: Program[] = [
     whyDualModel:
       "En el Modelo Dual rotas por departamentos reales: finanzas, mercadeo, talento humano y operaciones. Cada rotación es un semestre de experiencia empresarial que nadie más tiene al graduarse.",
     displayOrder: 3,
+    image: "/images/programs/admin.webp",
   },
   {
     id: "negocios-internacionales",
@@ -52,6 +56,7 @@ export const programs: Program[] = [
     whyDualModel:
       "El Modelo Dual te conecta con empresas que exportan e importan. Negocias con proveedores internacionales, manejas documentación aduanera y vives el comercio global en carne propia.",
     displayOrder: 4,
+    image: "/images/programs/internacionales.webp",
   },
   {
     id: "finanzas",
@@ -63,6 +68,7 @@ export const programs: Program[] = [
     whyDualModel:
       "En el Modelo Dual trabajas en bancos, fintechs y empresas de comercio exterior. Analizas portafolios reales, gestiones financieras y aprendes regulación con profesionales del sector.",
     displayOrder: 5,
+    image: "/images/programs/finanzas.webp",
   },
   {
     id: "ing-industrial",
@@ -74,6 +80,7 @@ export const programs: Program[] = [
     whyDualModel:
       "El Modelo Dual te lleva a plantas de producción y centros logísticos reales. Diseñas flujos, implementas mejoras y mides resultados con datos reales, no simulaciones.",
     displayOrder: 6,
+    image: "/images/programs/industrial.webp",
   },
   {
     id: "marketing",
@@ -85,6 +92,7 @@ export const programs: Program[] = [
     whyDualModel:
       "En el Modelo Dual gestionas campañas reales para empresas reales. Creas contenido, analizas métricas y construyes estrategias de marketing que generan resultados medibles desde el primer día.",
     displayOrder: 7,
+    image: "/images/programs/marketing.webp",
   },
   {
     id: "ing-software-virtual",
@@ -96,6 +104,7 @@ export const programs: Program[] = [
     whyDualModel:
       "El Modelo Dual virtual te conecta con empresas de tecnología de forma remota. Trabajas en equipos distribuidos, usas herramientas de colaboración digital y construyes tu carrera sin límites geográficos.",
     displayOrder: 8,
+    image: "/images/programs/software.webp",
   },
   {
     id: "admin-empresas-virtual",
@@ -107,6 +116,7 @@ export const programs: Program[] = [
     whyDualModel:
       "En el Modelo Dual virtual gestionas proyectos empresariales reales de forma remota. Aprendes liderazgo digital, herramientas de gestión y tomas de decisiones con impacto real.",
     displayOrder: 9,
+    image: "/images/programs/admin.webp",
   },
   {
     id: "negocios-turisticos-virtual",
@@ -118,6 +128,7 @@ export const programs: Program[] = [
     whyDualModel:
       "El Modelo Dual virtual te inserta en empresas turísticas que operan digitalmente. Gestiones reservas, diseñas experiencias y aprendes el negocio del turismo desde cualquier punto del país.",
     displayOrder: 10,
+    image: "/images/programs/turismo.webp",
   },
   {
     id: "ing-industrial-virtual",
@@ -129,6 +140,7 @@ export const programs: Program[] = [
     whyDualModel:
       "En el Modelo Dual virtual trabajas con empresas que digitalizan sus procesos productivos. Analizas datos reales, optimizas flujos y implementas mejoras con impacto tangible.",
     displayOrder: 11,
+    image: "/images/programs/industrial.webp",
   },
   {
     id: "marketing-virtual",
@@ -140,6 +152,7 @@ export const programs: Program[] = [
     whyDualModel:
       "En el Modelo Dual virtual gestionas campañas digitales reales para empresas. Creas contenido, analizas métricas y construyes estrategias que generan tráfico y ventas desde el primer día.",
     displayOrder: 12,
+    image: "/images/programs/marketing.webp",
   },
 ];
 

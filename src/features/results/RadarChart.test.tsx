@@ -37,7 +37,7 @@ describe("RadarChart", () => {
     const polygons = container.querySelectorAll("polygon");
     expect(polygons).toHaveLength(2);
     expect(polygons[1]).toHaveAttribute("stroke-dasharray");
-    expect(polygons[1]).toHaveAttribute("stroke", "#0033A5");
+    expect(polygons[1]).toHaveAttribute("stroke", "#E879F9");
   });
 
   it("uses the dark theme container", () => {

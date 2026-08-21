@@ -73,7 +73,7 @@ export default function Header({ audioButton }: { audioButton?: ReactNode }) {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-sm font-medium text-[#0a0a0a] hover:text-[#0033A5] transition-colors py-2"
+                className="text-sm font-medium text-[#0a0a0a] hover:text-[#E879F9] transition-colors py-2"
               >
                 {link.label}
               </Link>
@@ -94,7 +94,7 @@ export default function Header({ audioButton }: { audioButton?: ReactNode }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={social.label}
-                className="text-slate-600 hover:text-[#D51933] transition-colors p-2"
+                className="text-slate-600 hover:text-[#22D3EE] transition-colors p-2"
               >
                 {social.icon}
               </a>
@@ -126,7 +126,7 @@ export default function Header({ audioButton }: { audioButton?: ReactNode }) {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-base font-medium text-[#0a0a0a] hover:text-[#0033A5] transition-colors py-2.5"
+                className="text-base font-medium text-[#0a0a0a] hover:text-[#E879F9] transition-colors py-2.5"
                 onClick={() => setMobileOpen(false)}
               >
                 {link.label}
@@ -141,7 +141,7 @@ export default function Header({ audioButton }: { audioButton?: ReactNode }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={social.label}
-                className="text-slate-600 hover:text-[#D51933] transition-colors p-1.5"
+                className="text-slate-600 hover:text-[#22D3EE] transition-colors p-1.5"
               >
                 {social.icon}
               </a>

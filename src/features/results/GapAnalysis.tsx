@@ -50,9 +50,9 @@ export function GapAnalysis({
   return (
     <div
       data-theme="dark"
-      className="rounded-3xl border border-white/10 bg-[#0a0a0a] p-8 space-y-4"
+      className="rounded-3xl border border-[var(--color-border)]/70 bg-[var(--color-surface)]/70 p-8 space-y-4 backdrop-blur-sm"
     >
-      <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-500">
+      <h3 className="text-sm font-bold uppercase tracking-wider text-[var(--color-text-muted)]">
         Qué te falta potenciar
       </h3>
       {gaps.map((programGap) => (
@@ -60,13 +60,13 @@ export function GapAnalysis({
           key={programGap.programId}
           className="flex items-center justify-between gap-3"
         >
-          <span className="text-sm font-semibold text-neutral-200">
+          <span className="text-sm font-semibold text-[var(--color-text-primary)]">
             {programGap.programName}
           </span>
           <span
             data-gap={programGap.gap.toFixed(2)}
             data-accent="neon"
-            className="rounded-lg bg-[#D51933]/10 px-3 py-1 text-sm font-extrabold text-[#D51933]"
+            className="rounded-lg bg-[var(--color-neon-primary)]/10 border border-[var(--color-neon-primary)]/30 px-3 py-1 text-sm font-extrabold text-[var(--color-neon-primary)]"
           >
             {Math.round(programGap.gap * 100)}%
           </span>

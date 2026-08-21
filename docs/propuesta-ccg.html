@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Propuesta CCG Desafiante — TuFuturoDual</title>
+<style>
+  :root {
+    --bg: #060B18;
+    --bg2: #0D1526;
+    --bg3: #131E35;
+    --neon: #22D3EE;
+    --violet: #A855F7;
+    --gold: #FBBF24;
+    --gold-bright: #FCD34D;
+    --red: #D51933;
+    --red-bright: #EF4444;
+    --green: #4ADE80;
+    --text: #F1F5F9;
+    --text2: #94A3B8;
+    --text3: #64748B;
+    --border: rgba(34,211,238,0.2);
+    --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: var(--font); background: var(--bg); color: var(--text); }
+
+  .page { max-width: 1100px; margin: 0 auto; padding: 48px 24px; }
+  .page-header { text-align: center; margin-bottom: 48px; }
+  .page-header h1 { font-size: 44px; font-weight: 900; letter-spacing: -1.5px; margin-bottom: 8px; }
+  .page-header h1 .g { background: linear-gradient(135deg, var(--neon), var(--violet)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .page-header .sub { color: var(--text2); font-size: 15px; max-width: 600px; margin: 0 auto; line-height: 1.6; }
+  .page-header .sub b { color: var(--gold); }
+
+  .tag { display: inline-block; padding: 6px 16px; border-radius: 999px; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 20px; }
+  .tag.fire { background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.5); color: var(--red-bright); }
+  .tag.legend { background: rgba(251,191,36,0.12); border: 1px solid rgba(251,191,36,0.4); color: var(--gold); }
+
+  .screen { background: var(--bg2); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; margin-bottom: 48px; box-shadow: 0 24px 80px rgba(0,0,0,0.6); }
+  .screen-label { display: flex; align-items: center; gap: 10px; padding: 12px 20px; background: rgba(0,0,0,0.4); border-bottom: 1px solid var(--border); }
+  .screen-label .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--neon); box-shadow: 0 0 8px var(--neon); }
+  .screen-label span { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--text2); font-weight: 600; }
+
+  /* ===== 01 · REVEAL ===== */
+  .reveal { padding: 60px 40px; text-align: center; position: relative; overflow: hidden; }
+  .reveal::before { content:''; position: absolute; top: -100px; left: 50%; width: 2px; height: 200px; background: linear-gradient(180deg, transparent, var(--gold), transparent); transform: translateX(-50%); box-shadow: 0 0 30px var(--gold); }
+  .reveal .eyebrow { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); font-weight: 800; margin-bottom: 16px; }
+  .reveal h2 { font-size: 36px; font-weight: 900; margin-bottom: 12px; letter-spacing: -0.5px; }
+  .reveal h2 .hl { color: var(--gold); }
+  .reveal p { color: var(--text2); max-width: 500px; margin: 0 auto 28px; font-size: 15px; line-height: 1.6; }
+  .reveal .challenge-box { display: inline-block; background: linear-gradient(135deg, rgba(251,191,36,0.12), rgba(239,68,68,0.08)); border: 1px solid rgba(251,191,36,0.3); border-radius: 16px; padding: 20px 32px; }
+  .reveal .challenge-box .big { font-size: 48px; font-weight: 900; color: var(--gold); line-height: 1; }
+  .reveal .challenge-box .label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--text2); margin-top: 6px; }
+  .reveal .challenge-box .sub { font-size: 12px; color: var(--text3); margin-top: 4px; }
+  .reveal .vs-bar { margin-top: 28px; display: flex; align-items: center; justify-content: center; gap: 12px; }
+  .reveal .vs-bar .pct { font-size: 32px; font-weight: 900; color: var(--neon); }
+  .reveal .vs-bar .of { font-size: 13px; color: var(--text2); text-align: left; line-height: 1.5; }
+  .reveal .vs-bar .of b { color: var(--text); }
+
+  /* ===== 02 · LA CARTA CCG ===== */
+  .card-layout { display: flex; justify-content: center; gap: 40px; padding: 40px; flex-wrap: wrap; align-items: flex-start; }
+  .card-col-left { display: flex; flex-direction: column; gap: 16px; max-width: 340px; }
+
+  .ccg { width: 300px; border-radius: 16px; overflow: hidden; background: var(--bg3); border: 2px solid var(--gold); box-shadow: 0 0 50px rgba(251,191,36,0.3), 0 24px 60px rgba(0,0,0,0.7); position: relative; }
+  .ccg::before { content:''; position: absolute; top: -2px; left: -2px; right: -2px; bottom: -2px; border-radius: 18px; background: linear-gradient(135deg, var(--gold), var(--red), var(--violet), var(--neon)); z-index: -1; opacity: 0.4; }
+
+  .ccg .top-bar { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: rgba(0,0,0,0.5); }
+  .ccg .top-bar .cost { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--violet), var(--neon)); display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 15px; color: #fff; box-shadow: 0 0 12px rgba(139,92,246,0.5); }
+  .ccg .top-bar .name { font-size: 18px; font-weight: 900; }
+  .ccg .top-bar .rarity { font-size: 10px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--gold); text-shadow: 0 0 8px rgba(251,191,36,0.6); }
+
+  .ccg .art-zone { height: 180px; background: linear-gradient(160deg, #0F172A, #1E1B4B, #4C1D95); position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .ccg .art-zone .emblem { font-size: 72px; filter: drop-shadow(0 0 20px rgba(34,211,238,0.4)); position: relative; z-index: 1; }
+  .ccg .art-zone .glow { position: absolute; inset: 0; background: radial-gradient(circle at 50% 60%, rgba(251,191,36,0.2), transparent 60%); }
+  .ccg .art-zone .scanline { position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, transparent, var(--neon), transparent); animation: scan 3s infinite; opacity: 0.5; }
+  @keyframes scan { 0% { top: 0; } 50% { top: 100%; } 100% { top: 0; } }
+
+  .ccg .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(0,0,0,0.3); }
+  .ccg .stat { text-align: center; padding: 10px 6px; background: var(--bg3); }
+  .ccg .stat b { display: block; font-size: 20px; color: var(--gold-bright); }
+  .ccg .stat span { font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: var(--text3); }
+
+  .ccg .powers { padding: 14px; }
+  .ccg .power { background: rgba(34,211,238,0.06); border: 1px solid rgba(34,211,238,0.2); border-radius: 10px; padding: 10px 12px; margin-bottom: 8px; }
+  .ccg .power .p-name { font-size: 9px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--neon); margin-bottom: 4px; }
+  .ccg .power p { font-size: 12px; line-height: 1.45; }
+  .ccg .lore { font-size: 11px; color: var(--text3); font-style: italic; line-height: 1.5; padding-top: 10px; border-top: 1px dashed var(--border); }
+
+  .ccg .bottom-bar { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: rgba(0,0,0,0.5); }
+  .ccg .bottom-bar .atk { color: var(--red-bright); font-weight: 900; font-size: 16px; }
+  .ccg .bottom-bar .hp { color: var(--green); font-weight: 900; font-size: 16px; }
+  .ccg .bottom-bar .xp { color: var(--violet); font-weight: 800; font-size: 11px; }
+
+  /* ===== 02B · PANEL LATERAL ===== */
+  .panel { max-width: 380px; }
+  .panel h3 { font-size: 24px; font-weight: 900; margin-bottom: 4px; }
+  .panel .class-tag { display: inline-block; padding: 4px 12px; border-radius: 999px; font-size: 10px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 14px; background: rgba(251,191,36,0.12); color: var(--gold); border: 1px solid rgba(251,191,36,0.35); }
+  .panel .desc { color: var(--text2); line-height: 1.6; font-size: 14px; margin-bottom: 18px; }
+  .panel .desc b { color: var(--gold); }
+
+  .panel .challenge { background: linear-gradient(135deg, rgba(239,68,68,0.08), rgba(168,85,247,0.08)); border: 1px solid rgba(239,68,68,0.25); border-radius: 14px; padding: 16px; margin-bottom: 18px; }
+  .panel .challenge .c-title { font-size: 12px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--red-bright); margin-bottom: 6px; }
+  .panel .challenge p { font-size: 13px; color: var(--text); line-height: 1.5; }
+  .panel .challenge .c-reward { margin-top: 10px; font-size: 12px; color: var(--gold); font-weight: 700; }
+
+  .panel .level-bar { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; margin-bottom: 14px; }
+  .panel .level-bar .lb-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .panel .level-bar .lb-head .lv { font-size: 13px; font-weight: 800; color: var(--violet); }
+  .panel .level-bar .lb-head .xp-num { font-size: 12px; color: var(--text2); }
+  .panel .level-bar .track { height: 8px; background: var(--bg3); border-radius: 999px; overflow: hidden; }
+  .panel .level-bar .fill { height: 100%; width: 72%; background: linear-gradient(90deg, var(--violet), var(--neon)); border-radius: 999px; box-shadow: 0 0 10px var(--violet); }
+
+  .panel .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 18px; }
+  .panel .sg { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; }
+  .panel .sg .sg-val { font-size: 18px; font-weight: 900; color: var(--gold); }
+  .panel .sg .sg-label { font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--text3); }
+
+  .panel .btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: 999px; font-weight: 800; font-size: 15px; border: none; cursor: pointer; margin-bottom: 10px; margin-right: 8px; }
+  .panel .btn.share { background: linear-gradient(135deg, var(--neon), var(--violet)); color: #060B18; box-shadow: 0 8px 30px rgba(34,211,238,0.3); }
+  .panel .btn.red { background: var(--red); color: #fff; box-shadow: 0 8px 30px rgba(213,25,51,0.4); }
+  .panel .btn.ghost { background: transparent; border: 1px solid var(--border); color: var(--text2); }
+
+  /* ===== 03 · COLECCIÓN / RANKING ===== */
+  .rank-section { padding: 40px; }
+  .rank-section h4 { font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--text2); margin-bottom: 20px; }
+  .rank-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .rank-card { border-radius: 14px; overflow: hidden; background: var(--bg3); border: 1px solid var(--border); position: relative; transition: all 0.2s; }
+  .rank-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,0,0,0.5); }
+  .rank-card.legendary { border-color: rgba(251,191,36,0.5); }
+  .rank-card.epic { border-color: rgba(168,85,247,0.5); }
+  .rank-card.rare { border-color: rgba(34,211,238,0.5); }
+  .rank-card .r-art { height: 100px; background: linear-gradient(160deg, #0F172A, #1E1B4B); display: flex; align-items: center; justify-content: center; font-size: 36px; position: relative; }
+  .rank-card .r-art .r-badge { position: absolute; top: 8px; right: 8px; font-size: 9px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; padding: 3px 10px; border-radius: 999px; }
+  .rank-card .r-art .r-badge.leg { background: rgba(251,191,36,0.9); color: #1a1a1a; }
+  .rank-card .r-art .r-badge.epi { background: rgba(168,85,247,0.9); color: #fff; }
+  .rank-card .r-art .r-badge.rar { background: rgba(34,211,238,0.9); color: #060B18; }
+  .rank-card .r-art .r-badge.com { background: rgba(100,116,139,0.9); color: #fff; }
+  .rank-card .r-art .rank-num { position: absolute; top: 8px; left: 8px; font-size: 10px; font-weight: 900; color: var(--gold); background: rgba(0,0,0,0.6); width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+  .rank-card .r-body { padding: 10px 12px; }
+  .rank-card .r-body .r-name { font-size: 13px; font-weight: 800; margin-bottom: 2px; }
+  .rank-card .r-body .r-dims { font-size: 10px; color: var(--neon); margin-bottom: 4px; }
+  .rank-card .r-body .r-pct { font-size: 11px; color: var(--gold); font-weight: 700; }
+  .rank-card .r-body .r-bar { height: 4px; background: var(--bg); border-radius: 999px; margin-top: 6px; overflow: hidden; }
+  .rank-card .r-body .r-bar .r-fill { height: 100%; border-radius: 999px; }
+
+  /* ===== 04 · SHARE CARD 9:16 ===== */
+  .share-stage { display: flex; justify-content: center; gap: 32px; padding: 40px; flex-wrap: wrap; align-items: flex-start; }
+  .share { width: 330px; border-radius: 20px; overflow: hidden; background: var(--bg3); border: 2px solid var(--gold); box-shadow: 0 0 60px rgba(251,191,36,0.2), 0 30px 60px rgba(0,0,0,0.7); position: relative; }
+  .share::before { content:''; position: absolute; inset: -2px; border-radius: 22px; background: linear-gradient(135deg, var(--gold), var(--red), var(--violet), var(--neon)); z-index: -1; opacity: 0.3; }
+  .share .sh-top { display: flex; justify-content: space-between; align-items: center; padding: 14px 18px; background: rgba(0,0,0,0.5); }
+  .share .sh-top .br { font-size: 14px; font-weight: 900; }
+  .share .sh-top .br b { color: var(--neon); }
+  .share .sh-top .rar { font-size: 10px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--gold); }
+  .share .sh-art { height: 210px; background: linear-gradient(160deg, #0F172A, #1E1B4B, #4C1D95); display: flex; align-items: center; justify-content: center; font-size: 88px; position: relative; overflow: hidden; }
+  .share .sh-art .glow { position: absolute; inset: 0; background: radial-gradient(circle at 50% 55%, rgba(251,191,36,0.25), transparent 65%); }
+  .share .sh-art .scan { position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); animation: scan 3s infinite; opacity: 0.4; }
+
+  .share .sh-body { padding: 18px; text-align: center; }
+  .share .sh-body .class-tag { display: inline-block; background: rgba(251,191,36,0.12); border: 1px solid rgba(251,191,36,0.35); color: var(--gold); padding: 4px 12px; border-radius: 999px; font-size: 10px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; }
+  .share .sh-body h3 { font-size: 28px; font-weight: 900; margin-bottom: 4px; }
+  .share .sh-body .tagline { font-size: 12px; color: var(--text2); margin-bottom: 12px; }
+
+  .share .sh-power { display: flex; justify-content: center; gap: 20px; margin-bottom: 14px; }
+  .share .sh-power .sp { text-align: center; }
+  .share .sh-power .sp b { display: block; font-size: 24px; color: var(--gold); }
+  .share .sh-power .sp span { font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: var(--text3); }
+
+  .share .sh-stats { display: flex; justify-content: space-around; background: rgba(0,0,0,0.4); border-radius: 10px; padding: 10px; margin-bottom: 12px; }
+  .share .sh-stats .ss { text-align: center; }
+  .share .sh-stats .ss b { display: block; font-size: 15px; color: var(--neon); }
+  .share .sh-stats .ss span { font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: var(--text3); }
+
+  .share .sh-programs { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; margin-bottom: 14px; }
+  .share .sh-programs .prog { background: rgba(168,85,247,0.1); border: 1px solid rgba(168,85,247,0.25); color: var(--violet); padding: 4px 10px; border-radius: 999px; font-size: 10px; font-weight: 600; }
+
+  .share .sh-challenge { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.2); border-radius: 10px; padding: 10px 12px; margin-bottom: 12px; text-align: center; }
+  .share .sh-challenge .ch { font-size: 12px; font-weight: 700; color: var(--red-bright); }
+  .share .sh-challenge .ch b { color: var(--gold); }
+
+  .share .sh-cta { display: block; text-align: center; background: linear-gradient(135deg, var(--neon), var(--violet)); color: #060B18; font-weight: 900; padding: 14px; border-radius: 12px; font-size: 14px; letter-spacing: 0.5px; }
+  .share .sh-foot { text-align: center; font-size: 10px; color: var(--text3); padding: 14px; opacity: 0.7; }
+
+  .share-info { max-width: 340px; }
+  .share-info h3 { font-size: 20px; font-weight: 900; margin-bottom: 8px; }
+  .share-info p { color: var(--text2); font-size: 13px; line-height: 1.6; margin-bottom: 14px; }
+  .share-info .hint { background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; font-size: 12px; color: var(--gold); margin-bottom: 14px; }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <div class="page-header">
+    <div class="tag fire">✦ Dirección CCG desafiante</div>
+    <h1>TuFuturo<span class="g">Dual</span></h1>
+    <p class="sub">Cada respuesta alimenta tu nivel de poder. Tu combinación es tu rareza. Tu resultado es tu carta. <b>Desafíate a vos mismo.</b></p>
+  </div>
+
+  <!-- ===== 01 · REVEAL ===== -->
+  <div class="screen">
+    <div class="screen-label"><div class="dot"></div><span>01 · Desafío superado — nivel de rareza revelado</span></div>
+    <div class="reveal">
+      <div class="eyebrow">◆ Desafío completado</div>
+      <h2>Tu rareza es <span class="hl">LEGENDARIA</span></h2>
+      <p>Completaste 25 decisiones. Tu firma RIASEC es poco común: solo el 3% de los estudiantes comparte tu combinación.</p>
+      <div class="challenge-box">
+        <div class="big">★★★</div>
+        <div class="label">Rareza Legendaria</div>
+        <div class="sub">Combinación única en 25 decisiones</div>
+      </div>
+      <div class="vs-bar">
+        <div class="pct">87%</div>
+        <div class="of"><b>Superás al 87%</b> de jugadores<br>en afinidad con tu arquetipo</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 02 · CCG CARD + STATS ===== -->
+  <div class="screen">
+    <div class="screen-label"><div class="dot"></div><span>02 · Tu carta — El Constructor ★★★ Legendaria</span></div>
+    <div class="card-layout">
+      <div class="ccg">
+        <div class="top-bar">
+          <div class="cost">4</div>
+          <div class="name">El Constructor</div>
+          <div class="rarity">★★★ Legendaria</div>
+        </div>
+        <div class="art-zone">
+          <div class="glow"></div>
+          <div class="scanline"></div>
+          <div class="emblem">🏗️</div>
+        </div>
+        <div class="stats-row">
+          <div class="stat"><b>92</b><span>Realista</span></div>
+          <div class="stat"><b>78</b><span>Convencional</span></div>
+          <div class="stat"><b>71</b><span>Investigador</span></div>
+        </div>
+        <div class="powers">
+          <div class="power">
+            <div class="p-name">⚡ Optimización</div>
+            <p>Convertís procesos complejos en sistemas eficientes. Tu superpoder: encontrar la ruta más corta.</p>
+          </div>
+          <div class="lore">"No construye cosas. Construye la forma más inteligente de hacer las cosas."</div>
+        </div>
+        <div class="bottom-bar">
+          <span class="atk">⚔ 85</span>
+          <span class="xp">✦ +450 XP</span>
+          <span class="hp">❤ 90</span>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h3>El Constructor</h3>
+        <div class="class-tag">✦ Legendaria · Clase 4</div>
+        <p class="desc">Optimizás todo lo que tocás. Procesos, recursos, tiempo — encontrás la forma más inteligente de hacer las cosas. Tu combinación de dimensiones es <b>poco común</b>.</p>
+
+        <div class="challenge">
+          <div class="c-title">🔥 Desafío</div>
+          <p>¿Podés llegar a la <b style="color:var(--gold)">Maestría</b>? Compartí tu carta y descubrí cómo te comparás con otros Constructores.</p>
+          <div class="c-reward">Recompensa: Badge "Constructor de Élite" al llegar a 100 compartidos</div>
+        </div>
+
+        <div class="level-bar">
+          <div class="lb-head">
+            <span class="lv">✦ Nivel 7</span>
+            <span class="xp-num">3,150 / 4,500 XP</span>
+          </div>
+          <div class="track"><div class="fill"></div></div>
+        </div>
+
+        <div class="stat-grid">
+          <div class="sg"><div class="sg-val">85</div><div class="sg-label">Poder (ATK)</div></div>
+          <div class="sg"><div class="sg-val">90</div><div class="sg-label">Resistencia (HP)</div></div>
+          <div class="sg"><div class="sg-val">72</div><div class="sg-label">Velocidad</div></div>
+          <div class="sg"><div class="sg-val">88</div><div class="sg-label">Estrategia</div></div>
+        </div>
+
+        <button class="btn share">Compartir mi carta →</button>
+        <button class="btn red">Descargar para Instagram</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 03 · RANKING / COLECCIÓN ===== -->
+  <div class="screen">
+    <div class="screen-label"><div class="dot"></div><span>03 · Tabla de clasificación — las 8 clases</span></div>
+    <div class="rank-section">
+      <h4>Ranking de clases · por rareza global</h4>
+      <div class="rank-grid">
+        <div class="rank-card legendary">
+          <div class="r-art">🏗️<span class="rank-num">1</span><span class="r-badge leg">★★★</span></div>
+          <div class="r-body">
+            <div class="r-name">El Constructor</div>
+            <div class="r-dims">R · C · I</div>
+            <div class="r-pct">3% de jugadores</div>
+            <div class="r-bar"><div class="r-fill" style="width:97%;background:linear-gradient(90deg,var(--gold),var(--red))"></div></div>
+          </div>
+        </div>
+        <div class="rank-card epic">
+          <div class="r-art">🕵️<span class="rank-num">2</span><span class="r-badge epi">★★</span></div>
+          <div class="r-body">
+            <div class="r-name">El Investigador</div>
+            <div class="r-dims">I · R · C</div>
+            <div class="r-pct">8% de jugadores</div>
+            <div class="r-bar"><div class="r-fill" style="width:84%;background:linear-gradient(90deg,var(--violet),#D946EF)"></div></div>
+          </div>
+        </div>
+        <div class="rank-card epic">
+          <div class="r-art">⚡<span class="rank-num">3</span><span class="r-badge epi">★★</span></div>
+          <div class="r-body">
+            <div class="r-name">El Estratega</div>
+            <div class="r-dims">E · I · S</div>
+            <div class="r-pct">11% de jugadores</div>
+            <div class="r-bar"><div class="r-fill" style="width:76%;background:linear-gradient(90deg,var(--violet),var(--neon))"></div></div>
+          </div>
+        </div>
+        <div class="rank-card rare">
+          <div class="r-art">🎨<span class="rank-num">4</span><span class="r-badge rar">★</span></div>
+          <div class="r-body">
+            <div class="r-name">El Creador</div>
+            <div class="r-dims">A · S · E</div>
+            <div class="r-pct">14% de jugadores</div>
+            <div class="r-bar"><div class="r-fill" style="width:65%;background:linear-gradient(90deg,var(--neon),var(--green))"></div></div>
+          </div>
+        </div>
+        <div class="rank-card rare">
+          <div class="r-art">🤝<span class="rank-num">5</span><span class="r-badge rar">★</span></div>
+          <div class="r-body">
+            <div class="r-name">El Conector</div>
+            <div class="r-dims">S · E · A</div>
+            <div class="r-pct">16% de jugadores</div>
+            <div class="r-bar"><div class="r-fill" style="width:58%;background:linear-gradient(90deg,var(--neon),var(--green))"></div></div>
+          </div>
+        </div>
+        <div class="rank-card">
+          <div class="r-art">🎯<span class="rank-num">6</span><span class="r-badge com">·</span></div>
+          <div class="r-body">
+            <div class="r-name">El Dirigente</div>
+            <div class="r-dims">E · S · C</div>
+            <div class="r-pct">19% de jugadores</div>
+            <div class="r-bar"><div class="r-fill" style="width:48%;background:var(--text3)"></div></div>
+          </div>
+        </div>
+        <div class="rank-card">
+          <div class="r-art">🔬<span class="rank-num">7</span><span class="r-badge com">·</span></div>
+          <div class="r-body">
+            <div class="r-name">El Analista</div>
+            <div class="r-dims">I · C · R</div>
+            <div class="r-pct">21% de jugadores</div>
+            <div class="r-bar"><div class="r-fill" style="width:40%;background:var(--text3)"></div></div>
+          </div>
+        </div>
+        <div class="rank-card">
+          <div class="r-art">🌍<span class="rank-num">8</span><span class="r-badge com">·</span></div>
+          <div class="r-body">
+            <div class="r-name">El Explorador</div>
+            <div class="r-dims">A · I · S</div>
+            <div class="r-pct">23% de jugadores</div>
+            <div class="r-bar"><div class="r-fill" style="width:35%;background:var(--text3)"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 04 · SHARE CARD 9:16 ===== -->
+  <div class="screen">
+    <div class="screen-label"><div class="dot"></div><span>04 · Tu carta para compartir — Instagram / TikTok</span></div>
+    <div class="share-stage">
+      <div class="share">
+        <div class="sh-top">
+          <div class="br">TuFuturo<b>Dual</b></div>
+          <div class="rar">★★★ Legendaria</div>
+        </div>
+        <div class="sh-art">
+          <div class="glow"></div>
+          <div class="scan"></div>
+          <div>🏗️</div>
+        </div>
+        <div class="sh-body">
+          <div class="class-tag">✦ Tu carta de clase</div>
+          <h3>El Constructor</h3>
+          <div class="tagline">R · C · I — Nivel 7</div>
+          <div class="sh-power">
+            <div class="sp"><b>85</b><span>ATK</span></div>
+            <div class="sp"><b>90</b><span>HP</span></div>
+            <div class="sp"><b>72</b><span>SPD</span></div>
+            <div class="sp"><b>88</b><span>EST</span></div>
+          </div>
+          <div class="sh-stats">
+            <div class="ss"><b>92</b><span>Realista</span></div>
+            <div class="ss"><b>78</b><span>Convencional</span></div>
+            <div class="ss"><b>71</b><span>Investigador</span></div>
+          </div>
+          <div class="sh-programs">
+            <div class="prog">Ing. Industrial</div>
+            <div class="prog">Admin. Empresas</div>
+            <div class="prog">Contaduría</div>
+          </div>
+          <div class="sh-challenge">
+            <div class="ch">🔥 Superás al <b>87%</b> de jugadores</div>
+          </div>
+          <div class="sh-cta">Descubrí tu carta →</div>
+        </div>
+        <div class="sh-foot">Uniempresarial · Modelo Dual</div>
+      </div>
+
+      <div class="share-info">
+        <h3 style="font-size:20px">Carta para postear</h3>
+        <p>El póster del jugador: rareza, nivel, stats, programas afines y el reto "¿superás al 87%?". Formato 9:16 optimizado para Instagram Stories, TikTok y WhatsApp.</p>
+        <div class="hint">🎮 El equipo de diseño provee el arte de cada arquetipo — el sistema genera la carta con tus stats reales al completar el test.</div>
+        <button class="btn share">Compartir en Instagram</button>
+        <button class="btn red">Descargar PNG</button>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,46 +1,91 @@
 @import "tailwindcss";
 
 @theme inline {
-  --font-sora: var(--font-sora);
+  --font-display: var(--font-display);
   --font-heading: var(--font-heading);
   --font-body: var(--font-body);
   --color-bg: var(--color-bg);
   --color-surface: var(--color-surface);
-  --color-surface-hover: var(--color-surface-hover);
+  --color-surface-elevated: var(--color-surface-elevated);
+  --color-surface-bright: var(--color-surface-bright);
+  --color-surface-variant: var(--color-surface-variant);
+  --color-deep: var(--color-deep);
   --color-border: var(--color-border);
+  --color-border-subtle: var(--color-border-subtle);
   --color-text-primary: var(--color-text-primary);
   --color-text-secondary: var(--color-text-secondary);
+  --color-text-muted: var(--color-text-muted);
   --color-neon-primary: var(--color-neon-primary);
   --color-neon-secondary: var(--color-neon-secondary);
-  --color-neon-accent: var(--color-neon-accent);
-  --color-neon-green: var(--color-neon-green);
-  --color-neon-pink: var(--color-neon-pink);
-  --color-neon-violet: var(--color-neon-violet);
+  --color-gold: var(--color-gold);
+  --color-gold-dim: var(--color-gold-dim);
+  --color-teal: var(--color-teal);
+  --color-teal-deep: var(--color-teal-deep);
+  --color-primary-lav: var(--color-primary-lav);
+  --color-primary-container: var(--color-primary-container);
+  --color-secondary-container: var(--color-secondary-container);
+  --color-on-secondary-container: var(--color-on-secondary-container);
+  --color-tertiary-container: var(--color-tertiary-container);
+  --color-on-tertiary-container: var(--color-on-tertiary-container);
+  --color-success: var(--color-success);
+  --color-warning: var(--color-warning);
+  --color-error: var(--color-error);
+  --color-error-container: var(--color-error-container);
+  --color-brand-red: var(--color-brand-red);
+  --color-brand-blue: var(--color-brand-blue);
 }
 
-/* ── CSS Custom Properties: Dark/Neon Palette ── */
+/* ── CSS Custom Properties: TuFuturoDual — "El Duelo de Destinos" ──
+   Material 3 dark exact tokens (user-specified). El ORO (#ffe16d/#e9c400)
+   es el protagonista; el TURQUESA (#3adccc/#00766d) da profundidad. */
 :root {
   /* Fonts */
-  --font-heading: "Sora", "Space Grotesk", sans-serif;
-  --font-body: "Inter", "Sora", sans-serif;
+  --font-heading: var(--font-display, "EB Garamond", serif);
+  --font-body: var(--font-body, "Plus Jakarta Sans", sans-serif);
 
-  /* Core Dark Canvas */
-  --color-bg: #050505;
-  --color-surface: #0d0d0d;
-  --color-surface-hover: #1a1a1a;
-  --color-border: #2a2a2a;
+  /* Core Dark Canvas — Material 3 dark */
+  --color-bg: #12131d;              /* surface-dim — lienzo base */
+  --color-surface: #1e1f2a;         /* surface-container — cards */
+  --color-surface-elevated: #282935;/* surface-container-high — hover/elevado */
+  --color-surface-bright: #383844;
+  --color-surface-variant: #333440;
+  --color-deep: #0c0d18;            /* surface-container-lowest — profundidad */
+  --color-surface-low: #1a1b26;
+
+  /* Borders — 1px nítidos, outline-variant (craft: bordes visibles) */
+  --color-border: #484456;
+  --color-border-subtle: #333440;
 
   /* Text */
-  --color-text-primary: #fafafa;
-  --color-text-secondary: #a1a1aa;
+  --color-text-primary: #e2e1f1;    /* on-surface */
+  --color-text-secondary: #cac3d9;  /* on-surface-variant */
+  --color-text-muted: #938ea2;      /* outline */
 
-  /* Neon Accents — Brand colors on dark canvas (user decision: combination) */
-  --color-neon-primary: #D51933;
-  --color-neon-secondary: #0033A5;
-  --color-neon-accent: #D51933;
-  --color-neon-green: #D51933;
-  --color-neon-pink: #0033A5;
-  --color-neon-violet: #0033A5;
+  /* Duelo Accents — UN SOLO protagonista decorativo: el ORO */
+  --color-neon-primary: #ffe16d;    /* ORO — acciones, progreso, hover, focus */
+  --color-neon-secondary: #3adccc;  /* TURQUESA — profundidad, gradientes, decorativo */
+
+  /* Semantic — Material 3 */
+  --color-success: #4ade80;
+  --color-warning: #fbbf24;
+  --color-error: #ffb4ab;           /* error (M3) */
+  --color-error-container: #93000a; /* error-container (M3) */
+
+  /* Marca institucional — solo logo, footer, CTA final contacto */
+  --color-brand-red: #d51933;
+  --color-brand-blue: #0033a5;
+
+  /* Extra M3 tokens expuestos como utilities Tailwind */
+  --color-gold: #ffe16d;
+  --color-gold-dim: #e9c400;
+  --color-teal: #3adccc;
+  --color-teal-deep: #00766d;
+  --color-primary-lav: #ccbeff;
+  --color-primary-container: #7042f8;
+  --color-secondary-container: #ffdb3c;
+  --color-on-secondary-container: #725f00;
+  --color-tertiary-container: #00766d;
+  --color-on-tertiary-container: #77ffef;
 }
 
 /* ── Base Reset ── */
@@ -57,7 +102,11 @@ html {
 }
 
 body {
-  background: var(--color-bg);
+  background:
+    radial-gradient(1100px 520px at 12% -8%, color-mix(in srgb, var(--color-gold-dim) 7%, transparent), transparent 60%),
+    radial-gradient(900px 480px at 88% 12%, color-mix(in srgb, var(--color-teal-deep) 9%, transparent), transparent 55%),
+    radial-gradient(1000px 600px at 50% 110%, color-mix(in srgb, var(--color-primary-container) 8%, transparent), transparent 60%),
+    var(--color-bg);
   color: var(--color-text-primary);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
@@ -87,7 +136,7 @@ body {
 
 /* ── Selection ── */
 ::selection {
-  background: rgba(213, 25, 51, 0.3);
+  background: color-mix(in srgb, var(--color-neon-primary) 30%, transparent);
   color: var(--color-text-primary);
 }
 
@@ -121,25 +170,6 @@ body {
   }
   50% {
     transform: translateY(-10px);
-  }
-}
-
-@keyframes carousel-fade {
-  0% {
-    opacity: 0;
-    transform: scale(1.05);
-  }
-  10% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  90% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(0.98);
   }
 }
 
@@ -198,15 +228,26 @@ body {
   transform: translateY(0);
 }
 
-/* ── Glass effect ── */
+/* ── Glass panel (TCG) ── */
 .glass {
-  background: rgba(13, 13, 13, 0.8);
+  background: color-mix(in srgb, var(--color-deep) 80%, transparent);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--color-border);
 }
 
-/* ── Neon border ── */
+.glass-panel {
+  background: linear-gradient(
+    165deg,
+    color-mix(in srgb, var(--color-surface) 92%, transparent),
+    color-mix(in srgb, var(--color-deep) 92%, transparent)
+  );
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid color-mix(in srgb, var(--color-border) 70%, transparent);
+}
+
+/* ── Golden border — 1px nítido, gradiente oro→turquesa ── */
 .neon-border {
   position: relative;
   border: 1px solid transparent;
@@ -215,26 +256,323 @@ body {
     linear-gradient(135deg, var(--color-neon-primary), var(--color-neon-secondary)) border-box;
 }
 
-/* ── Neon glow utilities (brand) ── */
+/* ── Gold glow utilities ── */
 .neon-glow-primary {
   box-shadow:
-    0 0 20px rgba(213, 25, 51, 0.4),
-    0 0 40px rgba(213, 25, 51, 0.2),
-    inset 0 0 20px rgba(213, 25, 51, 0.1);
+    0 0 20px color-mix(in srgb, var(--color-neon-primary) 40%, transparent),
+    0 0 40px color-mix(in srgb, var(--color-neon-primary) 20%, transparent),
+    inset 0 0 20px color-mix(in srgb, var(--color-neon-primary) 10%, transparent);
 }
 
 .neon-glow-secondary {
   box-shadow:
-    0 0 20px rgba(0, 51, 165, 0.4),
-    0 0 40px rgba(0, 51, 165, 0.2),
-    inset 0 0 20px rgba(0, 51, 165, 0.1);
+    0 0 20px color-mix(in srgb, var(--color-neon-secondary) 40%, transparent),
+    0 0 40px color-mix(in srgb, var(--color-neon-secondary) 20%, transparent),
+    inset 0 0 20px color-mix(in srgb, var(--color-neon-secondary) 10%, transparent);
 }
 
-.neon-glow-accent {
+/* ── Card glow + foil (CTAs y cartas legendarias) ── */
+.card-glow {
   box-shadow:
-    0 0 20px rgba(213, 25, 51, 0.4),
-    0 0 40px rgba(213, 25, 51, 0.2),
-    inset 0 0 20px rgba(213, 25, 51, 0.1);
+    0 0 24px color-mix(in srgb, var(--color-gold-dim) 35%, transparent),
+    0 0 60px color-mix(in srgb, var(--color-gold-dim) 14%, transparent),
+    inset 0 0 18px color-mix(in srgb, var(--color-gold) 8%, transparent);
+}
+
+.card-foil {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.card-foil::before {
+  content: "";
+  position: absolute;
+  inset: -60%;
+  z-index: -1;
+  background: conic-gradient(
+    from 210deg,
+    transparent 0deg,
+    color-mix(in srgb, var(--color-gold) 22%, transparent) 70deg,
+    transparent 130deg,
+    color-mix(in srgb, var(--color-teal) 16%, transparent) 200deg,
+    transparent 260deg,
+    color-mix(in srgb, var(--color-primary-lav) 14%, transparent) 320deg,
+    transparent 360deg
+  );
+  filter: blur(26px);
+  opacity: 0.55;
+  animation: foil-sweep 9s linear infinite;
+}
+
+@keyframes foil-sweep {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* ── Magical float (carta del hero) ── */
+.magical-float {
+  animation: magical-float 6s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes magical-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-1.5deg);
+  }
+  50% {
+    transform: translateY(-16px) rotate(1deg);
+  }
+}
+
+/* ── Parchment (reverso de carta) ── */
+.parchment {
+  background: linear-gradient(
+    165deg,
+    color-mix(in srgb, var(--color-surface-elevated) 92%, transparent),
+    color-mix(in srgb, var(--color-deep) 96%, transparent)
+  );
+}
+
+/* ── Ambient duel background (reemplaza el carousel de fotos) ── */
+.ambient-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    radial-gradient(720px 420px at 18% 12%, color-mix(in srgb, var(--color-gold-dim) 10%, transparent), transparent 62%),
+    radial-gradient(680px 460px at 85% 8%, color-mix(in srgb, var(--color-teal-deep) 13%, transparent), transparent 58%),
+    radial-gradient(760px 520px at 55% 96%, color-mix(in srgb, var(--color-primary-container) 11%, transparent), transparent 62%);
+}
+
+.ambient-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--color-gold) 5%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--color-gold) 5%, transparent) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(760px 520px at 50% 30%, black, transparent 78%);
+  -webkit-mask-image: radial-gradient(760px 520px at 50% 30%, black, transparent 78%);
+}
+
+/* ── Rayos de luz animados desde el centro superior ── */
+.ambient-rays {
+  position: absolute;
+  inset: -40%;
+  z-index: 0;
+  pointer-events: none;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    color-mix(in srgb, var(--color-neon-primary) 9%, transparent) 12deg,
+    transparent 26deg,
+    color-mix(in srgb, var(--color-neon-secondary) 7%, transparent) 42deg,
+    transparent 60deg,
+    color-mix(in srgb, var(--color-primary-lav) 6%, transparent) 78deg,
+    transparent 96deg,
+    color-mix(in srgb, var(--color-neon-primary) 8%, transparent) 118deg,
+    transparent 138deg,
+    color-mix(in srgb, var(--color-teal) 7%, transparent) 156deg,
+    transparent 178deg,
+    color-mix(in srgb, var(--color-neon-secondary) 8%, transparent) 202deg,
+    transparent 224deg,
+    color-mix(in srgb, var(--color-primary-lav) 6%, transparent) 244deg,
+    transparent 268deg,
+    color-mix(in srgb, var(--color-neon-primary) 8%, transparent) 294deg,
+    transparent 318deg,
+    color-mix(in srgb, var(--color-teal) 7%, transparent) 340deg,
+    transparent 360deg
+  );
+  filter: blur(30px);
+  opacity: 0.4;
+  animation: rays-spin 70s linear infinite;
+  transform-origin: 50% 30%;
+}
+
+@keyframes rays-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* ── Estrellas titilantes ── */
+.star {
+  position: absolute;
+  border-radius: 9999px;
+  background: var(--color-gold);
+  box-shadow: 0 0 6px color-mix(in srgb, var(--color-gold) 70%, transparent);
+  opacity: 0;
+  animation: star-twinkle ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes star-twinkle {
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.15);
+  }
+}
+
+/* ── Destello de estrella (4 puntas, cruz) ── */
+.star-spark {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+  opacity: 0;
+  animation: star-sparkle ease-in-out infinite;
+}
+
+.star-spark::before,
+.star-spark::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: linear-gradient(135deg, var(--color-neon-primary), var(--color-neon-secondary));
+  border-radius: 9999px;
+}
+
+.star-spark::before {
+  width: 14px;
+  height: 2px;
+  transform: translate(-50%, -50%);
+}
+
+.star-spark::after {
+  width: 2px;
+  height: 14px;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes star-sparkle {
+  0%,
+  100% {
+    opacity: 0;
+    transform: rotate(0deg) scale(0.5);
+  }
+  50% {
+    opacity: 0.9;
+    transform: rotate(45deg) scale(1);
+  }
+}
+
+/* ── Partículas doradas flotando (desactivadas con reduced motion) ── */
+.particle {
+  position: absolute;
+  border-radius: 9999px;
+  background: var(--color-gold);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--color-gold) 60%, transparent);
+  opacity: 0.5;
+  animation: particle-rise linear infinite;
+  pointer-events: none;
+}
+
+@keyframes particle-rise {
+  0% {
+    transform: translateY(10vh) translateX(0) scale(1);
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.55;
+  }
+  88% {
+    opacity: 0.45;
+  }
+  100% {
+    transform: translateY(-92vh) translateX(4vw) scale(0.6);
+    opacity: 0;
+  }
+}
+
+/* ── Mana bar (energía mística del duelo) ── */
+.mana-bar-fill {
+  background: linear-gradient(90deg, var(--color-teal-deep), var(--color-teal));
+  box-shadow:
+    0 0 14px color-mix(in srgb, var(--color-teal) 55%, transparent),
+    inset 0 0 8px color-mix(in srgb, var(--color-teal) 25%, transparent);
+  transform-origin: left;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ── Holographic glow (carta de pregunta) ── */
+.holographic-glow {
+  position: relative;
+  isolation: isolate;
+}
+
+.holographic-glow::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  border-radius: inherit;
+  background: conic-gradient(
+    from 90deg at 50% 50%,
+    transparent 0deg,
+    color-mix(in srgb, var(--color-gold) 18%, transparent) 60deg,
+    transparent 120deg,
+    color-mix(in srgb, var(--color-teal) 14%, transparent) 200deg,
+    transparent 260deg,
+    color-mix(in srgb, var(--color-primary-lav) 12%, transparent) 320deg,
+    transparent 360deg
+  );
+  filter: blur(22px);
+  opacity: 0.7;
+}
+
+/* ── Mystic Card Animation (Cartas místicas del duelo) ── */
+.mystic-card {
+  position: relative;
+  isolation: isolate;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease, border-color 0.3s ease;
+}
+
+.mystic-card::after {
+  content: "";
+  position: absolute;
+  inset: -120%;
+  z-index: 15;
+  pointer-events: none;
+  background: linear-gradient(
+    115deg,
+    transparent 25%,
+    color-mix(in srgb, var(--color-neon-primary) 20%, transparent) 45%,
+    color-mix(in srgb, var(--color-neon-secondary) 25%, transparent) 50%,
+    color-mix(in srgb, var(--color-primary-lav) 20%, transparent) 55%,
+    transparent 75%
+  );
+  transform: translateX(-100%) rotate(25deg);
+  transition: transform 0.85s ease-out;
+  opacity: 0.6;
+}
+
+.mystic-card:hover::after {
+  transform: translateX(100%) rotate(25deg);
+}
+
+.mystic-card-glow {
+  box-shadow:
+    0 0 22px color-mix(in srgb, var(--color-neon-primary) 50%, transparent),
+    0 0 50px color-mix(in srgb, var(--color-neon-primary) 25%, transparent),
+    inset 0 0 16px color-mix(in srgb, var(--color-neon-primary) 15%, transparent);
 }
 
 /* ── Pop-in (selected checkmark feedback) ── */
@@ -256,7 +594,7 @@ body {
   animation: pop-in 0.25s ease-out forwards;
 }
 
-/* ── Segment pulse (HP bar layer completion) ── */
+/* ── Segment pulse (layer completion) ── */
 @keyframes segment-pulse {
   0% {
     transform: scale(1);
@@ -273,12 +611,86 @@ body {
   animation: segment-pulse 0.6s ease-out 1;
 }
 
-/* ── Gradient text (neon) ── */
-.gradient-text-neon {
+/* ── Sparkle burst (answer juice) ── */
+@keyframes sparkle-burst {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(0.4);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--tx, 0px), var(--ty, 0px)) scale(1);
+  }
+}
+
+.spark {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 5px;
+  height: 5px;
+  margin: -2.5px 0 0 -2.5px;
+  border-radius: 9999px;
+  background: var(--color-neon-primary);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--color-neon-primary) 70%, transparent);
+  animation: sparkle-burst 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: var(--delay, 0ms);
+  pointer-events: none;
+}
+
+/* ── Idle glow breathing (active accent) ── */
+@keyframes breathe-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 14px color-mix(in srgb, var(--color-neon-primary) 25%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 30px color-mix(in srgb, var(--color-neon-primary) 45%, transparent);
+  }
+}
+
+.animate-breathe-glow {
+  animation: breathe-glow 2.6s ease-in-out infinite;
+}
+
+/* ── Expanding ring (layer unlock) ── */
+@keyframes ring-expand {
+  0% {
+    opacity: 0.7;
+    transform: scale(0.7);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.6);
+  }
+}
+
+.animate-ring-expand {
+  animation: ring-expand 0.9s cubic-bezier(0.22, 1, 0.36, 1) 3;
+}
+
+/* ── Result persona reveal ── */
+@keyframes persona-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.82) translateY(24px);
+  }
+  60% {
+    transform: scale(1.04) translateY(-4px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-persona-pop {
+  animation: persona-pop 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ── Brand gradient (oro→turquesa) ── */
+.brand-gradient {
   background: linear-gradient(135deg, var(--color-neon-primary), var(--color-neon-secondary));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
 }
 
 /* ── Reduced motion: respeta la preferencia del sistema ── */
@@ -290,6 +702,10 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  .particle {
+    display: none;
   }
 }
 

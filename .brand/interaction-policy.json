@@ -1,0 +1,15 @@
+{
+  "version": "0.1.0",
+  "compiled_at": "2026-08-18T20:20:34.772Z",
+  "visual_rules": [],
+  "voice_rules": {
+    "never_say": [],
+    "ai_ism_patterns": [],
+    "tone_constraints": null,
+    "sentence_patterns": null
+  },
+  "content_rules": {
+    "claims_policies": [],
+    "persona_count": 0
+  }
+}

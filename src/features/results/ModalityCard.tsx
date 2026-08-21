@@ -13,32 +13,38 @@ const CONFIDENCE_LABELS: Record<ModalityResult["confidence"], string> = {
 };
 
 export function ModalityCard({ modality }: ModalityCardProps) {
-  const recommendation =
-    modality.recommendation === "presencial" ? "Presencial" : "Virtual";
+  const isPresencial = modality.recommendation === "presencial";
+  const recommendation = isPresencial ? "Presencial" : "Virtual";
 
   return (
     <div
       data-theme="dark"
-      className="rounded-3xl border border-white/10 bg-[#0a0a0a] p-8 space-y-4"
+      className="card-foil relative overflow-hidden rounded-3xl border border-[var(--color-border)] bg-[var(--color-surface)]/80 p-6 md:p-8 space-y-4 shadow-[0_0_30px_color-mix(in_srgb,var(--color-neon-primary)_10%,transparent)] transition-all duration-300 hover:border-[var(--color-neon-primary)]/40"
     >
-      <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-500">
-        Modalidad recomendada
-      </h3>
-      <div className="flex items-center gap-3">
+      <div className="flex items-center justify-between">
+        <h3 className="font-display text-sm font-bold uppercase tracking-wider text-[var(--color-text-muted)] flex items-center gap-2">
+          <span className="material-symbols-outlined text-[var(--color-neon-primary)] text-lg">
+            {isPresencial ? "domain" : "laptop_chromebook"}
+          </span>
+          Modalidad recomendada
+        </h3>
         <span
           data-accent="neon"
-          className="rounded-xl bg-[#D51933]/10 px-4 py-2 text-2xl font-extrabold text-[#D51933]"
-        >
-          {recommendation}
-        </span>
-        <span
-          data-accent="neon"
-          className="rounded-full border border-[#0033A5]/40 bg-[#0033A5]/10 px-3 py-1 text-xs font-bold text-[#7aa2ff]"
+          className="inline-flex items-center rounded-full border border-[var(--color-neon-primary)]/40 bg-[var(--color-neon-primary)]/10 px-3 py-1 text-xs font-bold text-[var(--color-neon-primary)] shadow-sm backdrop-blur-md"
         >
           {CONFIDENCE_LABELS[modality.confidence]}
         </span>
       </div>
-      <p className="text-sm leading-relaxed text-neutral-400">
+
+      <div className="flex items-center gap-3">
+        <span
+          className="rounded-2xl border border-[var(--color-neon-primary)]/30 bg-[var(--color-surface-elevated)] px-5 py-2.5 font-display text-2xl md:text-3xl font-extrabold text-[var(--color-neon-primary)] drop-shadow-[0_0_16px_color-mix(in_srgb,var(--color-neon-primary)_35%,transparent)]"
+        >
+          {recommendation}
+        </span>
+      </div>
+
+      <p className="text-sm leading-relaxed text-[var(--color-text-secondary)]">
         {modality.explanation}
       </p>
     </div>

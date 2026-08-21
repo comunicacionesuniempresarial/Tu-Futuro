@@ -7,7 +7,7 @@ import { useTestStore } from "@/stores/test-store";
 import { programs } from "@/lib/programs";
 import type { RIASECProfile, ModalityResult, Archetype, ScoringResult } from "@/lib/scoring/types";
 import LeadForm from "./LeadForm";
-import Header from "@/components/layout/Header";
+import BrandHeader from "@/features/landing/BrandHeader";
 
 interface ResultsData {
   riasecProfile: RIASECProfile;
@@ -33,10 +33,6 @@ export default function LeadFormStep({ esPrueba = false }: { esPrueba?: boolean 
   const router = useRouter();
   const { isCompleted, resetTest } = useTestStore();
   const [data, setData] = useState<ResultsData | null>(null);
-  // Zustand persist hidrata async desde localStorage; en el primer render
-  // isCompleted es el default (false) hasta que hidrata. Sin este guard,
-  // el redirect a /test disparaba prematuramente (race condition que
-  // devolvía al usuario a la última pregunta del test en vez del form).
   const [hasHydrated, setHasHydrated] = useState(false);
 
   useEffect(() => {
@@ -46,16 +42,12 @@ export default function LeadFormStep({ esPrueba = false }: { esPrueba?: boolean 
     return () => unsub();
   }, []);
 
-  // Lee sessionStorage tras la hidratación, no en el initializer del estado:
-  // leerlo durante el primer render del cliente genera hydration mismatch.
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect -- lectura post-hidratación para evitar hydration mismatch
     setData(loadResults());
   }, []);
 
   useEffect(() => {
-    // No decidir el redirect hasta que el store se hidrate: si no,
-    // isCompleted=false (default) causaría un redirect prematuro a /test.
     if (!hasHydrated) return;
     if (!data && !isCompleted) {
       router.push("/test");
@@ -65,21 +57,21 @@ export default function LeadFormStep({ esPrueba = false }: { esPrueba?: boolean 
   if (!hasHydrated || !data) {
     if (hasHydrated && isCompleted) {
       return (
-        <div className="min-h-screen bg-gradient-to-br from-[#FFF3F0] via-white to-[#E8EEFF] flex items-center justify-center px-4">
+        <div className="min-h-screen bg-[var(--color-bg)] flex items-center justify-center px-4">
           <div className="text-center space-y-6 max-w-md">
-            <div className="w-16 h-16 mx-auto rounded-2xl brand-gradient flex items-center justify-center shadow-[0_0_30px_rgba(213,25,51,0.3)]">
-              <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+            <div className="w-16 h-16 mx-auto rounded-2xl brand-gradient flex items-center justify-center shadow-[0_0_30px_color-mix(in_srgb,var(--color-neon-primary)_35%,transparent)]">
+              <svg className="w-8 h-8 text-[var(--color-deep)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="11" cy="11" r="8" />
                 <path d="m21 21-4.3-4.3" />
                 <path d="M11 8v4" />
                 <path d="M11 15.5h.01" />
               </svg>
             </div>
-            <h1 className="text-2xl md:text-3xl font-black text-slate-900">
+            <h1 className="text-2xl md:text-3xl font-black text-[var(--color-text-primary)]">
               No encontramos tus resultados
             </h1>
-            <p className="text-slate-500 text-lg leading-relaxed">
-              Cerraste la pestaña y perdimos el resultado de tu test.
+            <p className="text-[var(--color-text-secondary)] text-lg leading-relaxed">
+              Cerraste la pestaña y perdimos el resultado de tu duelo.
             </p>
             <div className="flex flex-col items-center gap-4">
               <button
@@ -87,13 +79,13 @@ export default function LeadFormStep({ esPrueba = false }: { esPrueba?: boolean 
                   resetTest();
                   router.push("/test");
                 }}
-                className="inline-flex items-center gap-3 bg-white text-[#0a0a0a] font-bold text-lg px-8 py-4 rounded-2xl border border-slate-200 transition-all duration-300 hover:bg-gradient-to-r hover:from-[#D51933] hover:to-[#0033A5] hover:text-white hover:scale-105 hover:border-transparent"
+                className="inline-flex items-center gap-3 bg-[linear-gradient(135deg,var(--color-neon-primary),var(--color-neon-secondary))] text-[var(--color-deep)] font-bold text-lg px-8 py-4 rounded-2xl shadow-[0_0_24px_color-mix(in_srgb,var(--color-neon-primary)_35%,transparent)] transition-all duration-300 hover:scale-105"
               >
                 Hacer el test de nuevo
               </button>
               <Link
                 href="/"
-                className="text-sm text-slate-500 hover:text-[#0033A5] transition-colors font-medium"
+                className="text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-neon-secondary)] transition-colors font-medium"
               >
                 Volver al inicio
               </Link>
@@ -103,8 +95,8 @@ export default function LeadFormStep({ esPrueba = false }: { esPrueba?: boolean 
       );
     }
     return (
-      <div className="min-h-screen bg-gradient-to-br from-[#FFF3F0] via-white to-[#E8EEFF] flex items-center justify-center">
-        <div className="text-slate-400 font-medium">Cargando...</div>
+      <div className="min-h-screen bg-[var(--color-bg)] flex items-center justify-center">
+        <div className="text-[var(--color-text-secondary)] font-medium">Cargando...</div>
       </div>
     );
   }
@@ -118,7 +110,6 @@ export default function LeadFormStep({ esPrueba = false }: { esPrueba?: boolean 
     };
   });
 
-  // Columnas legacy de la hoja (puntaje_intereses/personalidad/habilidades/motivacion), conservadas por compatibilidad con filas existentes.
   const scores = {
     intereses: Math.round(data.riasecProfile.R * 100),
     personalidad: Math.round(data.riasecProfile.I * 100),
@@ -136,33 +127,33 @@ export default function LeadFormStep({ esPrueba = false }: { esPrueba?: boolean 
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#FFF3F0] via-white to-[#E8EEFF] flex flex-col relative overflow-hidden">
-      {/* Fondo degradado de marca (sutil — el formulario es una tarjeta clara) */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute -top-32 -left-32 w-[480px] h-[480px] rounded-full bg-[#D51933]/8 blur-[120px]" />
-        <div className="absolute top-1/3 -right-40 w-[520px] h-[520px] rounded-full bg-[#0033A5]/10 blur-[130px]" />
-        <div className="absolute bottom-0 left-1/4 w-[440px] h-[440px] rounded-full bg-[#D51933]/6 blur-[110px]" />
-        <div className="absolute bottom-1/4 right-1/4 w-[380px] h-[380px] rounded-full bg-[#0033A5]/8 blur-[100px]" />
+    <div data-theme="dark" className="min-h-screen bg-[var(--color-bg)] flex flex-col relative overflow-hidden">
+      {/* Lienzo del duelo — orbes dorados y turquesas */}
+      <div aria-hidden="true" className="ambient-bg" />
+      <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
+        <div className="absolute -top-32 -left-32 w-[480px] h-[480px] rounded-full bg-[var(--color-neon-primary)]/6 blur-[130px]" />
+        <div className="absolute top-1/3 -right-40 w-[520px] h-[520px] rounded-full bg-[var(--color-neon-secondary)]/8 blur-[140px]" />
+        <div className="absolute bottom-0 left-1/4 w-[440px] h-[440px] rounded-full bg-[var(--color-primary-container)]/8 blur-[120px]" />
       </div>
 
-      {/* Header */}
-      <Header />
+      <BrandHeader />
 
-      {/* Content — centered, glass card */}
-      <main className="relative z-10 flex-1 flex items-center justify-center px-4 pt-44 pb-16">
+      <main className="relative z-10 flex-1 flex items-center justify-center px-4 pt-32 pb-16">
         <div className="w-full max-w-lg animate-fade-in">
-          {/* Hero text */}
           <div className="text-center mb-10">
-            <h1 className="text-4xl lg:text-5xl font-black tracking-tight mb-3">
-              <span className="gradient-text">Casi listo</span>
+            <span className="inline-flex items-center gap-2 rounded-full border border-[var(--color-neon-primary)]/40 bg-[var(--color-surface)]/60 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-[var(--color-neon-primary)] mb-4">
+              ✦ Paso final
+            </span>
+            <h1 className="font-display text-4xl lg:text-5xl font-bold tracking-tight mb-3 text-[var(--color-neon-primary)] drop-shadow-[0_0_20px_color-mix(in_srgb,var(--color-neon-primary)_35%,transparent)]">
+              Sella tu Contrato
             </h1>
-            <p className="text-slate-500 text-lg md:text-xl font-medium">
-              Déjanos tus datos para recibir tu resultado personalizado
+            <p className="text-[var(--color-text-secondary)] text-lg md:text-xl font-medium">
+              Tu destino está casi sellado. Registrate para recibir tu
+              resultado personalizado.
             </p>
           </div>
 
-          {/* Glass form card */}
-          <div className="glass-light rounded-3xl p-6 md:p-8 shadow-[0_8px_40px_rgba(0,51,165,0.10)]">
+          <div className="glass-panel neon-border rounded-3xl p-6 md:p-8 shadow-[0_8px_40px_rgba(0,0,0,0.45)]">
             <LeadForm
               scores={scores}
               riasecProfile={riasecProfile}
@@ -181,11 +172,10 @@ export default function LeadFormStep({ esPrueba = false }: { esPrueba?: boolean 
             />
           </div>
 
-          {/* Skip link */}
           <div className="text-center mt-6">
             <button
               onClick={() => router.push("/resultados")}
-              className="text-sm text-slate-500 hover:text-[#0033A5] transition-colors font-medium"
+              className="text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-neon-secondary)] transition-colors font-medium"
             >
               Omitir por ahora →
             </button>

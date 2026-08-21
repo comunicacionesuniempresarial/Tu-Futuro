@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TuFuturoDual - Premium Vocation Elite</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#373a3b",
+                        "secondary-container": "#464744",
+                        "functional-cyan": "rgba(34, 211, 238, 0.15)",
+                        "on-primary-fixed-variant": "#004e5a",
+                        "on-tertiary-fixed-variant": "#474743",
+                        "surface": "#111415",
+                        "background": "#111415",
+                        "surface-tint": "#2fd9f4",
+                        "surface-container-low": "#191c1d",
+                        "on-secondary-fixed-variant": "#464744",
+                        "on-primary": "#00363e",
+                        "on-tertiary-container": "#4f4f4b",
+                        "inverse-surface": "#e1e3e4",
+                        "primary-fixed-dim": "#2fd9f4",
+                        "on-tertiary": "#30312d",
+                        "error": "#ffb4ab",
+                        "inverse-on-surface": "#2e3132",
+                        "on-error-container": "#ffdad6",
+                        "on-surface-variant": "#bbc9cd",
+                        "on-secondary-container": "#b5b5b2",
+                        "primary-fixed": "#a2eeff",
+                        "ink-depth": "#0C0F10",
+                        "surface-container-lowest": "#0c0f10",
+                        "secondary-fixed": "#e3e2df",
+                        "outline": "#859397",
+                        "tertiary": "#dfddd8",
+                        "muted-border": "#282A2B",
+                        "on-secondary": "#2f312e",
+                        "surface-dim": "#111415",
+                        "on-secondary-fixed": "#1b1c1a",
+                        "primary-container": "#22d3ee",
+                        "secondary-fixed-dim": "#c7c7c3",
+                        "on-primary-container": "#005763",
+                        "surface-container-highest": "#323536",
+                        "surface-container-high": "#272a2b",
+                        "tertiary-fixed": "#e4e2dd",
+                        "surface-container": "#1d2021",
+                        "inverse-primary": "#006877",
+                        "tertiary-container": "#c2c1bc",
+                        "soft-oat": "#F5F3EF",
+                        "on-tertiary-fixed": "#1b1c19",
+                        "secondary": "#c7c7c3",
+                        "tertiary-fixed-dim": "#c8c6c2",
+                        "on-background": "#e1e3e4",
+                        "on-primary-fixed": "#001f25",
+                        "error-container": "#93000a",
+                        "warm-cream": "#FDFCF8",
+                        "on-error": "#690005",
+                        "on-surface": "#e1e3e4",
+                        "surface-variant": "#323536",
+                        "primary": "#8aebff",
+                        "outline-variant": "#3c494c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "margin-mobile": "20px",
+                        "margin-desktop": "64px",
+                        "gallery-padding": "80px",
+                        "container-max": "1280px",
+                        "unit": "8px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "display-xl": ["Sora"],
+                        "label-caps": ["Inter"],
+                        "headline-md": ["Sora"],
+                        "display-lg-mobile": ["Sora"],
+                        "display-lg": ["Sora"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-xl": ["64px", { "lineHeight": "72px", "letterSpacing": "-0.03em", "fontWeight": "800" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "display-lg-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Sora:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined[data-weight="fill"] {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar Component -->
+<nav class="fixed top-0 w-full z-50 bg-surface dark:bg-surface border-b border-muted-border">
+<div class="flex justify-between items-center h-20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<a class="font-display-lg text-display-lg-mobile md:text-display-lg text-warm-cream tracking-tight active:scale-95 transition-transform" href="#">
+                VocationElite
+            </a>
+<div class="hidden md:flex gap-8 items-center">
+<a class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-colors duration-200" href="#">Assessments</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-body-md text-body-md hover:text-primary transition-colors duration-200" href="#">Archetypes</a>
+<a class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-colors duration-200" href="#">Institutions</a>
+<a class="text-on-surface-variant font-body-md text-body-md hover:text-primary transition-colors duration-200" href="#">Resources</a>
+</div>
+<div class="hidden md:block">
+<button class="bg-warm-cream text-ink-depth px-6 py-2 rounded font-label-caps text-label-caps hover:bg-transparent hover:text-warm-cream border border-transparent hover:border-primary transition-all duration-300 shadow-[0_0_12px_rgba(34,211,238,0.15)]">
+                    Get Started
+                </button>
+</div>
+<button class="md:hidden text-warm-cream hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[32px]">menu</span>
+</button>
+</div>
+</nav>
+<!-- Hero Section (Deep Ink) -->
+<header class="pt-32 pb-24 md:pt-48 md:pb-40 px-margin-mobile md:px-margin-desktop bg-ink-depth relative overflow-hidden">
+<div class="max-w-container-max mx-auto grid grid-cols-1 lg:grid-cols-2 gap-gutter items-center relative z-10">
+<div>
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-high border border-muted-border mb-6">
+<span class="w-2 h-2 rounded-full bg-primary shadow-[0_0_8px_rgba(34,211,238,0.5)]"></span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Precision Vocation Mapping</span>
+</div>
+<h1 class="font-display-xl text-[48px] md:text-display-xl text-warm-cream mb-6">
+                    Discover Your Executive <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-surface-tint">Archetype</span>.
+                </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-10 max-w-xl">
+                    A premium, data-driven approach to identifying your natural leadership style and institutional fit. Built for the modern visionary.
+                </p>
+<div class="flex flex-wrap gap-4">
+<button class="bg-warm-cream text-ink-depth px-8 py-4 rounded font-label-caps text-label-caps hover:bg-surface hover:text-warm-cream border-2 border-transparent hover:border-primary transition-all duration-300">
+                        Begin Assessment
+                    </button>
+<button class="bg-transparent text-warm-cream px-8 py-4 rounded font-label-caps text-label-caps border border-muted-border hover:border-primary transition-all duration-300 flex items-center gap-2">
+<span class="material-symbols-outlined">play_circle</span>
+                        How it Works
+                    </button>
+</div>
+</div>
+<div class="relative h-[400px] lg:h-[600px] rounded-xl overflow-hidden border border-muted-border bg-surface-container-low hidden lg:block">
+<div class="absolute inset-0 bg-cover bg-center opacity-80 mix-blend-luminosity" data-alt="A sophisticated, high-contrast abstract rendering of a human silhouette constructed from glowing cyan data points and fine wireframe lines against a deep charcoal background. The composition conveys precision, executive analysis, and modern tech seamlessly blended with premium elegance." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCv6pKFy3RkRPaVNbF_Eco5h0asJUQmJEF6CI-nOT6GN-LwG-WqP01c1hG3qXaokSGGkRQwsbrGGBPlAwwCyQmHYdvznnFWf5-e2nK49iiEuqsG7eRZU3msh3XrxrLeOFoVAxbiaW7fjnPZ4YZ0ajgfDi6uRr4HEWT_AGGxH360N8ZtoTELoCyAIu5tpVNqCt2wW60r_a6K4Y6L75gLao9JiLba4PWrkQDQqkqeAR_gY7DndDfx4bE')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-ink-depth via-transparent to-transparent"></div>
+</div>
+</div>
+</header>
+<!-- Archetype Gallery Section (Warm Cream) -->
+<section class="bg-warm-cream text-ink-depth py-gallery-padding px-margin-mobile md:px-margin-desktop rounded-t-[32px] md:rounded-t-[64px] -mt-10 relative z-20">
+<div class="max-w-container-max mx-auto">
+<div class="text-center mb-16 md:mb-24">
+<h2 class="font-headline-md text-display-lg-mobile md:text-headline-md font-bold mb-4">The Architectures of Leadership</h2>
+<p class="font-body-md text-body-md text-on-tertiary-container max-w-2xl mx-auto">
+                    Explore the fundamental profiles that define modern executive success. Each archetype is a precise synthesis of cognitive strengths and strategic inclinations.
+                </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<!-- Archetype Card 1 -->
+<div class="bg-soft-oat border border-tertiary rounded-lg p-8 hover:-translate-y-2 transition-transform duration-300 flex flex-col group">
+<div class="w-12 h-12 rounded-full bg-ink-depth text-warm-cream flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-ink-depth transition-colors duration-300">
+<span class="material-symbols-outlined" data-weight="fill">visibility</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-3">The Visionary</h3>
+<p class="font-body-md text-body-md text-on-tertiary-container mb-8 flex-grow">
+                        Characterized by unparalleled foresight and the ability to synthesize abstract concepts into actionable future paradigms.
+                    </p>
+<div class="w-full h-1 bg-tertiary rounded-full overflow-hidden">
+<div class="h-full bg-ink-depth w-3/4 group-hover:bg-primary transition-all duration-500"></div>
+</div>
+<div class="mt-4 flex justify-between font-label-caps text-label-caps text-on-tertiary-container">
+<span>Abstract Reasoning</span>
+<span>High</span>
+</div>
+</div>
+<!-- Archetype Card 2 -->
+<div class="bg-soft-oat border border-tertiary rounded-lg p-8 hover:-translate-y-2 transition-transform duration-300 flex flex-col group relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-10">
+<span class="material-symbols-outlined text-[120px]">account_tree</span>
+</div>
+<div class="w-12 h-12 rounded-full bg-ink-depth text-warm-cream flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-ink-depth transition-colors duration-300 relative z-10">
+<span class="material-symbols-outlined" data-weight="fill">account_tree</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-3 relative z-10">The Strategist</h3>
+<p class="font-body-md text-body-md text-on-tertiary-container mb-8 flex-grow relative z-10">
+                        Masters of resource allocation and complex systems design. They thrive in navigating multi-variable institutional challenges.
+                    </p>
+<div class="w-full h-1 bg-tertiary rounded-full overflow-hidden relative z-10">
+<div class="h-full bg-ink-depth w-5/6 group-hover:bg-primary transition-all duration-500"></div>
+</div>
+<div class="mt-4 flex justify-between font-label-caps text-label-caps text-on-tertiary-container relative z-10">
+<span>Systems Thinking</span>
+<span>Very High</span>
+</div>
+</div>
+<!-- Archetype Card 3 -->
+<div class="bg-soft-oat border border-tertiary rounded-lg p-8 hover:-translate-y-2 transition-transform duration-300 flex flex-col group">
+<div class="w-12 h-12 rounded-full bg-ink-depth text-warm-cream flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-ink-depth transition-colors duration-300">
+<span class="material-symbols-outlined" data-weight="fill">front_hand</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-3">The Operator</h3>
+<p class="font-body-md text-body-md text-on-tertiary-container mb-8 flex-grow">
+                        Exceptional at translating strategy into rigorous execution. Grounded, methodical, and relentlessly focused on operational excellence.
+                    </p>
+<div class="w-full h-1 bg-tertiary rounded-full overflow-hidden">
+<div class="h-full bg-ink-depth w-[90%] group-hover:bg-primary transition-all duration-500"></div>
+</div>
+<div class="mt-4 flex justify-between font-label-caps text-label-caps text-on-tertiary-container">
+<span>Execution Focus</span>
+<span>Extreme</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer Component -->
+<footer class="bg-ink-depth dark:bg-ink-depth w-full py-12 border-t border-muted-border">
+<div class="flex flex-col md:flex-row justify-between items-center px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div class="mb-8 md:mb-0 text-center md:text-left">
+<span class="font-display-xl text-display-lg-mobile md:text-display-xl text-warm-cream block mb-2">VocationElite</span>
+<p class="font-label-caps text-label-caps text-on-surface-variant">© 2024 VocationElite Executive Testing. All rights reserved.</p>
+</div>
+<div class="flex flex-wrap justify-center gap-6">
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors" href="#">Contact Support</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors" href="#">Institutional Access</a>
+</div>
+</div>
+</footer>
+</body></html>

@@ -19,7 +19,7 @@ export default function Confetti({ active = true }: ConfettiProps) {
     const duration = 4000;
     const end = Date.now() + duration;
 
-    const colors = ["#00ff88", "#D51933", "#ff0080", "#fbbf24", "#00d4ff"];
+    const colors = ["#00ff88", "#22D3EE", "#ff0080", "#fbbf24", "#00d4ff"];
 
     let rafId = 0;
     const frame = () => {

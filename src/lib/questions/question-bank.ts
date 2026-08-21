@@ -1,23 +1,16 @@
 /**
- * Question Bank — 25 questions across 4 layers.
+ * Question Bank — 15 questions across 3 layers.
  *
- * Layer 1 (Q1-Q12): RIASEC Interests — 12 questions, 2 per dimension,
- *   single-choice with 5 options. Each option has per-dimension RIASEC weights.
+ * Layer 1 (Q1-Q5): RIASEC Interests — 5 questions, single-choice with 5 options.
+ * Layer 2 (Q13-Q17): Aptitudes — 5 behavioral scenario questions, single-choice with 4 options.
+ * Layer 3 (Q18-Q22): Values & Lifestyle — mix of single-choice, likert-5, and binary questions.
  *
- * Layer 2 (Q13-Q17): Aptitudes — 5 behavioral scenario questions,
- *   single-choice with 4 options.
- *
- * Layer 3 (Q18-Q22): Values & Lifestyle — mix of single-choice, likert-5,
- *   and binary questions.
- *
- * Layer 4 (Q23-Q25): Modality — presencial vs. virtual preference signal.
- *
- * All text is in Colombian Spanish, casual tone for a young audience.
+ * All text is in neutral Latin American Spanish, casual tone for a young audience (15-18).
  */
 
 import type { Question } from "../scoring/types";
 
-// ── Layer 1: RIASEC Interests (Q1-Q12) ──
+// ── Layer 1: RIASEC Interests (Q1-Q5) ──
 //
 // Each option's riasecWeights array maps to the 5 options (index 0-4).
 // For each option, the object maps each RIASEC dimension to a weight.
@@ -30,13 +23,20 @@ const layer1Questions: Question[] = [
     layer: 1,
     dimension: "R",
     type: "single-choice",
-    text: "Una tarde libre y sin planes, ¿qué te atrapa más?",
+    text: "Si tuvieras toda una tarde libre, ¿qué te mantendría más entretenido?",
     options: [
-      "Meterle mano a algo y dejarlo mejor de lo que estaba",
-      "Proponer un plan y lograr que todos se animen",
-      "Ponerte al día con alguien y terminar dándole un consejo útil",
-      "Inventar algo que a nadie más se le ocurriría",
-      "Perderte en un tema que te da curiosidad hasta entenderlo a fondo",
+      "Arreglar algo que se rompió y dejarlo funcionando",
+      "Proponer un plan épico y que todos se suban",
+      "Charlar con un amigo y ayudarlo con un problema",
+      "Inventar algo que a nadie se le hubiera ocurrido",
+      "Ponerme a investigar un tema hasta entenderlo por completo",
+    ],
+    images: [
+      "/images/cards/forge.webp",
+      "/images/cards/storm.webp",
+      "/images/cards/swamp.webp",
+      "/images/cards/forest.webp",
+      "/images/cards/potions.webp",
     ],
     riasecWeights: [
       { R: 0.5, I: 0.2, A: 0.0, S: 0.0, E: 0.2, C: 0.1 },
@@ -53,13 +53,20 @@ const layer1Questions: Question[] = [
     layer: 1,
     dimension: "R",
     type: "single-choice",
-    text: "En una feria del barrio, ¿qué papel te gusta más?",
+    text: "Organizan una feria en tu barrio y te toca ayudar. ¿Qué elegirías?",
     options: [
-      "Montar tú mismo lo que se necesita y probar que todo funcione",
-      "Atender a cada persona para que la pase increíble",
-      "Negociar con los vendedores y locales para conseguir el mejor trato",
-      "Dejar la ambientación espectacular",
-      "Llevar el orden de las cuentas, las fechas y los pendientes",
+      "Montar los puestos y asegurarme de que todo funcione",
+      "Recibir a todos para que se sientan bienvenidos",
+      "Conseguir los mejores precios con los vendedores",
+      "Decorar el espacio y que quede increíble",
+      "Controlar el presupuesto y que nada se pase del límite",
+    ],
+    images: [
+      "/images/cards/forge.webp",
+      "/images/cards/swamp.webp",
+      "/images/cards/storm.webp",
+      "/images/cards/forest.webp",
+      "/images/cards/potions.webp",
     ],
     riasecWeights: [
       { R: 0.4, I: 0.3, A: 0.0, S: 0.0, E: 0.2, C: 0.1 },
@@ -76,13 +83,20 @@ const layer1Questions: Question[] = [
     layer: 1,
     dimension: "I",
     type: "single-choice",
-    text: "Si te quedas viendo un video largo, ¿qué historia te mantiene pegado?",
+    text: "¿Qué tipo de video te atrapa y no lo sueltas hasta el final?",
     options: [
-      "Un misterio que nadie ha podido explicar",
-      "Cómo alguien convirtió una idea rara en algo que todo el mundo aplaude",
-      "Un equipo que se une para lograr lo que parecía imposible",
-      "La historia de alguien que arrancó desde cero y terminó convenciendo a todos",
-      "Alguien que se la pasa ayudando a otros a salir adelante",
+      "Un misterio que nadie ha logrado resolver",
+      "Alguien que transformó una idea loca en algo viral",
+      "Un grupo que se une para lograr lo imposible",
+      "Un emprendedor que partió de cero y convenció a todos",
+      "Alguien que dedica su vida a apoyar a otros",
+    ],
+    images: [
+      "/images/cards/potions.webp",
+      "/images/cards/forest.webp",
+      "/images/cards/swamp.webp",
+      "/images/cards/storm.webp",
+      "/images/cards/swamp.webp",
     ],
     riasecWeights: [
       { R: 0.2, I: 0.6, A: 0.0, S: 0.0, E: 0.1, C: 0.1 },
@@ -99,13 +113,20 @@ const layer1Questions: Question[] = [
     layer: 1,
     dimension: "I",
     type: "single-choice",
-    text: "En un proyecto del colegio, ¿cuál es tu papel favorito?",
+    text: "Te toca un proyecto grupal en el colegio. ¿En qué rol te sientes en tu zona?",
     options: [
-      "El que arma la maqueta y la deja funcionando perfecta",
-      "El que averigua por qué pasan las cosas y lo demuestra",
-      "El que se encarga de que todo se vea llamativo y diferente",
-      "El que acompaña a los que van perdidos hasta que entiendan",
-      "El que motiva a todos para ganar la presentación",
+      "El que arma la maqueta y la deja perfecta",
+      "El que investiga el porqué de las cosas con datos",
+      "El que diseña todo para que se vea único",
+      "El que ayuda a los que van perdidos hasta que entiendan",
+      "El que motiva al grupo para que la presentación sea brutal",
+    ],
+    images: [
+      "/images/cards/forge.webp",
+      "/images/cards/potions.webp",
+      "/images/cards/forest.webp",
+      "/images/cards/swamp.webp",
+      "/images/cards/storm.webp",
     ],
     riasecWeights: [
       { R: 0.7, I: 0.1, A: 0.0, S: 0.0, E: 0.1, C: 0.1 },
@@ -122,13 +143,20 @@ const layer1Questions: Question[] = [
     layer: 1,
     dimension: "A",
     type: "single-choice",
-    text: "¿Dónde podrías pasarte horas sin darte cuenta del tiempo?",
+    text: "¿Dónde podrías perderte por horas sin mirar el celular?",
     options: [
-      "Un taller donde puedas armar y desarmar cosas con tus manos",
-      "Un espacio sin reglas donde proponer tus propias ideas",
-      "Un lugar lleno de materiales y colores para crear cosas únicas",
-      "Un sitio lleno de gente a la que puedes escuchar y ayudar",
-      "Una reunión donde se deciden cosas importantes y tu idea gana",
+      "En un taller armando y desarmando cosas con las manos",
+      "En un espacio sin reglas donde dar rienda suelta a mis ideas",
+      "En un estudio lleno de colores y materiales para crear",
+      "En un lugar donde me escuchen y pueda orientar a otros",
+      "En una reunión donde mi propuesta termine siendo la elegida",
+    ],
+    images: [
+      "/images/cards/forge.webp",
+      "/images/cards/forest.webp",
+      "/images/cards/forest.webp",
+      "/images/cards/swamp.webp",
+      "/images/cards/storm.webp",
     ],
     riasecWeights: [
       { R: 0.7, I: 0.1, A: 0.0, S: 0.1, E: 0.0, C: 0.1 },
@@ -136,167 +164,6 @@ const layer1Questions: Question[] = [
       { R: 0.0, I: 0.0, A: 0.8, S: 0.1, E: 0.1, C: 0.0 },
       { R: 0.0, I: 0.0, A: 0.1, S: 0.7, E: 0.1, C: 0.1 },
       { R: 0.0, I: 0.05, A: 0.20, S: 0.15, E: 0.50, C: 0.10 },
-    ],
-  },
-
-  // ── Q6: Artistic (Creators) ──
-  {
-    id: "Q6",
-    layer: 1,
-    dimension: "A",
-    type: "single-choice",
-    text: "Si pudieras volverte increíble en una habilidad, ¿cuál elegirías?",
-    options: [
-      "Manejar cualquier herramienta o aparato como si hubieras nacido con él",
-      "Partir el problema más enredado en pedazos fáciles de entender",
-      "Convertir cualquier idea en algo visual que deje a todos sorprendidos",
-      "Que la gente sienta que por fin alguien la entiende y la apoya",
-      "Lograr acuerdos donde todos los lados queden contentos",
-    ],
-    riasecWeights: [
-      { R: 0.6, I: 0.1, A: 0.1, S: 0.0, E: 0.1, C: 0.1 },
-      { R: 0.1, I: 0.7, A: 0.0, S: 0.0, E: 0.0, C: 0.2 },
-      { R: 0.0, I: 0.0, A: 0.8, S: 0.1, E: 0.1, C: 0.0 },
-      { R: 0.0, I: 0.0, A: 0.1, S: 0.7, E: 0.1, C: 0.1 },
-      { R: 0.0, I: 0.05, A: 0.15, S: 0.35, E: 0.40, C: 0.05 },
-    ],
-  },
-
-  // ── Q7: Social (Helpers) ──
-  {
-    id: "Q7",
-    layer: 1,
-    dimension: "S",
-    type: "single-choice",
-    text: "Entre tus amigos, ¿cuál eres sin pensarlo?",
-    options: [
-      "El que se pone las pilas y resuelve lo que haga falta",
-      "El que investiga primero cómo resolver el problema",
-      "El que llega con la idea más loca",
-      "El que nota cuando alguien está decaído y lo levanta",
-      "El que mueve a todos hacia la meta",
-    ],
-    riasecWeights: [
-      { R: 0.7, I: 0.1, A: 0.0, S: 0.0, E: 0.1, C: 0.1 },
-      { R: 0.1, I: 0.7, A: 0.0, S: 0.0, E: 0.0, C: 0.2 },
-      { R: 0.0, I: 0.0, A: 0.7, S: 0.1, E: 0.1, C: 0.1 },
-      { R: 0.0, I: 0.0, A: 0.1, S: 0.7, E: 0.1, C: 0.1 },
-      { R: 0.0, I: 0.0, A: 0.0, S: 0.5, E: 0.45, C: 0.05 },
-    ],
-  },
-
-  // ── Q8: Social (Helpers) ──
-  {
-    id: "Q8",
-    layer: 1,
-    dimension: "S",
-    type: "single-choice",
-    text: "¿Qué momento te deja más satisfecho al final del día?",
-    options: [
-      "Ver funcionando algo que hiciste tú mismo",
-      "El momento en que por fin entiendes algo que nadie te sabía explicar",
-      "Crear algo y ver cómo otros se emocionan al mirarlo",
-      'Que alguien te diga "gracias, me ayudaste muchísimo"',
-      "Alcanzar una meta que todos decían que no se podía",
-    ],
-    riasecWeights: [
-      { R: 0.6, I: 0.1, A: 0.1, S: 0.0, E: 0.1, C: 0.1 },
-      { R: 0.1, I: 0.7, A: 0.0, S: 0.0, E: 0.0, C: 0.2 },
-      { R: 0.0, I: 0.0, A: 0.7, S: 0.2, E: 0.1, C: 0.0 },
-      { R: 0.0, I: 0.0, A: 0.1, S: 0.8, E: 0.0, C: 0.1 },
-      { R: 0.0, I: 0.05, A: 0.10, S: 0.25, E: 0.55, C: 0.05 },
-    ],
-  },
-
-  // ── Q9: Enterprising (Persuaders) ──
-  {
-    id: "Q9",
-    layer: 1,
-    dimension: "E",
-    type: "single-choice",
-    text: "¿Qué problema te dan más ganas de meterte a resolver?",
-    options: [
-      "Algo que se dañó y hay que hacer que vuelva a funcionar",
-      "Un enigma que nadie ha podido resolver",
-      "Algo que se ve común y sabes que puedes volverlo increíble",
-      "Un problema entre personas que necesitan volver a entenderse",
-      "Un reto grande donde se necesita estrategia para ganar",
-    ],
-    riasecWeights: [
-      { R: 0.6, I: 0.1, A: 0.1, S: 0.0, E: 0.1, C: 0.1 },
-      { R: 0.1, I: 0.7, A: 0.0, S: 0.0, E: 0.0, C: 0.2 },
-      { R: 0.0, I: 0.0, A: 0.7, S: 0.1, E: 0.1, C: 0.1 },
-      { R: 0.0, I: 0.0, A: 0.1, S: 0.7, E: 0.1, C: 0.1 },
-      { R: 0.0, I: 0.20, A: 0.10, S: 0.15, E: 0.60, C: 0.10 },
-    ],
-  },
-
-  // ── Q10: Enterprising (Persuaders) ──
-  {
-    id: "Q10",
-    layer: 1,
-    dimension: "E",
-    type: "single-choice",
-    text: "Si te regalaran un año libre para hacer lo que quieras, ¿qué te gustaría haber logrado?",
-    options: [
-      "Algo que hiciste tú mismo y que la gente de verdad usa",
-      "Un descubrimiento que nadie había hecho antes",
-      "Una obra tuya que la gente no pueda olvidar",
-      "Que muchas personas hayan salido adelante gracias a ti",
-      "Algo que empezó contigo y creció hasta mover a mucha gente",
-    ],
-    riasecWeights: [
-      { R: 0.5, I: 0.1, A: 0.1, S: 0.0, E: 0.2, C: 0.1 },
-      { R: 0.1, I: 0.7, A: 0.0, S: 0.0, E: 0.0, C: 0.2 },
-      { R: 0.0, I: 0.0, A: 0.8, S: 0.1, E: 0.1, C: 0.0 },
-      { R: 0.0, I: 0.0, A: 0.1, S: 0.8, E: 0.0, C: 0.1 },
-      { R: 0.0, I: 0.05, A: 0.10, S: 0.25, E: 0.55, C: 0.05 },
-    ],
-  },
-
-  // ── Q11: Conventional (Organizers) ──
-  {
-    id: "Q11",
-    layer: 1,
-    dimension: "C",
-    type: "single-choice",
-    text: "Si este fin de semana pudieras hacer un curso corto, ¿cuál eliges?",
-    options: [
-      "Uno donde armes algo y descubras por qué funciona",
-      "Uno de experimentos para ver cómo se comportan las cosas",
-      "Uno donde hagas cosas visuales y dejes volar la imaginación",
-      "Uno donde aprendas a conectar mejor con las personas",
-      "Uno donde organices un plan completo: pasos, tiempos y cuentas",
-    ],
-    riasecWeights: [
-      { R: 0.5, I: 0.3, A: 0.0, S: 0.0, E: 0.1, C: 0.1 },
-      { R: 0.1, I: 0.7, A: 0.0, S: 0.1, E: 0.0, C: 0.1 },
-      { R: 0.0, I: 0.0, A: 0.8, S: 0.1, E: 0.1, C: 0.0 },
-      { R: 0.0, I: 0.0, A: 0.1, S: 0.7, E: 0.1, C: 0.1 },
-      { R: 0.0, I: 0.1, A: 0.0, S: 0.45, E: 0.4, C: 0.05 },
-    ],
-  },
-
-  // ── Q12: Conventional (Organizers) ──
-  {
-    id: "Q12",
-    layer: 1,
-    dimension: "C",
-    type: "single-choice",
-    text: "Si tuvieras que elegir un superpoder, ¿cuál sería?",
-    options: [
-      "Arreglar lo que sea, por muy dañado que esté",
-      "Resolver cualquier misterio con solo pensar",
-      "Crear algo tan único que todos se queden mirándolo",
-      "Hacer que quien hable contigo se sienta mucho mejor",
-      "Convencer a quien sea de lo que propongas",
-    ],
-    riasecWeights: [
-      { R: 0.7, I: 0.1, A: 0.0, S: 0.1, E: 0.0, C: 0.1 },
-      { R: 0.1, I: 0.7, A: 0.0, S: 0.0, E: 0.0, C: 0.2 },
-      { R: 0.0, I: 0.0, A: 0.8, S: 0.1, E: 0.1, C: 0.0 },
-      { R: 0.0, I: 0.0, A: 0.1, S: 0.8, E: 0.0, C: 0.1 },
-      { R: 0.0, I: 0.05, A: 0.10, S: 0.25, E: 0.55, C: 0.05 },
     ],
   },
 ];
@@ -314,12 +181,18 @@ const layer2Questions: Question[] = [
     layer: 2,
     dimension: "aptitude-logical",
     type: "single-choice",
-    text: "En un examen, ¿con cuál tipo de pregunta te sientes más seguro?",
+    text: "Si te preguntan qué tipo de reto te pone más pilas, ¿cuál eliges?",
     options: [
-      "Las de números y fórmulas",
-      "Las de leer y entender un texto largo",
-      "La de crear algo propio",
-      "Las de trabajar en grupo",
+      "Resolver un problema con números o lógica",
+      "Analizar un texto y sacar conclusiones",
+      "Diseñar algo nuevo desde la nada",
+      "Trabajar con un equipo para lograr un objetivo",
+    ],
+    images: [
+      "/images/cards/potions.webp",
+      "/images/cards/potions.webp",
+      "/images/cards/forest.webp",
+      "/images/cards/swamp.webp",
     ],
     aptitudeWeights: [
       [1, 0, 0, 0],
@@ -333,12 +206,18 @@ const layer2Questions: Question[] = [
     layer: 2,
     dimension: "aptitude-planning",
     type: "single-choice",
-    text: "Si tienes un viaje de curso por delante, ¿qué haces primero?",
+    text: "Te invitan a un viaje con los amigos. ¿Qué haces primero?",
     options: [
-      "Hago un plan detallado paso a paso",
-      "Investigo todo lo posible antes",
-      "Empiezo a crear algo y ajusto después",
-      "Reúno a todos y reparto lo que toca",
+      "Armó una lista con todo lo que hay que llevar y hacer",
+      "Busco información del destino a fondo",
+      "Empiezo a imaginar las fotos y los planes sobre la marcha",
+      "Armo el grupo y reparto quién se encarga de qué",
+    ],
+    images: [
+      "/images/cards/storm.webp",
+      "/images/cards/potions.webp",
+      "/images/cards/forest.webp",
+      "/images/cards/swamp.webp",
     ],
     aptitudeWeights: [
       [0, 1, 0, 0],
@@ -352,12 +231,18 @@ const layer2Questions: Question[] = [
     layer: 2,
     dimension: "aptitude-learning",
     type: "single-choice",
-    text: "¿Cómo aprendes algo nuevo más rápido?",
+    text: "Si tuvieras que aprender a montar moto, ¿cómo lo harías?",
     options: [
-      "Practicando hasta que me sale",
-      "Leyendo y investigando a fondo",
-      "Buscando, leyendo y averiguando por mi cuenta",
-      "Explicándolo a otros",
+      "Practicando una y otra vez hasta dominarla",
+      "Leyendo el manual y viendo tutoriales antes de tocarla",
+      "Saltando a la moto y a ver qué pasa",
+      "Que un amigo me enseñe paso a paso",
+    ],
+    images: [
+      "/images/cards/forge.webp",
+      "/images/cards/potions.webp",
+      "/images/cards/potions.webp",
+      "/images/cards/swamp.webp",
     ],
     aptitudeWeights: [
       [0.7, 0.3, 0, 0],
@@ -371,12 +256,18 @@ const layer2Questions: Question[] = [
     layer: 2,
     dimension: "aptitude-pressure",
     type: "single-choice",
-    text: "¿En qué situación rindes mejor bajo presión?",
+    text: "¿En qué situación te sientes más capaz de rendir al máximo?",
     options: [
-      "Cuando hay una fecha límite y toca entregar",
-      "Cuando tengo que analizar y decidir",
-      "Cuando tengo que improvisar algo en el momento",
-      "Cuando tengo que coordinarme con otros",
+      "Cuando hay fecha límite y no hay vuelta atrás",
+      "Cuando tengo que analizar opciones y decidir rápido",
+      "Cuando tengo que inventar una solución en el acto",
+      "Cuando el equipo depende de que coordinemos todo",
+    ],
+    images: [
+      "/images/cards/storm.webp",
+      "/images/cards/potions.webp",
+      "/images/cards/forest.webp",
+      "/images/cards/swamp.webp",
     ],
     aptitudeWeights: [
       [0, 1, 0, 0],
@@ -390,12 +281,18 @@ const layer2Questions: Question[] = [
     layer: 2,
     dimension: "aptitude-focus",
     type: "single-choice",
-    text: "¿En qué tipo de tarea te concentras más?",
+    text: "¿Qué tipo de tarea te engancha y no la sueltas hasta terminarla?",
     options: [
-      "Las repetitivas y de rutina",
-      "Las que exigen pensar a fondo",
-      "Las que piden mucha imaginación",
-      "Las de hablar y trabajar con otras personas",
+      "Las que siguen un patrón y puedo ir cumpliendo",
+      "Las que me obligan a pensar profundo",
+      "Las que requieren pura imaginación",
+      "Las donde trabajo codo a codo con otros",
+    ],
+    images: [
+      "/images/cards/storm.webp",
+      "/images/cards/potions.webp",
+      "/images/cards/forest.webp",
+      "/images/cards/swamp.webp",
     ],
     aptitudeWeights: [
       [0, 1, 0, 0],
@@ -416,13 +313,20 @@ const layer3Questions: Question[] = [
     layer: 3,
     dimension: "autonomy",
     type: "likert-5",
-    text: "Piensa en tu trabajo ideal: ¿cuánta libertad necesitas para decidir cómo organizar tus tareas y horarios?",
+    text: "Imagina tu trabajo soñado: ¿cuánta libertad necesitas para decidir cómo haces las cosas?",
     options: [
-      "Ninguna, prefiero que otro decida por mí",
-      "Poca",
-      "Moderada",
-      "Mucha",
-      "Total: quiero decidirlo todo",
+      "Que alguien me diga exactamente qué hacer",
+      "Poca — prefiero que me guíen al inicio",
+      "Algo de libertad, pero con reglas claras",
+      "Bastante — que confíen en cómo organizo mis tiempos",
+      "Total — yo decido cómo, cuándo y con quién",
+    ],
+    images: [
+      "/images/cards/forge.webp",
+      "/images/cards/potions.webp",
+      "/images/cards/swamp.webp",
+      "/images/cards/forest.webp",
+      "/images/cards/storm.webp",
     ],
   },
   {
@@ -430,12 +334,18 @@ const layer3Questions: Question[] = [
     layer: 3,
     dimension: "work-style",
     type: "single-choice",
-    text: "¿Cómo prefieres trabajar?",
+    text: "¿Cómo te imaginas trabajando en tu futuro empleo?",
     options: [
-      "Solo y concentrado",
-      "En equipo pequeño",
-      "Liderando un grupo",
-      "Con clientes directamente",
+      "Solo, con mi ritmo y sin distracciones",
+      "En un grupo pequeño donde nos complementamos",
+      "Liderando un equipo y tomando las decisiones",
+      "Con clientes o usuarios directamente, cara a cara",
+    ],
+    images: [
+      "/images/cards/potions.webp",
+      "/images/cards/swamp.webp",
+      "/images/cards/storm.webp",
+      "/images/cards/forest.webp",
     ],
   },
   {
@@ -443,13 +353,20 @@ const layer3Questions: Question[] = [
     layer: 3,
     dimension: "risk-tolerance",
     type: "likert-5",
-    text: "En tu vida, ¿qué tan seguido eliges la opción arriesgada en vez de la segura?",
+    text: "Cuando te enfrentas a una decisión importante, ¿qué tan seguido vas por la opción arriesgada?",
     options: [
-      "Nunca",
-      "Casi nunca",
-      "A veces",
-      "Casi siempre",
-      "Siempre",
+      "Casi nunca — prefiero lo seguro",
+      "Raramente — solo si no hay otra",
+      "A veces — depende de lo que arriesgue",
+      "Seguido — me gustan los retos",
+      "Siempre — lo seguro es aburrido",
+    ],
+    images: [
+      "/images/cards/forge.webp",
+      "/images/cards/potions.webp",
+      "/images/cards/swamp.webp",
+      "/images/cards/forest.webp",
+      "/images/cards/storm.webp",
     ],
   },
   {
@@ -457,69 +374,32 @@ const layer3Questions: Question[] = [
     layer: 3,
     dimension: "schedule",
     type: "binary",
-    text: "¿Prefieres un horario fijo o flexibilidad para organizar tu tiempo?",
-    options: ["Horario fijo y predecible", "Flexibilidad total"],
+    text: "¿Qué te combina más para estudiar o trabajar?",
+    options: ["Un horario fijo que siempre es el mismo", "Poder organizar mi tiempo a mi manera"],
+    images: [
+      "/images/cards/forge.webp",
+      "/images/cards/storm.webp",
+    ],
   },
   {
     id: "Q22",
     layer: 3,
     dimension: "orientation",
     type: "single-choice",
-    text: "¿Qué es más importante para ti en un trabajo?",
+    text: "Si pudieras elegir, ¿qué buscarías más en un trabajo?",
     options: [
-      "Seguridad y estabilidad",
-      "Creatividad y libertad",
-      "Tener poder y que me respeten",
-      "Ayudar a otros",
-      "Seguir aprendiendo cosas nuevas",
+      "Que me den estabilidad y no tenga que preocuparme",
+      "Que me dejen crear y experimentar sin límites",
+      "Que me reconozcan y tenga influencia",
+      "Que me permita ayudar a otros directamente",
+      "Que nunca deje de enseñarme algo nuevo",
     ],
-  },
-];
-
-// ── Layer 4: Modality (Q23-Q25) ──
-//
-// Indirect preference signals for presencial vs. virtual recommendation.
-// Deliberately avoids asking "¿presencial o virtual?" directly: the questions
-// probe autonomy, environment and social interaction, which are the
-// underlying drivers of modality fit. Option indices preserve the scoring
-// semantics: 0 → presencial, 1 → virtual, 2 → neutral.
-
-const layer4Questions: Question[] = [
-  {
-    id: "Q23",
-    layer: 4,
-    dimension: "modality",
-    type: "single-choice",
-    text: "Imagina tu semana de estudio ideal: ¿cómo la pasarías?",
-    options: [
-      "Llena de actividad: clases, proyectos en equipo y gente alrededor todo el día",
-      "Tranquila y a mi ritmo: avanzo con mis tiempos, conectado desde donde esté",
-      "Mezclada: unos días con clases y compañeros, otros días por mi cuenta",
-    ],
-  },
-  {
-    id: "Q24",
-    layer: 4,
-    dimension: "modality-discipline",
-    type: "likert-5",
-    text: "Cuando estudias por tu cuenta, sin que nadie te esté recordando las fechas, ¿qué tan bien logras mantenerte al día?",
-    options: [
-      "Muy mal: me pierdo entre tantas cosas",
-      "Mal: se me escapan varias",
-      "Regular",
-      "Bien: cumplo con lo importante",
-      "Muy bien: soy súper organizado/a",
-    ],
-  },
-  {
-    id: "Q25",
-    layer: 4,
-    dimension: "modality-access",
-    type: "binary",
-    text: "Cuando tienes que aprender algo nuevo, ¿en qué ambiente rindes mejor?",
-    options: [
-      "Solo/a, en mi espacio y a mi propio ritmo",
-      "Con un grupo, resolviendo las dudas al momento",
+    images: [
+      "/images/cards/forge.webp",
+      "/images/cards/forest.webp",
+      "/images/cards/storm.webp",
+      "/images/cards/swamp.webp",
+      "/images/cards/potions.webp",
     ],
   },
 ];
@@ -530,12 +410,4 @@ export const QUESTION_BANK: Question[] = [
   ...layer1Questions,
   ...layer2Questions,
   ...layer3Questions,
-  ...layer4Questions,
 ];
-
-// ── Accessors ──
-
-/** Get a single question by its ID. */
-export function getQuestionById(id: string): Question | undefined {
-  return QUESTION_BANK.find((q) => q.id === id);
-}

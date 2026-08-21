@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TuFuturoDual - The Identity Scanner</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&amp;family=Sora:wght@700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-dim": "#17111e",
+                      "primary-fixed-dim": "#2fd9f4",
+                      "text-secondary": "#9CA3AF",
+                      "on-surface-variant": "#bbc9cd",
+                      "primary-container": "#22d3ee",
+                      "outline": "#859397",
+                      "on-primary-fixed": "#001f25",
+                      "secondary-fixed-dim": "#d0bcff",
+                      "error": "#ffb4ab",
+                      "text-primary": "#F5F3FF",
+                      "surface-tint": "#2fd9f4",
+                      "background": "#17111e",
+                      "on-secondary-fixed-variant": "#5516be",
+                      "tertiary-fixed": "#ffddb5",
+                      "inverse-on-surface": "#342e3d",
+                      "on-secondary-container": "#c4abff",
+                      "surface-container-low": "#1f1927",
+                      "surface-bright": "#3d3646",
+                      "secondary-fixed": "#e9ddff",
+                      "brand-red": "#D51933",
+                      "on-primary-fixed-variant": "#004e5a",
+                      "on-primary-container": "#005763",
+                      "secondary": "#d0bcff",
+                      "inverse-surface": "#eadef2",
+                      "surface-variant": "#393241",
+                      "on-primary": "#00363e",
+                      "on-tertiary": "#462b00",
+                      "tertiary-container": "#ffb13b",
+                      "primary-fixed": "#a2eeff",
+                      "error-container": "#93000a",
+                      "on-tertiary-fixed": "#2a1800",
+                      "on-surface": "#eadef2",
+                      "surface": "#241D2E",
+                      "secondary-container": "#571bc1",
+                      "on-secondary": "#3c0091",
+                      "on-background": "#eadef2",
+                      "inverse-primary": "#006877",
+                      "primary": "#8aebff",
+                      "brand-blue": "#0033A5",
+                      "tertiary-fixed-dim": "#ffb957",
+                      "on-secondary-fixed": "#23005c",
+                      "on-tertiary-fixed-variant": "#643f00",
+                      "surface-container-lowest": "#110c19",
+                      "surface-container-highest": "#393241",
+                      "surface-container-high": "#2e2736",
+                      "outline-variant": "#3c494c",
+                      "surface-container": "#231d2b",
+                      "on-error-container": "#ffdad6",
+                      "surface-elevated": "#2A2235",
+                      "on-tertiary-container": "#6e4600",
+                      "on-error": "#690005",
+                      "bg-deep": "#120E1A",
+                      "tertiary": "#ffd6a3"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "max-width": "1280px",
+                      "base": "4px",
+                      "gutter": "24px",
+                      "margin-mobile": "16px",
+                      "margin-desktop": "auto"
+              },
+              "fontFamily": {
+                      "title-md": ["Sora"],
+                      "label-caps": ["Sora"],
+                      "headline-lg": ["Sora"],
+                      "body-md": ["Inter"],
+                      "display-scanner": ["Sora"],
+                      "headline-lg-mobile": ["Sora"]
+              },
+              "fontSize": {
+                      "title-md": ["20px", {"lineHeight": "1.4", "fontWeight": "700"}],
+                      "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                      "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "800"}],
+                      "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "display-scanner": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "800"}]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        .neon-glow { text-shadow: 0 0 10px rgba(34,211,238,0.5), 0 0 20px rgba(34,211,238,0.3); }
+        .neon-box-glow { box-shadow: 0 0 15px rgba(34,211,238,0.2), inset 0 0 10px rgba(34,211,238,0.1); }
+        .bg-grid-pattern {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+        }
+      </style>
+</head>
+<body class="bg-bg-deep text-text-primary font-body-md text-body-md antialiased min-h-screen flex flex-col relative overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<header class="bg-surface-elevated/80 backdrop-blur-xl docked full-width top-0 sticky z-50 border-b border-white/10 shadow-[0_0_15px_rgba(34,211,238,0.1)]">
+<div class="flex justify-between items-center w-full px-margin-mobile md:px-gutter max-w-max-width mx-auto h-16">
+<div class="text-title-md font-title-md font-bold text-primary-container tracking-tighter">
+                TuFuturoDual
+            </div>
+<nav class="hidden md:flex gap-8">
+<a class="text-label-caps font-label-caps text-on-surface-variant hover:text-primary transition-colors hover:scale-105 hover:shadow-[0_0_20px_rgba(34,211,238,0.3)] transition-all" href="#">Test</a>
+<a class="text-label-caps font-label-caps text-on-surface-variant hover:text-primary transition-colors hover:scale-105 hover:shadow-[0_0_20px_rgba(34,211,238,0.3)] transition-all" href="#">Resultados</a>
+<a class="text-label-caps font-label-caps text-on-surface-variant hover:text-primary transition-colors hover:scale-105 hover:shadow-[0_0_20px_rgba(34,211,238,0.3)] transition-all" href="#">Institución</a>
+</nav>
+<button class="hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-surface-container hover:bg-surface-bright transition-colors text-primary-fixed-dim hover:scale-105 hover:shadow-[0_0_20px_rgba(34,211,238,0.3)] transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">account_circle</span>
+</button>
+</div>
+</header>
+<main class="flex-1 w-full relative">
+<!-- Abstract Background -->
+<div class="absolute inset-0 bg-grid-pattern opacity-50 z-0 pointer-events-none"></div>
+<div class="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-secondary-container/20 blur-[120px] rounded-full z-0 pointer-events-none"></div>
+<div class="absolute bottom-[10%] right-[-10%] w-[40%] h-[60%] bg-primary-container/10 blur-[150px] rounded-full z-0 pointer-events-none"></div>
+<!-- Hero Section -->
+<section class="relative z-10 max-w-max-width mx-auto px-margin-mobile md:px-gutter pt-20 pb-32 min-h-[819px] flex items-center">
+<div class="grid grid-cols-1 md:grid-cols-[1.15fr_0.85fr] gap-12 items-center">
+<div class="flex flex-col gap-6">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container border border-white/10 w-fit neon-box-glow">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
+<span class="text-label-caps font-label-caps text-primary-fixed-dim">INICIAR ESCANEO</span>
+</div>
+<h1 class="font-display-scanner text-display-scanner text-text-primary neon-glow drop-shadow-lg">
+                        Descubre quién eres en el Modelo Dual
+                    </h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-lg">
+                        Un test vocacional gamificado diseñado por Uniempresarial. Analiza tus aptitudes, intereses y valores para proyectar tu futuro en entornos reales de aprendizaje dual.
+                    </p>
+<div class="mt-8 flex flex-col sm:flex-row gap-4">
+<button class="bg-primary-container text-on-primary-container font-label-caps text-label-caps py-4 px-8 rounded-lg hover:scale-[1.02] hover:shadow-[0_0_25px_rgba(34,211,238,0.4)] transition-all duration-300 relative overflow-hidden group">
+<span class="relative z-10 flex items-center justify-center gap-2">
+                                Comenzar el Test
+                                <span class="material-symbols-outlined">arrow_forward</span>
+</span>
+<div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
+</button>
+</div>
+</div>
+<div class="relative h-[400px] md:h-[600px] rounded-2xl overflow-hidden border border-white/10 surface-elevated neon-box-glow group">
+<img class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500 blur-[2px] group-hover:blur-none" data-alt="A futuristic, high-tech identity scanner interface displayed on a dark, sleek floating panel. The interface features abstract glowing cyan wireframes, pulsing data nodes, and neon holographic UI elements set against a deep violet-black void. The aesthetic is modern dark mode meets cyber-tech, feeling immersive and analytical like a sci-fi diagnostic tool. Lighting is moody with bright, luminous neon accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvP-_7kiLHfZH8kSRDx6omeCLsYkgQ9huWzL9fRiF14t8ceFLJYYQhAV4M3k6seMw4Y-8ayegCNzmSLbEdzXl3rKa5Soaygrm3wBaw8Xj1q56F1BmotrykdEtKqLb5Bf4qUb2l8Te0yDO7PBcfAVghOdAROJKwDWcuJ13VCDPrLOfoLJMpoOQIgwQZvVA-iMfEmmbtHiLed9-stntna4LgeWb9AT-_KfaUe4ChrVFKJFWbN4jZ8Q4"/>
+<div class="absolute inset-0 bg-gradient-to-t from-bg-deep via-transparent to-transparent"></div>
+<!-- Overlay UI Elements -->
+<div class="absolute top-6 left-6 p-3 bg-surface-dim/80 backdrop-blur-md rounded border border-white/10 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary-container">radar</span>
+<div class="flex flex-col">
+<span class="text-[10px] text-text-secondary uppercase tracking-widest font-bold">Estado</span>
+<span class="text-xs text-primary-fixed-dim">Calibrando Sensores</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Narrative & Feature Section -->
+<section class="relative z-10 max-w-max-width mx-auto px-margin-mobile md:px-gutter py-20 bg-surface/50 border-y border-white/5 backdrop-blur-sm">
+<div class="text-center max-w-2xl mx-auto mb-16">
+<h2 class="font-headline-lg text-headline-lg md:text-headline-lg text-text-primary mb-4">Análisis Multidimensional</h2>
+<p class="text-on-surface-variant font-body-md text-body-md">Nuestro escáner evalúa tu perfil a través de 4 capas fundamentales para asegurar tu éxito en el modelo dual.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Card 1 -->
+<div class="bg-surface-elevated rounded-xl p-6 border border-white/10 hover:border-primary-container/50 hover:shadow-[0_0_20px_rgba(34,211,238,0.15)] transition-all duration-300 group cursor-default">
+<div class="w-12 h-12 rounded-lg bg-surface-container flex items-center justify-center mb-6 group-hover:bg-primary-container/20 transition-colors">
+<span class="material-symbols-outlined text-primary-fixed-dim text-2xl">psychology</span>
+</div>
+<h3 class="font-title-md text-title-md text-text-primary mb-2">Intereses</h3>
+<p class="text-sm text-text-secondary">Descubre qué áreas profesionales encienden tu curiosidad y motivación.</p>
+<div class="mt-4 h-1 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-0 group-hover:w-full transition-all duration-1000 ease-out"></div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-elevated rounded-xl p-6 border border-white/10 hover:border-primary-container/50 hover:shadow-[0_0_20px_rgba(34,211,238,0.15)] transition-all duration-300 group cursor-default">
+<div class="w-12 h-12 rounded-lg bg-surface-container flex items-center justify-center mb-6 group-hover:bg-primary-container/20 transition-colors">
+<span class="material-symbols-outlined text-primary-fixed-dim text-2xl">fitness_center</span>
+</div>
+<h3 class="font-title-md text-title-md text-text-primary mb-2">Aptitudes</h3>
+<p class="text-sm text-text-secondary">Evalúa tus habilidades innatas y capacidades para resolver problemas reales.</p>
+<div class="mt-4 h-1 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-0 group-hover:w-[75%] transition-all duration-1000 ease-out"></div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-elevated rounded-xl p-6 border border-white/10 hover:border-primary-container/50 hover:shadow-[0_0_20px_rgba(34,211,238,0.15)] transition-all duration-300 group cursor-default">
+<div class="w-12 h-12 rounded-lg bg-surface-container flex items-center justify-center mb-6 group-hover:bg-primary-container/20 transition-colors">
+<span class="material-symbols-outlined text-primary-fixed-dim text-2xl">favorite</span>
+</div>
+<h3 class="font-title-md text-title-md text-text-primary mb-2">Valores</h3>
+<p class="text-sm text-text-secondary">Alinea tu propósito personal con la cultura organizacional de las empresas.</p>
+<div class="mt-4 h-1 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-0 group-hover:w-[90%] transition-all duration-1000 ease-out"></div>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface-elevated rounded-xl p-6 border border-white/10 hover:border-primary-container/50 hover:shadow-[0_0_20px_rgba(34,211,238,0.15)] transition-all duration-300 group cursor-default">
+<div class="w-12 h-12 rounded-lg bg-surface-container flex items-center justify-center mb-6 group-hover:bg-primary-container/20 transition-colors">
+<span class="material-symbols-outlined text-primary-fixed-dim text-2xl">sync_alt</span>
+</div>
+<h3 class="font-title-md text-title-md text-text-primary mb-2">Modalidad</h3>
+<p class="text-sm text-text-secondary">Mide tu adaptabilidad al modelo dual: estudio y práctica simultánea.</p>
+<div class="mt-4 h-1 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-0 group-hover:w-[85%] transition-all duration-1000 ease-out"></div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="bg-surface-elevated/90 backdrop-blur-md fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-4 pt-2 md:hidden z-50 rounded-t-xl border-t border-white/10 shadow-[0_-4px_20px_rgba(0,0,0,0.5)]">
+<a class="flex flex-col items-center justify-center bg-primary-container/20 text-primary-container rounded-xl px-4 py-1 shadow-[inset_0_0_8px_rgba(34,211,238,0.4)] scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">radar</span>
+<span class="text-label-caps font-label-caps mt-1">Escanear</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary-fixed-dim transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">query_stats</span>
+<span class="text-label-caps font-label-caps mt-1">Progreso</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary-fixed-dim transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">military_tech</span>
+<span class="text-label-caps font-label-caps mt-1">Logros</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary-fixed-dim transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">person</span>
+<span class="text-label-caps font-label-caps mt-1">Perfil</span>
+</a>
+</nav>
+<!-- Footer -->
+<footer class="bg-bg-deep w-full relative bottom-0 border-t-4 border-brand-red mb-20 md:mb-0">
+<div class="w-full py-8 px-margin-mobile flex flex-col md:flex-row justify-between items-center gap-4 max-w-max-width mx-auto">
+<div class="text-brand-red font-title-md text-title-md">
+                Uniempresarial
+            </div>
+<div class="text-body-md font-body-md text-text-secondary text-center md:text-left">
+                © 2024 Uniempresarial. Todos los derechos reservados.
+            </div>
+<nav class="flex gap-6">
+<a class="text-label-caps font-label-caps text-text-secondary hover:text-on-surface hover:underline transition-all" href="#">Privacidad</a>
+<a class="text-label-caps font-label-caps text-text-secondary hover:text-on-surface hover:underline transition-all" href="#">Términos</a>
+<a class="text-label-caps font-label-caps text-text-secondary hover:text-on-surface hover:underline transition-all" href="#">Contacto</a>
+</nav>
+</div>
+</footer>
+</body></html>

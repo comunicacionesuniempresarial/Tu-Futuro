@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TuFuturoDual — El Duelo de Destinos</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;600;700;800&amp;family=Plus+Jakarta+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline": "#938ea2",
+                        "inverse-surface": "#e2e1f1",
+                        "primary-container": "#7042f8",
+                        "on-secondary-fixed": "#221b00",
+                        "surface-dim": "#12131d",
+                        "secondary-container": "#ffdb3c",
+                        "on-tertiary": "#003732",
+                        "secondary-fixed": "#ffe16d",
+                        "tertiary-fixed": "#61f9e9",
+                        "on-primary-fixed": "#1e0060",
+                        "inverse-primary": "#6533ed",
+                        "on-tertiary-fixed-variant": "#005049",
+                        "on-primary-fixed-variant": "#4c00d3",
+                        "tertiary": "#3adccc",
+                        "surface-container-highest": "#333440",
+                        "primary-fixed": "#e7deff",
+                        "secondary-fixed-dim": "#e9c400",
+                        "on-error-container": "#ffdad6",
+                        "surface-variant": "#333440",
+                        "on-tertiary-fixed": "#00201d",
+                        "on-background": "#e2e1f1",
+                        "on-secondary-fixed-variant": "#544600",
+                        "background": "#12131d",
+                        "on-secondary-container": "#725f00",
+                        "surface-container-low": "#1a1b26",
+                        "error-container": "#93000a",
+                        "on-surface-variant": "#cac3d9",
+                        "secondary": "#fff9ef",
+                        "on-primary": "#350097",
+                        "surface-tint": "#ccbeff",
+                        "inverse-on-surface": "#2f303b",
+                        "surface-bright": "#383844",
+                        "on-tertiary-container": "#77ffef",
+                        "tertiary-fixed-dim": "#3adccc",
+                        "primary": "#ccbeff",
+                        "surface-container": "#1e1f2a",
+                        "on-primary-container": "#eee6ff",
+                        "tertiary-container": "#00766d",
+                        "surface-container-lowest": "#0c0d18",
+                        "surface": "#12131d",
+                        "on-secondary": "#3a3000",
+                        "outline-variant": "#484456",
+                        "error": "#ffb4ab",
+                        "on-error": "#690005",
+                        "primary-fixed-dim": "#ccbeff",
+                        "surface-container-high": "#282935",
+                        "on-surface": "#e2e1f1"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "card-gap": "16px",
+                        "unit": "8px",
+                        "gutter": "24px",
+                        "margin-desktop": "64px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["EB Garamond"],
+                        "body-rg": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["EB Garamond"],
+                        "display-hero": ["EB Garamond"],
+                        "title-md": ["Plus Jakarta Sans"],
+                        "label-caps": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                        "body-rg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "600" }],
+                        "display-hero": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "title-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .texture-overlay {
+            background-image: url('https://www.transparenttextures.com/patterns/stucco.png');
+            opacity: 0.15;
+            pointer-events: none;
+        }
+        
+        .card-glow {
+            box-shadow: 0 0 15px rgba(58, 220, 204, 0.4), inset 0 0 10px rgba(255, 225, 109, 0.2);
+            border: 1px solid rgba(255, 225, 109, 0.5);
+        }
+        
+        .card-foil {
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 50%, rgba(255,255,255,0.1) 100%);
+            background-size: 200% 200%;
+            transition: background-position 0.5s ease;
+        }
+        
+        .card-foil:hover {
+            background-position: 100% 100%;
+            border-color: #ffe16d;
+            box-shadow: 0 0 25px rgba(255, 225, 109, 0.6);
+        }
+
+        .magical-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(2deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        .ley-lines {
+            background-image: radial-gradient(circle at 50% 50%, rgba(58, 220, 204, 0.1) 0%, transparent 50%),
+                              linear-gradient(45deg, transparent 48%, rgba(255, 225, 109, 0.05) 50%, transparent 52%);
+            background-size: 100% 100%, 100px 100px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-rg min-h-screen relative overflow-x-hidden ley-lines">
+<!-- Texture Overlay -->
+<div class="fixed inset-0 texture-overlay z-[-1]"></div>
+<!-- Top Navigation (Shared Component) -->
+<nav class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 max-w-full bg-surface-container/80 dark:bg-surface-container/80 backdrop-blur-xl border-b border-secondary-fixed/30 shadow-[0_4px_20px_rgba(0,0,0,0.4)]">
+<div class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg font-bold text-secondary-fixed-dim drop-shadow-[0_0_8px_rgba(233,196,0,0.5)]">
+            TuFuturoDual
+        </div>
+<div class="hidden md:flex gap-gutter items-center font-body-rg text-body-rg">
+<a class="text-secondary-fixed-dim border-b-2 border-secondary-fixed-dim pb-1 font-bold" href="#">El Duelo</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">Tu Mazo</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-300" href="#">La Academia</a>
+</div>
+<div class="flex gap-unit text-primary dark:text-primary-fixed">
+<button class="hover:bg-primary-container/20 hover:text-primary-fixed-dim transition-all duration-300 p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+<button class="hover:bg-primary-container/20 hover:text-primary-fixed-dim transition-all duration-300 p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="pt-[100px] pb-gutter min-h-screen flex flex-col items-center">
+<!-- Hero Section -->
+<section class="w-full max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop py-12 md:py-24 flex flex-col md:flex-row items-center gap-gutter">
+<div class="flex-1 text-center md:text-left z-10">
+<div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-surface-container border border-secondary-fixed/30 mb-6 card-glow">
+<span class="material-symbols-outlined text-secondary-fixed text-sm">stars</span>
+<span class="font-label-caps text-label-caps text-secondary-fixed">EL COMIENZO DE LA AVENTURA</span>
+</div>
+<h1 class="font-display-hero text-display-hero text-on-surface mb-6 drop-shadow-md">
+                    Descubre tu Destino Dual
+                </h1>
+<p class="font-body-rg text-body-rg text-on-surface-variant mb-10 max-w-2xl mx-auto md:mx-0">
+                    Tu carrera no es solo un estudio, es tu mazo de poder. Inicia el duelo vocacional y desbloquea tu futuro en un mundo donde la magia académica y el destino se entrelazan.
+                </p>
+<button class="group relative px-8 py-4 rounded-lg bg-surface-container-high border border-secondary-fixed text-secondary-fixed font-title-md text-title-md overflow-hidden card-glow card-foil transition-transform hover:-translate-y-1">
+<span class="relative z-10 flex items-center gap-2">
+                        Comenzar el Duelo
+                        <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">swords</span>
+</span>
+</button>
+</div>
+<div class="flex-1 relative min-h-[400px] md:min-h-[600px] w-full flex justify-center items-center">
+<!-- Legendary Card Hero Image -->
+<div class="relative z-10 w-64 h-96 md:w-80 md:h-[450px] bg-surface-container rounded-xl card-glow overflow-hidden magical-float" data-alt="A highly detailed illustration of a magical trading card in a Ghibli-meets-Yu-Gi-Oh style. The card features a silhouette of a student standing in a lush, glowing pastoral meadow beneath a deep midnight sky. Floating mystical cards orbit the student. The card frame is ornate gold with glowing turquoise accents, set against a watercolor parchment background. Cinematic lighting, magical realism." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDSbr_t06tmOyvo6UXPeFoPYfOwhHHSjSVKMzUyfdL1hkXeP9stqUHIL4kWkgu7cg_pugvUKXS4PQDJZPSSY4tOZdIIDGPtA2nZeNSx_AoNC24SDD8HM6xycIzGy9JKE3npjMLAHMaBuMVx22EE4Eozan-TRWJPF_wQ_1WtRPXgoyHVZz6t9n86niVpRuB3q8GCwiZ5iFxXnSwA9q-rO5e_f2HXZKDnTa77DbvcbWVtP2F5o5vQs4g')">
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-transparent to-transparent"></div>
+</div>
+<!-- Floating background cards -->
+<div class="absolute top-10 right-10 w-32 h-48 bg-surface-variant rounded-lg border border-tertiary/30 opacity-60 transform rotate-12 blur-[2px] magical-float" data-alt="A small floating magical card showing a glowing celestial globe, Ghibli style watercolor textures, dark blue and gold color palette." style="animation-delay: -2s; background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCRqDHvXizfqXr5wj8786xqf1YnZi_fZSsYEfQKH_OKuLBfsCszri_8E61nj0OVMcN4dJP6fzQXhgW759EewyHo5fsWasFMaocCnibdy5W5qYZOq5oZa2L1uxTD2uB5_DGPPOXNzpBNFrrfiOTfyWxYu3Lx5khDq6VJGYRp3nMneqlCTyWDWlCBMl6PSvJmNehKa8JE--2QGRaR5M_Q3WycaIK0Ff10aiQAuhG-qurwJzCdTE1wnRo')"></div>
+<div class="absolute bottom-10 left-10 w-40 h-56 bg-surface-variant rounded-lg border border-primary/30 opacity-50 transform -rotate-12 blur-[1px] magical-float" data-alt="A floating mystical card depicting an ancient glowing scroll, painted in a soft magical realism style with turquoise magical dust." style="animation-delay: -4s; background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCu61UO7cKNIBThw0_MrySugi_grzywfQVKEjQx16wRt_PSKDOU15nlaI0Lr82MqaECzfpANRlouMBz1KSH4TG4tT0Tt87nF9RTkUcDTpwsCokeHxoV5-Jtn4A_SUZXD3Pj1NqIjbpbis2NxhkMYq3l4VXgA91SRMa5xv7YxPw6_6-youZ91QWwun_GFrRmRzvDhpv9gvegJ-oAmKKn4jjZrpp7Ru-jBJ0oHQqeodvZI2nMpbdLdsk')"></div>
+</div>
+</section>
+<!-- 4 Layers of Power Section (Bento Grid) -->
+<section class="w-full max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop py-16">
+<div class="text-center mb-12">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-4">Las 4 Capas del Poder</h2>
+<p class="text-on-surface-variant font-body-rg text-body-rg max-w-xl mx-auto">Domina los elementos fundamentales para forjar tu mazo definitivo y asegurar la victoria en tu trayectoria.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Card 1: Interests -->
+<div class="bg-surface-container-low rounded-xl p-6 border border-outline-variant hover:border-tertiary transition-colors card-foil group relative overflow-hidden flex flex-col h-full">
+<div class="absolute top-0 right-0 w-24 h-24 bg-tertiary/10 rounded-full blur-xl -mr-8 -mt-8 group-hover:bg-tertiary/20 transition-all"></div>
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center border border-tertiary/50 mb-4 z-10 card-glow">
+<span class="material-symbols-outlined text-tertiary" style="font-variation-settings: 'FILL' 1;">swords</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface mb-2 z-10">Intereses</h3>
+<p class="font-body-rg text-body-rg text-on-surface-variant flex-grow z-10">La espada que guía tu pasión. Descubre qué batallas realmente deseas pelear.</p>
+</div>
+<!-- Card 2: Aptitudes -->
+<div class="bg-surface-container-low rounded-xl p-6 border border-outline-variant hover:border-secondary-fixed transition-colors card-foil group relative overflow-hidden flex flex-col h-full">
+<div class="absolute top-0 right-0 w-24 h-24 bg-secondary-fixed/10 rounded-full blur-xl -mr-8 -mt-8 group-hover:bg-secondary-fixed/20 transition-all"></div>
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center border border-secondary-fixed/50 mb-4 z-10 card-glow">
+<span class="material-symbols-outlined text-secondary-fixed" style="font-variation-settings: 'FILL' 1;">history_edu</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface mb-2 z-10">Aptitudes</h3>
+<p class="font-body-rg text-body-rg text-on-surface-variant flex-grow z-10">El pergamino de tus talentos ocultos. Desbloquea habilidades latentes.</p>
+</div>
+<!-- Card 3: Values -->
+<div class="bg-surface-container-low rounded-xl p-6 border border-outline-variant hover:border-error transition-colors card-foil group relative overflow-hidden flex flex-col h-full">
+<div class="absolute top-0 right-0 w-24 h-24 bg-error/10 rounded-full blur-xl -mr-8 -mt-8 group-hover:bg-error/20 transition-all"></div>
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center border border-error/50 mb-4 z-10 card-glow">
+<span class="material-symbols-outlined text-error" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface mb-2 z-10">Valores</h3>
+<p class="font-body-rg text-body-rg text-on-surface-variant flex-grow z-10">El corazón de tu mazo. La brújula moral que sostiene tus estrategias.</p>
+</div>
+<!-- Card 4: Modality -->
+<div class="bg-surface-container-low rounded-xl p-6 border border-outline-variant hover:border-primary transition-colors card-foil group relative overflow-hidden flex flex-col h-full">
+<div class="absolute top-0 right-0 w-24 h-24 bg-primary/10 rounded-full blur-xl -mr-8 -mt-8 group-hover:bg-primary/20 transition-all"></div>
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center border border-primary/50 mb-4 z-10 card-glow">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">meeting_room</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface mb-2 z-10">Modalidad</h3>
+<p class="font-body-rg text-body-rg text-on-surface-variant flex-grow z-10">El portal de tu entorno de aprendizaje. Elige el terreno de duelo adecuado.</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer (Shared Component) -->
+<footer class="w-full py-gutter px-margin-desktop flex flex-col items-center gap-unit mt-auto bg-surface-container-lowest dark:bg-surface-container-lowest bg-[url('https://www.transparenttextures.com/patterns/parchment.png')] border-t border-secondary-fixed/20">
+<div class="font-headline-lg text-headline-lg text-secondary-fixed mb-4">
+            TuFuturoDual
+        </div>
+<div class="flex gap-gutter mb-6 font-label-caps text-label-caps">
+<a class="text-outline hover:text-tertiary hover:opacity-80 transition-opacity hover:translate-y-[-2px] transition-transform" href="#">Privacidad</a>
+<a class="text-outline hover:text-tertiary hover:opacity-80 transition-opacity hover:translate-y-[-2px] transition-transform" href="#">Términos</a>
+<a class="text-outline hover:text-tertiary hover:opacity-80 transition-opacity hover:translate-y-[-2px] transition-transform" href="#">Hechizos</a>
+</div>
+<div class="text-tertiary dark:text-tertiary-fixed font-label-caps text-label-caps opacity-70">
+            © 2024 TuFuturoDual - El Códice de Destinos
+        </div>
+</footer>
+</body></html>

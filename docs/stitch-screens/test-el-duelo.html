@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TuFuturoDual - Test Screen</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;600;700;800&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline": "#938ea2",
+                        "inverse-surface": "#e2e1f1",
+                        "primary-container": "#7042f8",
+                        "on-secondary-fixed": "#221b00",
+                        "surface-dim": "#12131d",
+                        "secondary-container": "#ffdb3c",
+                        "on-tertiary": "#003732",
+                        "secondary-fixed": "#ffe16d",
+                        "tertiary-fixed": "#61f9e9",
+                        "on-primary-fixed": "#1e0060",
+                        "inverse-primary": "#6533ed",
+                        "on-tertiary-fixed-variant": "#005049",
+                        "on-primary-fixed-variant": "#4c00d3",
+                        "tertiary": "#3adccc",
+                        "surface-container-highest": "#333440",
+                        "primary-fixed": "#e7deff",
+                        "secondary-fixed-dim": "#e9c400",
+                        "on-error-container": "#ffdad6",
+                        "surface-variant": "#333440",
+                        "on-tertiary-fixed": "#00201d",
+                        "on-background": "#e2e1f1",
+                        "on-secondary-fixed-variant": "#544600",
+                        "background": "#12131d",
+                        "on-secondary-container": "#725f00",
+                        "surface-container-low": "#1a1b26",
+                        "error-container": "#93000a",
+                        "on-surface-variant": "#cac3d9",
+                        "secondary": "#fff9ef",
+                        "on-primary": "#350097",
+                        "surface-tint": "#ccbeff",
+                        "inverse-on-surface": "#2f303b",
+                        "surface-bright": "#383844",
+                        "on-tertiary-container": "#77ffef",
+                        "tertiary-fixed-dim": "#3adccc",
+                        "primary": "#ccbeff",
+                        "surface-container": "#1e1f2a",
+                        "on-primary-container": "#eee6ff",
+                        "tertiary-container": "#00766d",
+                        "surface-container-lowest": "#0c0d18",
+                        "surface": "#12131d",
+                        "on-secondary": "#3a3000",
+                        "outline-variant": "#484456",
+                        "error": "#ffb4ab",
+                        "on-error": "#690005",
+                        "primary-fixed-dim": "#ccbeff",
+                        "surface-container-high": "#282935",
+                        "on-surface": "#e2e1f1"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "card-gap": "16px",
+                        "unit": "8px",
+                        "gutter": "24px",
+                        "margin-desktop": "64px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["EB Garamond", "serif"],
+                        "body-rg": ["Plus Jakarta Sans", "sans-serif"],
+                        "headline-lg-mobile": ["EB Garamond", "serif"],
+                        "display-hero": ["EB Garamond", "serif"],
+                        "title-md": ["Plus Jakarta Sans", "sans-serif"],
+                        "label-caps": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                        "body-rg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                        "display-hero": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Magical Realism Shaders & Effects */
+        .glass-panel {
+            background: rgba(30, 31, 42, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(233, 196, 0, 0.2);
+            box-shadow: inset 0 0 20px rgba(233, 196, 0, 0.05);
+        }
+        
+        .holographic-glow {
+            position: relative;
+        }
+        .holographic-glow::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(45deg, transparent, rgba(58, 220, 204, 0.4), rgba(233, 196, 0, 0.4), transparent);
+            border-radius: inherit;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .holographic-glow:hover::before, .holographic-glow.active::before {
+            opacity: 1;
+            animation: shimmer 2s linear infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        .card-hand {
+            perspective: 1000px;
+        }
+        
+        .playing-card {
+            transform-style: preserve-3d;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-origin: bottom center;
+        }
+        
+        /* Fan layout for cards */
+        .card-hand > *:nth-child(1) { transform: rotate(-10deg) translateY(10px); }
+        .card-hand > *:nth-child(2) { transform: rotate(-5deg) translateY(2px); }
+        .card-hand > *:nth-child(3) { transform: rotate(0deg) translateY(0); }
+        .card-hand > *:nth-child(4) { transform: rotate(5deg) translateY(2px); }
+        .card-hand > *:nth-child(5) { transform: rotate(10deg) translateY(10px); }
+        
+        .playing-card:hover {
+            transform: translateY(-30px) scale(1.05) rotate(0deg) !important;
+            z-index: 10;
+        }
+
+        /* Animated Progress Bar */
+        .mana-bar-fill {
+            background: linear-gradient(90deg, #00766d, #3adccc);
+            box-shadow: 0 0 10px rgba(58, 220, 204, 0.6);
+            transition: width 1s ease-in-out;
+        }
+        
+        .particle {
+            position: absolute;
+            pointer-events: none;
+            background: radial-gradient(circle, #ffe16d 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float-up 2s linear forwards;
+        }
+        
+        @keyframes float-up {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-50px) scale(0); opacity: 0; }
+        }
+
+        /* Ambient Library Background */
+        .ambient-bg {
+            background-color: #12131d;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(112, 66, 248, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(233, 196, 0, 0.1) 0%, transparent 40%);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen flex flex-col font-body-rg text-body-rg overflow-x-hidden ambient-bg">
+<!-- Top Navigation (Suppressed for transactional/test screen, replaced with contextual header) -->
+<header class="w-full pt-gutter px-margin-mobile md:px-margin-desktop flex justify-between items-center z-50">
+<div class="flex items-center gap-unit">
+<span class="material-symbols-outlined text-secondary-fixed-dim text-3xl">auto_awesome</span>
+<span class="font-headline-lg text-title-md font-bold text-secondary-fixed-dim tracking-wider">TuFuturoDual</span>
+</div>
+<!-- Mana / Progress Bar -->
+<div class="w-1/3 max-w-md flex flex-col gap-2 relative">
+<div class="flex justify-between items-center px-1">
+<span class="font-label-caps text-label-caps text-tertiary">ENERGÍA MÍSTICA</span>
+<span class="font-label-caps text-label-caps text-secondary-fixed">3/5 Fases</span>
+</div>
+<div class="h-3 w-full bg-surface-container-high rounded-full overflow-hidden border border-outline-variant relative" id="mana-container">
+<div class="mana-bar-fill h-full rounded-full" style="width: 60%;"></div>
+</div>
+</div>
+<button class="text-outline hover:text-error transition-colors flex items-center gap-unit font-label-caps text-label-caps">
+<span class="material-symbols-outlined">close</span>
+<span class="hidden md:inline">ABANDONAR DUELO</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex flex-col items-center justify-center px-margin-mobile md:px-margin-desktop py-gutter relative z-10 w-full max-w-[1440px] mx-auto">
+<!-- The Floating Question Card (The Legendary Card) -->
+<div class="glass-panel w-full max-w-3xl rounded-xl p-8 md:p-12 mb-16 flex flex-col items-center text-center relative holographic-glow animate-fade-in-up">
+<!-- Decorative Card Accents -->
+<div class="absolute top-0 left-0 w-full h-full pointer-events-none rounded-xl border border-secondary-fixed/20"></div>
+<span class="material-symbols-outlined text-secondary-fixed-dim text-4xl mb-4 opacity-80">menu_book</span>
+<h1 class="font-display-hero text-headline-lg-mobile md:text-display-hero text-secondary-fixed mb-6 drop-shadow-[0_0_12px_rgba(233,196,0,0.3)]">
+                ¿Qué actividad convoca tu mayor poder?
+            </h1>
+<p class="text-on-surface-variant font-body-rg text-title-md max-w-xl mx-auto italic">
+                Elige la senda que enciende la chispa en tu interior.
+            </p>
+</div>
+<!-- The Deck Hand (Options) -->
+<div class="w-full max-w-5xl relative mt-8 h-80">
+<div class="card-hand flex justify-center items-end h-full w-full absolute bottom-0 gap-[-20px] md:gap-4">
+<!-- Option Card 1 -->
+<button class="playing-card w-40 md:w-56 h-64 md:h-80 bg-surface-container rounded-lg border-2 border-outline-variant flex flex-col overflow-hidden relative group hover:border-tertiary-fixed transition-colors">
+<div class="h-1/2 w-full relative">
+<div class="bg-cover bg-center w-full h-full" data-alt="A magical Ghibli-style watercolor illustration of an ancient anvil surrounded by floating embers in a cozy, sunlit rustic workshop. High stakes mystical card game aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDSZHtQ7t5naB1y4biydJzbldww1Kr_lGjzADdHJtZqCzoowR3Axl0R4E5ULZp-DrfWmxm-ys9PzR5MSHkS8n5pHNKquh4eny5V3XefiRh_INnGeWXYXKsceeaXfk_gsF1vqOGl356_TX1Ngo5NaSa95WCeMUU-zM1o3FQ3fDSCibJavYGWqtFFnNd6Qoyy62NQC_o7cYLL3d3SZHFCOWZmtSXkJWkGVoG_XSmbZ0qS7lXpqYkvQro')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container to-transparent"></div>
+</div>
+<div class="p-4 flex-grow flex flex-col items-center text-center bg-[url('https://www.transparenttextures.com/patterns/parchment.png')]">
+<span class="font-headline-lg text-title-md text-primary-fixed mb-2 group-hover:text-tertiary transition-colors">Forjar</span>
+<p class="font-body-rg text-label-caps text-on-surface-variant line-clamp-3">Crear herramientas y artefactos con mis propias manos.</p>
+</div>
+</button>
+<!-- Option Card 2 -->
+<button class="playing-card w-40 md:w-56 h-64 md:h-80 bg-surface-container rounded-lg border-2 border-outline-variant flex flex-col overflow-hidden relative group hover:border-secondary-fixed transition-colors">
+<div class="h-1/2 w-full relative">
+<div class="bg-cover bg-center w-full h-full" data-alt="A magical Ghibli-style watercolor illustration of an enchanted forest clearing where golden numbers and runes float among the trees. Sunlight filtering through leaves. High stakes mystical card game aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCErN66bhr_giDHndO_JkXQDGrqSHG1dNTKCga-Imrv95L3sILn7ulkb4vZ24Gi_YsnVvp9g8XKHBT7tECxG78KXl2sdBZWRoSbVFEF9Azxl6PLRsXr4XUpYnbpH0eujZ74BdyY4E49SnFFIxspFeH2kfLw_2oM3w9RNmG9-By0Qk98TcbKxpY3y60giobWHAw-SrD6i8MrJlmykvwgPKy2fZFbgRF533wvwaoLDO6rPbX5KQ10wiU')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container to-transparent"></div>
+</div>
+<div class="p-4 flex-grow flex flex-col items-center text-center bg-[url('https://www.transparenttextures.com/patterns/parchment.png')]">
+<span class="font-headline-lg text-title-md text-primary-fixed mb-2 group-hover:text-secondary-fixed transition-colors">Descifrar</span>
+<p class="font-body-rg text-label-caps text-on-surface-variant line-clamp-3">Resolver enigmas y encontrar patrones en la naturaleza.</p>
+</div>
+</button>
+<!-- Option Card 3 (Focus/Center) -->
+<button class="playing-card w-40 md:w-56 h-64 md:h-80 bg-surface-container rounded-lg border-2 border-outline-variant flex flex-col overflow-hidden relative group hover:border-primary-fixed transition-colors holographic-glow">
+<div class="h-1/2 w-full relative">
+<div class="bg-cover bg-center w-full h-full" data-alt="A magical Ghibli-style watercolor illustration of a glowing ethereal stag guiding travelers through a mystical misty swamp. High stakes mystical card game aesthetic, rich purple and blue hues." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuACVc7t_D6pzf1coqPzuiHBQEjtBz6v04-1Tytode3Ir4W44EM8om7MT0dVvYx3GmzNc2WcpQsQaRfb1zXDyPYtVLPme3QdZSb42pckCF2YcZRGsIdkJ0xDUTMwjHpxnyhdRR0qtm6_u3mthU5GJZr8PshqCxDA3F9eziL8LOH0Wlu21_Gk4oCXCNM0zi3bPcniK6VpMyWmpq-4Ai3-NMztwrtp1HiHJHdUJMcYvdlqZK6WZ2m9E0w')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container to-transparent"></div>
+</div>
+<div class="p-4 flex-grow flex flex-col items-center text-center bg-[url('https://www.transparenttextures.com/patterns/parchment.png')]">
+<span class="font-headline-lg text-title-md text-primary-fixed mb-2 group-hover:text-primary transition-colors">Guiar</span>
+<p class="font-body-rg text-label-caps text-on-surface-variant line-clamp-3">Iluminar el camino para otros y liderar expediciones.</p>
+</div>
+</button>
+<!-- Option Card 4 -->
+<button class="playing-card w-40 md:w-56 h-64 md:h-80 bg-surface-container rounded-lg border-2 border-outline-variant flex flex-col overflow-hidden relative group hover:border-error transition-colors">
+<div class="h-1/2 w-full relative">
+<div class="bg-cover bg-center w-full h-full" data-alt="A magical Ghibli-style watercolor illustration of a fierce tempest over a rocky cliff, lightning striking a magical staff. High stakes mystical card game aesthetic, dark and dramatic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDK_fqmNSBtEVc2wD9aZf8Z6arvwiAhSG_7f6HZbW5tKmOcGUfHiohFc7vNRQ85KwaX0n-r4WOk9aUwU9ibi-kX7PzNFsPjQySVbG7Riy5PEyLdAoUvO0HhbjYAG43i7YD2gc9sh0x0qjqaTXxSSX6HakqfIFKpPW7r1bbre39K_liFseXpqQphEvp5BXyUTjNNJ4WsE79YAT2M7NhfAtBI4btH7RTCyPu-fkYHeYA0ER1fgMA3Kw0')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container to-transparent"></div>
+</div>
+<div class="p-4 flex-grow flex flex-col items-center text-center bg-[url('https://www.transparenttextures.com/patterns/parchment.png')]">
+<span class="font-headline-lg text-title-md text-primary-fixed mb-2 group-hover:text-error transition-colors">Conquistar</span>
+<p class="font-body-rg text-label-caps text-on-surface-variant line-clamp-3">Enfrentar adversidades y superar los límites físicos.</p>
+</div>
+</button>
+<!-- Option Card 5 -->
+<button class="playing-card w-40 md:w-56 h-64 md:h-80 bg-surface-container rounded-lg border-2 border-outline-variant flex flex-col overflow-hidden relative group hover:border-secondary-fixed transition-colors">
+<div class="h-1/2 w-full relative">
+<div class="bg-cover bg-center w-full h-full" data-alt="A magical Ghibli-style watercolor illustration of a tranquil apothecary filled with glowing potions and hanging herbs, warm candlelight. High stakes mystical card game aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuByeFJIldG-A8Qq94rVdPeM3KmHuxRUE9GsEay5Oz_Bu7rgsYYkedbWHT6ldG_qUt9WO_oOA7QkASCWJoWTs3CtewAQ-GF2seE_aOQKv1eT_4sI_Vhd1NPXKImlpUfJ70hzN3PUTUdAzffPSmCOf4Kf2HizFi_XbE_QF4A0-5fu1Kvvxokt8QpeNlUkK5-lJDS-KGartCTNxsHgsFDnY9egKbc6Vl27nXF0k6-PQ5oN95717Wf0-T4')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container to-transparent"></div>
+</div>
+<div class="p-4 flex-grow flex flex-col items-center text-center bg-[url('https://www.transparenttextures.com/patterns/parchment.png')]">
+<span class="font-headline-lg text-title-md text-primary-fixed mb-2 group-hover:text-secondary-fixed transition-colors">Sanar</span>
+<p class="font-body-rg text-label-caps text-on-surface-variant line-clamp-3">Restaurar el equilibrio y cuidar del entorno natural.</p>
+</div>
+</button>
+</div>
+</div>
+</main>
+<!-- Footer (Minimal for transaction screen) -->
+<footer class="w-full py-gutter px-margin-desktop flex flex-col items-center gap-unit mt-auto bg-[url('https://www.transparenttextures.com/patterns/parchment.png')] border-t border-secondary-fixed/20">
+<span class="font-headline-lg text-headline-lg text-secondary-fixed">TuFuturoDual</span>
+<p class="font-label-caps text-label-caps text-outline">© 2024 TuFuturoDual - El Códice de Destinos</p>
+</footer>
+<script>
+        // Simple spark effect generator for the Mana bar
+        const manaContainer = document.getElementById('mana-container');
+        
+        function createSpark() {
+            const spark = document.createElement('div');
+            spark.classList.add('particle');
+            
+            // Random positioning along the filled portion
+            const leftPos = Math.random() * 60; // corresponds to 60% width
+            spark.style.left = `${leftPos}%`;
+            spark.style.bottom = '0';
+            
+            // Random size
+            const size = Math.random() * 4 + 2;
+            spark.style.width = `${size}px`;
+            spark.style.height = `${size}px`;
+            
+            manaContainer.appendChild(spark);
+            
+            // Remove after animation
+            setTimeout(() => {
+                spark.remove();
+            }, 2000);
+        }
+
+        // Generate sparks periodically
+        setInterval(createSpark, 300);
+
+        // Add interaction to cards
+        const cards = document.querySelectorAll('.playing-card');
+        cards.forEach(card => {
+            card.addEventListener('click', function() {
+                // Remove active state from all
+                cards.forEach(c => {
+                    c.classList.remove('holographic-glow', 'active');
+                    c.style.transform = ''; // reset to CSS defined transform
+                });
+                
+                // Add to clicked
+                this.classList.add('holographic-glow', 'active');
+                
+                // Simulate selection sound/effect (visual only)
+                this.style.transform = 'translateY(-40px) scale(1.1) rotate(0deg)';
+                this.style.zIndex = '20';
+            });
+        });
+    </script>
+</body></html>

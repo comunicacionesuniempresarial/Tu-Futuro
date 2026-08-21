@@ -13,7 +13,7 @@ const data: ShareCardData = {
     id: "ingeniero",
     name: "Ingeniero",
     emoji: "⚙️",
-    color: "#D51933",
+    color: "#22D3EE",
   },
   riasecProfile: {
     R: 0.8,
@@ -55,7 +55,7 @@ describe("generateShareCardSVG", () => {
     const svg = generateShareCardSVG(data);
 
     expect(svg).toContain("Radar de perfil RIASEC");
-    expect(svg).toContain('fill="#D51933"');
+    expect(svg).toContain('fill="#22D3EE"');
   });
 
   it("lists the top 3 programs", () => {

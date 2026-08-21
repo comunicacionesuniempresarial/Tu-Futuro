@@ -60,41 +60,51 @@ describe("LandingPage", () => {
     expect(screen.getAllByRole("region")).toHaveLength(3);
   });
 
-  it("shows each key stat exactly once across the page", () => {
+  it("shows the archetype showcase, each exactly once", () => {
     mockMatchMedia(false);
 
     render(<LandingPage />);
 
-    expect(screen.getAllByText("25")).toHaveLength(1);
-    expect(screen.getAllByText("4")).toHaveLength(1);
-    expect(screen.getAllByText("8")).toHaveLength(1);
-    expect(screen.getAllByText("12")).toHaveLength(1);
+    expect(screen.getAllByText("El Constructor")).toHaveLength(1);
+    expect(screen.getAllByText("El Investigador")).toHaveLength(1);
+    expect(screen.getAllByText("El Creador")).toHaveLength(1);
+    expect(screen.getAllByText("El Conector")).toHaveLength(1);
   });
 
-  it("absorbs former features and programs content into Como funciona", () => {
+  it("renders no social proof counter or testimonial", () => {
     mockMatchMedia(false);
 
     render(<LandingPage />);
 
-    const comoFunciona = screen.getByRole("region", { name: /No es solo un test/ });
-    expect(within(comoFunciona).getByText("Radar RIASEC")).toBeInTheDocument();
-    expect(within(comoFunciona).getByText("Ingeniería de Software")).toBeInTheDocument();
+    expect(screen.queryByText("12.400+")).not.toBeInTheDocument();
+    expect(screen.queryByText(/Sofía R/)).not.toBeInTheDocument();
+    expect(screen.queryByText(/estudiantes ya descubrieron/)).not.toBeInTheDocument();
   });
 
-  it("shows the archetype showcase and a final CTA to start the test", () => {
+  it("shows the value proposition in Las 4 Capas del Poder", () => {
+    mockMatchMedia(false);
+
+    render(<LandingPage />);
+
+    const paraQueEs = screen.getByRole("region", { name: /Las 4 Capas del Poder/ });
+    expect(within(paraQueEs).getByText(/test vocacional gamificado/)).toBeInTheDocument();
+    expect(within(paraQueEs).getByText(/Modelo Dual de Uniempresarial/)).toBeInTheDocument();
+  });
+
+  it("shows the archetype showcase and the CTA to start the test", () => {
     mockMatchMedia(false);
 
     render(<LandingPage />);
 
     expect(screen.getByText("El Constructor")).toBeInTheDocument();
-    const cta = screen.getByRole("link", { name: "Comenzar ahora" });
+    const cta = screen.getByRole("link", { name: /Comenzar el Duelo/ });
     expect(cta).toHaveAttribute("href", "/test");
   });
 
   it("starts the narrative hidden and reveals sections as they enter the viewport", () => {
     mockMatchMedia(false);
 
-    let callbacks: IntersectionObserverCallback[] = [];
+    const callbacks: IntersectionObserverCallback[] = [];
     mockIntersectionObserver.mockImplementation(function (
       this: unknown,
       cb: IntersectionObserverCallback
@@ -145,7 +155,7 @@ describe("LandingPage", () => {
     const onStart = vi.fn();
     render(<LandingPage onStart={onStart} />);
 
-    fireEvent.click(screen.getByRole("link", { name: "Comenzar ahora" }));
+    fireEvent.click(screen.getByRole("link", { name: /Comenzar el Duelo/ }));
 
     expect(onStart).toHaveBeenCalledTimes(1);
   });

@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Self-contained by design: block ALL external requests. Inline styles/
+     script and data: URIs are the report's only legitimate resources; a
+     hostile value that survived sanitization still cannot phone home. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; img-src data:; font-src data:;">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TuFuturoDual — Brand Identity Report</title>
+<style>
+/* =========================================================
+   brandsystem.app — Brand Identity Report
+   ========================================================= */
+
+/* --- Reset & Base --- */
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:Inter,system-ui,-apple-system,sans-serif;
+  background:#0a0a0c;
+  color:#f0f0f2;
+  max-width:760px;
+  margin:0 auto;
+  padding:48px 32px 80px;
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* --- Badges --- */
+.badge{display:inline-block;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;padding:3px 8px;border-radius:4px;vertical-align:middle}
+.badge-confirmed{background:rgba(129,140,248,.12);color:#818cf8}
+.badge-high{background:rgba(129,140,248,.12);color:#a5b4fc}
+.badge-medium{background:rgba(129,140,248,.08);color:#818cf8}
+.badge-low{background:rgba(248,113,113,.1);color:#f87171}
+.badge-warn{background:rgba(251,191,36,.1);color:#fbbf24}
+.badge-role{background:rgba(129,140,248,.1);color:#a5b4fc;text-transform:capitalize}
+.source{font-size:11px;color:#5a5a66}
+.detail{font-size:11px;color:#5a5a66}
+
+/* --- Header --- */
+header{padding-bottom:32px;margin-bottom:48px;border-bottom:1px solid #2a2a32}
+.overline{
+  font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.16em;
+  color:#818cf8;margin-bottom:12px;
+}
+h1{
+  font-size:44px;font-weight:700;color:#fff;letter-spacing:-.02em;
+  line-height:1.1;margin-bottom:8px;
+}
+.subtitle{font-size:14px;color:#8b8b96;line-height:1.6}
+.audit-line{
+  margin-top:16px;font-size:13px;color:#5a5a66;
+  display:flex;flex-wrap:wrap;gap:6px;align-items:center;
+}
+.audit-pill{
+  display:inline-flex;align-items:center;gap:4px;
+  background:#141418;border:1px solid #2a2a32;border-radius:20px;
+  padding:4px 12px;font-size:12px;font-weight:500;color:#8b8b96;
+}
+.audit-pill-pass{color:#818cf8;border-color:rgba(129,140,248,.2)}
+.audit-pill strong{color:#818cf8;font-weight:600}
+
+/* --- Sections --- */
+section{margin-bottom:64px}
+h2{
+  font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;
+  color:#5a5a66;margin-bottom:24px;padding-bottom:0;
+}
+.section-intro{font-size:14px;color:#8b8b96;line-height:1.7;margin-bottom:24px}
+
+/* --- Logo --- */
+.logo-pair{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:12px}
+.logo-display{
+  border-radius:12px;padding:48px 40px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  position:relative;
+}
+.logo-inner{width:100%;display:flex;align-items:center;justify-content:center}
+.logo-inner svg{width:100%;max-width:320px;height:auto}
+.logo-light{background:#ffffff}
+.logo-dark{background:#141418;border:1px solid #2a2a32}
+.logo-dark svg path,.logo-dark svg polygon,.logo-dark svg rect,.logo-dark svg circle{fill:#fff !important}
+.logo-label{
+  position:absolute;bottom:12px;left:50%;transform:translateX(-50%);
+  font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;
+  color:#8b8b96;
+}
+.logo-label-dark{color:#5a5a66}
+.logo-meta-row{display:flex;gap:12px;align-items:center;font-size:12px;color:#5a5a66;margin-bottom:12px}
+
+/* --- Colors --- */
+.color-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+.color-card{border-radius:12px;overflow:hidden;background:#141418;border:1px solid #2a2a32;transition:border-color .15s}
+.color-card:hover{border-color:#3a3a44}
+.color-swatch{height:80px}
+.color-swatch.is-light{border-bottom:1px solid #2a2a32}
+.color-info{padding:14px 16px}
+.color-role{margin-bottom:4px}
+.color-hex{font-size:13px;font-family:'SF Mono',ui-monospace,monospace;color:#8b8b96;margin-bottom:6px}
+.color-meta{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+
+/* --- Typography --- */
+.font-list{display:flex;flex-direction:column;gap:12px}
+.font-card{background:#141418;border:1px solid #2a2a32;border-radius:12px;padding:24px;transition:border-color .15s}
+.font-card:hover{border-color:#3a3a44}
+.font-specimen{font-size:24px;font-weight:600;color:#fff;margin-bottom:8px;letter-spacing:-.01em}
+.font-meta{display:flex;gap:8px;align-items:center}
+
+/* --- Quick Reference / Usage --- */
+.usage-block{margin-bottom:28px}
+.usage-block h3{font-size:14px;font-weight:600;color:#f0f0f2;margin-bottom:8px}
+.usage-block p{font-size:14px;color:#8b8b96;line-height:1.7;margin-bottom:10px}
+
+/* --- Clarifications --- */
+.clarify-list{display:flex;flex-direction:column;gap:12px}
+.clarify-card{background:#141418;border:1px solid #2a2a32;border-radius:12px;padding:18px 20px;display:flex;gap:14px;align-items:flex-start;transition:border-color .15s}
+.clarify-card:hover{border-color:#3a3a44}
+.clarify-num{flex-shrink:0;width:24px;height:24px;background:#1c1c22;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#5a5a66}
+.clarify-q{font-size:14px;color:#f0f0f2;line-height:1.6}
+.clarify-field{font-size:11px;font-family:'SF Mono',ui-monospace,monospace;color:#5a5a66;margin-top:4px}
+
+/* --- Empty State --- */
+.empty-state{background:#141418;border:1px dashed #2a2a32;border-radius:12px;padding:40px;text-align:center;font-size:14px;color:#5a5a66}
+
+/* --- Portable Notice --- */
+.portable-notice{
+  background:rgba(129,140,248,.06);
+  border:1px solid rgba(129,140,248,.15);
+  border-radius:12px;padding:18px 22px;
+  font-size:14px;color:#a5b4fc;line-height:1.7;margin-bottom:48px;
+}
+.portable-notice strong{color:#c7d2fe}
+
+/* --- Copyable code blocks --- */
+.copy-wrap{position:relative;margin-bottom:12px}
+.copy-wrap pre{
+  background:#141418;border:1px solid #2a2a32;border-radius:10px;
+  padding:16px 20px;padding-right:72px;
+  overflow-x:auto;max-height:180px;overflow-y:auto;
+}
+.copy-wrap code{
+  font-family:'SF Mono',ui-monospace,monospace;font-size:12px;
+  color:#a5b4fc;white-space:pre-wrap;word-break:break-word;line-height:1.6;
+}
+.copy-wrap.compact code{font-size:10px;color:#818cf8}
+.copy-btn{
+  position:absolute;top:10px;right:10px;
+  background:#1c1c22;border:1px solid #2a2a32;
+  color:#8b8b96;font-size:11px;font-weight:600;
+  padding:5px 14px;border-radius:6px;cursor:pointer;transition:all .15s;
+}
+.copy-btn:hover{background:#2a2a32;color:#f0f0f2}
+.copy-btn.copied{background:rgba(129,140,248,.15);border-color:rgba(129,140,248,.3);color:#818cf8}
+
+/* --- Platform tabs --- */
+.tab-bar{display:flex;gap:2px;margin-bottom:0;overflow-x:auto}
+.tab-btn{
+  background:#141418;border:1px solid #2a2a32;border-bottom:none;
+  border-radius:10px 10px 0 0;padding:12px 20px;
+  font-size:12px;font-weight:600;color:#5a5a66;
+  cursor:pointer;white-space:nowrap;transition:all .15s;
+}
+.tab-btn:hover{color:#8b8b96;background:#1c1c22}
+.tab-btn.active{background:#141418;color:#f0f0f2;border-color:#2a2a32;border-bottom-color:#141418}
+.tab-panel{display:none;background:#141418;border:1px solid #2a2a32;border-radius:0 10px 10px 10px;padding:28px}
+.tab-panel.active{display:block}
+.tab-panel h3{font-size:16px;font-weight:600;color:#f0f0f2;margin-bottom:14px;letter-spacing:-.01em}
+.tab-panel p,.tab-panel li{font-size:14px;color:#8b8b96;line-height:1.7}
+.tab-panel ol,.tab-panel ul{padding-left:20px;margin-bottom:18px}
+.tab-panel li{margin-bottom:6px}
+.tab-panel li strong{color:#f0f0f2}
+.tab-panel .tip{
+  background:rgba(129,140,248,.06);border:1px solid rgba(129,140,248,.12);
+  border-radius:8px;padding:14px 18px;font-size:13px;color:#a5b4fc;line-height:1.6;margin-top:16px;
+}
+.tab-panel .tip strong{color:#c7d2fe}
+.tab-section-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#5a5a66;margin:20px 0 10px}
+
+/* --- Comparison cards --- */
+.comp-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:640px){.comp-grid{grid-template-columns:1fr}}
+.comp-card{border-radius:12px;overflow:hidden;border:1px solid #2a2a32}
+.comp-card-brand{border-color:rgba(129,140,248,.3);background:#141418}
+.comp-card-generic{background:#111114;border-color:#1c1c22}
+.comp-card-header{
+  padding:14px 20px;font-size:12px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.08em;display:flex;align-items:center;gap:8px;
+  border-bottom:1px solid #2a2a32;
+}
+.comp-card-brand .comp-card-header{color:#818cf8;border-color:rgba(129,140,248,.15)}
+.comp-card-generic .comp-card-header{color:#5a5a66;border-color:#1c1c22}
+.comp-card-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.comp-dot-brand{background:#818cf8}
+.comp-dot-generic{background:#3a3a44}
+.comp-card-body{padding:6px 0}
+.comp-row{padding:12px 20px;display:flex;gap:12px;align-items:flex-start}
+.comp-row:not(:last-child){border-bottom:1px solid rgba(42,42,50,.5)}
+.comp-row-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#5a5a66;min-width:56px;padding-top:2px;flex-shrink:0}
+.comp-row-value{font-size:13px;color:#f0f0f2;line-height:1.6}
+.comp-generic-text{color:#5a5a66;font-style:italic}
+.comp-swatch{display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:middle;margin-right:6px;border:1px solid #2a2a32}
+.comp-logo-preview{max-width:120px;margin-bottom:8px}
+.comp-logo-preview svg{width:100%;height:auto}
+.comp-missing{color:#fbbf24;font-style:normal}
+
+/* --- Session progression (horizontal timeline) --- */
+.session-track{display:flex;flex-direction:column;gap:0}
+.session-step{display:flex;gap:0;align-items:stretch}
+.session-pip{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:32px}
+.session-pip-inner{
+  width:28px;height:28px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;flex-shrink:0;
+}
+.session-pip-done{background:rgba(129,140,248,.15);color:#818cf8}
+.session-pip-upcoming{background:rgba(129,140,248,.1);color:#818cf8;border:2px solid rgba(129,140,248,.3)}
+.session-pip-future{background:#1c1c22;color:#5a5a66}
+.session-connector{flex:1;width:2px;background:#2a2a32;margin:4px auto;min-height:12px}
+.session-connector-done{background:rgba(129,140,248,.25)}
+.session-connector-none{flex:1;width:2px;background:transparent;margin:4px auto;min-height:0}
+.session-content{padding:4px 0 20px 16px;flex:1}
+.session-complete .session-name{color:#818cf8}
+.session-next .session-name{color:#a5b4fc}
+.session-future .session-name{color:#5a5a66}
+.session-name{font-size:14px;font-weight:600;margin-bottom:4px}
+.session-desc{font-size:13px;color:#5a5a66;line-height:1.6}
+
+/* --- Fix section --- */
+.fix-grid{display:flex;flex-direction:column;gap:16px}
+.fix-card{background:#141418;border:1px solid #2a2a32;border-radius:12px;padding:24px;transition:border-color .15s}
+.fix-card:hover{border-color:#3a3a44}
+.fix-card-title{font-size:14px;font-weight:600;color:#f0f0f2;margin-bottom:4px}
+.fix-card-desc{font-size:13px;color:#5a5a66;line-height:1.6;margin-bottom:14px}
+
+/* --- Footer --- */
+footer{
+  border-top:1px solid #2a2a32;padding-top:32px;margin-top:16px;
+  font-size:12px;color:#3a3a44;line-height:1.7;
+  display:flex;flex-wrap:wrap;gap:8px;align-items:center;
+}
+footer a{color:#818cf8;text-decoration:none;font-weight:600;transition:color .15s}
+footer a:hover{color:#a5b4fc}
+footer .footer-sep{color:#2a2a32}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="overline">brandsystem.app</div>
+  <h1>TuFuturoDual</h1>
+  <div class="subtitle">Manual entry &bull; education technology</div>
+  <div class="audit-line">
+    <span class="audit-pill audit-pill-pass"><strong>6</strong> pass</span>
+    <span class="audit-pill">1 warn</span>
+    <span class="audit-pill">0 fail</span>
+    <span class="audit-pill">2 tokens</span>
+    <span class="audit-pill">1 to clarify</span>
+  </div>
+</header>
+
+<div class="portable-notice">
+  <strong>This document is portable.</strong> Upload it to any AI conversation and say
+  &ldquo;Use this as my brand guidelines for all visual output.&rdquo;
+  Logos are embedded as vectors &mdash; no external files needed.
+</div>
+
+
+  <section>
+    <h2>Brand System Depth</h2>
+    <p class="section-intro">
+      Your brand system gets more powerful with each session.
+    </p>
+    <div class="session-track">
+      <div class="session-step session-complete">
+        <div class="session-pip">
+          <div class="session-pip-inner session-pip-done">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6L5 8.5L9.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="session-connector session-connector-done"></div>
+        </div>
+        <div class="session-content">
+          <div class="session-name">Core Identity</div>
+          <div class="session-desc">Colors, typography, logo, design tokens. Your brand-runtime.json gives every agent the basics.</div>
+        </div>
+      </div>
+      <div class="session-step session-next">
+        <div class="session-pip">
+          <div class="session-pip-inner session-pip-upcoming">2</div>
+          <div class="session-connector"></div>
+        </div>
+        <div class="session-content">
+          <div class="session-name">Full Visual Identity</div>
+          <div class="session-desc">Adds anti-pattern rules and composition guidelines to the runtime. Your agents will reject off-brand layouts and enforce visual consistency, not just use the right hex values.</div>
+        </div>
+      </div>
+      <div class="session-step session-future">
+        <div class="session-pip">
+          <div class="session-pip-inner session-pip-future">3</div>
+          <div class="session-connector"></div>
+        </div>
+        <div class="session-content">
+          <div class="session-name">Brand Voice &amp; Messaging</div>
+          <div class="session-desc">Adds voice constraints, never-say words, and tone rules to the runtime. Written content sounds like your brand, not like AI.</div>
+        </div>
+      </div>
+      <div class="session-step session-future">
+        <div class="session-pip">
+          <div class="session-pip-inner session-pip-future">4</div>
+          <div class="session-connector"></div>
+        </div>
+        <div class="session-content">
+          <div class="session-name">Claims &amp; Evidence</div>
+          <div class="session-desc">Adds proof points and claim policies to the runtime. Agents know what to assert, what to hedge, and what to never say.</div>
+        </div>
+      </div>
+      <div class="session-step session-future">
+        <div class="session-pip">
+          <div class="session-pip-inner session-pip-future">5</div>
+          <div class="session-connector"></div>
+        </div>
+        <div class="session-content">
+          <div class="session-name">Content Strategy</div>
+          <div class="session-desc">Application rules by content type. Blog posts, social, email, case studies &mdash; each with its own governance.</div>
+        </div>
+      </div>
+      <div class="session-step session-future">
+        <div class="session-pip">
+          <div class="session-pip-inner session-pip-future">6</div>
+          <div class="session-connector-none"></div>
+        </div>
+        <div class="session-content">
+          <div class="session-name">Full Operations</div>
+          <div class="session-desc">Production engines, measurement loops, content library. The complete brand operating system.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<section>
+  <h2>Logo</h2>
+  
+      <div class="empty-state">
+        No logo detected. Add one via Figma extraction or manual upload.
+      </div>
+</section>
+
+<section>
+  <h2>Colors &mdash; 1 extracted</h2>
+  <div class="color-grid">
+    
+        <div class="color-card">
+          <div class="color-swatch" style="background:#22d3ee"></div>
+          <div class="color-info">
+            <div class="color-role"><span class="badge badge-role">primary</span></div>
+            <div class="color-hex">#22d3ee</div>
+            <div class="color-meta"><span class="badge badge-confirmed">confirmed</span> <span class="source">via manual</span></div>
+          </div>
+        </div>
+  </div>
+</section>
+
+<section>
+  <h2>Typography &mdash; 1 font</h2>
+  <div class="font-list">
+    
+        <div class="font-card">
+          <div class="font-specimen">Display: Sora / Space Grotesk (extrabold, tracking-tight). Body: Inter (16-18px). Eyebrow labels: small-caps, tracking-widest, cian, 12px.</div>
+          <div class="font-meta">
+            <span class="badge badge-confirmed">confirmed</span>
+            <span class="source">via manual</span>
+            
+          </div>
+        </div>
+  </div>
+</section>
+
+<section>
+  <h2>Quick Reference</h2>
+  
+      <div class="usage-block">
+        <h3>Colors</h3>
+        <div class="copy-wrap" id="copy-ref-1">
+          <button class="copy-btn" onclick="copyBlock('copy-ref-1')">Copy</button>
+          <pre><code>primary: #22d3ee</code></pre>
+        </div>
+      </div>
+
+      <div class="usage-block">
+        <h3>Fonts</h3>
+        <div class="copy-wrap" id="copy-ref-2">
+          <button class="copy-btn" onclick="copyBlock('copy-ref-2')">Copy</button>
+          <pre><code>font-family: Display: Sora / Space Grotesk (extrabold, tracking-tight). Body: Inter (16-18px). Eyebrow labels: small-caps, tracking-widest, cian, 12px.</code></pre>
+        </div>
+      </div>
+</section>
+
+
+  <section>
+    <h2>Your Brand vs. Generic AI</h2>
+    <p class="section-intro">
+      This is what your AI tools know now vs. what they&rsquo;d guess without a brand system.
+    </p>
+    <div class="comp-grid">
+      <div class="comp-card comp-card-brand">
+        <div class="comp-card-header">
+          <span class="comp-card-dot comp-dot-brand"></span>
+          With Your Brand System
+        </div>
+        <div class="comp-card-body">
+          <div class="comp-row">
+            <span class="comp-row-label">Logo</span>
+            <span class="comp-row-value"><span class="comp-missing">Not yet extracted &mdash; add via Figma or upload</span></span>
+          </div>
+          <div class="comp-row">
+            <span class="comp-row-label">Colors</span>
+            <span class="comp-row-value"><span class="comp-swatch" style="background:#22d3ee"></span>#22d3ee (primary) + 0 more</span>
+          </div>
+          <div class="comp-row">
+            <span class="comp-row-label">Fonts</span>
+            <span class="comp-row-value">Display: Sora / Space Grotesk (extrabold, tracking-tight). Body: Inter (16-18px). Eyebrow labels: small-caps, tracking-widest, cian, 12px.</span>
+          </div>
+          <div class="comp-row">
+            <span class="comp-row-label">Tokens</span>
+            <span class="comp-row-value">Machine-readable DTCG format</span>
+          </div>
+        </div>
+      </div>
+      <div class="comp-card comp-card-generic">
+        <div class="comp-card-header">
+          <span class="comp-card-dot comp-dot-generic"></span>
+          Without It
+        </div>
+        <div class="comp-card-body">
+          <div class="comp-row">
+            <span class="comp-row-label">Logo</span>
+            <span class="comp-row-value comp-generic-text">Would type &ldquo;TuFuturoDual&rdquo; in a similar-looking font</span>
+          </div>
+          <div class="comp-row">
+            <span class="comp-row-label">Colors</span>
+            <span class="comp-row-value comp-generic-text">Would pick a blue primary or &ldquo;professional&rdquo; defaults</span>
+          </div>
+          <div class="comp-row">
+            <span class="comp-row-label">Fonts</span>
+            <span class="comp-row-value comp-generic-text">Would default to Inter, system-ui, or Arial</span>
+          </div>
+          <div class="comp-row">
+            <span class="comp-row-label">Tokens</span>
+            <span class="comp-row-value comp-generic-text">Would re-interpret a PDF or screenshot every time</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section>
+    <h2>Needs Clarification</h2>
+    <div class="clarify-list">
+      
+        <div class="clarify-card">
+          <div class="clarify-num">1</div>
+          <div>
+            <div class="clarify-q">No logo detected. Provide your logo as SVG for best results.</div>
+            <div class="clarify-field">logo &bull; high priority</div>
+          </div>
+        </div>
+    </div>
+  </section>
+
+<!-- USE YOUR BRAND — Platform Tabs -->
+<section>
+  <h2>Use Your Brand</h2>
+  <div class="tab-bar">
+    <button class="tab-btn active" data-tab="claude">Claude</button>
+    <button class="tab-btn" data-tab="chatgpt">ChatGPT</button>
+    <button class="tab-btn" data-tab="gemini">Gemini</button>
+    <button class="tab-btn" data-tab="code">Coding Tools</button>
+  </div>
+
+  <!-- CLAUDE -->
+  <div class="tab-panel active" id="tab-claude">
+    <h3>Set up in Claude</h3>
+    <ol>
+      <li>Go to <strong>claude.ai</strong> and create a new <strong>Project</strong></li>
+      <li>Open the project, then click <strong>Project knowledge</strong> in the sidebar</li>
+      <li>Upload this HTML file as a knowledge source &mdash; Claude will read it directly</li>
+      <li>In <strong>Project instructions</strong>, paste the prompt below</li>
+    </ol>
+    <div class="tab-section-label">Paste into Project Instructions</div>
+    <div class="copy-wrap" id="copy-claude">
+      <button class="copy-btn" onclick="copyBlock('copy-claude')">Copy</button>
+      <pre><code>You have access to the TuFuturoDual brand identity report in this project's knowledge.
+
+For ALL visual output — HTML artifacts, SVG graphics, diagrams, mockups — apply the brand:
+- Use the exact SVG logo from the report. Never type the company name in a font.
+- Use the exact hex color values. Primary is for CTAs and emphasis.
+- Reference the brand fonts by name in CSS font-family declarations.
+- For dark backgrounds, invert the logo fills to #ffffff.
+
+When generating any visual artifact, load the brand report first and follow its color, typography, and logo specifications exactly.</code></pre>
+    </div>
+    <div class="tip">
+      <strong>Pro tip:</strong> You can also create a <strong>Claude Skill</strong> that wraps these instructions,
+      so you can invoke it from any project with a slash command. In your project, look for
+      Skills in the sidebar to set one up.
+    </div>
+  </div>
+
+  <!-- CHATGPT -->
+  <div class="tab-panel" id="tab-chatgpt">
+    <h3>Set up in ChatGPT</h3>
+    <ol>
+      <li>Go to <strong>Explore GPTs</strong> &rarr; <strong>Create</strong></li>
+      <li>Name it <strong>&ldquo;TuFuturoDual Brand Assistant&rdquo;</strong></li>
+      <li>Upload this HTML file under <strong>Knowledge</strong></li>
+      <li>Paste the prompt below into <strong>Instructions</strong></li>
+      <li>Save &mdash; now you have a branded GPT</li>
+    </ol>
+    <div class="tab-section-label">Paste into GPT Instructions</div>
+    <div class="copy-wrap" id="copy-chatgpt">
+      <button class="copy-btn" onclick="copyBlock('copy-chatgpt')">Copy</button>
+      <pre><code>You are the TuFuturoDual brand assistant. You have the brand identity report in your knowledge base.
+
+For ALL visual output — HTML, SVG, code, mockups — you MUST:
+- Use the exact SVG logo from the brand report. Never type "TuFuturoDual" in a font.
+- Use the exact hex colors from the report. Do not approximate.
+- Use the brand font names in CSS font-family.
+- For dark backgrounds, set logo path fills to #ffffff.
+
+Before generating any visual content, reference the brand report and apply its specifications.</code></pre>
+    </div>
+    <div class="tip">
+      <strong>Alternative:</strong> Go to <strong>Settings &rarr; Personalization &rarr; Custom Instructions</strong>
+      to apply your brand across all conversations (character limit is tighter &mdash; skip the logo SVG and
+      focus on colors + fonts).
+    </div>
+  </div>
+
+  <!-- GEMINI -->
+  <div class="tab-panel" id="tab-gemini">
+    <h3>Set up in Gemini</h3>
+    <ol>
+      <li>Open <strong>Gemini</strong> and click <strong>Gem manager</strong> &rarr; <strong>New Gem</strong></li>
+      <li>Name it <strong>&ldquo;TuFuturoDual Brand&rdquo;</strong></li>
+      <li>Paste the prompt below into the Gem&rsquo;s instructions</li>
+      <li>Upload this HTML file if the Gem supports file attachments</li>
+      <li>Save the Gem</li>
+    </ol>
+    <div class="tab-section-label">Paste into Gem Instructions</div>
+    <div class="copy-wrap" id="copy-gemini">
+      <button class="copy-btn" onclick="copyBlock('copy-gemini')">Copy</button>
+      <pre><code>You are a brand-compliant design assistant for TuFuturoDual.
+
+Apply these brand specifications to all visual output:
+
+# Brand Identity: TuFuturoDual
+
+Apply these guidelines to all visual output, code-generated artifacts, and design work for TuFuturoDual.
+
+## Colors
+
+Use these exact hex values. Do not substitute approximate colors.
+
+| Role | Hex |
+|------|-----|
+| primary | #22d3ee |
+
+## Typography
+
+- Display: Sora / Space Grotesk (extrabold, tracking-tight). Body: Inter (16-18px). Eyebrow labels: small-caps, tracking-widest, cian, 12px.
+
+## Rules
+
+- Use exact hex values from the color table — no &quot;close enough&quot; substitutions
+- When generating HTML, CSS, or any visual code, reference these brand values directly</code></pre>
+    </div>
+  </div>
+
+  <!-- CODING TOOLS -->
+  <div class="tab-panel" id="tab-code">
+    <h3>Set up in your coding tool</h3>
+    <p style="margin-bottom:18px">
+      For production-grade brand compliance, install the <strong>brandsystem MCP server</strong>.
+      It gives your coding tool direct access to your brand identity &mdash; logo vectors, exact colors,
+      font families &mdash; at the moment of creation.
+    </p>
+
+    <div class="tab-section-label">Step 1 &mdash; Add the MCP server</div>
+    <div class="copy-wrap" id="copy-mcp">
+      <button class="copy-btn" onclick="copyBlock('copy-mcp')">Copy</button>
+      <pre><code>{
+  &quot;mcpServers&quot;: {
+    &quot;brandsystem&quot;: {
+      &quot;command&quot;: &quot;npx&quot;,
+      &quot;args&quot;: [&quot;@brandsystem/mcp&quot;]
+    }
+  }
+}</code></pre>
+    </div>
+    <ul style="margin-bottom:18px">
+      <li><strong>Claude Code</strong> &mdash; save as <code>.mcp.json</code> in your project root</li>
+      <li><strong>Cursor</strong> &mdash; save as <code>.cursor/mcp.json</code></li>
+      <li><strong>Windsurf</strong> &mdash; add to Windsurf MCP settings</li>
+    </ul>
+
+    <div class="tab-section-label">Step 2 &mdash; Upload this report + paste the prompt</div>
+    <p>Upload this HTML file to your project, restart your editor, then paste:</p>
+    <div class="copy-wrap" id="copy-code-prompt">
+      <button class="copy-btn" onclick="copyBlock('copy-code-prompt')">Copy</button>
+      <pre><code>I've uploaded my brand identity report (brand-report.html) from brandsystem.app. The basic brand extraction (colors, fonts, logo) is already done — this report has everything from the initial web scan.
+
+Before we start, check if the brandsystem MCP server is available by looking for brand_status in your tools. If it's not there, help me install it:
+- For Claude Code: create a .mcp.json file in the project root with the brandsystem server config (command: "npx", args: ["@brandsystem/mcp"])
+- For Cursor: create .cursor/mcp.json with the same config
+- Then restart so the MCP loads
+
+Once the MCP is available:
+1. Run brand_init with client name "TuFuturoDual"
+2. Import the existing identity from the uploaded brand report — don't re-scan the website, the basics are already captured
+3. Then let's go deeper — Figma extraction for higher-accuracy colors, the full logo set, and typography weights</code></pre>
+    </div>
+
+    <div class="tip">
+      <strong>What this unlocks:</strong> The MCP server gives your coding tool direct access to your brand
+      identity at the moment of creation. It supports Figma extraction (higher accuracy than web),
+      design token compilation (DTCG format), brand auditing, and preflight checks.
+      No more copy-pasting hex values &mdash; the brand is just <em>there</em>.
+    </div>
+
+    <div class="tip" style="margin-top:8px">
+      <strong>Alternative:</strong> Skip the MCP and just upload this HTML file to your project. Add this to
+      your <code>CLAUDE.md</code>, <code>.cursorrules</code>, or project rules:
+    </div>
+    <div class="copy-wrap" id="copy-rules-line" style="margin-top:8px">
+      <button class="copy-btn" onclick="copyBlock('copy-rules-line')">Copy</button>
+      <pre><code>Use the brand identity in brand-report.html for all visual output. Use the inline SVG for the logo — never type the company name in a font. Use exact hex values from the report for all colors.</code></pre>
+    </div>
+  </div>
+</section>
+
+<!-- SOMETHING LOOK WRONG? -->
+<section>
+  <h2>Something Look Wrong?</h2>
+  <p class="section-intro">
+    Go back to your AI chat and paste one of these prompts to fix what&rsquo;s off.
+  </p>
+  <div class="fix-grid">
+
+    <div class="fix-card">
+      <div class="fix-card-title">Connect to Figma</div>
+      <div class="fix-card-desc">Extract logo, colors, and typography directly from your design file (highest accuracy)</div>
+      <div class="copy-wrap" id="copy-fix-figma">
+        <button class="copy-btn" onclick="copyBlock('copy-fix-figma')">Copy</button>
+        <pre><code>I have a Figma file with my brand's design system. Can you walk me through connecting to it to extract our exact colors, typography, and logo? The web extraction got close but I need higher accuracy from the source design file.</code></pre>
+      </div>
+    </div>
+
+    <div class="fix-card">
+      <div class="fix-card-title">Upload brand guidelines</div>
+      <div class="fix-card-desc">Share your brand guidelines PDF or document for accurate extraction</div>
+      <div class="copy-wrap" id="copy-fix-guidelines">
+        <button class="copy-btn" onclick="copyBlock('copy-fix-guidelines')">Copy</button>
+        <pre><code>I'm uploading our brand guidelines document. Please extract the correct colors (with their roles — primary, secondary, accent, etc.), typography (font families, weights, and usage), and any logo specifications. Compare what you find against the brand report I set up earlier and tell me what needs to be corrected.</code></pre>
+      </div>
+    </div>
+
+    <div class="fix-card">
+      <div class="fix-card-title">Upload an on-brand asset</div>
+      <div class="fix-card-desc">Share a file you know is correct and we&rsquo;ll sample from it</div>
+      <div class="copy-wrap" id="copy-fix-asset">
+        <button class="copy-btn" onclick="copyBlock('copy-fix-asset')">Copy</button>
+        <pre><code>I'm uploading a file that I know is on-brand (it was approved by our design team). Please sample the colors, fonts, and any logo usage from it and compare against the brand report I set up. Update the brand identity with any corrections you find.</code></pre>
+      </div>
+    </div>
+
+    <div class="fix-card">
+      <div class="fix-card-title">Send to your design team</div>
+      <div class="fix-card-desc">Forward this report for review &mdash; they can send back corrections</div>
+      <div class="copy-wrap" id="copy-fix-team">
+        <button class="copy-btn" onclick="copyBlock('copy-fix-team')">Copy</button>
+        <pre><code>Can you draft a short message I can send to our design team? I need them to review this brand identity report and tell me:
+1. Are the colors correct? What are the actual hex values and roles (primary, secondary, accent)?
+2. Are the fonts correct? What are the exact family names and weights?
+3. Can they send me the logo as an SVG file?
+4. Anything else that's wrong or missing?</code></pre>
+      </div>
+    </div>
+
+    <div class="fix-card">
+      <div class="fix-card-title">Scan a different page</div>
+      <div class="fix-card-desc">If this wasn&rsquo;t your main brand page, try a different URL</div>
+      <div class="copy-wrap" id="copy-fix-rescan">
+        <button class="copy-btn" onclick="copyBlock('copy-fix-rescan')">Copy</button>
+        <pre><code>The brand extraction didn't get the right results from that URL. Let's try scanning a different page — I think [PASTE YOUR URL HERE] would be a better source for our brand colors and logo. Please re-run the extraction and update the report.</code></pre>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <span>Generated by</span>
+  <a href="https://brandsystem.app">brandsystem.app</a>
+  <span class="footer-sep">&bull;</span>
+  <span>v0.1.0</span>
+  <span class="footer-sep">&bull;</span>
+  <span>2026-08-18</span>
+  <span class="footer-sep">&bull;</span>
+  <span>Audit: WARN (6/1/0)</span>
+</footer>
+
+<script>
+// Tab switching
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  });
+});
+
+// Click to copy
+function copyBlock(wrapperId) {
+  const wrap = document.getElementById(wrapperId);
+  const code = wrap.querySelector('code');
+  const btn = wrap.querySelector('.copy-btn');
+  navigator.clipboard.writeText(code.textContent).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+</script>
+</body>
+</html>

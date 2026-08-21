@@ -16,13 +16,13 @@ export function RankingFull({
   return (
     <div
       data-theme="dark"
-      className="rounded-3xl border border-white/10 bg-[#0a0a0a] p-8 space-y-4"
+      className="rounded-3xl border border-[var(--color-border)]/70 bg-[var(--color-surface)]/70 p-8 space-y-4 backdrop-blur-sm"
     >
-      <h3 className="text-sm font-bold uppercase tracking-wider text-neutral-500">
+      <h3 className="text-sm font-bold uppercase tracking-wider text-[var(--color-text-muted)]">
         Ranking completo
       </h3>
       {modalityRecommendation && (
-        <span className="inline-block rounded-full border border-[#0033A5]/40 bg-[#0033A5]/10 px-3 py-1 text-xs font-bold text-[#7aa2ff]">
+        <span className="inline-block rounded-full border border-[var(--color-neon-secondary)]/40 bg-[var(--color-neon-secondary)]/10 px-3 py-1 text-xs font-bold text-[var(--color-neon-secondary)]">
           Modalidad recomendada: {modalityRecommendation}
         </span>
       )}

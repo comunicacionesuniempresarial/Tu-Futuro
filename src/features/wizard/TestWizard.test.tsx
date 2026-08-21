@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, act, waitFor } from "@testing-library/react";
 import { MotionGlobalConfig } from "motion/react";
 import TestWizard from "./TestWizard";
 import { useTestStore } from "@/stores/test-store";
@@ -36,8 +36,6 @@ describe("TestWizard (features/wizard)", () => {
   const originalMatchMedia = window.matchMedia;
 
   beforeAll(() => {
-    // Resolve all Framer Motion animations instantly so sequential
-    // question transitions (mode="wait") don't exceed the test budget.
     MotionGlobalConfig.skipAnimations = true;
     vi.stubGlobal(
       "Audio",
@@ -79,14 +77,23 @@ describe("TestWizard (features/wizard)", () => {
     return screen.getByRole("progressbar");
   }
 
-  /** Click the first option of the current question and advance. */
+  /** Click the first option of the current question. */
   function answerCurrent() {
     const firstOption = document.querySelector("[data-option]") as HTMLElement;
     fireEvent.click(firstOption);
   }
 
-  function clickNext() {
-    fireEvent.click(screen.getByRole("button", { name: "Siguiente" }));
+  /**
+   * Answer the current question and wait for auto-advance (~300ms real time).
+   * Captures the step BEFORE clicking, then waits for the store step to increment.
+   */
+  async function answerAndAdvance() {
+    const stepBefore = useTestStore.getState().step;
+    answerCurrent();
+    // Wait for the store to advance to the next step
+    await waitFor(() => {
+      expect(useTestStore.getState().step).toBe(stepBefore + 1);
+    }, { timeout: 3000 });
   }
 
   it("shows the disclaimer first with the gamified progress at zero", () => {
@@ -105,7 +112,7 @@ describe("TestWizard (features/wizard)", () => {
     fireEvent.click(screen.getByRole("button", { name: /Entendido, empezar/ }));
 
     expect(
-      screen.getByText("Una tarde libre y sin planes, ¿qué te atrapa más?")
+      screen.getByText(QUESTION_BANK[0].text)
     ).toBeInTheDocument();
     expect(progressBar()).toHaveAttribute("aria-valuenow", "1");
     expect(mockRunScoring).not.toHaveBeenCalled();
@@ -115,11 +122,10 @@ describe("TestWizard (features/wizard)", () => {
     render(<TestWizard />);
     fireEvent.click(screen.getByRole("button", { name: /Entendido, empezar/ }));
 
-    answerCurrent();
-    clickNext();
+    await answerAndAdvance();
 
     expect(
-      await screen.findByText("En una feria del barrio, ¿qué papel te gusta más?")
+      screen.getByText(QUESTION_BANK[1].text)
     ).toBeInTheDocument();
     expect(progressBar()).toHaveAttribute("aria-valuenow", "2");
     expect(mockRunScoring).not.toHaveBeenCalled();
@@ -129,12 +135,10 @@ describe("TestWizard (features/wizard)", () => {
     render(<TestWizard />);
     fireEvent.click(screen.getByRole("button", { name: /Entendido, empezar/ }));
 
-    const next = screen.getByRole("button", { name: "Siguiente" });
-    expect(next).toBeDisabled();
-
-    fireEvent.click(next);
+    // No auto-advance indicator shown when unanswered
+    expect(screen.queryByText("Avanzando…")).not.toBeInTheDocument();
     expect(
-      screen.getByText("Una tarde libre y sin planes, ¿qué te atrapa más?")
+      screen.getByText(QUESTION_BANK[0].text)
     ).toBeInTheDocument();
   });
 
@@ -142,15 +146,18 @@ describe("TestWizard (features/wizard)", () => {
     render(<TestWizard />);
     fireEvent.click(screen.getByRole("button", { name: /Entendido, empezar/ }));
 
-    answerCurrent();
-    clickNext();
-    await screen.findByText("En una feria del barrio, ¿qué papel te gusta más?");
+    await answerAndAdvance();
+    expect(
+      screen.getByText(QUESTION_BANK[1].text)
+    ).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole("button", { name: "Anterior" }));
 
-    expect(
-      await screen.findByText("Una tarde libre y sin planes, ¿qué te atrapa más?")
-    ).toBeInTheDocument();
+    await waitFor(() => {
+      expect(
+        screen.getByText(QUESTION_BANK[0].text)
+      ).toBeInTheDocument();
+    });
     expect(progressBar()).toHaveAttribute("aria-valuenow", "1");
   });
 
@@ -158,55 +165,51 @@ describe("TestWizard (features/wizard)", () => {
     render(<TestWizard />);
     fireEvent.click(screen.getByRole("button", { name: /Entendido, empezar/ }));
 
-    // Answer Q1..Q12 to complete layer 1.
-    for (let i = 0; i < 12; i += 1) {
+    // Answer Q1..Q5 to complete layer 1.
+    for (let i = 0; i < 5; i += 1) {
       await screen.findByText(QUESTION_BANK[i].text);
-      answerCurrent();
-      clickNext();
+      await answerAndAdvance();
     }
 
-    // Land on step 13 → layer 2 transition screen.
+    // Land on step 6 → layer 2 transition screen.
     expect(
       await screen.findByRole("heading", { name: "Aptitudes" })
     ).toBeInTheDocument();
-    expect(screen.getByText("Capa 2 de 4")).toBeInTheDocument();
+    expect(screen.getByText("Capa 2 de 3")).toBeInTheDocument();
     expect(mockRunScoring).not.toHaveBeenCalled();
 
     fireEvent.click(screen.getByRole("button", { name: "Continuar" }));
 
     expect(
-      await screen.findByText(
-        "En un examen, ¿con cuál tipo de pregunta te sientes más seguro?"
-      )
+      await screen.findByText(QUESTION_BANK[5].text)
     ).toBeInTheDocument();
-    expect(progressBar()).toHaveAttribute("aria-valuenow", "13");
+    expect(progressBar()).toHaveAttribute("aria-valuenow", "6");
     expect(mockRunScoring).not.toHaveBeenCalled();
-  }, 20000);
+  }, 30000);
 
   it("runs the scoring pipeline exactly once on the final step and persists results", async () => {
     render(<TestWizard />);
     fireEvent.click(screen.getByRole("button", { name: /Entendido, empezar/ }));
 
-    // Answer Q1..Q24 with Siguiente, dismissing the layer
-    // transition screens that appear after Q12, Q17 and Q22.
-    for (let i = 0; i < 24; i += 1) {
+    // Answer Q1..Q14 with auto-advance, dismissing the layer
+    // transition screens that appear after Q5 and Q10.
+    for (let i = 0; i < 14; i += 1) {
       await screen.findByText(QUESTION_BANK[i].text);
-      answerCurrent();
-      clickNext();
-      if (i === 11 || i === 16 || i === 21) {
+      await answerAndAdvance();
+      if (i === 4 || i === 9) {
         await screen.findByRole("button", { name: "Continuar" });
         fireEvent.click(screen.getByRole("button", { name: "Continuar" }));
       }
     }
 
-    // Land on Q25 → answer and click Finalizar.
+    // Land on Q15 → answer and click Finalizar (last question, no auto-advance).
     expect(
-      await screen.findByText(
-        "Cuando tienes que aprender algo nuevo, ¿en qué ambiente rindes mejor?"
-      )
+      await screen.findByText(QUESTION_BANK[14].text)
     ).toBeInTheDocument();
     answerCurrent();
 
+    // Finalizar must be clicked on the last question
+    expect(screen.getByRole("button", { name: "Finalizar" })).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: "Finalizar" }));
 
     expect(mockRunScoring).toHaveBeenCalledTimes(1);
@@ -216,7 +219,7 @@ describe("TestWizard (features/wizard)", () => {
       riasecProfile: pipelineResult.riasecProfile,
       archetype: { id: "realizador" },
     });
-  }, 20000);
+  }, 30000);
 
   it("keeps progress and question flow under reduced motion", () => {
     window.matchMedia = vi.fn().mockImplementation((query: string) => ({
@@ -234,11 +237,75 @@ describe("TestWizard (features/wizard)", () => {
     fireEvent.click(screen.getByRole("button", { name: /Entendido, empezar/ }));
 
     expect(
-      screen.getByText("Una tarde libre y sin planes, ¿qué te atrapa más?")
+      screen.getByText(QUESTION_BANK[0].text)
     ).toBeInTheDocument();
     expect(progressBar()).toHaveAttribute("aria-valuenow", "1");
 
     const progress = container.querySelector('[role="progressbar"]');
     expect(progress).toHaveAttribute("data-motion", "static");
+  });
+
+  // ── Auto-advance behavior (uses fake timers for precise timing control) ──
+
+  it("auto-advances to the next question ~300ms after selecting an answer", async () => {
+    render(<TestWizard />);
+    fireEvent.click(screen.getByRole("button", { name: /Entendido, empezar/ }));
+
+    const stepBefore = useTestStore.getState().step;
+
+    // Select an answer — should NOT advance immediately
+    answerCurrent();
+    expect(
+      screen.getByText(QUESTION_BANK[0].text)
+    ).toBeInTheDocument();
+    expect(useTestStore.getState().step).toBe(stepBefore);
+
+    // Wait for auto-advance to fire
+    await waitFor(() => {
+      expect(useTestStore.getState().step).toBe(stepBefore + 1);
+    }, { timeout: 2000 });
+
+    expect(
+      screen.getByText(QUESTION_BANK[1].text)
+    ).toBeInTheDocument();
+    expect(progressBar()).toHaveAttribute("aria-valuenow", "2");
+  });
+
+  it("cancels auto-advance when user selects a different answer", async () => {
+    render(<TestWizard />);
+    fireEvent.click(screen.getByRole("button", { name: /Entendido, empezar/ }));
+
+    const stepBefore = useTestStore.getState().step;
+
+    // Select option 0
+    const options = document.querySelectorAll("[data-option]");
+    fireEvent.click(options[0]);
+
+    // Wait 150ms (partway through the auto-advance timer) then switch to option 1
+    await act(async () => {
+      await new Promise((r) => setTimeout(r, 150));
+    });
+    fireEvent.click(options[1]);
+
+    // Wait enough time that the first timer would have fired (450ms total from first click)
+    // but the second timer hasn't yet (only 300ms from second click)
+    await act(async () => {
+      await new Promise((r) => setTimeout(r, 200));
+    });
+
+    // Still on Q1 — the first timer was cancelled by the second selection
+    expect(useTestStore.getState().step).toBe(stepBefore);
+    expect(
+      screen.getByText(QUESTION_BANK[0].text)
+    ).toBeInTheDocument();
+
+    // Wait for the second timer (300ms from second selection) to fire
+    await waitFor(() => {
+      expect(useTestStore.getState().step).toBe(stepBefore + 1);
+    }, { timeout: 2000 });
+
+    expect(
+      screen.getByText(QUESTION_BANK[1].text)
+    ).toBeInTheDocument();
   });
 });

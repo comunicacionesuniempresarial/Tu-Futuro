@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TuFuturoDual - Results Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Sora:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#373a3b",
+                        "secondary-container": "#464744",
+                        "functional-cyan": "rgba(34, 211, 238, 0.15)",
+                        "on-primary-fixed-variant": "#004e5a",
+                        "on-tertiary-fixed-variant": "#474743",
+                        "surface": "#111415",
+                        "background": "#111415",
+                        "surface-tint": "#2fd9f4",
+                        "surface-container-low": "#191c1d",
+                        "on-secondary-fixed-variant": "#464744",
+                        "on-primary": "#00363e",
+                        "on-tertiary-container": "#4f4f4b",
+                        "inverse-surface": "#e1e3e4",
+                        "primary-fixed-dim": "#2fd9f4",
+                        "on-tertiary": "#30312d",
+                        "error": "#ffb4ab",
+                        "inverse-on-surface": "#2e3132",
+                        "on-error-container": "#ffdad6",
+                        "on-surface-variant": "#bbc9cd",
+                        "on-secondary-container": "#b5b5b2",
+                        "primary-fixed": "#a2eeff",
+                        "ink-depth": "#0C0F10",
+                        "surface-container-lowest": "#0c0f10",
+                        "secondary-fixed": "#e3e2df",
+                        "outline": "#859397",
+                        "tertiary": "#dfddd8",
+                        "muted-border": "#282A2B",
+                        "on-secondary": "#2f312e",
+                        "surface-dim": "#111415",
+                        "on-secondary-fixed": "#1b1c1a",
+                        "primary-container": "#22d3ee",
+                        "secondary-fixed-dim": "#c7c7c3",
+                        "on-primary-container": "#005763",
+                        "surface-container-highest": "#323536",
+                        "surface-container-high": "#272a2b",
+                        "tertiary-fixed": "#e4e2dd",
+                        "surface-container": "#1d2021",
+                        "inverse-primary": "#006877",
+                        "tertiary-container": "#c2c1bc",
+                        "soft-oat": "#F5F3EF",
+                        "on-tertiary-fixed": "#1b1c19",
+                        "secondary": "#c7c7c3",
+                        "tertiary-fixed-dim": "#c8c6c2",
+                        "on-background": "#e1e3e4",
+                        "on-primary-fixed": "#001f25",
+                        "error-container": "#93000a",
+                        "warm-cream": "#FDFCF8",
+                        "on-error": "#690005",
+                        "on-surface": "#e1e3e4",
+                        "surface-variant": "#323536",
+                        "primary": "#8aebff",
+                        "outline-variant": "#3c494c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "margin-mobile": "20px",
+                        "margin-desktop": "64px",
+                        "gallery-padding": "80px",
+                        "container-max": "1280px",
+                        "unit": "8px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "display-xl": ["Sora"],
+                        "label-caps": ["Inter"],
+                        "headline-md": ["Sora"],
+                        "display-lg-mobile": ["Sora"],
+                        "display-lg": ["Sora"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-xl": ["64px", { "lineHeight": "72px", "letterSpacing": "-0.03em", "fontWeight": "800" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "display-lg-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #111415; /* surface */
+            color: #e1e3e4; /* on-surface */
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined[data-weight="fill"] {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col font-body-md text-body-md selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<nav class="bg-surface dark:bg-surface text-primary dark:text-primary font-body-md text-body-md fixed top-0 w-full border-b border-muted-border flat no shadows z-50">
+<div class="flex justify-between items-center h-20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<a class="font-display-lg text-display-lg-mobile md:text-display-lg text-warm-cream" href="#">VocationElite</a>
+<div class="hidden md:flex gap-gutter items-center">
+<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors duration-200" href="#">Assessments</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1 active:scale-95 transition-transform" href="#">Archetypes</a>
+<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors duration-200" href="#">Institutions</a>
+<a class="text-on-surface-variant font-body-md hover:text-primary transition-colors duration-200" href="#">Resources</a>
+</div>
+<button class="hidden md:flex items-center justify-center bg-warm-cream text-ink-depth px-6 py-3 rounded hover:bg-transparent hover:text-warm-cream border border-warm-cream transition-colors duration-200 font-label-caps text-label-caps">
+                Get Started
+            </button>
+<button class="md:hidden text-on-surface hover:text-primary">
+<span class="material-symbols-outlined text-3xl" data-icon="menu">menu</span>
+</button>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-grow pt-32 pb-24 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto w-full">
+<!-- Header -->
+<header class="mb-16 md:mb-24 text-center md:text-left">
+<h1 class="font-display-xl text-display-lg-mobile md:text-display-xl text-warm-cream mb-4">Your Professional Blueprint</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Based on your comprehensive assessment, we have synthesized your cognitive and behavioral traits to determine your optimal vocational pathway.</p>
+</header>
+<!-- Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter auto-rows-[auto]">
+<!-- Primary Archetype Card (Large, Light) -->
+<div class="md:col-span-8 bg-warm-cream rounded-xl p-8 md:p-12 text-ink-depth flex flex-col justify-between relative overflow-hidden group border border-tertiary">
+<div class="absolute inset-0 bg-gradient-to-br from-soft-oat to-transparent opacity-50 z-0"></div>
+<div class="relative z-10 flex flex-col h-full">
+<div class="mb-8">
+<span class="font-label-caps text-label-caps text-on-tertiary-fixed-variant tracking-wider uppercase mb-2 block">Dominant Archetype</span>
+<h2 class="font-display-lg text-display-lg-mobile md:text-display-lg mb-4 text-ink-depth leading-tight">The Analytical Strategist</h2>
+<p class="font-body-md text-body-md text-on-tertiary-fixed max-w-xl">You possess a unique synthesis of logical deduction and long-term planning. You excel in environments requiring systemic optimization and data-driven foresight.</p>
+</div>
+<div class="mt-auto grid grid-cols-2 md:grid-cols-3 gap-6 pt-8 border-t border-tertiary">
+<div>
+<span class="block font-label-caps text-label-caps text-outline mb-1">Core Trait</span>
+<span class="font-headline-md text-headline-md text-ink-depth">Logic</span>
+</div>
+<div>
+<span class="block font-label-caps text-label-caps text-outline mb-1">Pacing</span>
+<span class="font-headline-md text-headline-md text-ink-depth">Methodical</span>
+</div>
+<div class="hidden md:block">
+<span class="block font-label-caps text-label-caps text-outline mb-1">Execution</span>
+<span class="font-headline-md text-headline-md text-ink-depth">Precision</span>
+</div>
+</div>
+</div>
+<!-- Decorative Icon -->
+<span class="material-symbols-outlined absolute top-8 right-8 text-[120px] text-tertiary opacity-30 select-none z-0" data-icon="hub">hub</span>
+</div>
+<!-- RIASEC Radar (Dark, Technical) -->
+<div class="md:col-span-4 bg-surface-container-low border border-muted-border rounded-xl p-8 flex flex-col relative">
+<h3 class="font-headline-md text-headline-md text-warm-cream mb-6">Trait Matrix</h3>
+<div class="flex-grow flex items-center justify-center relative min-h-[250px]">
+<!-- Simulated Radar Chart using CSS/SVG -->
+<svg class="w-full h-full max-w-[200px] max-h-[200px] overflow-visible text-muted-border" viewbox="0 0 100 100">
+<!-- Grid lines -->
+<polygon fill="none" points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" stroke="currentColor" stroke-width="0.5"></polygon>
+<polygon fill="none" points="50,20 80,35 80,65 50,80 20,65 20,35" stroke="currentColor" stroke-width="0.5"></polygon>
+<polygon fill="none" points="50,35 65,42.5 65,57.5 50,65 35,57.5 35,42.5" stroke="currentColor" stroke-width="0.5"></polygon>
+<!-- Axis lines -->
+<line stroke="currentColor" stroke-width="0.5" x1="50" x2="50" y1="50" y2="5"></line>
+<line stroke="currentColor" stroke-width="0.5" x1="50" x2="95" y1="50" y2="27.5"></line>
+<line stroke="currentColor" stroke-width="0.5" x1="50" x2="95" y1="50" y2="72.5"></line>
+<line stroke="currentColor" stroke-width="0.5" x1="50" x2="50" y1="50" y2="95"></line>
+<line stroke="currentColor" stroke-width="0.5" x1="50" x2="5" y1="50" y2="72.5"></line>
+<line stroke="currentColor" stroke-width="0.5" x1="50" x2="5" y1="50" y2="27.5"></line>
+<!-- Data Polygon -->
+<polygon class="transition-all duration-700 hover:fill-[rgba(138,235,255,0.2)]" fill="rgba(138, 235, 255, 0.1)" points="50,15 85,30 60,65 50,85 15,60 35,35" stroke="#8aebff" stroke-width="1.5"></polygon>
+<!-- Labels -->
+<text class="font-label-caps" fill="#bbc9cd" font-size="4" text-anchor="middle" x="50" y="2">REALISTIC</text>
+<text class="font-label-caps font-bold" fill="#8aebff" font-size="4" text-anchor="start" x="98" y="27.5">INVESTIGATIVE</text>
+<text class="font-label-caps" fill="#bbc9cd" font-size="4" text-anchor="start" x="98" y="72.5">ARTISTIC</text>
+<text class="font-label-caps" fill="#bbc9cd" font-size="4" text-anchor="middle" x="50" y="100">SOCIAL</text>
+<text class="font-label-caps font-bold" fill="#8aebff" font-size="4" text-anchor="end" x="2" y="72.5">ENTERPRISING</text>
+<text class="font-label-caps" fill="#bbc9cd" font-size="4" text-anchor="end" x="2" y="27.5">CONVENTIONAL</text>
+</svg>
+</div>
+<div class="mt-6 flex justify-between items-center text-label-caps font-label-caps text-on-surface-variant">
+<span>Dominant: Investigative</span>
+<span class="text-primary">94th Percentile</span>
+</div>
+</div>
+<!-- Top Careers (Light, List) -->
+<div class="md:col-span-6 bg-soft-oat rounded-xl p-8 border border-tertiary flex flex-col">
+<h3 class="font-headline-md text-headline-md text-ink-depth mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="target">target</span>
+                    Recommended Pathways
+                </h3>
+<div class="flex-grow space-y-4">
+<!-- Career Item 1 -->
+<div class="bg-warm-cream p-4 rounded border border-tertiary hover:border-primary transition-colors cursor-pointer group flex justify-between items-center">
+<div>
+<h4 class="font-headline-md text-body-lg md:text-headline-md text-ink-depth group-hover:text-primary-container transition-colors">Data Systems Architect</h4>
+<span class="font-label-caps text-label-caps text-on-tertiary-fixed-variant">98% Match • High Demand</span>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors" data-icon="chevron_right">chevron_right</span>
+</div>
+<!-- Career Item 2 -->
+<div class="bg-warm-cream p-4 rounded border border-tertiary hover:border-primary transition-colors cursor-pointer group flex justify-between items-center">
+<div>
+<h4 class="font-headline-md text-body-lg md:text-headline-md text-ink-depth group-hover:text-primary-container transition-colors">Quantitative Analyst</h4>
+<span class="font-label-caps text-label-caps text-on-tertiary-fixed-variant">92% Match • Competitive</span>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors" data-icon="chevron_right">chevron_right</span>
+</div>
+<!-- Career Item 3 -->
+<div class="bg-warm-cream p-4 rounded border border-tertiary hover:border-primary transition-colors cursor-pointer group flex justify-between items-center">
+<div>
+<h4 class="font-headline-md text-body-lg md:text-headline-md text-ink-depth group-hover:text-primary-container transition-colors">Operations Research Director</h4>
+<span class="font-label-caps text-label-caps text-on-tertiary-fixed-variant">88% Match • Leadership Focus</span>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+</div>
+<!-- Lead Capture (Glass Container) -->
+<div class="md:col-span-6 relative rounded-xl p-8 overflow-hidden flex flex-col border border-muted-border bg-surface-container-low/80 backdrop-blur-md">
+<!-- Subtle glowing background effect -->
+<div class="absolute -top-24 -right-24 w-64 h-64 bg-primary rounded-full mix-blend-screen filter blur-[100px] opacity-10"></div>
+<h3 class="font-headline-md text-headline-md text-warm-cream mb-2 relative z-10">Unlock Full Analysis</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 relative z-10">Enter your institutional credentials to receive the comprehensive 40-page PDF report detailing industry-specific methodologies.</p>
+<form class="space-y-4 relative z-10 mt-auto">
+<div>
+<label class="sr-only" for="email">Institutional Email</label>
+<input class="w-full bg-ink-depth border border-muted-border rounded px-4 py-3 text-warm-cream font-body-md placeholder:text-outline focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-colors" id="email" placeholder="Institutional Email Address" type="email"/>
+</div>
+<button class="w-full bg-warm-cream text-ink-depth font-label-caps text-label-caps py-3 px-4 rounded hover:bg-tertiary transition-colors border border-warm-cream flex justify-center items-center gap-2" type="submit">
+                        Request Complete Report
+                        <span class="material-symbols-outlined text-[18px]" data-icon="download">download</span>
+</button>
+</form>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-ink-depth dark:bg-ink-depth text-warm-cream dark:text-warm-cream font-label-caps text-label-caps w-full py-12 border-t border-muted-border flat no shadows">
+<div class="flex flex-col md:flex-row justify-between items-center px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<span class="font-display-xl text-display-xl text-warm-cream mb-8 md:mb-0 hidden">VocationElite</span>
+<div class="flex flex-wrap justify-center md:justify-start gap-8 mb-8 md:mb-0">
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Contact Support</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Institutional Access</a>
+</div>
+<div class="text-on-surface-variant">
+                © 2024 VocationElite Executive Testing. All rights reserved.
+            </div>
+</div>
+</footer>
+</body></html>

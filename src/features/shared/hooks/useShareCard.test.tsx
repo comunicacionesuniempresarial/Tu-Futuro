@@ -9,7 +9,7 @@ const { pngBlob, svgToPngBlobMock } = vi.hoisted(() => {
 });
 
 const data: ShareCardData = {
-  archetype: { id: "ingeniero", name: "Ingeniero", emoji: "⚙️", color: "#D51933" },
+  archetype: { id: "ingeniero", name: "Ingeniero", emoji: "⚙️", color: "#22D3EE" },
   riasecProfile: { R: 0.8, I: 0.6, A: 0.3, S: 0.2, E: 0.4, C: 0.5 },
   topPrograms: [{ id: "ing-software", name: "Ingeniería de Software" }],
 };

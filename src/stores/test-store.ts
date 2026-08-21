@@ -5,47 +5,45 @@ import { persist } from "zustand/middleware";
 import type { RIASECProfile, ModalityResult } from "@/lib/scoring/types";
 
 // ── Layer boundaries (0-indexed question positions) ──
-const LAYER_BOUNDARIES = [12, 17, 22] as const; // Q12→Q13, Q17→Q18, Q22→Q23
+// New distribution: 5 questions per layer (1-5, 6-10, 11-15)
+const LAYER_BOUNDARIES = [5, 10] as const; // Q5→Q6, Q10→Q11
 
-export const TOTAL_STEPS = 25;
+export const TOTAL_STEPS = 15;
 
 /** Layer names for display */
-export const LAYER_NAMES: Record<1 | 2 | 3 | 4, string> = {
+export const LAYER_NAMES: Record<1 | 2 | 3, string> = {
   1: "Intereses RIASEC",
   2: "Aptitudes",
   3: "Valores y Estilo de Vida",
-  4: "Modalidad",
 };
 
 /** Layer descriptions shown on transition screens */
-export const LAYER_DESCRIPTIONS: Record<1 | 2 | 3 | 4, string> = {
+export const LAYER_DESCRIPTIONS: Record<1 | 2 | 3, string> = {
   1: "Vamos a descubrir tus intereses profesionales mediante el modelo RIASEC.",
   2: "Ahora hablemos de tus aptitudes y habilidades.",
   3: "Es momento de conocer tus valores y estilo de vida.",
-  4: "Para terminar, hablemos de tu preferencia de modalidad de estudio.",
 };
 
 /**
  * Determine which layer a 1-indexed question position belongs to.
- * Question positions: 1-12 → Layer 1, 13-17 → Layer 2, 18-22 → Layer 3, 23-25 → Layer 4
+ * New distribution: 1-5 → Layer 1, 6-10 → Layer 2, 11-15 → Layer 3
  */
-export function getLayerForPosition(position: number): 1 | 2 | 3 | 4 {
-  if (position <= 12) return 1;
-  if (position <= 17) return 2;
-  if (position <= 22) return 3;
-  return 4;
+export function getLayerForPosition(position: number): 1 | 2 | 3 {
+  if (position <= 5) return 1;
+  if (position <= 10) return 2;
+  return 3;
 }
 
 /** Check if a position is at a layer boundary (last question of a layer) */
 export function isLayerBoundary(position: number): boolean {
-  return LAYER_BOUNDARIES.includes(position as 12 | 17 | 22);
+  return LAYER_BOUNDARIES.includes(position as 5 | 10);
 }
 
 interface TestState {
   // Current step (1-indexed: 1 = first question, 25 = last question)
   step: number;
   // Current layer (1-4)
-  currentLayer: 1 | 2 | 3 | 4;
+  currentLayer: 1 | 2 | 3;
   // Answers keyed by question ID — all numeric (option index or 1-based likert)
   answers: Record<string, number>;
   // Cached RIASEC profile after test completion

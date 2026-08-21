@@ -52,16 +52,15 @@ describe("NarrativeSection", () => {
     }));
   }
 
-  it("renders eyebrow, title and children", () => {
+  it("renders title and children", () => {
     mockMatchMedia(false);
 
     render(
-      <NarrativeSection id="como-funciona" eyebrow="Cómo funciona" title="Tu mapa de futuro">
+      <NarrativeSection id="como-funciona" title="Tu mapa de futuro">
         <p>Contenido de la sección</p>
       </NarrativeSection>
     );
 
-    expect(screen.getByText("Cómo funciona")).toBeInTheDocument();
     expect(
       screen.getByRole("heading", { level: 2, name: "Tu mapa de futuro" })
     ).toBeInTheDocument();
@@ -90,7 +89,7 @@ describe("NarrativeSection", () => {
     });
 
     const { container } = render(
-      <NarrativeSection id="como-funciona" eyebrow="Cómo funciona" title="Título">
+      <NarrativeSection id="como-funciona" title="Título">
         <p>Contenido</p>
       </NarrativeSection>
     );
@@ -112,7 +111,7 @@ describe("NarrativeSection", () => {
     mockMatchMedia(true);
 
     const { container } = render(
-      <NarrativeSection id="como-funciona" eyebrow="Cómo funciona" title="Título">
+      <NarrativeSection id="como-funciona" title="Título">
         <p>Contenido</p>
       </NarrativeSection>
     );

@@ -1,0 +1,7 @@
+schema_version: 0.1.0
+items:
+  - id: clarify-1
+    field: logo
+    question: No logo detected. Provide your logo as SVG for best results.
+    source: compilation
+    priority: high

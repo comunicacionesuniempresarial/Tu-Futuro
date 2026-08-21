@@ -23,7 +23,7 @@ export function statusLabel(s: string): string {
  */
 export function statusBadgeClasses(s: string): string {
   const classes: Record<string, string> = {
-    nuevo: "bg-[#0033A5]/10 text-[#0033A5]",
+    nuevo: "bg-[#E879F9]/10 text-[#E879F9]",
     contactado: "bg-[#16a34a]/10 text-[#16a34a]",
     en_proceso: "bg-amber-400/20 text-amber-700",
     admitido: "bg-violet-500/10 text-violet-600",
@@ -171,7 +171,7 @@ export default function LeadsTable({
             onSearchChange(e.target.value);
             setPage(1);
           }}
-          className="flex-1 min-w-[200px] p-3.5 rounded-xl bg-white border border-slate-200 text-slate-900 placeholder-slate-400 focus:border-[#D51933]/50 focus:outline-none text-sm transition-all duration-300 shadow-sm"
+          className="flex-1 min-w-[200px] p-3.5 rounded-xl bg-white border border-slate-200 text-slate-900 placeholder-slate-400 focus:border-[#22D3EE]/50 focus:outline-none text-sm transition-all duration-300 shadow-sm"
         />
         <label htmlFor="leads-archetype" className="sr-only">
           Filtrar por arquetipo
@@ -185,7 +185,7 @@ export default function LeadsTable({
             onArchetypeChange(e.target.value);
             setPage(1);
           }}
-          className="w-48 p-3.5 rounded-xl bg-white border border-slate-200 text-slate-900 placeholder-slate-400 focus:border-[#D51933]/50 focus:outline-none text-sm transition-all duration-300 shadow-sm"
+          className="w-48 p-3.5 rounded-xl bg-white border border-slate-200 text-slate-900 placeholder-slate-400 focus:border-[#22D3EE]/50 focus:outline-none text-sm transition-all duration-300 shadow-sm"
         />
         <label htmlFor="leads-estado" className="sr-only">
           Filtrar por estado
@@ -197,7 +197,7 @@ export default function LeadsTable({
             onEstadoChange(e.target.value);
             setPage(1);
           }}
-          className="p-3.5 rounded-xl bg-white border border-slate-200 text-slate-900 focus:border-[#D51933]/50 focus:outline-none text-sm transition-all duration-300 shadow-sm"
+          className="p-3.5 rounded-xl bg-white border border-slate-200 text-slate-900 focus:border-[#22D3EE]/50 focus:outline-none text-sm transition-all duration-300 shadow-sm"
         >
           <option value="">Todos los estados</option>
           <option value="nuevo">Nuevo</option>
@@ -217,7 +217,7 @@ export default function LeadsTable({
             onDateFromChange(e.target.value);
             setPage(1);
           }}
-          className="p-3.5 rounded-xl bg-white border border-slate-200 text-slate-900 focus:border-[#D51933]/50 focus:outline-none text-sm transition-all duration-300 shadow-sm"
+          className="p-3.5 rounded-xl bg-white border border-slate-200 text-slate-900 focus:border-[#22D3EE]/50 focus:outline-none text-sm transition-all duration-300 shadow-sm"
         />
         <label htmlFor="leads-date-to" className="sr-only">
           Hasta
@@ -230,7 +230,7 @@ export default function LeadsTable({
             onDateToChange(e.target.value);
             setPage(1);
           }}
-          className="p-3.5 rounded-xl bg-white border border-slate-200 text-slate-900 focus:border-[#D51933]/50 focus:outline-none text-sm transition-all duration-300 shadow-sm"
+          className="p-3.5 rounded-xl bg-white border border-slate-200 text-slate-900 focus:border-[#22D3EE]/50 focus:outline-none text-sm transition-all duration-300 shadow-sm"
         />
         <label htmlFor="leads-include-pruebas" className="sr-only">
           Incluir leads de prueba
@@ -247,7 +247,7 @@ export default function LeadsTable({
               onIncludePruebasChange(e.target.checked);
               setPage(1);
             }}
-            className="w-4 h-4 rounded accent-[#D51933]"
+            className="w-4 h-4 rounded accent-[#22D3EE]"
           />
           <span className="text-sm text-slate-600">Incluir pruebas</span>
         </label>
@@ -324,7 +324,7 @@ export default function LeadsTable({
                         {statusLabel(lead.estado)}
                       </span>
                     </td>
-                    <td className="p-4 text-[#0033A5] font-bold">
+                    <td className="p-4 text-[#E879F9] font-bold">
                       {lead.compatibilidad_1}%
                     </td>
                     <td className="p-4 text-slate-400">
@@ -348,7 +348,7 @@ export default function LeadsTable({
             <button
               onClick={() => setPage(Math.max(1, page - 1))}
               disabled={page === 1}
-              className="px-4 py-2 rounded-xl bg-white border border-slate-200 text-slate-600 hover:text-[#0033A5] hover:border-[#0033A5]/40 disabled:opacity-30 disabled:cursor-not-allowed text-sm transition-all duration-300 shadow-sm"
+              className="px-4 py-2 rounded-xl bg-white border border-slate-200 text-slate-600 hover:text-[#E879F9] hover:border-[#E879F9]/40 disabled:opacity-30 disabled:cursor-not-allowed text-sm transition-all duration-300 shadow-sm"
             >
               Anterior
             </button>
@@ -358,7 +358,7 @@ export default function LeadsTable({
             <button
               onClick={() => setPage(Math.min(totalPages, page + 1))}
               disabled={page === totalPages}
-              className="px-4 py-2 rounded-xl bg-white border border-slate-200 text-slate-600 hover:text-[#0033A5] hover:border-[#0033A5]/40 disabled:opacity-30 disabled:cursor-not-allowed text-sm transition-all duration-300 shadow-sm"
+              className="px-4 py-2 rounded-xl bg-white border border-slate-200 text-slate-600 hover:text-[#E879F9] hover:border-[#E879F9]/40 disabled:opacity-30 disabled:cursor-not-allowed text-sm transition-all duration-300 shadow-sm"
             >
               Siguiente
             </button>

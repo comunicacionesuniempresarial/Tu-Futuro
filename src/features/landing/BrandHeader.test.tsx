@@ -2,28 +2,31 @@ import { render, screen } from "@testing-library/react";
 import BrandHeader from "./BrandHeader";
 
 describe("BrandHeader", () => {
-  it("renders a persistent header landmark with the brand logo", () => {
+  it("renders a persistent header landmark with the brand wordmark", () => {
     render(<BrandHeader />);
 
     const header = screen.getByRole("banner");
     expect(header).toHaveAttribute("data-persistent", "true");
 
-    const logo = screen.getByAltText("Uniempresarial");
-    expect(logo).toBeInTheDocument();
-    expect(logo).toHaveAttribute("src", "/logo/logo-header.png");
+    const wordmark = screen.getByRole("link", { name: /TuFuturoDual/ });
+    expect(wordmark).toBeInTheDocument();
+    expect(wordmark).toHaveAttribute("href", "/");
   });
 
   it("offers navigation to the test", () => {
     render(<BrandHeader />);
 
-    const testLink = screen.getByRole("link", { name: "Test vocacional" });
+    const testLink = screen.getByRole("link", { name: /El Duelo/ });
     expect(testLink).toHaveAttribute("href", "/test");
   });
 
-  it("keeps the brand social links", () => {
+  it("renders action buttons with Material Symbols icons", () => {
     render(<BrandHeader />);
 
-    const instagram = screen.getByRole("link", { name: "Instagram" });
-    expect(instagram).toHaveAttribute("href", "https://www.instagram.com/uniempresarial/");
+    const accountButton = screen.getByRole("button", { name: "account_circle" });
+    expect(accountButton).toBeInTheDocument();
+
+    const settingsButton = screen.getByRole("button", { name: "settings" });
+    expect(settingsButton).toBeInTheDocument();
   });
 });

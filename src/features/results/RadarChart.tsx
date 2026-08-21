@@ -33,7 +33,7 @@ export function RadarChart({
   return (
     <div
       data-theme="dark"
-      className={`rounded-3xl border border-white/10 bg-[#0a0a0a] p-6 ${className}`}
+      className={`rounded-3xl border border-[var(--color-neon-primary)]/30 bg-[var(--color-surface)]/60 p-6 backdrop-blur-sm ${className}`}
     >
       <div data-radar="true" dangerouslySetInnerHTML={{ __html: svg }} />
     </div>

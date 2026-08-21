@@ -3,20 +3,19 @@
 import { useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "@/features/shared/hooks/useReducedMotion";
 
-/** Number of segments per layer: L1=12, L2=5, L3=5, L4=3 → 25 total. */
-export const LAYER_SEGMENTS: readonly [number, number, number, number] = [
-  12, 5, 5, 3,
+/** Number of segments per layer: L1=5, L2=5, L3=5 → 15 total. */
+export const LAYER_SEGMENTS: readonly [number, number, number] = [
+  5, 5, 5,
 ];
 
 /** Question positions that complete a layer (last segment of each group). */
-const LAYER_FINAL_STEPS: readonly number[] = [12, 17, 22, 25];
+const LAYER_FINAL_STEPS: readonly number[] = [5, 10, 15];
 
-/** Map a 1-indexed question position to its layer group (1-4). */
-export function getLayerForSegment(step: number): 1 | 2 | 3 | 4 {
-  if (step <= 12) return 1;
-  if (step <= 17) return 2;
-  if (step <= 22) return 3;
-  return 4;
+/** Map a 1-indexed question position to its layer group (1-3). */
+export function getLayerForSegment(step: number): 1 | 2 | 3 {
+  if (step <= 5) return 1;
+  if (step <= 10) return 2;
+  return 3;
 }
 
 /** Whether reaching this step completes a layer (triggers the neon pulse). */
@@ -27,10 +26,10 @@ export function isLayerFinalStep(step: number): boolean {
 interface GamifiedProgressProps {
   /** 1-indexed current question position (0 = pre-test welcome). */
   currentStep: number;
-  /** Total questions (25). */
+  /** Total questions (15). */
   totalSteps: number;
-  /** Current layer (1-4), used to highlight the active group. */
-  currentLayer: 1 | 2 | 3 | 4;
+  /** Current layer (1-3), used to highlight the active group. */
+  currentLayer: 1 | 2 | 3;
   /** Fired once when a layer-final segment lights up. */
   onSegmentComplete?: (step: number) => void;
 }
@@ -55,20 +54,17 @@ export default function GamifiedProgress({
       firedRef.current.add(currentStep);
       setPulseStep(currentStep);
       onSegmentComplete?.(currentStep);
-    } else if (pulseStep !== null && currentStep !== pulseStep) {
-      setPulseStep(null);
     }
-  }, [currentStep, onSegmentComplete, pulseStep]);
+  }, [currentStep, onSegmentComplete]);
 
-  // Build the four layer groups with their global 1-indexed step numbers.
-  let cursor = 0;
+  // Build the three layer groups with their global 1-indexed step numbers.
   const groups = LAYER_SEGMENTS.map((count, index) => {
-    const layer = (index + 1) as 1 | 2 | 3 | 4;
+    const layer = (index + 1) as 1 | 2 | 3;
+    const cursor = LAYER_SEGMENTS.slice(0, index).reduce((sum, value) => sum + value, 0);
     const steps = Array.from(
       { length: count },
       (_, idx) => cursor + idx + 1
     );
-    cursor += count;
     return { layer, steps };
   });
 

@@ -45,7 +45,7 @@ export default function AdminLayout({
           {/* Logo */}
           <div className="p-6 border-b border-slate-200/70">
             <Link href="/" className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-[#D51933] to-[#0033A5] rounded-xl flex items-center justify-center font-bold text-sm text-white shadow-md shadow-[#D51933]/20">
+              <div className="w-10 h-10 bg-gradient-to-br from-[#22D3EE] to-[#E879F9] rounded-xl flex items-center justify-center font-bold text-sm text-white shadow-md shadow-[#22D3EE]/20">
                 UF
               </div>
               <div>
@@ -69,8 +69,8 @@ export default function AdminLayout({
                   href={item.href}
                   className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 ${
                     isActive
-                      ? "bg-[#D51933]/10 text-[#D51933] border border-[#D51933]/20"
-                      : "text-slate-500 hover:text-[#0033A5] hover:bg-[#0033A5]/10"
+                      ? "bg-[#22D3EE]/10 text-[#22D3EE] border border-[#22D3EE]/20"
+                      : "text-slate-500 hover:text-[#E879F9] hover:bg-[#E879F9]/10"
                   }`}
                 >
                   {item.icon}
@@ -84,7 +84,7 @@ export default function AdminLayout({
           <div className="p-4 border-t border-slate-200/70 space-y-3">
             <Link
               href="/"
-              className="flex items-center gap-2 text-sm text-slate-400 hover:text-[#0033A5] transition-colors"
+              className="flex items-center gap-2 text-sm text-slate-400 hover:text-[#E879F9] transition-colors"
             >
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -93,7 +93,7 @@ export default function AdminLayout({
             </Link>
             <button
               onClick={() => signOut({ callbackUrl: "/admin/login" })}
-              className="flex items-center gap-2 text-sm text-slate-400 hover:text-[#D51933] transition-colors"
+              className="flex items-center gap-2 text-sm text-slate-400 hover:text-[#22D3EE] transition-colors"
             >
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
@@ -107,7 +107,7 @@ export default function AdminLayout({
         <div className="flex-1 flex flex-col">
           <header className="md:hidden flex items-center justify-between p-4 border-b border-slate-200/70 bg-white/90 backdrop-blur-md">
             <Link href="/" className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-[#D51933] to-[#0033A5] rounded-lg flex items-center justify-center font-bold text-xs text-white">
+              <div className="w-8 h-8 bg-gradient-to-br from-[#22D3EE] to-[#E879F9] rounded-lg flex items-center justify-center font-bold text-xs text-white">
                 UF
               </div>
               <span className="font-bold text-sm text-slate-900">Admin</span>
@@ -126,8 +126,8 @@ export default function AdminLayout({
                     aria-label={item.label}
                     className={`p-2 rounded-lg transition-colors ${
                       isActive
-                        ? "bg-[#D51933]/10 text-[#D51933]"
-                        : "text-slate-400 hover:text-[#0033A5]"
+                        ? "bg-[#22D3EE]/10 text-[#22D3EE]"
+                        : "text-slate-400 hover:text-[#E879F9]"
                     }`}
                   >
                     {item.icon}
@@ -137,7 +137,7 @@ export default function AdminLayout({
               <button
                 onClick={() => signOut({ callbackUrl: "/admin/login" })}
                 aria-label="Cerrar sesión"
-                className="p-2 rounded-lg text-slate-400 hover:text-[#D51933] hover:bg-[#D51933]/10 transition-colors"
+                className="p-2 rounded-lg text-slate-400 hover:text-[#22D3EE] hover:bg-[#22D3EE]/10 transition-colors"
               >
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />

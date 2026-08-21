@@ -27,19 +27,18 @@ describe("Hero", () => {
     render(<Hero />);
 
     expect(
-      screen.getByRole("heading", { level: 1, name: /Descubre tu carrera ideal/ })
+      screen.getByRole("heading", { level: 1, name: /destino dual/i })
     ).toBeInTheDocument();
   });
 
-  it("shows the key stats inline, each exactly once", () => {
+  it("shows the value propositions inline, each exactly once", () => {
     mockMatchMedia(false);
 
     render(<Hero />);
 
-    expect(screen.getAllByText("25")).toHaveLength(1);
-    expect(screen.getAllByText("4")).toHaveLength(1);
-    expect(screen.getAllByText("8")).toHaveLength(1);
-    expect(screen.getAllByText("12")).toHaveLength(1);
+    expect(screen.getAllByText("Las 4 Capas del Poder")).toHaveLength(1);
+    expect(screen.getAllByText("Radar RIASEC")).toHaveLength(1);
+    expect(screen.getAllByText("Tu Arquetipo Mítico")).toHaveLength(1);
   });
 
   it("renders the CTA linking to the test", () => {
@@ -47,7 +46,7 @@ describe("Hero", () => {
 
     render(<Hero />);
 
-    const cta = screen.getByRole("link", { name: /Empezar el test/ });
+    const cta = screen.getByRole("link", { name: /Comenzar el Duelo/ });
     expect(cta).toHaveAttribute("href", "/test");
   });
 
@@ -57,7 +56,7 @@ describe("Hero", () => {
     const onStart = vi.fn();
     render(<Hero onStart={onStart} />);
 
-    fireEvent.click(screen.getByRole("link", { name: /Empezar el test/ }));
+    fireEvent.click(screen.getByRole("link", { name: /Comenzar el Duelo/ }));
 
     expect(onStart).toHaveBeenCalledTimes(1);
   });

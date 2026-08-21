@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TuFuturo Dual — Sistema TCG Completo</title>
+<style>
+  :root {
+    --bg: #060912;
+    --bg2: #0C1120;
+    --bg3: #131A30;
+    --gold: #FBBF24;
+    --gold-bright: #FCD34D;
+    --gold-dim: rgba(251,191,36,0.15);
+    --neon: #22D3EE;
+    --violet: #A855F7;
+    --red: #D51933;
+    --green: #4ADE80;
+    --text: #F1F5F9;
+    --text2: #94A3B8;
+    --text3: #64748B;
+    --border: rgba(251,191,36,0.12);
+    --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    --card-w: 300px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: var(--font); background: var(--bg); color: var(--text); overflow-x: hidden; }
+
+  /* ===== GLOBAL ===== */
+  .page { max-width: 1100px; margin: 0 auto; padding: 48px 24px; }
+  .page-header { text-align: center; margin-bottom: 56px; }
+  .page-header .badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 16px; border-radius: 999px; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 16px; background: var(--gold-dim); border: 1px solid rgba(251,191,36,0.3); color: var(--gold); }
+  .page-header .badge .ico { font-size: 13px; }
+  .page-header h1 { font-size: 48px; font-weight: 900; letter-spacing: -2px; margin-bottom: 10px; line-height: 1.1; }
+  .page-header h1 .g { background: linear-gradient(135deg, var(--gold), #F59E0B, var(--red)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .page-header .sub { color: var(--text2); font-size: 15px; max-width: 640px; margin: 0 auto; line-height: 1.7; }
+  .page-header .sub b { color: var(--gold); }
+
+  .screen { background: var(--bg2); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; margin-bottom: 56px; box-shadow: 0 24px 80px rgba(0,0,0,0.7); }
+  .screen-label { display: flex; align-items: center; gap: 10px; padding: 14px 22px; background: rgba(0,0,0,0.5); border-bottom: 1px solid var(--border); }
+  .screen-label .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 10px var(--gold); }
+  .screen-label span { font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--text2); font-weight: 700; }
+
+  .section-intro { padding: 32px 40px 0; }
+  .section-intro h2 { font-size: 28px; font-weight: 900; margin-bottom: 6px; }
+  .section-intro h2 .hl { color: var(--gold); }
+  .section-intro p { color: var(--text2); font-size: 14px; line-height: 1.65; max-width: 600px; }
+
+  /* ===== FLOW STEPS ===== */
+  .flow-strip { display: flex; gap: 2px; padding: 0 40px 32px; overflow-x: auto; }
+  .flow-step { flex: 1; min-width: 160px; background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; padding: 16px; text-align: center; position: relative; }
+  .flow-step .fs-num { font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+  .flow-step .fs-icon { font-size: 28px; margin-bottom: 6px; }
+  .flow-step .fs-title { font-size: 13px; font-weight: 800; margin-bottom: 3px; }
+  .flow-step .fs-desc { font-size: 11px; color: var(--text3); line-height: 1.4; }
+  .flow-step::after { content: '→'; position: absolute; right: -14px; top: 50%; transform: translateY(-50%); color: var(--text3); font-size: 16px; z-index: 1; }
+  .flow-step:last-child::after { display: none; }
+
+  /* ===== YU-GI-OH CARD SYSTEM ===== */
+  .ygo { width: var(--card-w); border-radius: 14px; overflow: hidden; background: linear-gradient(180deg, var(--c-top) 0%, var(--c-bot) 100%); border: 3px solid var(--c-border); box-shadow: 0 0 40px var(--c-glow), 0 20px 50px rgba(0,0,0,0.7); position: relative; flex-shrink: 0; }
+  .ygo::before { content:''; position: absolute; inset: -3px; border-radius: 17px; background: linear-gradient(180deg, var(--c-border), transparent, var(--c-border)); z-index: -1; opacity: 0.5; }
+
+  .y-name-bar { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: linear-gradient(180deg, var(--c-top2), var(--c-top)); border-bottom: 2px solid var(--c-border); }
+  .y-name-bar .y-name { font-size: 15px; font-weight: 900; color: var(--c-text); letter-spacing: 0.3px; }
+  .y-name-bar .y-stars { display: flex; gap: 1px; }
+  .y-name-bar .y-stars span { color: var(--gold); font-size: 11px; text-shadow: 0 0 6px rgba(251,191,36,0.5); }
+
+  .y-art-frame { margin: 8px 10px; border-radius: 6px; overflow: hidden; border: 2px solid var(--c-border); background: #080808; }
+  .y-art { height: 170px; background: linear-gradient(160deg, var(--c-art1), var(--c-art2), var(--c-art3)); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+  .y-art .icon { font-size: 68px; filter: drop-shadow(0 0 20px var(--c-icon-glow)); position: relative; z-index: 1; }
+  .y-art .art-glow { position: absolute; inset: 0; background: radial-gradient(circle at 50% 60%, var(--c-radial), transparent 65%); }
+  .y-art .art-particles { position: absolute; inset: 0; overflow: hidden; }
+  .y-art .art-particles span { position: absolute; width: 3px; height: 3px; border-radius: 50%; background: var(--c-particle); opacity: 0.4; animation: float 4s infinite; }
+  .y-art .art-particles span:nth-child(1) { left: 15%; top: 20%; animation-delay: 0s; }
+  .y-art .art-particles span:nth-child(2) { left: 75%; top: 30%; animation-delay: 1s; }
+  .y-art .art-particles span:nth-child(3) { left: 45%; top: 70%; animation-delay: 2s; }
+  .y-art .art-particles span:nth-child(4) { left: 85%; top: 60%; animation-delay: 0.5s; }
+  .y-art .art-particles span:nth-child(5) { left: 30%; top: 80%; animation-delay: 1.5s; }
+  @keyframes float { 0%,100% { transform: translateY(0) scale(1); opacity: 0.4; } 50% { transform: translateY(-12px) scale(1.3); opacity: 0.7; } }
+
+  .y-type-bar { margin: 6px 10px; padding: 5px 10px; background: rgba(0,0,0,0.5); border-radius: 4px; display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(255,255,255,0.05); }
+  .y-type-bar .y-type { font-size: 10px; font-weight: 700; color: var(--c-type-color); letter-spacing: 0.5px; }
+  .y-type-bar .y-attr { font-size: 9px; color: var(--c-attr-color); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; }
+
+  .y-desc { margin: 6px 10px; padding: 10px; background: rgba(0,0,0,0.35); border-radius: 6px; min-height: 56px; border: 1px solid rgba(255,255,255,0.03); }
+  .y-desc .effect { font-size: 10.5px; color: var(--c-effect-color); line-height: 1.5; margin-bottom: 4px; }
+  .y-desc .effect b { color: var(--c-effect-highlight); }
+  .y-desc .lore { font-size: 10px; color: var(--c-lore-color); font-style: italic; line-height: 1.45; }
+
+  .y-stats-bar { display: flex; justify-content: space-between; margin: 6px 10px 10px; padding: 7px 12px; background: linear-gradient(180deg, var(--c-top2), var(--c-top)); border: 1px solid var(--c-border); border-radius: 6px; }
+  .y-stats-bar .ys { text-align: center; }
+  .y-stats-bar .ys .val { font-size: 19px; font-weight: 900; color: var(--c-stat-color); text-shadow: 0 0 8px var(--c-glow); }
+  .y-stats-bar .ys .lbl { font-size: 8px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--c-lbl-color); font-weight: 700; }
+
+  /* ===== CARD THEMES ===== */
+  .ygo.earth { --c-top: #1A1408; --c-top2: #2A1F0A; --c-bot: #0F0C04; --c-border: #8B7340; --c-glow: rgba(139,115,64,0.2); --c-text: #E8D5A0; --c-art1: #0F172A; --c-art2: #1E1B4B; --c-art3: #312E81; --c-icon-glow: rgba(34,211,238,0.3); --c-radial: rgba(34,211,238,0.12); --c-particle: #22D3EE; --c-type-color: #C4A55A; --c-attr-color: #4ADE80; --c-effect-color: #C4A55A; --c-effect-highlight: #FCD34D; --c-lore-color: #8B7340; --c-stat-color: #FCD34D; --c-lbl-color: #8B7340; }
+  .ygo.water { --c-top: #0A1428; --c-top2: #0F2040; --c-bot: #060E1A; --c-border: #3B82F6; --c-glow: rgba(59,130,246,0.2); --c-text: #BFDBFE; --c-art1: #0C1A30; --c-art2: #1E3A5F; --c-art3: #1E40AF; --c-icon-glow: rgba(96,165,250,0.4); --c-radial: rgba(96,165,250,0.15); --c-particle: #60A5FA; --c-type-color: #93C5FD; --c-attr-color: #60A5FA; --c-effect-color: #93C5FD; --c-effect-highlight: #BFDBFE; --c-lore-color: #60A5FA; --c-stat-color: #60A5FA; --c-lbl-color: #3B82F6; }
+  .ygo.fire { --c-top: #2A0A0A; --c-top2: #401010; --c-bot: #1A0505; --c-border: #EF4444; --c-glow: rgba(239,68,68,0.2); --c-text: #FECACA; --c-art1: #1A0505; --c-art2: #7F1D1D; --c-art3: #991B1B; --c-icon-glow: rgba(251,146,60,0.4); --c-radial: rgba(251,146,60,0.15); --c-particle: #FB923C; --c-type-color: #FCA5A5; --c-attr-color: #FB923C; --c-effect-color: #FCA5A5; --c-effect-highlight: #FED7AA; --c-lore-color: #FB923C; --c-stat-color: #FB923C; --c-lbl-color: #EF4444; }
+  .ygo.light { --c-top: #2A2008; --c-top2: #403010; --c-bot: #1A1404; --c-border: #FBBF24; --c-glow: rgba(251,191,36,0.2); --c-text: #FEF3C7; --c-art1: #1A1404; --c-art2: #78350F; --c-art3: #92400E; --c-icon-glow: rgba(253,224,71,0.4); --c-radial: rgba(253,224,71,0.15); --c-particle: #FDE047; --c-type-color: #FDE68A; --c-attr-color: #FDE047; --c-effect-color: #FDE68A; --c-effect-highlight: #FEF9C3; --c-lore-color: #FDE047; --c-stat-color: #FDE047; --c-lbl-color: #FBBF24; }
+  .ygo.wind { --c-top: #081A10; --c-top2: #103020; --c-bot: #040F08; --c-border: #22C55E; --c-glow: rgba(34,197,94,0.2); --c-text: #BBF7D0; --c-art1: #040F08; --c-art2: #14532D; --c-art3: #166534; --c-icon-glow: rgba(74,222,128,0.4); --c-radial: rgba(74,222,128,0.15); --c-particle: #4ADE80; --c-type-color: #86EFAC; --c-attr-color: #4ADE80; --c-effect-color: #86EFAC; --c-effect-highlight: #BBF7D0; --c-lore-color: #4ADE80; --c-stat-color: #4ADE80; --c-lbl-color: #22C55E; }
+  .ygo.dark { --c-top: #180828; --c-top2: #281040; --c-bot: #0C0418; --c-border: #A855F7; --c-glow: rgba(168,85,247,0.2); --c-text: #E9D5FF; --c-art1: #0C0418; --c-art2: #581C87; --c-art3: #6B21A8; --c-icon-glow: rgba(192,132,252,0.4); --c-radial: rgba(192,132,252,0.15); --c-particle: #C084FC; --c-type-color: #D8B4FE; --c-attr-color: #C084FC; --c-effect-color: #D8B4FE; --c-effect-highlight: #F3E8FF; --c-lore-color: #C084FC; --c-stat-color: #C084FC; --c-lbl-color: #A855F7; }
+
+  /* ===== CARD GRID (Colección) ===== */
+  .coll-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 0 40px 40px; }
+  .coll-card { border-radius: 12px; overflow: hidden; background: linear-gradient(180deg, var(--c-top), var(--c-bot)); border: 2px solid var(--c-border); transition: all 0.25s; cursor: pointer; }
+  .coll-card:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 20px 50px var(--c-glow); }
+  .coll-card .cc-name { padding: 6px 10px; background: linear-gradient(180deg, var(--c-top2), var(--c-top)); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--c-border); }
+  .coll-card .cc-name .cn { font-size: 12px; font-weight: 900; color: var(--c-text); }
+  .coll-card .cc-name .cs { color: var(--gold); font-size: 9px; }
+  .coll-card .cc-art { height: 90px; background: linear-gradient(160deg, var(--c-art1), var(--c-art2), var(--c-art3)); display: flex; align-items: center; justify-content: center; font-size: 36px; position: relative; overflow: hidden; }
+  .coll-card .cc-art .cc-glow { position: absolute; inset: 0; background: radial-gradient(circle at 50% 60%, var(--c-radial), transparent 60%); }
+  .coll-card .cc-info { padding: 6px 10px; }
+  .coll-card .cc-info .cc-type { font-size: 9px; color: var(--c-type-color); margin-bottom: 2px; }
+  .coll-card .cc-info .cc-desc { font-size: 9px; color: var(--c-lore-color); font-style: italic; line-height: 1.3; }
+  .coll-card .cc-stats { display: flex; justify-content: space-between; padding: 4px 10px 6px; font-size: 10px; font-weight: 700; }
+  .coll-card .cc-stats span:first-child { color: var(--c-stat-color); }
+  .coll-card .cc-stats span:last-child { color: var(--c-lbl-color); }
+  .coll-card.locked { opacity: 0.3; filter: grayscale(0.8); }
+  .coll-card.locked .cc-art::after { content: '?'; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 40px; color: var(--text3); background: rgba(0,0,0,0.5); }
+
+  /* ===== SHARE CARD (9:16) ===== */
+  .share-stage { display: flex; justify-content: center; gap: 40px; padding: 40px; flex-wrap: wrap; align-items: flex-start; }
+  .share-card { width: 280px; border-radius: 24px; overflow: hidden; background: linear-gradient(180deg, var(--c-top), var(--c-bot)); border: 3px solid var(--c-border); box-shadow: 0 0 60px var(--c-glow), 0 30px 60px rgba(0,0,0,0.8); }
+  .share-card .sh-brand { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: rgba(0,0,0,0.4); }
+  .share-card .sh-brand .br { font-size: 13px; font-weight: 900; color: var(--c-text); }
+  .share-card .sh-brand .br b { color: var(--neon); }
+  .share-card .sh-brand .rar { font-size: 9px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--gold); }
+  .share-card .sh-art { height: 200px; background: linear-gradient(160deg, var(--c-art1), var(--c-art2), var(--c-art3)); display: flex; align-items: center; justify-content: center; font-size: 80px; position: relative; overflow: hidden; }
+  .share-card .sh-art .sh-glow { position: absolute; inset: 0; background: radial-gradient(circle at 50% 55%, var(--c-radial), transparent 65%); }
+  .share-card .sh-body { padding: 16px; text-align: center; }
+  .share-card .sh-body .cls-tag { display: inline-block; background: rgba(255,255,255,0.06); border: 1px solid var(--c-border); color: var(--c-type-color); padding: 3px 10px; border-radius: 999px; font-size: 9px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+  .share-card .sh-body h3 { font-size: 24px; font-weight: 900; margin-bottom: 2px; color: var(--c-text); }
+  .share-card .sh-body .stars { color: var(--gold); font-size: 14px; margin-bottom: 6px; letter-spacing: 2px; }
+  .share-card .sh-body .tagline { font-size: 11px; color: var(--c-attr-color); margin-bottom: 10px; font-weight: 600; }
+  .share-card .sh-body .desc-text { font-size: 11px; color: var(--c-effect-color); font-style: italic; line-height: 1.5; margin-bottom: 12px; }
+  .share-card .sh-stats { display: flex; justify-content: space-around; background: rgba(0,0,0,0.4); border-radius: 8px; padding: 10px; margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.05); }
+  .share-card .sh-stats .ss { text-align: center; }
+  .share-card .sh-stats .ss b { display: block; font-size: 18px; color: var(--c-stat-color); }
+  .share-card .sh-stats .ss span { font-size: 8px; letter-spacing: 1px; text-transform: uppercase; color: var(--c-lbl-color); }
+  .share-card .sh-programs { display: flex; gap: 4px; justify-content: center; flex-wrap: wrap; margin-bottom: 12px; }
+  .share-card .sh-programs .prog { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text2); padding: 3px 8px; border-radius: 999px; font-size: 9px; font-weight: 600; }
+  .share-card .sh-cta { display: block; text-align: center; background: linear-gradient(135deg, var(--c-border), var(--c-stat-color)); color: #060B18; font-weight: 900; padding: 12px; border-radius: 10px; font-size: 13px; letter-spacing: 0.5px; }
+  .share-card .sh-foot { text-align: center; font-size: 9px; color: var(--text3); padding: 10px; opacity: 0.5; }
+
+  .share-info { max-width: 360px; }
+  .share-info h3 { font-size: 20px; font-weight: 900; margin-bottom: 8px; }
+  .share-info p { color: var(--text2); font-size: 13px; line-height: 1.6; margin-bottom: 12px; }
+  .share-info .hint { background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; font-size: 12px; color: var(--gold); margin-bottom: 14px; line-height: 1.5; }
+  .share-info .hint b { color: var(--gold-bright); }
+
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: 999px; font-weight: 800; font-size: 13px; border: none; cursor: pointer; margin-bottom: 8px; margin-right: 6px; }
+  .btn.gold { background: linear-gradient(135deg, var(--gold), #F59E0B); color: #060B18; box-shadow: 0 8px 24px rgba(251,191,36,0.3); }
+  .btn.red { background: var(--red); color: #fff; box-shadow: 0 8px 24px rgba(213,25,51,0.3); }
+
+  /* ===== MAPPING TABLE ===== */
+  .map-table { width: 100%; border-collapse: collapse; margin: 0 40px 40px; max-width: calc(100% - 80px); }
+  .map-table th { text-align: left; padding: 10px 14px; font-size: 10px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text3); border-bottom: 1px solid var(--border); }
+  .map-table td { padding: 10px 14px; font-size: 12px; border-bottom: 1px solid rgba(255,255,255,0.03); vertical-align: middle; }
+  .map-table tr:hover td { background: rgba(255,255,255,0.02); }
+  .map-table .td-ico { font-size: 18px; width: 40px; text-align: center; }
+  .map-table .td-name { font-weight: 800; }
+  .map-table .td-elem { font-weight: 700; }
+  .map-table .td-riasec { color: var(--text2); }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <div class="page-header">
+    <div class="badge"><span class="ico">✦</span> Sistema TCG · Yu-Gi-Oh · Autodescubrimiento</div>
+    <h1>TuFuturo<span class="g">Dual</span></h1>
+    <p class="sub">Completá 25 preguntas. Abrí tu sobre. Descubrí <b>tu carta</b>. Cada arquetipo es un monstruo de efecto con nivel, atributo, ATK/DEF y un efecto que describe <b>cómo pensás</b>. Tus datos reales son los stats de la carta.</p>
+  </div>
+
+  <!-- ===== FLUJO COMPLETO ===== -->
+  <div class="screen">
+    <div class="screen-label"><div class="dot"></div><span>Flujo completo — del sobre a tu carta</span></div>
+    <div class="section-intro">
+      <h2>Cómo <span class="hl">funciona</span></h2>
+      <p>Cada paso tiene un momento TCG: abrir el sobre, revelar cartas, construir tu mazo, y al final tu carta personal.</p>
+    </div>
+    <div class="flow-strip">
+      <div class="flow-step">
+        <div class="fs-num">Paso 1</div>
+        <div class="fs-icon">📦</div>
+        <div class="fs-title">Abrís el sobre</div>
+        <div class="fs-desc">Pack de 25 cartas boca abajo. Cada carta = 1 pregunta.</div>
+      </div>
+      <div class="flow-step">
+        <div class="fs-num">Paso 2</div>
+        <div class="fs-icon">🃏</div>
+        <div class="fs-title">Volcás cartas</div>
+        <div class="fs-desc">Cada respuesta revela una carta. Tus stats se acumulan en el mazo.</div>
+      </div>
+      <div class="flow-step">
+        <div class="fs-num">Paso 3</div>
+        <div class="fs-icon">⚡</div>
+        <div class="fs-title">Destilás tu mazo</div>
+        <div class="fs-desc">25 cartas se fusionan. Tu arketipo emerge de la combinación.</div>
+      </div>
+      <div class="flow-step">
+        <div class="fs-num">Paso 4</div>
+        <div class="fs-icon">🃏</div>
+        <div class="fs-title">Tu carta</div>
+        <div class="fs-desc">Revelación dramática. Tu monstruo con nivel, atributo, efecto, ATK/DEF.</div>
+      </div>
+      <div class="flow-step">
+        <div class="fs-num">Paso 5</div>
+        <div class="fs-icon">📱</div>
+        <div class="fs-title">Compartís</div>
+        <div class="fs-desc">Tu carta formateada para Instagram, TikTok, WhatsApp.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MAPEO RIASEC → CARTA ===== -->
+  <div class="screen">
+    <div class="screen-label"><div class="dot"></div><span>Sistema de mapeo — RIASEC se convierte en carta</span></div>
+    <div class="section-intro">
+      <h2>De <span class="hl">dimensión</span> a <span class="hl">carta</span></h2>
+      <p>Cada dimensión RIASEC tiene un elemento, un color, y un arquetipo. Tus scores definen los stats de tu carta. El arquetipo dominante es tu monstruo.</p>
+    </div>
+    <table class="map-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Arquetipo</th>
+          <th>Elemento</th>
+          <th>Color</th>
+          <th>Nivel</th>
+          <th>ATK/DEF base</th>
+          <th>Efecto</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="td-ico">🏗️</td><td class="td-name">Constructor</td><td class="td-elem" style="color:#4ADE80">TIERRA</td><td style="color:#8B7340">Dorado</td><td>★★★★</td><td>92 / 78</td><td>Optimización</td></tr>
+        <tr><td class="td-ico">🕵️</td><td class="td-name">Investigador</td><td class="td-elem" style="color:#60A5FA">AGUA</td><td style="color:#3B82F6">Azul</td><td>★★★★</td><td>84 / 76</td><td>Análisis</td></tr>
+        <tr><td class="td-ico">🎨</td><td class="td-name">Creador</td><td class="td-elem" style="color:#FB923C">FUEGO</td><td style="color:#EF4444">Rojo</td><td>★★★</td><td>70 / 65</td><td>Innovación</td></tr>
+        <tr><td class="td-ico">🤝</td><td class="td-name">Conector</td><td class="td-elem" style="color:#FDE047">LUZ</td><td style="color:#FBBF24">Amarillo</td><td>★★★</td><td>65 / 72</td><td>Empatía</td></tr>
+        <tr><td class="td-ico">⚡</td><td class="td-name">Estratega</td><td class="td-elem" style="color:#4ADE80">VIENTO</td><td style="color:#22C55E">Verde</td><td>★★★★</td><td>78 / 70</td><td>Dirección</td></tr>
+        <tr><td class="td-ico">📊</td><td class="td-name">Analista</td><td class="td-elem" style="color:#C084FC">OSCURIDAD</td><td style="color:#A855F7">Violeta</td><td>★★★</td><td>72 / 80</td><td>Veracidad</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ===== 02 · CARTA COMPLETA ===== -->
+  <div class="screen">
+    <div class="screen-label"><div class="dot"></div><span>02 · Tu carta — El Constructor</span></div>
+    <div class="section-intro">
+      <h2>Tu <span class="hl">carta</span> personal</h2>
+      <p>Esta carta se genera con tus datos reales. Los stats, el efecto, los programas — todo viene de tus 25 respuestas y tu perfil RIASEC.</p>
+    </div>
+    <div style="display:flex;justify-content:center;gap:40px;padding:32px 40px;flex-wrap:wrap;align-items:flex-start;">
+      <!-- CARTA -->
+      <div class="ygo earth">
+        <div class="y-name-bar">
+          <div class="y-name">El Constructor</div>
+          <div class="y-stars"><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        </div>
+        <div class="y-art-frame">
+          <div class="y-art">
+            <div class="art-glow"></div>
+            <div class="art-particles"><span></span><span></span><span></span><span></span><span></span></div>
+            <div class="icon">🏗️</div>
+          </div>
+        </div>
+        <div class="y-type-bar">
+          <div class="y-type">Monstruo · Efecto</div>
+          <div class="y-attr">🌱 TIERRA</div>
+        </div>
+        <div class="y-desc">
+          <div class="effect"><b>[Efecto]</b> Optimización — Este monstruo puede fusionar dos cartas de la mano para crear una ruta más corta. +20 ATK por cada proceso simplificado.</div>
+          <div class="lore">"No construye cosas. Construye la forma más inteligente de hacer las cosas."</div>
+        </div>
+        <div class="y-stats-bar">
+          <div class="ys"><div class="val">92</div><div class="lbl">ATK</div></div>
+          <div class="ys"><div class="val">78</div><div class="lbl">DEF</div></div>
+          <div class="ys"><div class="val">71</div><div class="lbl">NIV</div></div>
+        </div>
+      </div>
+
+      <!-- PANEL -->
+      <div style="max-width:380px;">
+        <h3 style="font-size:24px;font-weight:900;margin-bottom:4px;">El Constructor</h3>
+        <div style="display:inline-block;padding:4px 12px;border-radius:999px;font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;margin-bottom:14px;background:var(--gold-dim);color:var(--gold);border:1px solid rgba(251,191,36,0.3);">★ Nivel 4 · Monstruo de Efecto · TIERRA</div>
+        <p style="color:var(--text2);line-height:1.65;font-size:14px;margin-bottom:16px;">Optimizás todo lo que tocás. Procesos, recursos, tiempo — encontrás la forma más inteligente de hacer las cosas. Tus dimensiones RIASEC crearon esta carta: <b style="color:var(--gold)">Realista 92 · Convencional 78 · Investigador 71</b>.</p>
+
+        <div style="margin-bottom:16px;">
+          <h5 style="font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text3);margin-bottom:10px;">Programas afines</h5>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <span style="background:rgba(34,211,238,0.06);border:1px solid rgba(34,211,238,0.2);color:var(--neon);padding:5px 12px;border-radius:999px;font-size:12px;font-weight:600;">Ing. Industrial</span>
+            <span style="background:rgba(34,211,238,0.06);border:1px solid rgba(34,211,238,0.2);color:var(--neon);padding:5px 12px;border-radius:999px;font-size:12px;font-weight:600;">Admin. Empresas</span>
+            <span style="background:rgba(34,211,238,0.06);border:1px solid rgba(34,211,238,0.2);color:var(--neon);padding:5px 12px;border-radius:999px;font-size:12px;font-weight:600;">Contaduría</span>
+            <span style="background:rgba(34,211,238,0.06);border:1px solid rgba(34,211,238,0.2);color:var(--neon);padding:5px 12px;border-radius:999px;font-size:12px;font-weight:600;">Ing. Civil</span>
+          </div>
+        </div>
+
+        <button class="btn gold">Compartir mi carta →</button>
+        <button class="btn red">Descargar para Instagram</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 03 · LAS 6 CARTAS ===== -->
+  <div class="screen">
+    <div class="screen-label"><div class="dot"></div><span>03 · Las 6 cartas — tu mazo completo</span></div>
+    <div class="section-intro">
+      <h2>Todas las <span class="hl">cartas</span> posibles</h2>
+      <p>6 arquetipos, 6 cartas. Tu carta es la que tu mazo construyó. Las demás existen — son otros caminos posibles.</p>
+    </div>
+    <div class="coll-grid">
+      <div class="coll-card earth">
+        <div class="cc-name"><span class="cn">El Constructor</span><span class="cs">★★★★</span></div>
+        <div class="cc-art"><div class="cc-glow"></div>🏗️</div>
+        <div class="cc-info"><div class="cc-type">TIERRA · Monstruo · Efecto</div><div class="cc-desc">"La forma más inteligente de hacer las cosas."</div></div>
+        <div class="cc-stats"><span>ATK 92</span><span>DEF 78</span></div>
+      </div>
+      <div class="coll-card water">
+        <div class="cc-name"><span class="cn">El Investigador</span><span class="cs">★★★★</span></div>
+        <div class="cc-art"><div class="cc-glow"></div>🕵️</div>
+        <div class="cc-info"><div class="cc-type">AGUA · Monstruo · Efecto</div><div class="cc-desc">"La verdad está en los datos."</div></div>
+        <div class="cc-stats"><span>ATK 84</span><span>DEF 76</span></div>
+      </div>
+      <div class="coll-card fire">
+        <div class="cc-name"><span class="cn">El Creador</span><span class="cs">★★★</span></div>
+        <div class="cc-art"><div class="cc-glow"></div>🎨</div>
+        <div class="cc-info"><div class="cc-type">FUEGO · Monstruo · Efecto</div><div class="cc-desc">"Crear es resolver lo que nadie vio."</div></div>
+        <div class="cc-stats"><span>ATK 70</span><span>DEF 65</span></div>
+      </div>
+      <div class="coll-card light">
+        <div class="cc-name"><span class="cn">El Conector</span><span class="cs">★★★</span></div>
+        <div class="cc-art"><div class="cc-glow"></div>🤝</div>
+        <div class="cc-info"><div class="cc-type">LUZ · Monstruo · Efecto</div><div class="cc-desc">"Las mejores soluciones son las que se construyen juntos."</div></div>
+        <div class="cc-stats"><span>ATK 65</span><span>DEF 72</span></div>
+      </div>
+      <div class="coll-card wind">
+        <div class="cc-name"><span class="cn">El Estratega</span><span class="cs">★★★★</span></div>
+        <div class="cc-art"><div class="cc-glow"></div>⚡</div>
+        <div class="cc-info"><div class="cc-type">VIENTO · Monstruo · Efecto</div><div class="cc-desc">"El que define el camino, define el resultado."</div></div>
+        <div class="cc-stats"><span>ATK 78</span><span>DEF 70</span></div>
+      </div>
+      <div class="coll-card dark">
+        <div class="cc-name"><span class="cn">El Analista</span><span class="cs">★★★</span></div>
+        <div class="cc-art"><div class="cc-glow"></div>📊</div>
+        <div class="cc-info"><div class="cc-type">OSCURIDAD · Monstruo · Efecto</div><div class="cc-desc">"Los datos no mienten. Las personas, sí."</div></div>
+        <div class="cc-stats"><span>ATK 72</span><span>DEF 80</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 04 · SHARE CARD ===== -->
+  <div class="screen">
+    <div class="screen-label"><div class="dot"></div><span>04 · Tu carta para compartir</span></div>
+    <div class="section-intro">
+      <h2>Compartí tu <span class="hl">carta</span></h2>
+      <p>Formato optimizado para Stories, TikTok y WhatsApp. Tu carta con todos tus datos reales.</p>
+    </div>
+    <div class="share-stage">
+      <div class="share-card earth">
+        <div class="sh-brand">
+          <div class="br">TuFuturo<b>Dual</b></div>
+          <div class="rar">★ Nivel 4</div>
+        </div>
+        <div class="sh-art">
+          <div class="sh-glow"></div>
+          <div>🏗️</div>
+        </div>
+        <div class="sh-body">
+          <div class="cls-tag">✦ Monstruo de Efecto</div>
+          <h3>El Constructor</h3>
+          <div class="stars">★★★★</div>
+          <div class="tagline">TIERRA · R·C·I</div>
+          <div class="desc-text">"No construye cosas. Construye la forma más inteligente de hacer las cosas."</div>
+          <div class="sh-stats">
+            <div class="ss"><b>92</b><span>ATK</span></div>
+            <div class="ss"><b>78</b><span>DEF</span></div>
+            <div class="ss"><b>4</b><span>NIV</span></div>
+          </div>
+          <div class="sh-programs">
+            <div class="prog">Ing. Industrial</div>
+            <div class="prog">Admin. Empresas</div>
+            <div class="prog">Contaduría</div>
+          </div>
+          <div class="sh-cta">Descubrí tu carta →</div>
+        </div>
+        <div class="sh-foot">Uniempresarial · Modelo Dual</div>
+      </div>
+
+      <div class="share-info">
+        <h3>Tu carta para redes</h3>
+        <p>Formato vertical optimizado para Instagram Stories, TikTok y WhatsApp. Tu carta con nivel, atributo, efecto, ATK/DEF y programas afines. Los datos reales de tu perfil RIASEC son los stats.</p>
+        <div class="hint"><b>🎮 Para el equipo de diseño:</b> Cada arquetipo necesita arte original. El sistema genera la carta automáticamente con tus datos al completar el test. La share card se genera en tiempo real.</div>
+        <button class="btn gold">Compartir en Instagram</button>
+        <button class="btn red">Descargar PNG</button>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

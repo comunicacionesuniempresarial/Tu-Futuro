@@ -1,0 +1,26 @@
+{
+  "version": "0.1.0",
+  "schema_version": "0.1.0",
+  "client_name": "TuFuturoDual",
+  "compiled_at": "2026-08-18T20:20:34.769Z",
+  "sessions_completed": 1,
+  "approval": "human_confirmed_local",
+  "provenance": {
+    "sources": [
+      "manual"
+    ],
+    "note": "Human-reviewed locally via the clarify flow; not brand-authority approved. Treat policy content as reviewed brand data."
+  },
+  "identity": {
+    "colors": {
+      "primary": "#22d3ee"
+    },
+    "typography": {
+      "Display: Sora / Space Grotesk (extrabold, tracking-tight). Body: Inter (16-18px). Eyebrow labels: small-caps, tracking-widest, cian, 12px.": "Display: Sora / Space Grotesk (extrabold, tracking-tight). Body: Inter (16-18px). Eyebrow labels: small-caps, tracking-widest, cian, 12px."
+    },
+    "logo": null
+  },
+  "visual": null,
+  "voice": null,
+  "strategy": null
+}

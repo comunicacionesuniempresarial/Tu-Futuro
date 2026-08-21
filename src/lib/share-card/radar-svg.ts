@@ -111,8 +111,35 @@ const renderLabels = (
     if (Math.abs(Math.cos(angle)) > 0.3) {
       anchor = Math.cos(angle) > 0 ? "start" : "end";
     }
-    return `<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="${anchor}" dominant-baseline="middle" class="radar-label">${RADAR_DIMENSION_LABELS[dimension]}</text>`;
+    // Iniciales en los vértices; los nombres completos van en la leyenda.
+    return `<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="${anchor}" dominant-baseline="middle" class="radar-label" font-weight="700" fill="#9ca3af">${dimension}</text>`;
   }).join("");
+
+/**
+ * Leyenda con los 6 nombres completos, centrada en la zona inferior del radar.
+ * Usa dos filas de tres para no desbordar el viewBox (labels largos como
+ * "Convencional"/"Emprendedor" se cortaban en los vértices).
+ */
+const renderLegend = (cx: number, cy: number, radius: number): string => {
+  const rows: [string, string][][] = [
+    [["R", "Realista"], ["I", "Investigador"], ["A", "Artístico"]],
+    [["S", "Social"], ["E", "Emprendedor"], ["C", "Convencional"]],
+  ];
+  const y0 = cy + radius * 0.66;
+  const textRows = rows
+    .map((row, rowIndex) => {
+      const y = y0 + rowIndex * 18;
+      const spans = row
+        .map(
+          ([initial, label]) =>
+            `<tspan fill="#f5f5f5" font-weight="700">${initial}</tspan><tspan fill="#9ca3af"> ${label}</tspan>`
+        )
+        .join('<tspan fill="#9ca3af" dx="16"> </tspan>');
+      return `<text x="${cx}" y="${y}" text-anchor="middle" font-size="12" font-family="Inter, system-ui, sans-serif">${spans}</text>`;
+    })
+    .join("");
+  return `<rect x="${(cx - 150).toFixed(1)}" y="${(y0 - 17).toFixed(1)}" width="300" height="42" rx="8" fill="#0a0a0a" opacity="0.65" />${textRows}`;
+};
 
 /**
  * Renders a standalone dark-themed radar SVG string for a RIASEC profile.
@@ -128,12 +155,12 @@ export function renderRadarSVG(options: RenderRadarSVGOptions): string {
   const studentPoints = computeRadarPoints(profile, width, height);
   const { rings, spokes } = gridLines(cx, cy, radius);
 
-  const studentPolygon = `<polygon points="${toPointsString(studentPoints)}" fill="#D51933" fill-opacity="0.35" stroke="#D51933" stroke-width="2" />`;
+  const studentPolygon = `<polygon points="${toPointsString(studentPoints)}" fill="#22D3EE" fill-opacity="0.35" stroke="#22D3EE" stroke-width="2" />`;
 
   const programOverlay = programProfile
     ? `<polygon points="${toPointsString(
         computeRadarPoints(programProfile, width, height)
-      )}" fill="none" stroke="#0033A5" stroke-width="2" stroke-dasharray="6 4" />`
+      )}" fill="none" stroke="#E879F9" stroke-width="2" stroke-dasharray="6 4" />`
     : "";
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-label="Radar de perfil RIASEC">
@@ -142,5 +169,6 @@ export function renderRadarSVG(options: RenderRadarSVGOptions): string {
   ${studentPolygon}
   ${programOverlay}
   <g class="radar-labels" fill="#f5f5f5" font-size="14">${renderLabels(cx, cy, radius)}</g>
+  ${renderLegend(cx, cy, radius)}
 </svg>`;
 }
