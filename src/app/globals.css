@@ -798,8 +798,8 @@ body {
 
 .results-orb-field,
 .results-energy-field { position: absolute; inset: 0; z-index: 1; overflow: hidden; pointer-events: none; }
-.results-orb-field span { position: absolute; width: 12px; height: 12px; border-radius: 50%; background: var(--color-neon-primary); opacity: .3; filter: blur(2px); box-shadow: 0 0 24px 8px color-mix(in srgb, var(--color-neon-primary) 35%, transparent); animation: result-orb-drift 18s ease-in-out infinite; }
-.results-orb-field span:nth-child(3n) { background: var(--color-neon-secondary); box-shadow: 0 0 24px 8px color-mix(in srgb, var(--color-neon-secondary) 35%, transparent); }
+.results-orb-field span { position: absolute; width: 16px; height: 16px; border-radius: 50%; background: var(--color-neon-primary); opacity: .52; filter: blur(2px); box-shadow: 0 0 30px 10px color-mix(in srgb, var(--color-neon-primary) 48%, transparent); animation: result-orb-drift 18s ease-in-out infinite; }
+.results-orb-field span:nth-child(3n) { background: var(--color-neon-secondary); box-shadow: 0 0 30px 10px color-mix(in srgb, var(--color-neon-secondary) 48%, transparent); }
 .results-orb-field span:nth-child(4n) { width: 7px; height: 7px; animation-duration: 23s; }
 .results-orb-field span:nth-child(1) { left: 4%; top: 8%; animation-delay: -2s; }
 .results-orb-field span:nth-child(2) { left: 88%; top: 12%; animation-delay: -11s; }
