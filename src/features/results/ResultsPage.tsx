@@ -230,8 +230,8 @@ export function ResultsPage({ data }: { data: ResultsData }) {
               return (
                 <div
                   key={result.programId}
-                  className={`program-carousel-card ${slot === 0 ? "program-carousel-center" : slot === 1 ? "program-carousel-right" : "program-carousel-left"} ${prefersReduced ? "" : "animate-slide-up"}`}
-                  style={{ ...carouselStyle, ...(prefersReduced ? {} : { animationDelay: `${350 + index * 80}ms` }) }}
+                  className={`program-carousel-card ${slot === 0 ? "program-carousel-center" : slot === 1 ? "program-carousel-right" : "program-carousel-left"}`}
+                  style={carouselStyle}
                   onMouseEnter={() => setFocusedProgramIndex(index)}
                   onFocus={() => setFocusedProgramIndex(index)}
                 >
