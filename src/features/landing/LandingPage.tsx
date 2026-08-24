@@ -26,7 +26,10 @@ interface LandingPageProps {
  */
 export default function LandingPage({ onStart }: LandingPageProps) {
   return (
-    <>
+    <div className="experience-canvas landing-experience relative overflow-hidden">
+      <div aria-hidden="true" className="ambient-bg" />
+      <div aria-hidden="true" className="ambient-rays" />
+      <div aria-hidden="true" className="ambient-stars"><span className="star" /><span className="star" /><span className="star" /><span className="star-spark" /><span className="star-spark" /></div>
       <BrandHeader />
 
       <main className="pt-20">
@@ -54,6 +57,6 @@ export default function LandingPage({ onStart }: LandingPageProps) {
       </main>
 
       <Footer />
-    </>
+    </div>
   );
 }

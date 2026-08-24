@@ -364,6 +364,45 @@ body {
   -webkit-mask-image: radial-gradient(760px 520px at 50% 30%, black, transparent 78%);
 }
 
+.experience-canvas {
+  isolation: isolate;
+  background: var(--color-bg);
+}
+
+.experience-canvas > .ambient-bg,
+.experience-canvas > .ambient-rays,
+.experience-canvas > .ambient-stars {
+  position: fixed;
+  inset: 0;
+  height: 100vh;
+}
+
+.experience-canvas > .ambient-bg,
+.experience-canvas > .ambient-rays { z-index: -3; }
+.experience-canvas > .ambient-stars { z-index: -2; overflow: hidden; pointer-events: none; }
+.ambient-stars { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+
+.ambient-stars .star:nth-child(1) { left: 9%; top: 22%; width: 4px; height: 4px; animation-duration: 4.5s; }
+.ambient-stars .star:nth-child(2) { left: 78%; top: 28%; width: 3px; height: 3px; animation-duration: 5.5s; animation-delay: -2s; }
+.ambient-stars .star:nth-child(3) { left: 62%; top: 74%; width: 5px; height: 5px; animation-duration: 6s; animation-delay: -3s; }
+.ambient-stars .star-spark:nth-child(4) { left: 22%; top: 68%; animation-delay: -1.2s; }
+.ambient-stars .star-spark:nth-child(5) { left: 87%; top: 58%; animation-delay: -3.2s; }
+
+.landing-experience .glass-panel,
+.landing-experience .mystic-card,
+.results-victory .glass-panel,
+.results-victory .program-carousel-card > [role="button"] {
+  box-shadow: 0 18px 50px color-mix(in srgb, var(--color-deep) 55%, transparent), 0 0 28px color-mix(in srgb, var(--color-neon-primary) 8%, transparent);
+  transition: box-shadow 500ms ease, border-color 500ms ease, transform 500ms ease;
+}
+
+.landing-experience .glass-panel:hover,
+.landing-experience .mystic-card:hover,
+.results-victory .glass-panel:hover {
+  border-color: color-mix(in srgb, var(--color-neon-primary) 42%, transparent);
+  box-shadow: 0 22px 60px color-mix(in srgb, var(--color-deep) 45%, transparent), 0 0 42px color-mix(in srgb, var(--color-neon-primary) 18%, transparent);
+}
+
 /* ── Rayos de luz animados desde el centro superior ── */
 .ambient-rays {
   position: absolute;

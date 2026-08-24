@@ -128,6 +128,8 @@ export function ResultsPage({ data }: { data: ResultsData }) {
     <div data-theme="dark" className="results-victory min-h-screen bg-[var(--color-bg)] text-[var(--color-text-primary)] relative overflow-hidden">
       {/* Ambient Canvas */}
       <div aria-hidden="true" className="ambient-bg" />
+      <div aria-hidden="true" className="ambient-rays" />
+      <div aria-hidden="true" className="ambient-stars"><span className="star" /><span className="star" /><span className="star" /><span className="star-spark" /><span className="star-spark" /></div>
       <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
         <div className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full bg-[var(--color-neon-primary)]/5 blur-[140px]" />
         <div className="absolute top-1/3 -right-40 w-[540px] h-[540px] rounded-full bg-[var(--color-neon-secondary)]/8 blur-[150px]" />
