@@ -205,7 +205,6 @@ export function ResultsPage({ data }: { data: ResultsData }) {
         {/* ── ARCHETYPE CARD: full-width, image as background ── */}
         <div
           className={prefersReduced ? "" : "animate-persona-pop"}
-          style={prefersReduced ? undefined : { animationDelay: "100ms" }}
         >
           <ArchetypeCard
             archetype={data.archetype}
@@ -220,7 +219,6 @@ export function ResultsPage({ data }: { data: ResultsData }) {
           className={`glass-panel mx-auto max-w-3xl rounded-3xl border border-[var(--color-border)] p-4 md:p-6 ${
             prefersReduced ? "" : "animate-slide-up"
           }`}
-          style={prefersReduced ? undefined : { animationDelay: "200ms" }}
         >
           <div className="text-center mb-6">
             <h2 className="font-display text-2xl font-bold text-[var(--color-neon-primary)]">
@@ -240,7 +238,6 @@ export function ResultsPage({ data }: { data: ResultsData }) {
         {/* ── TU MANO INICIAL: top 3 programs ── */}
         <div
           className={`space-y-6 ${prefersReduced ? "" : "animate-slide-up"}`}
-          style={prefersReduced ? undefined : { animationDelay: "300ms" }}
         >
           <div className="text-center">
             <h2 className="font-display text-3xl font-black text-[var(--color-neon-primary)]">
@@ -298,7 +295,6 @@ export function ResultsPage({ data }: { data: ResultsData }) {
         {/* ── SHARE CARD ── */}
         <div
           className={`space-y-4 ${prefersReduced ? "" : "animate-slide-up"}`}
-          style={prefersReduced ? undefined : { animationDelay: "450ms" }}
         >
           <div className="flex flex-wrap items-center justify-between gap-3">
             <h2 className="font-display text-xl font-bold text-[var(--color-text-primary)]">
@@ -311,7 +307,6 @@ export function ResultsPage({ data }: { data: ResultsData }) {
         {/* ── FULL RANKING ── */}
         <div
           className={prefersReduced ? "" : "animate-slide-up"}
-          style={prefersReduced ? undefined : { animationDelay: "500ms" }}
         >
           <RankingFull
             results={filteredResults}
@@ -324,7 +319,6 @@ export function ResultsPage({ data }: { data: ResultsData }) {
           className={`mx-auto max-w-xl ${
             prefersReduced ? "" : "animate-slide-up"
           }`}
-          style={prefersReduced ? undefined : { animationDelay: "550ms" }}
         >
           {/* Navigation actions */}
           <div className="space-y-4 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)]/80 p-6">

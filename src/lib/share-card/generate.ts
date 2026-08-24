@@ -4,6 +4,25 @@ export const SHARE_CARD_WIDTH = 1200;
 export const SHARE_CARD_HEIGHT = 630;
 export const SHARE_CARD_FILENAME = "tufuturo-resultado.png";
 
+async function inlineSvgImages(svg: string): Promise<string> {
+  if (typeof window === "undefined" || !svg.includes('href="/archetypes/')) return svg;
+  const imagePaths = [...svg.matchAll(/href="(\/archetypes\/[^\"]+)"/g)].map((match) => match[1]);
+  let result = svg;
+  for (const path of imagePaths) {
+    const response = await fetch(new URL(path, window.location.origin));
+    if (!response.ok) throw new Error("No se pudo cargar la ilustración de la carta");
+    const blob = await response.blob();
+    const dataUrl = await new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(String(reader.result));
+      reader.onerror = () => reject(new Error("No se pudo preparar la ilustración"));
+      reader.readAsDataURL(blob);
+    });
+    result = result.replaceAll(`href="${path}"`, `href="${dataUrl}"`);
+  }
+  return result;
+}
+
 export interface ShareCardData {
   archetype: {
     id: string;
@@ -63,9 +82,7 @@ export function generateShareCardSVG(
  * OffscreenCanvas, so the standard Image + HTMLCanvasElement flow is used.
  */
 export async function svgToPngBlob(svg: string): Promise<Blob> {
-  const resolvedSvg = typeof window !== "undefined"
-    ? svg.replaceAll('href="/archetypes/', `href="${window.location.origin}/archetypes/`)
-    : svg;
+  const resolvedSvg = await inlineSvgImages(svg);
   const svgBlob = new Blob([resolvedSvg], { type: "image/svg+xml;charset=utf-8" });
   const objectUrl = URL.createObjectURL(svgBlob);
   const width = Number(svg.match(/\bwidth="([\d.]+)/)?.[1] ?? SHARE_CARD_WIDTH);

@@ -48,6 +48,7 @@ export function ShareCard({ data, layout = "default" }: ShareCardProps) {
           <img
             src={`/archetypes/${data.archetype.id}.webp`}
             alt={`Carta de arquetipo ${data.archetype.name}`}
+            loading="eager"
             className="share-card-artwork h-full w-auto max-w-full object-contain drop-shadow-[0_24px_30px_rgba(0,0,0,.7)]"
           />
         </div>
