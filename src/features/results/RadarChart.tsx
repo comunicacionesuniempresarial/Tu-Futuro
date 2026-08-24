@@ -2,6 +2,7 @@
 
 import { useMemo } from "react";
 import { renderRadarSVG } from "@/lib/share-card/radar-svg";
+import { RADAR_AXIS_ORDER, RADAR_DIMENSION_LABELS } from "@/lib/share-card/radar-svg";
 import type { RIASECProfile } from "@/lib/scoring/types";
 
 export interface RadarChartProps {
@@ -29,13 +30,34 @@ export function RadarChart({
       }),
     [profile, programProfile]
   );
+  const dominant = [...RADAR_AXIS_ORDER].sort(
+    (a, b) => profile[b] - profile[a]
+  )[0];
 
   return (
     <div
       data-theme="dark"
-      className={`rounded-3xl border border-[var(--color-neon-primary)]/30 bg-[var(--color-surface)]/60 p-6 backdrop-blur-sm ${className}`}
+      className={`radar-stage rounded-3xl border border-[var(--color-neon-primary)]/30 bg-[var(--color-surface)]/60 p-4 backdrop-blur-sm sm:p-6 ${className}`}
     >
-      <div data-radar="true" dangerouslySetInnerHTML={{ __html: svg }} />
+      <div className="radar-orbit mx-auto max-w-2xl" data-radar="true" dangerouslySetInnerHTML={{ __html: svg }} />
+      <div className="mt-3 flex flex-wrap justify-center gap-2" aria-label="Dimensiones del perfil">
+        {RADAR_AXIS_ORDER.map((dimension) => (
+          <span
+            key={dimension}
+            className={`radar-legend rounded-full border px-3 py-1 text-xs transition-all ${
+              dimension === dominant
+                ? "border-[var(--color-neon-primary)] bg-[var(--color-neon-primary)]/15 font-bold text-[var(--color-neon-primary)] shadow-[0_0_16px_color-mix(in_srgb,var(--color-neon-primary)_25%,transparent)]"
+                : "border-[var(--color-border)] bg-black/20 text-[var(--color-text-secondary)]"
+            }`}
+          >
+            {dimension} · {RADAR_DIMENSION_LABELS[dimension]}
+          </span>
+        ))}
+      </div>
+      <p className="mt-4 text-center text-sm text-[var(--color-text-secondary)]">
+        La dimensión resaltada es tu punto de partida más fuerte.
+        {programProfile ? " La línea secundaria compara tu perfil con el programa seleccionado." : " Compárala con cada carrera para encontrar tu mejor encaje."}
+      </p>
     </div>
   );
 }

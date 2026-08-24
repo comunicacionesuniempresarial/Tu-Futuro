@@ -190,7 +190,7 @@ export function ResultsPage({ data }: { data: ResultsData }) {
           <RadarChart
             profile={data.riasecProfile}
             programProfile={selectedProfile}
-            className="rounded-full border-[var(--color-neon-primary)]/40 mx-auto"
+            className="mx-auto"
           />
         </div>
 

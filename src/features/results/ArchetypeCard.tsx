@@ -56,7 +56,7 @@ export function ArchetypeCard({
 
       {/* The artwork is a real card asset; contain preserves its frame and typography. */}
       <div className="relative z-20 mx-auto w-full max-w-[390px] [perspective:1000px]">
-        <div className="relative aspect-[617/768] animate-card-reveal transition-transform duration-500 ease-out group-hover:-translate-y-2 group-hover:rotate-[1deg]">
+        <div className="relative aspect-[617/768] animate-card-reveal transition-transform duration-500 ease-out group-hover:-translate-y-3 group-hover:scale-[1.08] group-hover:rotate-[1deg]">
           <div aria-hidden="true" className="absolute -inset-4 rounded-[2.5rem] bg-[var(--color-neon-primary)]/20 blur-2xl opacity-70 transition-opacity duration-500 group-hover:opacity-100" />
           <h2 className="sr-only">{archetype.name}</h2>
           <img
