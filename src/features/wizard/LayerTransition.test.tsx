@@ -34,7 +34,7 @@ describe("LayerTransition", () => {
       screen.getByText("Ufff, vas muy bien. Ahora descubre lo que se te da especialmente bien.")
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: "Descubre tu resultado" })
+      screen.getByRole("button", { name: "Continuar" })
     ).toBeInTheDocument();
   });
 
@@ -44,7 +44,7 @@ describe("LayerTransition", () => {
     const onContinue = vi.fn();
     render(<LayerTransition layer={1} onContinue={onContinue} />);
 
-    fireEvent.click(screen.getByRole("button", { name: "Descubre tu resultado" }));
+    fireEvent.click(screen.getByRole("button", { name: "Continuar" }));
 
     expect(onContinue).toHaveBeenCalledTimes(1);
   });

@@ -9,8 +9,8 @@ import { useRef, type PointerEvent } from "react";
 
 const heroValueProps = [
   {
-    title: "15 preguntas, una guía clara",
-    subtitle: "Responde con lo primero que te venga a la mente.",
+    title: "Sin respuestas correctas",
+    subtitle: "Elige lo que más se parece a ti y avanza a tu ritmo.",
   },
 ];
 

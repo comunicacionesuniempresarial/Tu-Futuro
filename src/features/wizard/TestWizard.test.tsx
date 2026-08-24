@@ -178,7 +178,7 @@ describe("TestWizard (features/wizard)", () => {
     expect(screen.getByText("Capa 2 de 3")).toBeInTheDocument();
     expect(mockRunScoring).not.toHaveBeenCalled();
 
-    fireEvent.click(screen.getByRole("button", { name: "Descubre tu resultado" }));
+    fireEvent.click(screen.getByRole("button", { name: "Continuar" }));
 
     expect(
       await screen.findByText(QUESTION_BANK[5].text)
@@ -197,8 +197,8 @@ describe("TestWizard (features/wizard)", () => {
       await screen.findByText(QUESTION_BANK[i].text);
       await answerAndAdvance();
       if (i === 4 || i === 9) {
-        await screen.findByRole("button", { name: "Descubre tu resultado" });
-        fireEvent.click(screen.getByRole("button", { name: "Descubre tu resultado" }));
+        await screen.findByRole("button", { name: "Continuar" });
+        fireEvent.click(screen.getByRole("button", { name: "Continuar" }));
       }
     }
 

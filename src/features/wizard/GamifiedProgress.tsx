@@ -10,6 +10,7 @@ export const LAYER_SEGMENTS: readonly [number, number, number] = [
 
 /** Question positions that complete a layer (last segment of each group). */
 const LAYER_FINAL_STEPS: readonly number[] = [5, 10, 15];
+const LAYER_SHORT_NAMES = ["Intereses", "Aptitudes", "Valores"] as const;
 
 /** Map a 1-indexed question position to its layer group (1-3). */
 export function getLayerForSegment(step: number): 1 | 2 | 3 {
@@ -114,6 +115,20 @@ export default function GamifiedProgress({
               );
             })}
           </div>
+        ))}
+      </div>
+      <div className="flex gap-1.5" aria-hidden="true">
+        {LAYER_SHORT_NAMES.map((name, index) => (
+          <span
+            key={name}
+            className={`flex-1 text-center text-[9px] uppercase tracking-[0.12em] transition-colors duration-300 ${
+              index + 1 === currentLayer
+                ? "font-bold text-[var(--color-neon-secondary)]"
+                : "text-[var(--color-text-secondary)]/45"
+            }`}
+          >
+            {name}
+          </span>
         ))}
       </div>
     </div>

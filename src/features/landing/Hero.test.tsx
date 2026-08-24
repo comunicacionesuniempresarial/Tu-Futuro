@@ -36,7 +36,7 @@ describe("Hero", () => {
 
     render(<Hero />);
 
-    expect(screen.getByText("15 preguntas, una guía clara")).toBeInTheDocument();
+    expect(screen.getByText("Sin respuestas correctas")).toBeInTheDocument();
     expect(screen.queryByText("Radar RIASEC")).not.toBeInTheDocument();
   });
 

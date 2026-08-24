@@ -84,7 +84,7 @@ describe("LandingPage", () => {
 
     render(<LandingPage />);
 
-    expect(screen.getByText("15 preguntas, una guía clara")).toBeInTheDocument();
+    expect(screen.getByText("Sin respuestas correctas")).toBeInTheDocument();
     expect(screen.queryByText("Las 4 Capas del Poder")).not.toBeInTheDocument();
   });
 
