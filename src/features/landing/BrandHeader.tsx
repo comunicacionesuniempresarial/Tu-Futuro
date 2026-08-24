@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { usePathname } from 'next/navigation';
 
 const navLinks = [
@@ -16,6 +19,13 @@ const navLinks = [
  */
 export default function BrandHeader() {
   const pathname = usePathname();
+  const [hasResult, setHasResult] = useState(false);
+  useEffect(() => {
+    const syncResult = () => setHasResult(Boolean(window.sessionStorage.getItem("tufuturo-results")));
+    syncResult();
+    window.addEventListener("focus", syncResult);
+    return () => window.removeEventListener("focus", syncResult);
+  }, []);
   const isActive = (path: string) => pathname === path ? 'border-b-2 border-[var(--color-neon-primary)] font-bold' : '';
 
   return (
@@ -33,7 +43,7 @@ export default function BrandHeader() {
         </Link>
 
         <nav aria-label="Navegación principal" className="hidden items-center gap-8 md:flex">
-          {navLinks.map((link) => link.external ? (
+          {navLinks.filter((link) => link.label !== "Mi resultado" || hasResult).map((link) => link.external ? (
             <a
               key={link.label}
               href={link.href}
@@ -52,11 +62,7 @@ export default function BrandHeader() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-1" aria-label="Acciones">
-          <Link href="/admin/login" aria-label="Panel de admisiones" title="Panel de admisiones" className="hover:bg-[var(--color-neon-primary)]/20 hover:text-[var(--color-neon-primary)] transition-all duration-300 p-2 rounded-full">
-            <span className="material-symbols-outlined">account_circle</span>
-          </Link>
-        </div>
+        <div className="hidden md:block w-24" aria-hidden="true" />
       </div>
     </header>
   );

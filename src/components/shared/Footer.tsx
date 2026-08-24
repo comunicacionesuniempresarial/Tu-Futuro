@@ -4,7 +4,7 @@ interface FooterProps {
 
 export function Footer({ disclaimer }: FooterProps) {
   return (
-    <footer className="footer-brand relative overflow-hidden border-t-4 border-[var(--color-neon-primary)] py-10 text-center">
+    <footer className="footer-brand relative overflow-hidden border-t border-[var(--color-neon-primary)]/40 py-10 text-center">
       <div aria-hidden="true" className="footer-glow" />
       <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center gap-5 px-4 sm:px-6">
         {disclaimer && (
@@ -23,6 +23,9 @@ export function Footer({ disclaimer }: FooterProps) {
           >
             Inicio
           </a>
+          <a href="/privacidad" className="transition-colors hover:text-[#c99a00]">Privacidad y datos</a>
+          <a href="/terminos" className="transition-colors hover:text-[#c99a00]">Términos de uso</a>
+          <a href="/admin/login" className="transition-colors hover:text-[#c99a00]">Acceso de admisiones</a>
           <a
             href="/test"
             className="transition-colors hover:text-[#c99a00]"

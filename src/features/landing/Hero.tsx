@@ -66,6 +66,13 @@ export default function Hero({ onStart }: HeroProps) {
             En pocos minutos tendrás una guía para tomar tu siguiente decisión.
           </p>
 
+          <p className="max-w-lg border-l-2 border-[var(--color-neon-primary)]/70 pl-4 text-sm leading-relaxed text-[var(--color-text-secondary)]">
+            Tus decisiones cotidianas revelan tu arquetipo oculto: una carta
+            simbólica para entender qué futuro puede encajar contigo. Como el
+            modelo dual une estudio y experiencia real en empresas, aquí no
+            solo descubres quién eres: también encuentras por dónde empezar.
+          </p>
+
           {/* Propuesta de valor — "para qué es el duelo", no "cómo funciona" */}
           <div className="mt-6 grid grid-cols-1 gap-4 max-w-sm">
             {heroValueProps.map((vp, i) => (
