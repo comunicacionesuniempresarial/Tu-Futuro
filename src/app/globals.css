@@ -1033,3 +1033,24 @@ body {
   outline: 2px solid var(--color-neon-primary);
   outline-offset: 2px;
 }
+
+.footer-brand {
+  background: linear-gradient(135deg, #f8f6ef 0%, #fffdf8 52%, #eef8f7 100%);
+  color: #172033;
+}
+
+.footer-glow {
+  position: absolute;
+  inset: auto 15% -80px;
+  height: 170px;
+  border-radius: 999px;
+  background: var(--color-neon-primary);
+  opacity: .12;
+  filter: blur(45px);
+  animation: footer-breathe 6s ease-in-out infinite;
+}
+
+@keyframes footer-breathe {
+  0%, 100% { transform: scaleX(.75); opacity: .08; }
+  50% { transform: scaleX(1.15); opacity: .18; }
+}

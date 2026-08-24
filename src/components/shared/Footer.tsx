@@ -4,45 +4,42 @@ interface FooterProps {
 
 export function Footer({ disclaimer }: FooterProps) {
   return (
-    <footer className="bg-[var(--color-deep)] parchment border-t border-[var(--color-neon-secondary)]/20 py-10 text-center">
-      <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-3 px-4 sm:px-6">
+    <footer className="footer-brand relative overflow-hidden border-t-4 border-[var(--color-neon-primary)] py-10 text-center">
+      <div aria-hidden="true" className="footer-glow" />
+      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center gap-5 px-4 sm:px-6">
         {disclaimer && (
-          <p className="mb-4 max-w-2xl text-xs text-[var(--color-text-muted)]">
+          <p className="max-w-2xl text-xs text-slate-600">
             {disclaimer}
           </p>
         )}
-        <p className="font-display text-lg font-bold text-[var(--color-text-primary)]">
-          TuFuturo<span className="text-[var(--color-neon-primary)]">Dual</span>
-        </p>
+        <img src="/logo/logo-header.png" alt="Uniempresarial — Fundación Universitaria Empresarial" className="h-auto w-64 max-w-full object-contain" />
         <nav
-          aria-label="Enlaces legales"
-          className="flex items-center gap-6 text-sm text-[var(--color-text-secondary)]"
+          aria-label="Enlaces del sitio"
+          className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm font-semibold text-slate-700"
         >
           <a
-            href="#"
-            className="transition-colors hover:text-[var(--color-neon-primary)]"
+            href="/"
+            className="transition-colors hover:text-[#c99a00]"
           >
-            Privacidad
+            Inicio
           </a>
           <a
-            href="#"
-            className="transition-colors hover:text-[var(--color-neon-primary)]"
+            href="/test"
+            className="transition-colors hover:text-[#c99a00]"
           >
-            Términos
+            Inicia el test
           </a>
           <a
-            href="#"
-            className="transition-colors hover:text-[var(--color-neon-primary)]"
+            href="https://uniempresarial.edu.co/pregrados-presenciales/"
+            target="_blank"
+            rel="noreferrer"
+            className="transition-colors hover:text-[#c99a00]"
           >
-            Hechizos
+            Programas Uniempresarial
           </a>
         </nav>
-        <p className="text-xs text-[var(--color-text-muted)]">
-          &copy; 2025 TuFuturoDual - El C&oacute;dice de Destinos
-        </p>
-        <p className="text-xs text-[var(--color-text-muted)]">
-          Fundaci&oacute;n Universitaria Empresarial de la CCB &mdash;
-          Uniempresarial
+        <p className="text-xs text-slate-500">
+          &copy; 2026 TuFuturoDual · Una experiencia de Uniempresarial
         </p>
       </div>
     </footer>
