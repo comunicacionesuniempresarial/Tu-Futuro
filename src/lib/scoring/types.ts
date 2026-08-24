@@ -106,6 +106,8 @@ export interface Question {
    * option typically sum to 1. Only present for Layer 2 questions.
    */
   aptitudeWeights?: number[][];
+  /** Per-option lifestyle weights for [autonomy, risk, flexibility, helping]. */
+  valuesWeights?: number[][];
 }
 
 // ── Program Profiles ──

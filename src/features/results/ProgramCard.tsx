@@ -12,6 +12,8 @@ export interface ProgramCardProps {
   modalityRecommendation?: ModalityResult["recommendation"];
   /** When provided the card becomes selectable (radar overlay target). */
   onClick?: (program: Program) => void;
+  /** Short, personalized explanation shown on the focused card. */
+  matchReason?: string;
 }
 
 export function ProgramCard({
@@ -21,6 +23,7 @@ export function ProgramCard({
   isExpanded = false,
   modalityRecommendation,
   onClick,
+  matchReason,
 }: ProgramCardProps) {
   const inner = (
     <>
@@ -58,6 +61,13 @@ export function ProgramCard({
         </span>
       )}
       {isExpanded && (
+        <div className="space-y-2">
+        {matchReason && (
+          <div className="rounded-xl border border-[var(--color-neon-primary)]/25 bg-[var(--color-neon-primary)]/5 px-3 py-2 text-xs leading-relaxed text-[var(--color-text-secondary)]">
+            <span className="font-bold text-[var(--color-neon-primary)]">Por qué encaja contigo</span>
+            <p className="mt-1">{matchReason}</p>
+          </div>
+        )}
         <span className={`inline-block rounded-full px-3 py-1 text-xs font-bold ${
           result.overallScore >= 85
             ? "border border-[var(--color-neon-primary)]/40 bg-[var(--color-neon-primary)]/10 text-[var(--color-neon-primary)]"
@@ -65,6 +75,7 @@ export function ProgramCard({
         }`}>
           {result.overallScore >= 85 ? "Legendaria" : result.overallScore >= 70 ? "Épica" : "Rara"}
         </span>
+        </div>
       )}
     </>
   );

@@ -36,6 +36,33 @@ export interface ResultsData {
   answers: Record<string, number>;
 }
 
+const DIMENSION_NAMES: Record<keyof RIASECProfile, string> = {
+  R: "lo práctico", I: "la curiosidad", A: "la creatividad",
+  S: "la colaboración", E: "la iniciativa", C: "la organización",
+};
+
+function buildMatchReason(
+  profile: RIASECProfile,
+  result: ScoringResult,
+  programId: string
+) {
+  const program = getProgramProfile(programId);
+  if (!program) return "Tus respuestas muestran una afinidad general con este programa y con la forma de aprender que propone.";
+  const shared = (Object.keys(profile) as (keyof RIASECProfile)[])
+    .map((dim) => ({ dim, value: profile[dim] * program.riasec[dim] }))
+    .sort((a, b) => b.value - a.value)
+    .slice(0, 2)
+    .map(({ dim }) => DIMENSION_NAMES[dim]);
+  const strongestLayer = Object.entries(result.fitBreakdown)
+    .sort(([, a], [, b]) => b - a)[0]?.[0];
+  const layerText = strongestLayer === "technical"
+    ? "tus aptitudes para resolver y desarrollar ideas"
+    : strongestLayer === "lifestyle"
+      ? "el estilo de vida que buscas"
+      : "tu manera natural de pensar";
+  return `Conecta con ${shared.join(" y ")} y con ${layerText}. Por eso no es solo una coincidencia: se parece a lo que elegiste hacer cuando te enfrentaste a situaciones reales.`;
+}
+
 const LAYOUT_OPTIONS: { layout: ShareCardLayout; label: string }[] = [
   { layout: "stories", label: "Instagram Stories" },
   { layout: "feed", label: "Instagram Feed" },
@@ -251,6 +278,7 @@ export function ResultsPage({ data }: { data: ResultsData }) {
                       setFocusedProgramIndex(index);
                       setSelectedProgramId((current) => current === program.id ? null : program.id);
                     }}
+                    matchReason={buildMatchReason(data.riasecProfile, result, result.program.id)}
                   />
                 </div>
               );

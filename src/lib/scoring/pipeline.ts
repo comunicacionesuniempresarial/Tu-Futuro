@@ -170,6 +170,16 @@ function computeValuesVector(
     const answer = answers[q.id];
     if (answer === undefined) continue;
 
+    // Guide-aligned questions can describe more than one lifestyle signal.
+    // Prefer their explicit option vectors over legacy question heuristics.
+    if (q.valuesWeights) {
+      const weights = q.valuesWeights[answer];
+      if (weights) {
+        for (let i = 0; i < vec.length; i++) vec[i] += weights[i] ?? 0;
+      }
+      continue;
+    }
+
     if (q.type === "likert-5") {
       // Q18 (autonomy), Q20 (risk-tolerance): direct likert linear mapping.
       const idx = VALUES_DIMENSION_INDEX[q.dimension] ?? 0;
