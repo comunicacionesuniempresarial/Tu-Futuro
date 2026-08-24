@@ -162,7 +162,7 @@ export default function LeadsTable({
   return (
     <div className="space-y-4">
       {/* Filters */}
-      <div className="flex flex-wrap gap-3">
+      <div className="grid grid-cols-1 gap-3 sm:flex sm:flex-wrap">
         <label htmlFor="leads-search" className="sr-only">
           Buscar nombre o email
         </label>
@@ -175,7 +175,7 @@ export default function LeadsTable({
             onSearchChange(e.target.value);
             setPage(1);
           }}
-          className="flex-1 min-w-[200px] p-3.5 rounded-xl bg-white border border-slate-200 text-slate-900 placeholder-slate-400 focus:border-[#22D3EE]/50 focus:outline-none text-sm transition-all duration-300 shadow-sm"
+          className="min-w-0 flex-1 rounded-xl border border-slate-200 bg-white p-3.5 text-sm text-slate-900 shadow-sm placeholder:text-slate-400 focus:border-[#22D3EE]/50 focus:outline-none transition-all duration-300 sm:min-w-[200px]"
         />
         <label htmlFor="leads-archetype" className="sr-only">
           Filtrar por arquetipo
@@ -189,7 +189,7 @@ export default function LeadsTable({
             onArchetypeChange(e.target.value);
             setPage(1);
           }}
-          className="w-48 p-3.5 rounded-xl bg-white border border-slate-200 text-slate-900 placeholder-slate-400 focus:border-[#22D3EE]/50 focus:outline-none text-sm transition-all duration-300 shadow-sm"
+          className="w-full rounded-xl border border-slate-200 bg-white p-3.5 text-sm text-slate-900 shadow-sm placeholder:text-slate-400 focus:border-[#22D3EE]/50 focus:outline-none transition-all duration-300 sm:w-48"
         />
         <label htmlFor="leads-estado" className="sr-only">
           Filtrar por estado

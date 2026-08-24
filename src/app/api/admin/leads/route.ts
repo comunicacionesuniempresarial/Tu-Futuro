@@ -20,7 +20,7 @@ async function requireAdmin(): Promise<NextResponse | null> {
     );
   }
 
-  if ((session.user as { role?: string }).role !== "admin") {
+  if (!["super_admin", "advisor"].includes((session.user as { role?: string }).role ?? "")) {
     return NextResponse.json(
       { error: "No autorizado" },
       { status: 403, headers: NO_STORE }

@@ -23,6 +23,15 @@ const navItems = [
       </svg>
     ),
   },
+  {
+    href: "/admin/usuarios",
+    label: "Usuarios",
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2m7-10a4 4 0 100-8 4 4 0 000 8zm7-3v6m3-3h-6" />
+      </svg>
+    ),
+  },
 ];
 
 export default function AdminLayout({
@@ -147,7 +156,7 @@ export default function AdminLayout({
           </header>
 
           {/* Main content */}
-          <main className="flex-1 p-4 md:p-8 overflow-auto">{children}</main>
+          <main className="min-w-0 flex-1 overflow-auto p-3 sm:p-4 md:p-8">{children}</main>
         </div>
       </div>
     </SessionProvider>

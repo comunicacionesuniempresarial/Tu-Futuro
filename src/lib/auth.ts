@@ -1,6 +1,7 @@
 import crypto from "crypto";
 import NextAuth, { CredentialsSignin } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
+import { getAdminUserByEmail } from "@/lib/supabase";
 
 // Admin credentials from environment variables
 // Multiple admin users supported: ADMIN_EMAILS and ADMIN_PASSWORDS (comma-separated)
@@ -47,6 +48,11 @@ function secureEqual(a: string, b: string): boolean {
   return crypto.timingSafeEqual(hashA, hashB);
 }
 
+function verifyStoredPassword(password: string, hash: string, salt: string): boolean {
+  const derived = crypto.scryptSync(password, salt, 64).toString("hex");
+  return secureEqual(derived, hash);
+}
+
 class ThrottledSigninError extends CredentialsSignin {
   constructor() {
     super();
@@ -72,7 +78,24 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           throw new ThrottledSigninError();
         }
 
-        // Check against env-configured admin users
+        // Prefer the database-backed RBAC users. If the migration has not been
+        // applied yet, keep the legacy env super-admin as a safe fallback.
+        try {
+          const storedUser = await getAdminUserByEmail(email);
+          if (storedUser?.activo && verifyStoredPassword(password, storedUser.password_hash, storedUser.password_salt)) {
+            failedAttempts.delete(email);
+            return {
+              id: storedUser.id,
+              email: storedUser.email,
+              name: storedUser.nombre,
+              role: storedUser.role,
+            };
+          }
+        } catch {
+          // The table may not exist during migration; use the legacy account.
+        }
+
+        // Check against env-configured super-admin users
         const index = adminEmails.indexOf(email);
         if (index !== -1 && secureEqual(password, adminPasswords[index] ?? "")) {
           failedAttempts.delete(email);
@@ -80,7 +103,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             id: email,
             email,
             name: "Admin",
-            role: "admin",
+            role: "super_admin",
           };
         }
 
@@ -98,7 +121,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.role = (user as { role?: string }).role || "admin";
+        token.role = (user as { role?: string }).role || "super_admin";
       }
       return token;
     },

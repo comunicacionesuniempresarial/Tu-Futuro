@@ -14,7 +14,7 @@ export async function GET() {
     );
   }
 
-  if ((session.user as { role?: string }).role !== "admin") {
+  if (!["super_admin", "advisor"].includes((session.user as { role?: string }).role ?? "")) {
     return NextResponse.json(
       { error: "No autorizado" },
       { status: 403, headers: NO_STORE }

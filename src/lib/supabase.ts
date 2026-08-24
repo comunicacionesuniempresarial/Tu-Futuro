@@ -386,6 +386,67 @@ export interface AdminMetrics {
   daily: { date: string; count: number }[];
 }
 
+export type AdminRole = "super_admin" | "advisor";
+
+export interface AdminUserRow {
+  id: string;
+  email: string;
+  nombre: string;
+  password_hash: string;
+  password_salt: string;
+  role: AdminRole;
+  activo: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+const ADMIN_USER_COLUMNS = "id, email, nombre, password_hash, password_salt, role, activo, created_at, updated_at";
+
+export async function getAdminUserByEmail(email: string): Promise<AdminUserRow | null> {
+  const { data, error } = await getSupabase()
+    .from("admin_users")
+    .select(ADMIN_USER_COLUMNS)
+    .eq("email", email.toLowerCase())
+    .maybeSingle();
+  if (error) throw error;
+  return (data as AdminUserRow | null) ?? null;
+}
+
+export async function listAdminUsers(): Promise<Omit<AdminUserRow, "password_hash" | "password_salt">[]> {
+  const { data, error } = await getSupabase()
+    .from("admin_users")
+    .select("id, email, nombre, role, activo, created_at, updated_at")
+    .order("created_at", { ascending: false });
+  if (error) throw error;
+  return (data ?? []) as Omit<AdminUserRow, "password_hash" | "password_salt">[];
+}
+
+export async function createAdminUser(input: Pick<AdminUserRow, "email" | "nombre" | "password_hash" | "password_salt" | "role">) {
+  const { data, error } = await getSupabase()
+    .from("admin_users")
+    .insert({ ...input, email: input.email.toLowerCase() })
+    .select("id, email, nombre, role, activo, created_at, updated_at")
+    .single();
+  if (error) throw error;
+  return data;
+}
+
+export async function updateAdminUser(id: string, patch: Partial<Pick<AdminUserRow, "nombre" | "role" | "activo" | "password_hash" | "password_salt">>) {
+  const { data, error } = await getSupabase()
+    .from("admin_users")
+    .update(patch)
+    .eq("id", id)
+    .select("id, email, nombre, role, activo, created_at, updated_at")
+    .single();
+  if (error) throw error;
+  return data;
+}
+
+export async function deleteAdminUser(id: string) {
+  const { error } = await getSupabase().from("admin_users").delete().eq("id", id);
+  if (error) throw error;
+}
+
 /**
  * Métricas con counts server-side. Incluye leads de prueba (es_prueba) igual
  * que el comportamiento anterior de la hoja.
