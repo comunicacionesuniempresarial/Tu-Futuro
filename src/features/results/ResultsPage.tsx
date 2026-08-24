@@ -40,6 +40,8 @@ const DIMENSION_NAMES: Record<keyof RIASECProfile, string> = {
   R: "lo práctico", I: "la curiosidad", A: "la creatividad",
   S: "la colaboración", E: "la iniciativa", C: "la organización",
 };
+const APTITUDE_NAMES = ["el análisis", "la planificación", "la creatividad", "la comunicación"];
+const VALUE_NAMES = ["la autonomía", "el gusto por los retos", "la flexibilidad", "el trabajo con personas"];
 
 function buildMatchReason(
   profile: RIASECProfile,
@@ -53,6 +55,16 @@ function buildMatchReason(
     .sort((a, b) => b.value - a.value)
     .slice(0, 2)
     .map(({ dim }) => DIMENSION_NAMES[dim]);
+  const programDimensions = (Object.keys(program.riasec) as (keyof RIASECProfile)[])
+    .sort((a, b) => program.riasec[b] - program.riasec[a])
+    .slice(0, 2)
+    .map((dim) => DIMENSION_NAMES[dim]);
+  const aptitude = program.aptitude
+    .map((value, index) => ({ value, name: APTITUDE_NAMES[index] }))
+    .sort((a, b) => b.value - a.value)[0];
+  const lifestyle = program.values
+    .map((value, index) => ({ value, name: VALUE_NAMES[index] }))
+    .sort((a, b) => b.value - a.value)[0];
   const strongestLayer = Object.entries(result.fitBreakdown)
     .sort(([, a], [, b]) => b - a)[0]?.[0];
   const layerText = strongestLayer === "technical"
@@ -60,7 +72,10 @@ function buildMatchReason(
     : strongestLayer === "lifestyle"
       ? "el estilo de vida que buscas"
       : "tu manera natural de pensar";
-  return `Conecta con ${shared.join(" y ")} y con ${layerText}. Por eso no es solo una coincidencia: se parece a lo que elegiste hacer cuando te enfrentaste a situaciones reales.`;
+  const sharedText = shared.length === 2
+    ? `${shared[0]} y ${shared[1]}`
+    : shared[0];
+  return `Tus respuestas muestran ${sharedText}; ${program.name} busca precisamente ${programDimensions.join(" y ")}. Además, aquí podrías aprovechar ${aptitude.name} y encontrar un entorno que valora ${lifestyle.name}. En tu caso, la coincidencia se nota en ${layerText}: no elegiste una etiqueta, elegiste comportamientos que esta carrera utiliza todos los días.`;
 }
 
 const LAYOUT_OPTIONS: { layout: ShareCardLayout; label: string }[] = [

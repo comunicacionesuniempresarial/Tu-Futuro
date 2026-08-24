@@ -56,14 +56,14 @@ export default function Hero({ onStart }: HeroProps) {
           >
             <span className="block">Descubre tu</span>
             <span className="block text-[var(--color-neon-primary)] drop-shadow-[0_0_24px_color-mix(in_srgb,var(--color-neon-primary)_40%,transparent)]">
-              Destino Dual
+              Futuro Dual
             </span>
           </h1>
 
           <p className="max-w-lg text-lg leading-relaxed text-[var(--color-text-secondary)] lg:text-xl">
-            Tu carrera no es solo un estudio, es tu mazo de poder. El Duelo de
-            Destinos revela qué arquetipo invocarás en la universidad. En
-            minutos, no en semanas.
+            Responde situaciones cercanas a tu vida y descubre qué tipo de
+            entorno, carrera y forma de aprender pueden encajar mejor contigo.
+            En pocos minutos tendrás una guía para tomar tu siguiente decisión.
           </p>
 
           {/* Propuesta de valor — "para qué es el duelo", no "cómo funciona" */}
@@ -90,7 +90,7 @@ export default function Hero({ onStart }: HeroProps) {
               onClick={onStart}
               className="card-glow card-foil border border-[var(--color-neon-secondary)] relative flex items-center justify-center rounded-xl px-10 py-4 font-display font-bold text-[var(--color-deep)] text-lg transition-all"
             >
-              ✨ Inicia el test
+              Inicia el test
             </NeonButton>
 
             <div className="flex items-center gap-3 text-sm font-medium text-[var(--color-text-secondary)]">

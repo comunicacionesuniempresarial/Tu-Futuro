@@ -93,7 +93,7 @@ describe("LandingPage", () => {
 
     render(<LandingPage />);
 
-    const cta = screen.getByRole("link", { name: /✨ Inicia el test/ });
+    const cta = screen.getAllByRole("link", { name: "Inicia el test" })[1];
     expect(cta).toHaveAttribute("href", "/test");
   });
 
@@ -129,7 +129,7 @@ describe("LandingPage", () => {
     const onStart = vi.fn();
     render(<LandingPage onStart={onStart} />);
 
-    fireEvent.click(screen.getByRole("link", { name: /✨ Inicia el test/ }));
+    fireEvent.click(screen.getAllByRole("link", { name: "Inicia el test" })[1]);
 
     expect(onStart).toHaveBeenCalledTimes(1);
   });

@@ -27,7 +27,7 @@ describe("Hero", () => {
     render(<Hero />);
 
     expect(
-      screen.getByRole("heading", { level: 1, name: /destino dual/i })
+      screen.getByRole("heading", { level: 1, name: /futuro dual/i })
     ).toBeInTheDocument();
   });
 
