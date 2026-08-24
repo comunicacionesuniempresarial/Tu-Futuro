@@ -16,17 +16,15 @@ describe("BrandHeader", () => {
   it("offers navigation to the test", () => {
     render(<BrandHeader />);
 
-    const testLink = screen.getByRole("link", { name: /El Duelo/ });
+    const testLink = screen.getByRole("link", { name: /Inicia el test/ });
     expect(testLink).toHaveAttribute("href", "/test");
   });
 
-  it("renders action buttons with Material Symbols icons", () => {
+  it("links the account icon to the admissions panel", () => {
     render(<BrandHeader />);
 
-    const accountButton = screen.getByRole("button", { name: "account_circle" });
-    expect(accountButton).toBeInTheDocument();
-
-    const settingsButton = screen.getByRole("button", { name: "settings" });
-    expect(settingsButton).toBeInTheDocument();
+    const accountLink = screen.getByRole("link", { name: "Panel de admisiones" });
+    expect(accountLink).toHaveAttribute("href", "/admin/login");
+    expect(screen.queryByText("settings")).not.toBeInTheDocument();
   });
 });

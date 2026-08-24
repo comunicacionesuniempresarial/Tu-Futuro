@@ -2,9 +2,9 @@ import Link from "next/link";
 import { usePathname } from 'next/navigation';
 
 const navLinks = [
-  { href: "/test", label: "El Duelo" },
-  { href: "/resultados", label: "Tu Mazo" },
-  { href: "/", label: "La Academia" },
+  { href: "/test", label: "Inicia el test" },
+  { href: "/resultados", label: "Mi resultado" },
+  { href: "https://uniempresarial.edu.co/pregrados-presenciales/", label: "Programas", external: true },
 ];
 
 
@@ -33,24 +33,29 @@ export default function BrandHeader() {
         </Link>
 
         <nav aria-label="Navegación principal" className="hidden items-center gap-8 md:flex">
-          {navLinks.map((link) => (
+          {navLinks.map((link) => link.external ? (
+            <a
+              key={link.label}
+              href={link.href}
+              target="_blank"
+              rel="noreferrer"
+              className="text-sm font-medium text-[var(--color-text-secondary)] transition-colors hover:text-[var(--color-neon-primary)]"
+            >
+              {link.label}
+            </a>
+          ) : (
             <Link
               key={link.label}
               href={link.href}
               className={`text-sm font-medium text-[var(--color-text-secondary)] transition-colors hover:text-[var(--color-neon-primary)] ${isActive(link.href)}`}
-            >
-              {link.label}
-            </Link>
+            >{link.label}</Link>
           ))}
         </nav>
 
         <div className="flex items-center gap-1" aria-label="Acciones">
-          <button className="hover:bg-[var(--color-neon-primary)]/20 hover:text-[var(--color-neon-primary)] transition-all duration-300 p-2 rounded-full">
+          <Link href="/admin/login" aria-label="Panel de admisiones" title="Panel de admisiones" className="hover:bg-[var(--color-neon-primary)]/20 hover:text-[var(--color-neon-primary)] transition-all duration-300 p-2 rounded-full">
             <span className="material-symbols-outlined">account_circle</span>
-          </button>
-          <button className="hover:bg-[var(--color-neon-primary)]/20 hover:text-[var(--color-neon-primary)] transition-all duration-300 p-2 rounded-full">
-            <span className="material-symbols-outlined">settings</span>
-          </button>
+          </Link>
         </div>
       </div>
     </header>

@@ -36,6 +36,7 @@ export function ShareCard({ data, layout = "default" }: ShareCardProps) {
     setStatus("sharing");
     void share({
       data,
+      size,
       onSuccess: () => setStatus("done"),
       onError: () => setStatus("error"),
     });
@@ -55,7 +56,7 @@ export function ShareCard({ data, layout = "default" }: ShareCardProps) {
         disabled={status === "sharing"}
         className="share-card-button card-glow mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[linear-gradient(135deg,var(--color-neon-primary),var(--color-neon-secondary))] px-6 py-3.5 font-bold text-[var(--color-deep)] transition-transform duration-150 hover:scale-[1.02] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60"
       >
-        {status === "sharing" ? "Generando…" : "Invocar a otros (Compartir)"}
+        {status === "sharing" ? "Preparando tu historia…" : "Compartir en Instagram Stories"}
       </button>
       {status === "error" && (
         <p role="alert" className="share-card-error mt-3 text-sm text-[var(--color-error)]">

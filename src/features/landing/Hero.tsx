@@ -8,16 +8,8 @@ import { useReducedMotion } from "@/features/shared/hooks/useReducedMotion";
 
 const heroValueProps = [
   {
-    title: "Las 4 Capas del Poder",
-    subtitle: "Intereses, aptitudes, valores y modalidad: 15 preguntas para invocar tu destino.",
-  },
-  {
-    title: "Radar RIASEC",
-    subtitle: "Seis dimensiones muestran cómo se combinan tus fuerzas.",
-  },
-  {
-    title: "Tu Arquetipo Mítico",
-    subtitle: "8 perfiles legendarios te esperan en tu mazo.",
+    title: "15 preguntas, una guía clara",
+    subtitle: "Responde con lo primero que te venga a la mente.",
   },
 ];
 
@@ -75,7 +67,7 @@ export default function Hero({ onStart }: HeroProps) {
           </p>
 
           {/* Propuesta de valor — "para qué es el duelo", no "cómo funciona" */}
-          <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="mt-6 grid grid-cols-1 gap-4 max-w-sm">
             {heroValueProps.map((vp, i) => (
               <div
                 key={i}
@@ -98,7 +90,7 @@ export default function Hero({ onStart }: HeroProps) {
               onClick={onStart}
               className="card-glow card-foil border border-[var(--color-neon-secondary)] relative flex items-center justify-center rounded-xl px-10 py-4 font-display font-bold text-[var(--color-deep)] text-lg transition-all"
             >
-              ⚔️ Comenzar el Duelo
+              ✨ Inicia el test
             </NeonButton>
 
             <div className="flex items-center gap-3 text-sm font-medium text-[var(--color-text-secondary)]">

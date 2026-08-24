@@ -1,6 +1,7 @@
 "use client";
 
 import type { Program } from "@/lib/programs";
+import { getProgramUrl } from "@/lib/programs";
 import type { ModalityResult, ScoringResult } from "@/lib/scoring/types";
 
 export interface ProgramCardProps {
@@ -40,13 +41,14 @@ export function ProgramCard({
     <>
       {program.image && (
         <div className="relative -mx-5 -mt-5 mb-0 h-32 sm:h-40 overflow-hidden rounded-t-2xl">
-          <img
-            src={program.image}
-            alt={program.name}
-            className="h-full w-full object-cover"
-            loading="lazy"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-surface)]/90 to-transparent" />
+          <a href={getProgramUrl(program.id)} target="_blank" rel="noreferrer" aria-label={`Conoce ${program.name}`}>
+            <img
+              src={program.image}
+              alt={program.name}
+              className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+              loading="lazy"
+            />
+          </a>
         </div>
       )}
       <div className="flex items-center gap-3">{inner}</div>
@@ -86,11 +88,6 @@ export function ProgramCard({
           </div>
         </div>
       )}
-      {isExpanded && program.description && (
-        <p className="mt-2 text-sm leading-relaxed text-[var(--color-text-secondary)] italic">
-          {program.description}
-        </p>
-      )}
     </>
   );
 
@@ -99,15 +96,22 @@ export function ProgramCard({
 
   if (onClick) {
     return (
-      <button
-        type="button"
+      <div
+        role="button"
+        tabIndex={0}
         data-theme="dark"
         onClick={() => onClick(program)}
+        onKeyDown={(event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            onClick(program);
+          }
+        }}
         aria-label={`${program.name} — ranking ${rank}, ${Math.round(result.overallScore)}% de afinidad`}
         className={`${baseClassName} cursor-pointer transition-colors hover:border-[var(--color-neon-primary)]/50`}
       >
         {innerExpanded}
-      </button>
+      </div>
     );
   }
 

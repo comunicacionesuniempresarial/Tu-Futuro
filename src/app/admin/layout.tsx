@@ -50,7 +50,7 @@ export default function AdminLayout({
               </div>
               <div>
                 <div className="font-bold text-slate-900 text-sm">Tu Futuro Dual</div>
-                <div className="text-xs text-slate-400">Admin Panel</div>
+                <div className="text-xs text-slate-400">Admisiones</div>
               </div>
             </Link>
           </div>
@@ -110,7 +110,7 @@ export default function AdminLayout({
               <div className="w-8 h-8 bg-gradient-to-br from-[#22D3EE] to-[#E879F9] rounded-lg flex items-center justify-center font-bold text-xs text-white">
                 UF
               </div>
-              <span className="font-bold text-sm text-slate-900">Admin</span>
+              <span className="font-bold text-sm text-slate-900">Admisiones</span>
             </Link>
             <div className="flex items-center gap-2">
               {navItems.map((item) => {

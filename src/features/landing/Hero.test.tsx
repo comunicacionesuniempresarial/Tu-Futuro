@@ -31,14 +31,13 @@ describe("Hero", () => {
     ).toBeInTheDocument();
   });
 
-  it("shows the value propositions inline, each exactly once", () => {
+  it("shows one clear value proposition without spoiling the result", () => {
     mockMatchMedia(false);
 
     render(<Hero />);
 
-    expect(screen.getAllByText("Las 4 Capas del Poder")).toHaveLength(1);
-    expect(screen.getAllByText("Radar RIASEC")).toHaveLength(1);
-    expect(screen.getAllByText("Tu Arquetipo Mítico")).toHaveLength(1);
+    expect(screen.getByText("15 preguntas, una guía clara")).toBeInTheDocument();
+    expect(screen.queryByText("Radar RIASEC")).not.toBeInTheDocument();
   });
 
   it("renders the CTA linking to the test", () => {
@@ -46,7 +45,7 @@ describe("Hero", () => {
 
     render(<Hero />);
 
-    const cta = screen.getByRole("link", { name: /Comenzar el Duelo/ });
+    const cta = screen.getByRole("link", { name: /Inicia/ });
     expect(cta).toHaveAttribute("href", "/test");
   });
 
@@ -56,7 +55,7 @@ describe("Hero", () => {
     const onStart = vi.fn();
     render(<Hero onStart={onStart} />);
 
-    fireEvent.click(screen.getByRole("link", { name: /Comenzar el Duelo/ }));
+    fireEvent.click(screen.getByRole("link", { name: /Inicia/ }));
 
     expect(onStart).toHaveBeenCalledTimes(1);
   });

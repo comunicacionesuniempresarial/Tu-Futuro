@@ -12,16 +12,16 @@ export const TOTAL_STEPS = 15;
 
 /** Layer names for display */
 export const LAYER_NAMES: Record<1 | 2 | 3, string> = {
-  1: "Intereses RIASEC",
+  1: "Tus intereses",
   2: "Aptitudes",
   3: "Valores y Estilo de Vida",
 };
 
 /** Layer descriptions shown on transition screens */
 export const LAYER_DESCRIPTIONS: Record<1 | 2 | 3, string> = {
-  1: "Vamos a descubrir tus intereses profesionales mediante el modelo RIASEC.",
-  2: "Ahora hablemos de tus aptitudes y habilidades.",
-  3: "Es momento de conocer tus valores y estilo de vida.",
+  1: "Empecemos por lo que naturalmente despierta tu curiosidad.",
+  2: "Ufff, vas muy bien. Ahora descubre lo que se te da especialmente bien.",
+  3: "Ya falta poco. Conozcamos qué necesitas para sentirte a gusto en tu futuro.",
 };
 
 /**

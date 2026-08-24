@@ -53,7 +53,7 @@ export function GapAnalysis({
       className="rounded-3xl border border-[var(--color-border)]/70 bg-[var(--color-surface)]/70 p-8 space-y-4 backdrop-blur-sm"
     >
       <h3 className="text-sm font-bold uppercase tracking-wider text-[var(--color-text-muted)]">
-        Qué te falta potenciar
+        Lo que podrías fortalecer
       </h3>
       {gaps.map((programGap) => (
         <div
@@ -68,7 +68,7 @@ export function GapAnalysis({
             data-accent="neon"
             className="rounded-lg bg-[var(--color-neon-primary)]/10 border border-[var(--color-neon-primary)]/30 px-3 py-1 text-sm font-extrabold text-[var(--color-neon-primary)]"
           >
-            {Math.round(programGap.gap * 100)}%
+            {Math.round(programGap.gap * 100)}% de distancia
           </span>
         </div>
       ))}

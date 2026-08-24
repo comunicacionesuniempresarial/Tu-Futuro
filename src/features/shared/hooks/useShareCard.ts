@@ -5,9 +5,11 @@ import {
   svgToPngBlob,
   type ShareCardData,
 } from "@/lib/share-card/generate";
+import type { ShareCardSize } from "@/lib/share-card/generate";
 
 export interface ShareOptions {
   data: ShareCardData;
+  size?: ShareCardSize;
   onSuccess?: () => void;
   onError?: (error: Error) => void;
 }
@@ -37,9 +39,9 @@ const copyToClipboard = async (blob: Blob): Promise<void> => {
  *   3. Clipboard (ClipboardItem)
  */
 export function useShareCard(): (options: ShareOptions) => Promise<void> {
-  return useCallback(async ({ data, onSuccess, onError }: ShareOptions) => {
+  return useCallback(async ({ data, size, onSuccess, onError }: ShareOptions) => {
     try {
-      const svg = generateShareCardSVG(data);
+      const svg = generateShareCardSVG(data, size);
       const pngBlob = await svgToPngBlob(svg);
       const file = new File([pngBlob], SHARE_CARD_FILENAME, {
         type: "image/png",

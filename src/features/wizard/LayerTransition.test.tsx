@@ -31,10 +31,10 @@ describe("LayerTransition", () => {
       screen.getByRole("heading", { name: "Aptitudes" })
     ).toBeInTheDocument();
     expect(
-      screen.getByText("Ahora hablemos de tus aptitudes y habilidades.")
+      screen.getByText("Ufff, vas muy bien. Ahora descubre lo que se te da especialmente bien.")
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: "Continuar" })
+      screen.getByRole("button", { name: "Descubre tu resultado" })
     ).toBeInTheDocument();
   });
 
@@ -44,7 +44,7 @@ describe("LayerTransition", () => {
     const onContinue = vi.fn();
     render(<LayerTransition layer={1} onContinue={onContinue} />);
 
-    fireEvent.click(screen.getByRole("button", { name: "Continuar" }));
+    fireEvent.click(screen.getByRole("button", { name: "Descubre tu resultado" }));
 
     expect(onContinue).toHaveBeenCalledTimes(1);
   });

@@ -38,9 +38,8 @@ export interface ResultsData {
 }
 
 const LAYOUT_OPTIONS: { layout: ShareCardLayout; label: string }[] = [
-  { layout: "default", label: "Horizontal" },
-  { layout: "stories", label: "Historias" },
-  { layout: "feed", label: "Feed" },
+  { layout: "stories", label: "Instagram Stories" },
+  { layout: "feed", label: "Instagram Feed" },
 ];
 
 /**
@@ -54,7 +53,7 @@ export function ResultsPage({ data }: { data: ResultsData }) {
   const [selectedProgramId, setSelectedProgramId] = useState<string | null>(
     null
   );
-  const [layout, setLayout] = useState<ShareCardLayout>("default");
+  const [layout, setLayout] = useState<ShareCardLayout>("stories");
 
   // Show all programs deduped (no modality filter)
   const filteredResults = useMemo(() => {
@@ -185,7 +184,7 @@ export function ResultsPage({ data }: { data: ResultsData }) {
               Tu Sello de Poder
             </h2>
             <p className="mt-1 text-sm text-[var(--color-text-secondary)]">
-              Tu perfil RIASEC — la firma única de tu mente
+              Descubre qué dimensión domina tu pensamiento
             </p>
           </div>
           <RadarChart
@@ -207,8 +206,7 @@ export function ResultsPage({ data }: { data: ResultsData }) {
             <p className="mt-2 text-sm leading-relaxed text-[var(--color-text-secondary)] max-w-xl mx-auto">
               Ordenamos los programas por afinidad con tu personalidad, tus
               aptitudes y tu estilo de vida. La primera carta es tu mejor
-              coincidencia. Tocá una carrera para ver su requisito sobre tu
-              radar.
+              coincidencia. Toca una carrera para explorar qué tan bien encaja contigo.
             </p>
           </div>
           <div className="flex flex-col items-center gap-4 md:flex-row md:items-end md:justify-center md:gap-0 md:-space-x-8 lg:-space-x-12">

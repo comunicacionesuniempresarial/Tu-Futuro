@@ -160,6 +160,24 @@ export function getProgramById(id: string): Program | undefined {
   return programs.find((p) => p.id === id);
 }
 
+/** Official program pages used by result cards. */
+export function getProgramUrl(id: string): string {
+  const slugById: Record<string, string> = {
+    "ing-software": "ingenieria-de-software",
+    "ing-software-virtual": "ingenieria-de-software-virtual",
+    "admin-empresas": "administracion-de-empresas",
+    "admin-empresas-virtual": "administracion-de-empresas-virtual",
+    marketing: "marketing",
+    "marketing-virtual": "marketing-virtual",
+    "ing-industrial": "ingenieria-industrial",
+    "ing-industrial-virtual": "ingenieria-industrial-virtual",
+    "negocios-internacionales": "negocios-internacionales",
+    finanzas: "finanzas-y-comercio-exterior",
+    "negocios-turisticos": "negocios-turisticos-y-hoteleros",
+  };
+  return `https://uniempresarial.edu.co/${slugById[id] ?? "pregrados-presenciales"}/`;
+}
+
 export function getPresencialPrograms(): Program[] {
   return programs.filter((p) => p.modality === "presencial");
 }

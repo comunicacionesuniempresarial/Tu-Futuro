@@ -1,13 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { useTestStore } from "@/stores/test-store";
+import { useRouter } from "next/navigation";
 import {
   ResultsPage,
   type ResultsData,
 } from "@/features/results/ResultsPage";
+import { useTestStore } from "@/stores/test-store";
 
 function loadResults(): ResultsData | null {
   if (typeof window === "undefined") return null;
@@ -85,12 +85,9 @@ function MissingResults() {
 }
 
 export default function ResultadosPage() {
-  const router = useRouter();
-  const { isCompleted } = useTestStore();
   const [data, setData] = useState<ResultsData | null>(null);
-  // Zustand persist hidrata async desde localStorage; en el primer render
-  // isCompleted es el default (false) hasta que hidrata. Sin este guard,
-  // el redirect a /test disparaba prematuramente (race condition).
+  // Zustand persist hidrata async desde localStorage; esperamos a que termine
+  // para decidir si existe un resultado sin provocar un render incorrecto.
   const [hasHydrated, setHasHydrated] = useState(false);
 
   useEffect(() => {
@@ -108,19 +105,8 @@ export default function ResultadosPage() {
     setData(loadResults());
   }, []);
 
-  useEffect(() => {
-    // No decidir el redirect hasta que el store se hidrate: si no,
-    // isCompleted=false (default) causaría un redirect prematuro a /test.
-    if (!hasHydrated) return;
-    if (!data && !isCompleted) {
-      router.push("/test");
-    }
-  }, [data, isCompleted, router, hasHydrated]);
-
   if (!hasHydrated || !data) {
-    if (hasHydrated && isCompleted) {
-      return <MissingResults />;
-    }
+    if (hasHydrated) return <MissingResults />;
     return (
       <DuelCanvas>
         <div className="text-[var(--color-text-secondary)]">

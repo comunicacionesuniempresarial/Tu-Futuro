@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, act, within } from "@testing-library/react";
+import { render, screen, fireEvent, act } from "@testing-library/react";
 import LandingPage from "./LandingPage";
 
 describe("LandingPage", () => {
@@ -57,7 +57,7 @@ describe("LandingPage", () => {
 
     render(<LandingPage />);
 
-    expect(screen.getAllByRole("region")).toHaveLength(3);
+    expect(screen.getAllByRole("region")).toHaveLength(2);
   });
 
   it("shows the archetype showcase, each exactly once", () => {
@@ -81,14 +81,13 @@ describe("LandingPage", () => {
     expect(screen.queryByText(/estudiantes ya descubrieron/)).not.toBeInTheDocument();
   });
 
-  it("shows the value proposition in Las 4 Capas del Poder", () => {
+  it("keeps the landing focused on the test", () => {
     mockMatchMedia(false);
 
     render(<LandingPage />);
 
-    const paraQueEs = screen.getByRole("region", { name: /Las 4 Capas del Poder/ });
-    expect(within(paraQueEs).getByText(/test vocacional gamificado/)).toBeInTheDocument();
-    expect(within(paraQueEs).getByText(/Modelo Dual de Uniempresarial/)).toBeInTheDocument();
+    expect(screen.getByText("15 preguntas, una guía clara")).toBeInTheDocument();
+    expect(screen.queryByText("Las 4 Capas del Poder")).not.toBeInTheDocument();
   });
 
   it("shows the archetype showcase and the CTA to start the test", () => {
@@ -97,7 +96,7 @@ describe("LandingPage", () => {
     render(<LandingPage />);
 
     expect(screen.getByText("El Constructor")).toBeInTheDocument();
-    const cta = screen.getByRole("link", { name: /Comenzar el Duelo/ });
+    const cta = screen.getByRole("link", { name: /✨ Inicia el test/ });
     expect(cta).toHaveAttribute("href", "/test");
   });
 
@@ -125,10 +124,9 @@ describe("LandingPage", () => {
     const { container } = render(<LandingPage />);
 
     const sections = container.querySelectorAll("section");
-    expect(sections).toHaveLength(3);
+    expect(sections).toHaveLength(2);
     expect(sections[0]).toHaveAttribute("data-entrance", "animated");
     expect(sections[1]).toHaveAttribute("data-revealed", "false");
-    expect(sections[2]).toHaveAttribute("data-revealed", "false");
 
     act(() => {
       callbacks.forEach((callback, index) => {
@@ -146,7 +144,6 @@ describe("LandingPage", () => {
     });
 
     expect(sections[1]).toHaveAttribute("data-revealed", "true");
-    expect(sections[2]).toHaveAttribute("data-revealed", "true");
   });
 
   it("fires onStart when the final CTA is activated", () => {
@@ -155,7 +152,7 @@ describe("LandingPage", () => {
     const onStart = vi.fn();
     render(<LandingPage onStart={onStart} />);
 
-    fireEvent.click(screen.getByRole("link", { name: /Comenzar el Duelo/ }));
+    fireEvent.click(screen.getByRole("link", { name: /✨ Inicia el test/ }));
 
     expect(onStart).toHaveBeenCalledTimes(1);
   });

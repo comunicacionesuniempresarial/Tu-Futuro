@@ -163,7 +163,7 @@ export function renderRadarSVG(options: RenderRadarSVGOptions): string {
       )}" fill="none" stroke="#E879F9" stroke-width="2" stroke-dasharray="6 4" />`
     : "";
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-label="Radar de perfil RIASEC">
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-label="Radar de tus dimensiones">
   <g class="radar-grid" fill="none" stroke="#2a2a2a" stroke-width="1">${rings}</g>
   <g class="radar-spokes" fill="none" stroke="#2a2a2a" stroke-width="1">${spokes}</g>
   ${studentPolygon}

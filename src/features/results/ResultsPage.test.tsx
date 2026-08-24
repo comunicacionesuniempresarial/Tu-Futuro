@@ -81,7 +81,7 @@ describe("ResultsPage", () => {
     expect(screen.getByText("Tu Destino Revelado")).toBeInTheDocument();
     await waitFor(() => expect(confettiMock).toHaveBeenCalledTimes(1));
     expect(
-      screen.getByRole("button", { name: /invocar a otros/i })
+      screen.getByRole("button", { name: /compartir en instagram stories/i })
     ).toBeInTheDocument();
   });
 
@@ -98,10 +98,10 @@ describe("ResultsPage", () => {
 
     expect(document.querySelector("[data-layout]")).toHaveAttribute(
       "data-layout",
-      "default"
+      "stories"
     );
 
-    fireEvent.click(screen.getByRole("button", { name: /historias/i }));
+    fireEvent.click(screen.getByRole("button", { name: "Instagram Stories" }));
     expect(document.querySelector("[data-layout]")).toHaveAttribute(
       "data-layout",
       "stories"
@@ -137,7 +137,7 @@ describe("ResultsPage", () => {
     renderWithStoredResults();
 
     fireEvent.click(
-      screen.getByRole("button", { name: /invocar a otros/i })
+      screen.getByRole("button", { name: /compartir en instagram stories/i })
     );
 
     await waitFor(() => expect(shareMock).toHaveBeenCalledTimes(1));

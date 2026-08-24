@@ -54,7 +54,7 @@ describe("generateShareCardSVG", () => {
   it("embeds the RIASEC radar chart", () => {
     const svg = generateShareCardSVG(data);
 
-    expect(svg).toContain("Radar de perfil RIASEC");
+    expect(svg).toContain("Radar de tus dimensiones");
     expect(svg).toContain('fill="#22D3EE"');
   });
 

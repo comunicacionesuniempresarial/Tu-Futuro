@@ -53,7 +53,7 @@ const layer1Questions: Question[] = [
     layer: 1,
     dimension: "R",
     type: "single-choice",
-    text: "Organizan una feria en tu barrio y te toca ayudar. ¿Qué elegirías?",
+    text: "Organizan una feria en tu barrio. ¿Qué te gustaría hacer?",
     options: [
       "Montar los puestos y asegurarme de que todo funcione",
       "Recibir a todos para que se sientan bienvenidos",
@@ -208,7 +208,7 @@ const layer2Questions: Question[] = [
     type: "single-choice",
     text: "Te invitan a un viaje con los amigos. ¿Qué haces primero?",
     options: [
-      "Armó una lista con todo lo que hay que llevar y hacer",
+      "Armo una lista con todo lo que hay que llevar y hacer",
       "Busco información del destino a fondo",
       "Empiezo a imaginar las fotos y los planes sobre la marcha",
       "Armo el grupo y reparto quién se encarga de qué",
@@ -231,11 +231,11 @@ const layer2Questions: Question[] = [
     layer: 2,
     dimension: "aptitude-learning",
     type: "single-choice",
-    text: "Si tuvieras que aprender a montar moto, ¿cómo lo harías?",
+    text: "Si tuvieras que aprender algo nuevo, ¿cómo lo harías?",
     options: [
       "Practicando una y otra vez hasta dominarla",
       "Leyendo el manual y viendo tutoriales antes de tocarla",
-      "Saltando a la moto y a ver qué pasa",
+      "Probando de una y viendo qué pasa",
       "Que un amigo me enseñe paso a paso",
     ],
     images: [

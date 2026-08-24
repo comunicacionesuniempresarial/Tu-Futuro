@@ -56,7 +56,7 @@ describe("ShareCard", () => {
     expect(screen.getByText("âš™ï¸")).toBeInTheDocument();
     expect(screen.getByText("Ingeniero")).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: /invocar a otros/i })
+      screen.getByRole("button", { name: /instagram stories/i })
     ).toBeInTheDocument();
   });
 
@@ -85,7 +85,7 @@ describe("ShareCard", () => {
     render(<ShareCard data={data} />);
 
     fireEvent.click(
-      screen.getByRole("button", { name: /invocar a otros/i })
+      screen.getByRole("button", { name: /instagram stories/i })
     );
 
     await waitFor(() => expect(shareMock).toHaveBeenCalledTimes(1));
@@ -105,7 +105,7 @@ describe("ShareCard", () => {
 
     render(<ShareCard data={data} />);
     fireEvent.click(
-      screen.getByRole("button", { name: /invocar a otros/i })
+      screen.getByRole("button", { name: /instagram stories/i })
     );
 
     await waitFor(() => expect(click).toHaveBeenCalledTimes(1));

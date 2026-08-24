@@ -42,6 +42,13 @@ function LayerIndicator({ layer }: { layer: 1 | 2 | 3 }) {
  * Framer Motion layer transitions. Store integration and the scoring call are
  * preserved exactly from the previous wizard.
  */
+const ENCOURAGEMENTS = [
+  "Vas desbloqueando tu perfil.",
+  "Buena jugada. Sigue con lo primero que pienses.",
+  "Tu resultado empieza a tomar forma.",
+  "Ufff, vas muy bien. Rómpela en el siguiente nivel.",
+];
+
 export default function TestWizard({ esPrueba = false }: { esPrueba?: boolean }) {
   const router = useRouter();
   const prefersReduced = useReducedMotion();
@@ -469,6 +476,11 @@ export default function TestWizard({ esPrueba = false }: { esPrueba?: boolean })
               />
               {!isDisclaimer && (
                 <LayerIndicator layer={currentLayer} />
+              )}
+              {!isDisclaimer && (
+                <p className="text-center text-xs font-semibold text-[var(--color-neon-secondary)]" aria-live="polite">
+                  {ENCOURAGEMENTS[Math.min(ENCOURAGEMENTS.length - 1, Math.floor(displayStep / 4))]}
+                </p>
               )}
             </div>
           </div>

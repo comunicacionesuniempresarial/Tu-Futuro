@@ -95,7 +95,7 @@ export default function LayerTransition({
             onClick={onContinue}
             className="w-full font-bold py-4 rounded-2xl text-[var(--color-text-primary)] bg-[linear-gradient(135deg,var(--color-neon-primary),var(--color-neon-secondary))] transition-transform duration-150 will-change-transform hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_24px_color-mix(in_srgb,var(--color-neon-primary)_35%,transparent)]"
           >
-            Continuar
+            Descubre tu resultado
           </button>
         </motion.div>
       </AnimatePresence>
