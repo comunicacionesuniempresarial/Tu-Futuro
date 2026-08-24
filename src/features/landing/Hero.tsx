@@ -2,6 +2,7 @@
 
 import NeonButton from "@/features/shared/ui/NeonButton";
 import { useReducedMotion } from "@/features/shared/hooks/useReducedMotion";
+import { useRef, type PointerEvent } from "react";
 
 // El Duelo de Destinos: editorial dark, serif display, oro como protagonista.
 // Sin proof social, sin mecánicas: solo valor y un CTA impecable.
@@ -23,6 +24,29 @@ interface HeroProps {
  */
 export default function Hero({ onStart }: HeroProps) {
   const reducedMotion = useReducedMotion();
+  const cardStageRef = useRef<HTMLDivElement>(null);
+
+  const handleCardPointerMove = (event: PointerEvent<HTMLDivElement>) => {
+    if (reducedMotion || event.pointerType === "touch") return;
+    const stage = cardStageRef.current;
+    if (!stage) return;
+    const bounds = stage.getBoundingClientRect();
+    const x = (event.clientX - bounds.left) / bounds.width - 0.5;
+    const y = (event.clientY - bounds.top) / bounds.height - 0.5;
+    stage.style.setProperty("--hero-card-rotate-x", `${-y * 12}deg`);
+    stage.style.setProperty("--hero-card-rotate-y", `${x * 16}deg`);
+    stage.style.setProperty("--hero-card-glow-x", `${(x + 0.5) * 100}%`);
+    stage.style.setProperty("--hero-card-glow-y", `${(y + 0.5) * 100}%`);
+  };
+
+  const resetCardTilt = () => {
+    const stage = cardStageRef.current;
+    if (!stage) return;
+    stage.style.removeProperty("--hero-card-rotate-x");
+    stage.style.removeProperty("--hero-card-rotate-y");
+    stage.style.removeProperty("--hero-card-glow-x");
+    stage.style.removeProperty("--hero-card-glow-y");
+  };
 
   return (
     <section
@@ -109,7 +133,12 @@ export default function Hero({ onStart }: HeroProps) {
 
         {/* Carta legendaria flotante — promesa del arquetipo que se revelará */}
         <div className="mt-6 hidden justify-center lg:flex" aria-hidden="true">
-          <div className="relative flex items-center justify-center">
+          <div
+            ref={cardStageRef}
+            className="hero-card-stage relative flex items-center justify-center"
+            onPointerMove={handleCardPointerMove}
+            onPointerLeave={resetCardTilt}
+          >
             {/* Background card 1 */}
             <div
               className="absolute -left-14 -top-4 w-60 aspect-[2/3] rounded-2xl border border-[var(--color-neon-primary)]/30 bg-[var(--color-surface)]/40 opacity-40 -rotate-6 magical-float overflow-hidden shadow-xl"
@@ -135,28 +164,30 @@ export default function Hero({ onStart }: HeroProps) {
               />
             </div>
             {/* Foreground main card */}
-            <div className="card-foil magical-float relative w-72 aspect-[2/3] rounded-2xl border border-[var(--color-neon-primary)]/60 bg-[var(--color-deep)] overflow-hidden shadow-[0_24px_60px_-12px_rgba(0,0,0,0.7)] z-10">
-              <div className="absolute inset-0">
-                <img
-                  src="/archetypes/visionario.webp"
-                  alt=""
-                  loading="lazy"
-                  className="h-full w-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-deep)] via-transparent to-transparent" />
-              </div>
-              <div className="absolute top-3 left-3 rounded-full border border-[var(--color-neon-primary)]/40 bg-[var(--color-deep)]/80 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--color-neon-primary)] z-10">
-                Arquetipo Mítico
-              </div>
-              <div className="absolute top-3 right-3 text-[var(--color-neon-primary)] z-10">
-                ✦
-              </div>
-              <div className="absolute bottom-6 inset-x-6 flex flex-col items-center gap-2 text-center z-10">
-                <div className="font-display text-2xl font-bold text-[var(--color-text-primary)] drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-                  Tu destino te espera
+            <div className="hero-card-tilt relative z-10">
+              <div className="card-foil magical-float relative w-72 aspect-[2/3] rounded-2xl border border-[var(--color-neon-primary)]/60 bg-[var(--color-deep)] overflow-hidden shadow-[0_24px_60px_-12px_rgba(0,0,0,0.7)]">
+                <div className="absolute inset-0">
+                  <img
+                    src="/archetypes/visionario.webp"
+                    alt=""
+                    loading="lazy"
+                    className="h-full w-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-deep)] via-transparent to-transparent" />
                 </div>
-                <div className="text-xs text-[var(--color-text-secondary)] drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
-                  ¿Qué carta invocarás?
+                <div className="absolute top-3 left-3 rounded-full border border-[var(--color-neon-primary)]/40 bg-[var(--color-deep)]/80 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--color-neon-primary)] z-10">
+                  Arquetipo Mítico
+                </div>
+                <div className="absolute top-3 right-3 text-[var(--color-neon-primary)] z-10">
+                  ✦
+                </div>
+                <div className="absolute bottom-6 inset-x-6 flex flex-col items-center gap-2 text-center z-10">
+                  <div className="font-display text-2xl font-bold text-[var(--color-text-primary)] drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                    Tu destino te espera
+                  </div>
+                  <div className="text-xs text-[var(--color-text-secondary)] drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
+                    ¿Qué carta invocarás?
+                  </div>
                 </div>
               </div>
             </div>

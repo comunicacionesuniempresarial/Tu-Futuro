@@ -375,6 +375,58 @@ body {
   }
 }
 
+/* ── Interacción 3D de la carta principal del landing ── */
+.hero-card-stage {
+  --hero-card-rotate-x: 0deg;
+  --hero-card-rotate-y: 0deg;
+  --hero-card-glow-x: 50%;
+  --hero-card-glow-y: 50%;
+  perspective: 1100px;
+  perspective-origin: center;
+}
+
+.hero-card-stage::before {
+  content: "";
+  position: absolute;
+  inset: -4rem;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at var(--hero-card-glow-x) var(--hero-card-glow-y),
+    color-mix(in srgb, var(--color-neon-primary) 34%, transparent),
+    transparent 43%
+  );
+  filter: blur(24px);
+  opacity: 0.32;
+  transition: opacity 0.25s ease;
+}
+
+.hero-card-stage:hover::before {
+  opacity: 0.9;
+}
+
+.hero-card-tilt {
+  transform: rotateX(var(--hero-card-rotate-x)) rotateY(var(--hero-card-rotate-y)) translateZ(0);
+  transform-style: preserve-3d;
+  transition: transform 180ms ease-out;
+  will-change: transform;
+}
+
+.hero-card-stage:hover .hero-card-tilt {
+  transition-duration: 70ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-card-stage::before {
+    display: none;
+  }
+
+  .hero-card-tilt {
+    transform: none;
+    transition: none;
+  }
+}
+
 /* ── Parchment (reverso de carta) ── */
 .parchment {
   background: linear-gradient(
