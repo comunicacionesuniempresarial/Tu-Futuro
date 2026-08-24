@@ -106,7 +106,7 @@ function OptionCard({
       onClick={() => onChange(index)}
       aria-label={`${option} — opción ${String.fromCharCode(65 + index)}`}
       aria-pressed={selected}
-      className={`mystic-card group relative flex flex-col justify-between min-h-[260px] sm:min-h-[290px] md:min-h-[310px] rounded-2xl overflow-hidden text-center will-change-transform hover:-translate-y-2 hover:scale-[1.025] cursor-pointer ${
+      className={`mystic-card group relative flex flex-col justify-between min-h-[220px] sm:min-h-[245px] md:min-h-[270px] rounded-2xl overflow-hidden text-center will-change-transform hover:-translate-y-2 hover:scale-[1.025] cursor-pointer ${
         selected
           ? "neon-border mystic-card-glow ring-2 ring-[var(--color-neon-primary)] scale-[1.02]"
           : "border border-[var(--color-border)] hover:border-[var(--color-neon-primary)]/70 hover:shadow-[0_0_28px_color-mix(in_srgb,var(--color-neon-primary)_30%,transparent)]"
@@ -216,12 +216,13 @@ export default function QuestionCard({
 
   // Single choice
   if (question.type === "single-choice" && question.options) {
-    const gridClass = getCardsGridClass(question.options.length);
+    const visibleOptions = question.options.slice(0, 4);
+    const gridClass = getCardsGridClass(visibleOptions.length);
     return (
       <div className="space-y-4">
         <QuestionTitle text={question.text} />
         <div className={gridClass}>
-          {question.options.map((option, index) => {
+          {visibleOptions.map((option, index) => {
             const selected = value === index;
             return (
               <OptionCard
@@ -243,13 +244,14 @@ export default function QuestionCard({
   // Likert 5-point
   if (question.type === "likert-5" && question.options) {
     // Likert values are 1-based (1–5); OptionCard sends 0-based index.
-    const likertChange = (idx: number) => onChange(idx + 1);
-    const gridClass = getCardsGridClass(question.options.length);
+    const likertChange = (idx: number) => onChange([1, 2, 3, 5][idx] ?? 5);
+    const visibleOptions = question.options.slice(0, 4);
+    const gridClass = getCardsGridClass(visibleOptions.length);
     return (
       <div className="space-y-5">
         <QuestionTitle text={question.text} />
         <div className={gridClass}>
-          {question.options.map((option, index) => {
+          {visibleOptions.map((option, index) => {
             const selected = value === index + 1;
             return (
               <OptionCard
