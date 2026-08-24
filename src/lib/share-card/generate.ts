@@ -61,7 +61,10 @@ export function generateShareCardSVG(
  * Renders an SVG string to a PNG Blob via ImageBitmap + OffscreenCanvas.
  */
 export async function svgToPngBlob(svg: string): Promise<Blob> {
-  const svgBlob = new Blob([svg], { type: "image/svg+xml;charset=utf-8" });
+  const resolvedSvg = typeof window !== "undefined"
+    ? svg.replaceAll('href="/archetypes/', `href="${window.location.origin}/archetypes/`)
+    : svg;
+  const svgBlob = new Blob([resolvedSvg], { type: "image/svg+xml;charset=utf-8" });
   const bitmap = await createImageBitmap(svgBlob);
   const canvas = new OffscreenCanvas(bitmap.width, bitmap.height);
   const context = canvas.getContext("2d");

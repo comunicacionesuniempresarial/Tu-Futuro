@@ -64,6 +64,7 @@ describe("ResultsPage", () => {
     expect(screen.getByText("Tu Destino Revelado")).toBeInTheDocument();
     await waitFor(() => expect(confettiMock).toHaveBeenCalledTimes(1));
     expect(screen.getByText("Tu carta para compartir")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /compartir en instagram/i })).toBeInTheDocument();
     expect(screen.queryByText("Descargar resultados")).not.toBeInTheDocument();
     expect(screen.queryByText("Compartir con un amigo")).not.toBeInTheDocument();
   });
@@ -84,7 +85,7 @@ describe("ResultsPage", () => {
       "stories"
     );
 
-    expect(screen.queryByRole("button", { name: /instagram/i })).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /instagram/i })).toBeInTheDocument();
   });
 
   it("shows the program requirement overlay on the radar when a top program is selected", () => {
