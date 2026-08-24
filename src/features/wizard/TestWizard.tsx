@@ -437,7 +437,9 @@ export default function TestWizard({ esPrueba = false }: { esPrueba?: boolean })
                 ))}
               </div>
               <span className="text-xs font-bold text-[var(--color-text-secondary)] shrink-0 tabular-nums">
-                {isDisclaimer ? "Intro" : `${currentLayer}/3 Fases`}
+                {isDisclaimer
+                  ? "Intro"
+                  : `Pregunta ${displayStep} de ${TOTAL_STEPS}`}
               </span>
               {/* Audio toggle */}
               <button
@@ -478,9 +480,14 @@ export default function TestWizard({ esPrueba = false }: { esPrueba?: boolean })
                 <LayerIndicator layer={currentLayer} />
               )}
               {!isDisclaimer && (
-                <p className="text-center text-xs font-semibold text-[var(--color-neon-secondary)]" aria-live="polite">
-                  {ENCOURAGEMENTS[Math.min(ENCOURAGEMENTS.length - 1, Math.floor(displayStep / 4))]}
-                </p>
+                <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-center">
+                  <p className="text-xs font-semibold text-[var(--color-neon-secondary)]" aria-live="polite">
+                    {ENCOURAGEMENTS[Math.min(ENCOURAGEMENTS.length - 1, Math.floor(displayStep / 4))]}
+                  </p>
+                  <span className="text-[10px] uppercase tracking-[0.16em] text-[var(--color-text-secondary)]/70">
+                    {currentLayer}/3 fases
+                  </span>
+                </div>
               )}
             </div>
           </div>

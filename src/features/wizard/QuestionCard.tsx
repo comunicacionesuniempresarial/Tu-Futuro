@@ -106,7 +106,7 @@ function OptionCard({
       onClick={() => onChange(index)}
       aria-label={`${option} — opción ${String.fromCharCode(65 + index)}`}
       aria-pressed={selected}
-      className={`question-card mystic-card group relative flex shrink-0 snap-center flex-col justify-between aspect-[4/5] min-h-[250px] w-[78vw] max-w-[300px] sm:w-auto sm:max-w-none sm:min-h-[280px] md:min-h-[310px] rounded-2xl overflow-hidden text-center will-change-transform hover:-translate-y-3 hover:scale-[1.035] cursor-pointer ${
+      className={`question-card mystic-card group relative flex shrink-0 snap-center flex-col justify-between aspect-[4/5] min-h-[250px] w-[78vw] max-w-[300px] sm:w-auto sm:max-w-none sm:min-h-[280px] md:min-h-[310px] rounded-2xl overflow-hidden text-center will-change-transform hover:-translate-y-3 hover:scale-[1.035] active:scale-[0.985] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-neon-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-bg)] cursor-pointer ${
         selected
           ? "neon-border mystic-card-glow ring-2 ring-[var(--color-neon-primary)] scale-[1.02]"
           : "border border-[var(--color-border)] hover:border-[var(--color-neon-primary)]/70 hover:shadow-[0_0_28px_color-mix(in_srgb,var(--color-neon-primary)_30%,transparent)]"
