@@ -765,7 +765,11 @@ body {
 .radar-stage {
   position: relative;
   overflow: hidden;
+  box-shadow: 0 0 30px color-mix(in srgb, var(--color-neon-primary) 8%, transparent);
+  animation: radar-stage-glow 5s ease-in-out infinite;
 }
+
+@keyframes radar-stage-glow { 0%, 100% { box-shadow: 0 0 22px color-mix(in srgb, var(--color-neon-primary) 7%, transparent); } 50% { box-shadow: 0 0 42px color-mix(in srgb, var(--color-neon-primary) 16%, transparent); } }
 
 .share-card-stage {
   width: min(100%, 640px);

@@ -181,7 +181,7 @@ export function ResultsPage({ data }: { data: ResultsData }) {
 
         {/* ── RADAR: Tu Sello de Poder — below the archetype ── */}
         <div
-          className={`glass-panel rounded-3xl border border-[var(--color-border)] p-6 md:p-8 ${
+          className={`glass-panel mx-auto max-w-3xl rounded-3xl border border-[var(--color-border)] p-4 md:p-6 ${
             prefersReduced ? "" : "animate-slide-up"
           }`}
           style={prefersReduced ? undefined : { animationDelay: "200ms" }}

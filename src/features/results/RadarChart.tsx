@@ -5,6 +5,15 @@ import { computeRadarPoints, renderRadarSVG } from "@/lib/share-card/radar-svg";
 import { RADAR_AXIS_ORDER, RADAR_DIMENSION_LABELS } from "@/lib/share-card/radar-svg";
 import type { RIASECProfile } from "@/lib/scoring/types";
 
+const RADAR_DIMENSION_DESCRIPTIONS: Record<keyof RIASECProfile, string> = {
+  R: "Resolver y construir con tus manos.",
+  I: "Investigar, entender y encontrar respuestas.",
+  A: "Imaginar, crear y expresarte con originalidad.",
+  S: "Conectar, ayudar y trabajar con personas.",
+  E: "Liderar, proponer y convertir ideas en acción.",
+  C: "Ordenar, planear y hacer que todo funcione.",
+};
+
 export interface RadarChartProps {
   profile: RIASECProfile;
   programProfile?: RIASECProfile;
@@ -45,7 +54,7 @@ export function RadarChart({
       data-theme="dark"
       className={`radar-stage rounded-3xl border border-[var(--color-neon-primary)]/30 bg-[var(--color-surface)]/60 p-4 backdrop-blur-sm sm:p-6 ${className}`}
     >
-      <div className="radar-orbit relative mx-auto max-w-2xl">
+      <div className="radar-orbit relative mx-auto max-w-xl">
         <div data-radar="true" dangerouslySetInnerHTML={{ __html: svg }} />
         <div className="absolute inset-0" aria-label="Explora tus estadísticas por dimensión">
           {RADAR_AXIS_ORDER.map((dimension, index) => {
@@ -78,6 +87,7 @@ export function RadarChart({
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--color-neon-secondary)]">{activeDimension} · {RADAR_DIMENSION_LABELS[activeDimension]}</p>
             <p className="mt-1 font-display text-3xl font-black text-[var(--color-neon-primary)]">{activeValue}%</p>
             <p className="text-xs text-[var(--color-text-secondary)]">fuerza en tu perfil</p>
+            <p className="mt-2 text-xs leading-relaxed text-white/80">{RADAR_DIMENSION_DESCRIPTIONS[activeDimension]}</p>
             {comparisonValue !== null && <p className="mt-2 border-t border-white/10 pt-2 text-xs text-[var(--color-neon-secondary)]">Programa seleccionado: {comparisonValue}%</p>}
           </div>
         )}
