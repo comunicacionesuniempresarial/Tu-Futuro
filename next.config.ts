@@ -18,9 +18,33 @@ const nextConfig: NextConfig = {
         ],
       },
       {
-        // Media estática: contenido inmutable, cache larga (los archivos
-        // optimizados no cambian entre deploys)
+        // Assets versionados por deploy: las ilustraciones y cartas no son
+        // datos de usuario y pueden permanecer en CDN durante un año.
         source: "/images/:path*",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+        ],
+      },
+      {
+        source: "/archetypes/:path*",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+        ],
+      },
+      {
+        source: "/images/cards/:path*",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+        ],
+      },
+      {
+        source: "/logo/:path*",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+        ],
+      },
+      {
+        source: "/favicon.:path*",
         headers: [
           { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
         ],
