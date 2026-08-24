@@ -24,7 +24,7 @@ import { ArchetypeCard } from "./ArchetypeCard";
 import { RadarChart } from "./RadarChart";
 import { ProgramCard } from "./ProgramCard";
 import { RankingFull } from "./RankingFull";
-import { ShareCard, type ShareCardLayout } from "./ShareCard";
+import { ShareCard } from "./ShareCard";
 import type { ShareCardData } from "@/lib/share-card/generate";
 
 export interface ResultsData {
@@ -78,11 +78,6 @@ function buildMatchReason(
   return `Tus respuestas muestran ${sharedText}; ${program.name} busca precisamente ${programDimensions.join(" y ")}. Además, aquí podrías aprovechar ${aptitude.name} y encontrar un entorno que valora ${lifestyle.name}. En tu caso, la coincidencia se nota en ${layerText}: no elegiste una etiqueta, elegiste comportamientos que esta carrera utiliza todos los días.`;
 }
 
-const LAYOUT_OPTIONS: { layout: ShareCardLayout; label: string }[] = [
-  { layout: "stories", label: "Instagram Stories" },
-  { layout: "feed", label: "Instagram Feed" },
-];
-
 /**
  * Renders the full results experience for a hydrated ResultsData payload:
  * dark/neon cards, custom SVG radar with program overlay, confetti reveal,
@@ -95,7 +90,6 @@ export function ResultsPage({ data }: { data: ResultsData }) {
     null
   );
   const [focusedProgramIndex, setFocusedProgramIndex] = useState(0);
-  const [layout, setLayout] = useState<ShareCardLayout>("stories");
 
   // Show all programs deduped (no modality filter)
   const filteredResults = useMemo(() => {
@@ -308,23 +302,10 @@ export function ResultsPage({ data }: { data: ResultsData }) {
         >
           <div className="flex flex-wrap items-center justify-between gap-3">
             <h2 className="font-display text-xl font-bold text-[var(--color-text-primary)]">
-              Compartí tu resultado
+              Tu carta para compartir
             </h2>
-            <div className="flex gap-2" aria-label="Formato de la tarjeta">
-              {LAYOUT_OPTIONS.map((option) => (
-                <button
-                  key={option.layout}
-                  type="button"
-                  onClick={() => setLayout(option.layout)}
-                  aria-pressed={layout === option.layout}
-                  className="rounded-full border border-[var(--color-border)] bg-[var(--color-surface)]/60 px-4 py-1.5 text-xs font-bold text-[var(--color-text-secondary)] transition-colors hover:border-[var(--color-neon-primary)]/50 hover:text-[var(--color-neon-primary)]"
-                >
-                  {option.label}
-                </button>
-              ))}
-            </div>
           </div>
-          <ShareCard data={shareData} layout={layout} />
+          <ShareCard data={shareData} layout="stories" />
         </div>
 
         {/* ── FULL RANKING ── */}
@@ -348,30 +329,6 @@ export function ResultsPage({ data }: { data: ResultsData }) {
           {/* Navigation actions */}
           <div className="space-y-4 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)]/80 p-6">
             <div className="space-y-3">
-              <button
-                type="button"
-                className="w-full inline-flex items-center justify-center gap-3 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)]/60 px-6 py-4 text-base font-bold text-[var(--color-text-secondary)] transition-all duration-300 hover:border-[var(--color-neon-primary)] hover:text-[var(--color-neon-primary)]"
-              >
-                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                  <polyline points="7 10 12 15 17 10" />
-                  <line x1="12" y1="15" x2="12" y2="3" />
-                </svg>
-                Descargar resultados
-              </button>
-              <button
-                type="button"
-                className="w-full inline-flex items-center justify-center gap-3 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)]/60 px-6 py-4 text-base font-bold text-[var(--color-text-secondary)] transition-all duration-300 hover:border-[var(--color-neon-primary)] hover:text-[var(--color-neon-primary)]"
-              >
-                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="18" cy="5" r="3" />
-                  <circle cx="6" cy="12" r="3" />
-                  <circle cx="18" cy="19" r="3" />
-                  <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
-                  <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
-                </svg>
-                Compartir con un amigo
-              </button>
               <Link
                 href="/test"
                 onClick={resetTest}

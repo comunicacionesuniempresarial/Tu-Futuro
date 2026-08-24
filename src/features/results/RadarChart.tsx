@@ -51,6 +51,7 @@ export function RadarChart({
         programProfile,
         width: 420,
         height: 420,
+        includeLegend: false,
       }),
     [visualProfile, programProfile]
   );
@@ -98,7 +99,7 @@ export function RadarChart({
           })}
         </div>
         {activeDimension && (
-          <div className="radar-tooltip pointer-events-none absolute left-1/2 top-1/2 z-40 min-w-[190px] -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-[var(--color-neon-primary)]/70 bg-[var(--color-deep)]/95 p-4 text-center shadow-[0_0_35px_color-mix(in_srgb,var(--color-neon-primary)_35%,transparent)] backdrop-blur-xl">
+          <div className="radar-tooltip pointer-events-none relative z-40 mx-auto mt-4 min-h-[116px] max-w-sm rounded-2xl border border-[var(--color-neon-primary)]/70 bg-[var(--color-deep)]/95 p-4 text-center shadow-[0_0_35px_color-mix(in_srgb,var(--color-neon-primary)_35%,transparent)] backdrop-blur-xl">
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--color-neon-secondary)]">{activeDimension} · {RADAR_DIMENSION_LABELS[activeDimension]}</p>
             <p className="mt-1 font-display text-xl font-black text-[var(--color-neon-primary)]">{activeTone}</p>
             <p className="text-xs text-[var(--color-text-secondary)]">cómo aparece en tu forma de pensar</p>

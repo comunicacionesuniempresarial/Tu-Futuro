@@ -39,6 +39,8 @@ export interface RenderRadarSVGOptions {
   programProfile?: RIASECProfile;
   width?: number;
   height?: number;
+  /** Keep the embedded legend only for standalone exports. */
+  includeLegend?: boolean;
 }
 
 const clamp = (value: number): number =>
@@ -146,7 +148,7 @@ const renderLegend = (cx: number, cy: number, radius: number): string => {
  * Flat brand colors only: neon primary fill + neon secondary dashed overlay.
  */
 export function renderRadarSVG(options: RenderRadarSVGOptions): string {
-  const { profile, programProfile, width = RADAR_WIDTH, height = RADAR_HEIGHT } =
+  const { profile, programProfile, width = RADAR_WIDTH, height = RADAR_HEIGHT, includeLegend = true } =
     options;
   const cx = width / 2;
   const cy = height / 2;
@@ -169,6 +171,6 @@ export function renderRadarSVG(options: RenderRadarSVGOptions): string {
   ${studentPolygon}
   ${programOverlay}
   <g class="radar-labels" fill="#f5f5f5" font-size="14">${renderLabels(cx, cy, radius)}</g>
-  ${renderLegend(cx, cy, radius)}
+  ${includeLegend ? renderLegend(cx, cy, radius) : ""}
 </svg>`;
 }

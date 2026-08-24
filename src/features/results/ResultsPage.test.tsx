@@ -3,18 +3,13 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { ResultsPage, type ResultsData } from "./ResultsPage";
 import { archetype, profile, results } from "./fixtures";
 
-const { confettiMock, svgToPngBlobMock } = vi.hoisted(() => ({
+const { confettiMock } = vi.hoisted(() => ({
   confettiMock: vi.fn().mockResolvedValue(undefined),
-  svgToPngBlobMock: vi.fn().mockImplementation(() =>
-    Promise.resolve(new Blob(["png"], { type: "image/png" }))
-  ),
 }));
 
 vi.mock("canvas-confetti", () => ({ default: confettiMock }));
 vi.mock("@/lib/share-card/generate", async (importOriginal) => {
-  const actual =
-    await importOriginal<typeof import("@/lib/share-card/generate")>();
-  return { ...actual, svgToPngBlob: svgToPngBlobMock };
+  return importOriginal();
 });
 
 const resultsData: ResultsData = {
@@ -42,18 +37,6 @@ const stubMatchMedia = (matches: boolean) => {
   );
 };
 
-const setupNavigator = ({ share = true } = {}) => {
-  const shareMock = vi.fn().mockResolvedValue(undefined);
-  const canShareMock = vi.fn().mockReturnValue(true);
-  const navigatorMock: Record<string, unknown> = { ...window.navigator };
-  if (share) {
-    navigatorMock.share = shareMock;
-    navigatorMock.canShare = canShareMock;
-  }
-  vi.stubGlobal("navigator", navigatorMock);
-  return { shareMock, canShareMock };
-};
-
 const defineGlobal = (target: object, key: string, value: unknown) => {
   Object.defineProperty(target, key, {
     value,
@@ -73,16 +56,16 @@ afterEach(() => {
 });
 
 describe("ResultsPage", () => {
-  it("reveals the result with confetti exactly once and a share button", async () => {
+  it("reveals the result with confetti exactly once and a share card", async () => {
     stubMatchMedia(false);
     renderWithStoredResults();
 
     expect(screen.getAllByText(archetype.emoji).length).toBeGreaterThan(0);
     expect(screen.getByText("Tu Destino Revelado")).toBeInTheDocument();
     await waitFor(() => expect(confettiMock).toHaveBeenCalledTimes(1));
-    expect(
-      screen.getByRole("button", { name: /compartir en instagram stories/i })
-    ).toBeInTheDocument();
+    expect(screen.getByText("Tu carta para compartir")).toBeInTheDocument();
+    expect(screen.queryByText("Descargar resultados")).not.toBeInTheDocument();
+    expect(screen.queryByText("Compartir con un amigo")).not.toBeInTheDocument();
   });
 
   it("suppresses confetti under prefers-reduced-motion", () => {
@@ -92,7 +75,7 @@ describe("ResultsPage", () => {
     expect(confettiMock).not.toHaveBeenCalled();
   });
 
-  it("switches the share card layout via the control", () => {
+  it("keeps the share card in the story format", () => {
     stubMatchMedia(false);
     renderWithStoredResults();
 
@@ -101,17 +84,7 @@ describe("ResultsPage", () => {
       "stories"
     );
 
-    fireEvent.click(screen.getByRole("button", { name: "Instagram Stories" }));
-    expect(document.querySelector("[data-layout]")).toHaveAttribute(
-      "data-layout",
-      "stories"
-    );
-
-    fireEvent.click(screen.getByRole("button", { name: /feed/i }));
-    expect(document.querySelector("[data-layout]")).toHaveAttribute(
-      "data-layout",
-      "feed"
-    );
+    expect(screen.queryByRole("button", { name: /instagram/i })).not.toBeInTheDocument();
   });
 
   it("shows the program requirement overlay on the radar when a top program is selected", () => {
@@ -131,16 +104,4 @@ describe("ResultsPage", () => {
     expect(polygons?.[1]).toHaveAttribute("stroke", "#E879F9");
   });
 
-  it("shares the card via the Web Share API", async () => {
-    stubMatchMedia(false);
-    const { shareMock } = setupNavigator();
-    renderWithStoredResults();
-
-    fireEvent.click(
-      screen.getByRole("button", { name: /compartir en instagram stories/i })
-    );
-
-    await waitFor(() => expect(shareMock).toHaveBeenCalledTimes(1));
-    expect(svgToPngBlobMock).toHaveBeenCalledTimes(1);
-  });
 });
