@@ -117,6 +117,7 @@ export function ResultsPage({ data }: { data: ResultsData }) {
     ) * 100
   );
 
+  const mainArchetypeSimilarity = affinity / 100;
   const relatedArchetypes = ARCHETYPES.filter(
     (candidate) => candidate.id !== data.archetype.id
   )
@@ -128,6 +129,8 @@ export function ResultsPage({ data }: { data: ResultsData }) {
       ),
     }))
     .sort((a, b) => b.similarity - a.similarity)
+    // Related profiles must never contradict the main result.
+    .filter(({ similarity }) => similarity < mainArchetypeSimilarity)
     .slice(0, 2);
 
   const topDimensions = [...RADAR_AXIS_ORDER]

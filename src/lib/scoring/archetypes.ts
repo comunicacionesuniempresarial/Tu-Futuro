@@ -224,24 +224,26 @@ export function determineArchetype(
   riasecProfile: RIASECProfile
 ): Archetype {
   const [dominant, secondary] = getTopTwoDimensions(riasecProfile);
+  const cosineWinner = findClosestByCosine(riasecProfile);
+  const mappedId = MAPPING_TABLE[`${dominant},${secondary}`];
+  const mapped = ARCHETYPES.find((candidate) => candidate.id === mappedId);
 
-  // Near-tie guard: if the top-two dimensions are within epsilon, the pair is
-  // ambiguous and a 0.001 difference should NOT flip the archetype via the
-  // alphabetical tiebreaker. Fall back to cosine similarity.
-  const gap = riasecProfile[dominant] - riasecProfile[secondary];
-  if (gap < NEAR_TIE_EPSILON) {
-    return findClosestByCosine(riasecProfile);
+  // Keep the pedagogical mapping only when it is effectively tied with the
+  // cosine winner. A mapping can no longer override a clearly better match.
+  if (mapped && mapped.id !== cosineWinner.id) {
+    const profileVector = Object.values(riasecProfile);
+    const mappedSimilarity = cosineSimilarity(
+      profileVector,
+      Object.values(mapped.riasecProfile)
+    );
+    const winnerSimilarity = cosineSimilarity(
+      profileVector,
+      Object.values(cosineWinner.riasecProfile)
+    );
+    if (winnerSimilarity - mappedSimilarity < NEAR_TIE_EPSILON) {
+      return mapped;
+    }
   }
 
-  const key = `${dominant},${secondary}`;
-
-  // Direct mapping
-  const mappedId = MAPPING_TABLE[key];
-  if (mappedId) {
-    const archetype = ARCHETYPES.find((a) => a.id === mappedId);
-    if (archetype) return archetype;
-  }
-
-  // Cosine fallback (no direct mapping for this pair, or mapping missing)
-  return findClosestByCosine(riasecProfile);
+  return cosineWinner;
 }
