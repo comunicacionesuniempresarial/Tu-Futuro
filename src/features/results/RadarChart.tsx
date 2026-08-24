@@ -14,6 +14,12 @@ const RADAR_DIMENSION_DESCRIPTIONS: Record<keyof RIASECProfile, string> = {
   C: "Ordenar, planear y hacer que todo funcione.",
 };
 
+function dimensionTone(value: number): string {
+  if (value >= 0.7) return "Muy marcada";
+  if (value >= 0.4) return "Bien presente";
+  return "Presencia complementaria";
+}
+
 export interface RadarChartProps {
   profile: RIASECProfile;
   programProfile?: RIASECProfile;
@@ -29,24 +35,33 @@ export function RadarChart({
   programProfile,
   className = "",
 }: RadarChartProps) {
+  // A visual floor prevents a complementary dimension from looking absent.
+  // The raw score remains part of the algorithm; the interface communicates
+  // balance and nuance instead of turning one number into a verdict.
+  const visualProfile = useMemo(
+    () => Object.fromEntries(
+      RADAR_AXIS_ORDER.map((dimension) => [dimension, 0.28 + profile[dimension] * 0.72])
+    ) as RIASECProfile,
+    [profile]
+  );
   const svg = useMemo(
     () =>
       renderRadarSVG({
-        profile,
+        profile: visualProfile,
         programProfile,
         width: 420,
         height: 420,
       }),
-    [profile, programProfile]
+    [visualProfile, programProfile]
   );
   const dominant = [...RADAR_AXIS_ORDER].sort(
     (a, b) => profile[b] - profile[a]
   )[0];
   const [activeDimension, setActiveDimension] = useState<keyof RIASECProfile | null>(null);
-  const points = useMemo(() => computeRadarPoints(profile, 420, 420), [profile]);
-  const activeValue = activeDimension ? Math.round(profile[activeDimension] * 100) : null;
+  const points = useMemo(() => computeRadarPoints(visualProfile, 420, 420), [visualProfile]);
+  const activeTone = activeDimension ? dimensionTone(profile[activeDimension]) : null;
   const comparisonValue = activeDimension && programProfile
-    ? Math.round(programProfile[activeDimension] * 100)
+    ? dimensionTone(programProfile[activeDimension])
     : null;
 
   return (
@@ -75,7 +90,7 @@ export function RadarChart({
                 onFocus={() => setActiveDimension(dimension)}
                 onBlur={() => setActiveDimension(null)}
                 onClick={() => setActiveDimension((current) => current === dimension ? null : dimension)}
-                aria-label={`${RADAR_DIMENSION_LABELS[dimension]}: ${Math.round(profile[dimension] * 100)}%`}
+                aria-label={`${RADAR_DIMENSION_LABELS[dimension]}: ${dimensionTone(profile[dimension])}`}
               >
                 {dimension}
               </button>
@@ -85,10 +100,10 @@ export function RadarChart({
         {activeDimension && (
           <div className="radar-tooltip pointer-events-none absolute left-1/2 top-1/2 z-40 min-w-[190px] -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-[var(--color-neon-primary)]/70 bg-[var(--color-deep)]/95 p-4 text-center shadow-[0_0_35px_color-mix(in_srgb,var(--color-neon-primary)_35%,transparent)] backdrop-blur-xl">
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--color-neon-secondary)]">{activeDimension} · {RADAR_DIMENSION_LABELS[activeDimension]}</p>
-            <p className="mt-1 font-display text-3xl font-black text-[var(--color-neon-primary)]">{activeValue}%</p>
-            <p className="text-xs text-[var(--color-text-secondary)]">fuerza en tu perfil</p>
+            <p className="mt-1 font-display text-xl font-black text-[var(--color-neon-primary)]">{activeTone}</p>
+            <p className="text-xs text-[var(--color-text-secondary)]">cómo aparece en tu forma de pensar</p>
             <p className="mt-2 text-xs leading-relaxed text-white/80">{RADAR_DIMENSION_DESCRIPTIONS[activeDimension]}</p>
-            {comparisonValue !== null && <p className="mt-2 border-t border-white/10 pt-2 text-xs text-[var(--color-neon-secondary)]">Programa seleccionado: {comparisonValue}%</p>}
+            {comparisonValue !== null && <p className="mt-2 border-t border-white/10 pt-2 text-xs text-[var(--color-neon-secondary)]">Programa seleccionado: {comparisonValue}</p>}
           </div>
         )}
       </div>
