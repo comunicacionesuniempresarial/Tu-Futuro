@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
-import { EB_Garamond, Plus_Jakarta_Sans } from "next/font/google";
+import { DM_Sans, Fraunces } from "next/font/google";
 import "./globals.css";
 import { siteUrl } from "@/lib/site-url";
 
-const display = EB_Garamond({
+const display = Fraunces({
   variable: "--font-display",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
 });
 
-const body = Plus_Jakarta_Sans({
+const body = DM_Sans({
   variable: "--font-body",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],

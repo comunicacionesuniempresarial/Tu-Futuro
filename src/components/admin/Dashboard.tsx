@@ -30,6 +30,10 @@ export default function Dashboard() {
       setLoading(true);
       try {
         const res = await fetch("/api/admin/metrics");
+        if (res.status === 401 || res.status === 403) {
+          window.location.assign("/admin/login");
+          return;
+        }
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
         if (!cancelled) {

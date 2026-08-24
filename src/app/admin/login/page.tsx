@@ -120,7 +120,7 @@ export default function AdminLoginPage() {
               UF
             </div>
           </Link>
-          <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">Admin Panel</h1>
+          <h1 className="font-display text-3xl font-bold text-slate-900 tracking-tight">Panel de admisiones</h1>
           <p className="text-sm text-slate-500 mt-2">
             Inicia sesión para gestionar leads
           </p>

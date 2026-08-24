@@ -39,7 +39,7 @@ export default function AdminLayout({
 
   return (
     <SessionProvider>
-      <div className="min-h-screen bg-gradient-to-br from-[#FFF3F0] via-white to-[#E8EEFF] flex">
+      <div className="min-h-screen bg-gradient-to-br from-[#fffaf5] via-white to-[#eef7ff] font-body text-slate-900 flex">
         {/* Sidebar */}
         <aside className="hidden md:flex w-64 bg-white border-r border-slate-200/70 flex-col">
           {/* Logo */}
@@ -49,7 +49,7 @@ export default function AdminLayout({
                 UF
               </div>
               <div>
-                <div className="font-bold text-slate-900 text-sm">Tu Futuro Dual</div>
+                <div className="font-display font-bold text-slate-900 text-base">Tu Futuro Dual</div>
                 <div className="text-xs text-slate-400">Admisiones</div>
               </div>
             </Link>
@@ -74,7 +74,7 @@ export default function AdminLayout({
                   }`}
                 >
                   {item.icon}
-                  <span className="font-medium text-sm">{item.label}</span>
+                  <span className="font-semibold text-sm">{item.label}</span>
                 </Link>
               );
             })}
