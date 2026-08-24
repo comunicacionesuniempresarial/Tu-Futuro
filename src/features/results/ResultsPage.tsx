@@ -250,7 +250,7 @@ export function ResultsPage({ data }: { data: ResultsData }) {
             </p>
           </div>
           <div
-            className="program-carousel relative mx-auto h-auto min-h-[420px] max-w-[960px] md:h-[430px]"
+            className="program-carousel relative mx-auto h-auto min-h-[680px] max-w-[960px] md:min-h-[650px]"
           >
             {top3Programs.map((result, index) => {
               const slot = (index - focusedProgramIndex + 3) % 3;
