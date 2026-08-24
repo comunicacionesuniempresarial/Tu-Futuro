@@ -58,9 +58,9 @@ export function ShareCard({ data, layout = "default" }: ShareCardProps) {
         type="button"
         onClick={handleShare}
         disabled={status === "sharing"}
-        className="share-card-button card-glow mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[linear-gradient(135deg,var(--color-neon-primary),var(--color-neon-secondary))] px-6 py-3.5 font-bold text-[var(--color-deep)] transition-transform duration-150 hover:scale-[1.02] active:scale-[0.98] disabled:cursor-wait disabled:opacity-60"
+        className="share-card-button card-glow mx-auto mt-4 inline-flex w-auto min-w-40 items-center justify-center gap-2 rounded-xl border border-[var(--color-neon-primary)]/70 bg-[linear-gradient(135deg,var(--color-neon-primary),var(--color-neon-secondary))] px-7 py-3 text-sm font-extrabold text-[var(--color-deep)] shadow-[0_10px_30px_color-mix(in_srgb,var(--color-neon-primary)_22%,transparent)] transition-[transform,box-shadow] duration-200 hover:scale-[1.03] hover:shadow-[0_14px_38px_color-mix(in_srgb,var(--color-neon-primary)_35%,transparent)] active:scale-[0.97] disabled:cursor-wait disabled:opacity-60"
       >
-        {status === "sharing" ? "Preparando tu carta…" : "Compartir en Instagram"}
+        {status === "sharing" ? "Preparando…" : "Compartir"}
       </button>
       <p className="mt-3 text-center text-xs text-[var(--color-text-secondary)]">
         En celular se abrirá el menú para elegir Instagram. En computador se descargará la imagen.

@@ -216,7 +216,7 @@ export function ResultsPage({ data }: { data: ResultsData }) {
 
         {/* ── RADAR: Tu Sello de Poder — below the archetype ── */}
         <div
-          className={`glass-panel mx-auto max-w-3xl rounded-3xl border border-[var(--color-border)] p-4 md:p-6 ${
+          className={`results-lazy-section glass-panel mx-auto max-w-3xl rounded-3xl border border-[var(--color-border)] p-4 md:p-6 ${
             prefersReduced ? "" : "animate-slide-up"
           }`}
         >
@@ -237,7 +237,7 @@ export function ResultsPage({ data }: { data: ResultsData }) {
 
         {/* ── TU MANO INICIAL: top 3 programs ── */}
         <div
-          className={`space-y-6 ${prefersReduced ? "" : "animate-slide-up"}`}
+          className={`results-lazy-section space-y-6 ${prefersReduced ? "" : "animate-slide-up"}`}
         >
           <div className="text-center">
             <h2 className="font-display text-3xl font-black text-[var(--color-neon-primary)]">
@@ -294,7 +294,7 @@ export function ResultsPage({ data }: { data: ResultsData }) {
 
         {/* ── SHARE CARD ── */}
         <div
-          className={`space-y-4 ${prefersReduced ? "" : "animate-slide-up"}`}
+          className={`results-lazy-section space-y-4 ${prefersReduced ? "" : "animate-slide-up"}`}
         >
           <div className="flex flex-wrap items-center justify-between gap-3">
             <h2 className="font-display text-xl font-bold text-[var(--color-text-primary)]">
@@ -306,7 +306,7 @@ export function ResultsPage({ data }: { data: ResultsData }) {
 
         {/* ── FULL RANKING ── */}
         <div
-          className={prefersReduced ? "" : "animate-slide-up"}
+          className={`results-lazy-section ${prefersReduced ? "" : "animate-slide-up"}`}
         >
           <RankingFull
             results={filteredResults}
@@ -316,7 +316,7 @@ export function ResultsPage({ data }: { data: ResultsData }) {
 
         {/* ── ACTIONS ── */}
         <div
-          className={`mx-auto max-w-xl ${
+          className={`results-lazy-section mx-auto max-w-xl ${
             prefersReduced ? "" : "animate-slide-up"
           }`}
         >

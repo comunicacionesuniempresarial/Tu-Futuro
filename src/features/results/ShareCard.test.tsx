@@ -1,4 +1,4 @@
-﻿import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { ShareCard } from "./ShareCard";
 import type { ShareCardData } from "@/lib/share-card/generate";
@@ -55,7 +55,7 @@ describe("ShareCard", () => {
 
     expect(screen.getByRole("img", { name: /carta de arquetipo ingeniero/i })).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: /compartir en instagram/i })
+      screen.getByRole("button", { name: /compartir/i })
     ).toBeInTheDocument();
   });
 
@@ -84,7 +84,7 @@ describe("ShareCard", () => {
     render(<ShareCard data={data} />);
 
     fireEvent.click(
-      screen.getByRole("button", { name: /compartir en instagram/i })
+      screen.getByRole("button", { name: /compartir/i })
     );
 
     await waitFor(() => expect(shareMock).toHaveBeenCalledTimes(1));
@@ -104,7 +104,7 @@ describe("ShareCard", () => {
 
     render(<ShareCard data={data} />);
     fireEvent.click(
-      screen.getByRole("button", { name: /compartir en instagram/i })
+      screen.getByRole("button", { name: /compartir/i })
     );
 
     await waitFor(() => expect(click).toHaveBeenCalledTimes(1));

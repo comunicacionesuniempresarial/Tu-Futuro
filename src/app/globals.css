@@ -824,6 +824,28 @@ body {
 
 .share-card-shell { width: 100%; }
 
+/* En resultados largos, el navegador no necesita pintar todos los bloques
+   inferiores al mismo tiempo. Mantiene el primer viewport fluido en mobile y
+   conserva el contenido cuando el usuario se acerca haciendo scroll. */
+.results-lazy-section {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 560px;
+}
+
+@media (max-width: 640px) {
+  .results-victory .animate-fade-in,
+  .results-victory .animate-persona-pop,
+  .results-victory .animate-slide-up {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .share-card-button {
+    min-width: 9rem;
+  }
+}
+
 .results-victory::before,
 .results-victory::after {
   content: "";
