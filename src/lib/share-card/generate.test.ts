@@ -80,51 +80,49 @@ describe("generateShareCardSVG", () => {
 });
 
 describe("svgToPngBlob", () => {
-  const fakeBitmap = { width: SHARE_CARD_WIDTH, height: SHARE_CARD_HEIGHT };
   const drawImage = vi.fn();
-  const convertToBlob = vi.fn().mockResolvedValue(
+  const toBlob = vi.fn((callback: BlobCallback) => callback(
     new Blob(["png-bytes"], { type: "image/png" })
-  );
-
-  class FakeOffscreenCanvas {
-    width = SHARE_CARD_WIDTH;
-    height = SHARE_CARD_HEIGHT;
-    getContext() {
-      return { drawImage };
-    }
-    convertToBlob = convertToBlob;
-  }
+  ));
 
   afterEach(() => {
     vi.unstubAllGlobals();
   });
 
-  it("returns a PNG blob by drawing the SVG bitmap on an offscreen canvas", async () => {
-    vi.stubGlobal(
-      "createImageBitmap",
-      vi.fn().mockResolvedValue(fakeBitmap)
-    );
-    vi.stubGlobal("OffscreenCanvas", FakeOffscreenCanvas);
+  it("returns a PNG blob through the Safari-compatible DOM canvas path", async () => {
+    class FakeImage {
+      decoding = "async";
+      set src(_value: string) { queueMicrotask(() => this.onload?.()); }
+      onload?: () => void;
+      onerror?: () => void;
+    }
+    vi.stubGlobal("Image", FakeImage);
+    vi.stubGlobal("URL", { createObjectURL: vi.fn(() => "blob:card"), revokeObjectURL: vi.fn() });
+    vi.spyOn(document, "createElement").mockImplementation((tagName: string) => {
+      if (tagName === "canvas") {
+        return { width: 0, height: 0, getContext: () => ({ drawImage }), toBlob } as unknown as HTMLElement;
+      }
+      return document.createElementNS("http://www.w3.org/1999/xhtml", tagName);
+    });
 
     const blob = await svgToPngBlob("<svg xmlns='http://www.w3.org/2000/svg'/>");
 
     expect(blob).toBeInstanceOf(Blob);
     expect(blob.type).toBe("image/png");
-    expect(createImageBitmap).toHaveBeenCalledOnce();
-    expect(drawImage).toHaveBeenCalledWith(fakeBitmap, 0, 0);
-    expect(convertToBlob).toHaveBeenCalledWith({ type: "image/png" });
+    expect(drawImage).toHaveBeenCalled();
+    expect(toBlob).toHaveBeenCalledWith(expect.any(Function), "image/png");
   });
 
   it("rejects when the canvas 2D context is unavailable", async () => {
-    vi.stubGlobal("createImageBitmap", vi.fn().mockResolvedValue(fakeBitmap));
-    class NoContextCanvas {
-      getContext() {
-        return null;
-      }
+    class FakeImage {
+      set src(_value: string) { queueMicrotask(() => this.onload?.()); }
+      onload?: () => void;
     }
-    vi.stubGlobal("OffscreenCanvas", NoContextCanvas);
+    vi.stubGlobal("Image", FakeImage);
+    vi.stubGlobal("URL", { createObjectURL: vi.fn(() => "blob:card"), revokeObjectURL: vi.fn() });
+    vi.spyOn(document, "createElement").mockReturnValue({ getContext: () => null } as unknown as HTMLElement);
 
-    await expect(svgToPngBlob("<svg/>")).rejects.toThrow(/2D/i);
+    await expect(svgToPngBlob("<svg/>" )).rejects.toThrow(/2D/i);
   });
 });
 

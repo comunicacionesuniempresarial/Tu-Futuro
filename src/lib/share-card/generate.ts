@@ -58,19 +58,42 @@ export function generateShareCardSVG(
 }
 
 /**
- * Renders an SVG string to a PNG Blob via ImageBitmap + OffscreenCanvas.
+ * Renders an SVG string to PNG using the broadly supported DOM canvas path.
+ * Safari/iOS does not reliably implement createImageBitmap for SVG blobs or
+ * OffscreenCanvas, so the standard Image + HTMLCanvasElement flow is used.
  */
 export async function svgToPngBlob(svg: string): Promise<Blob> {
   const resolvedSvg = typeof window !== "undefined"
     ? svg.replaceAll('href="/archetypes/', `href="${window.location.origin}/archetypes/`)
     : svg;
   const svgBlob = new Blob([resolvedSvg], { type: "image/svg+xml;charset=utf-8" });
-  const bitmap = await createImageBitmap(svgBlob);
-  const canvas = new OffscreenCanvas(bitmap.width, bitmap.height);
-  const context = canvas.getContext("2d");
-  if (!context) {
-    throw new Error("Canvas 2D context is not available");
+  const objectUrl = URL.createObjectURL(svgBlob);
+  const width = Number(svg.match(/\bwidth="([\d.]+)/)?.[1] ?? SHARE_CARD_WIDTH);
+  const height = Number(svg.match(/\bheight="([\d.]+)/)?.[1] ?? SHARE_CARD_HEIGHT);
+
+  try {
+    const image = new Image();
+    image.decoding = "async";
+    await new Promise<void>((resolve, reject) => {
+      image.onload = () => resolve();
+      image.onerror = () => reject(new Error("No se pudo cargar la carta para compartir"));
+      image.src = objectUrl;
+    });
+
+    const canvas = document.createElement("canvas");
+    canvas.width = width;
+    canvas.height = height;
+    const context = canvas.getContext("2d");
+    if (!context) throw new Error("Canvas 2D context is not available");
+    context.drawImage(image, 0, 0, width, height);
+
+    return await new Promise<Blob>((resolve, reject) => {
+      canvas.toBlob((blob) => {
+        if (blob) resolve(blob);
+        else reject(new Error("No se pudo exportar la carta como PNG"));
+      }, "image/png");
+    });
+  } finally {
+    URL.revokeObjectURL(objectUrl);
   }
-  context.drawImage(bitmap, 0, 0);
-  return canvas.convertToBlob({ type: "image/png" });
 }
