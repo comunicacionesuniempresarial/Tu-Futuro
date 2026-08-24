@@ -796,9 +796,37 @@ body {
 .victory-sparkles span:nth-child(4) { left: 91%; top: 62%; background: #e879f9; box-shadow: 0 0 18px 4px #e879f9; animation-delay: -2.7s; }
 .victory-sparkles span:nth-child(5) { left: 72%; top: 12%; animation-delay: -3s; }
 
+.results-orb-field,
+.results-energy-field { position: absolute; inset: 0; z-index: 1; overflow: hidden; pointer-events: none; }
+.results-orb-field span { position: absolute; width: 12px; height: 12px; border-radius: 50%; background: var(--color-neon-primary); opacity: .3; filter: blur(2px); box-shadow: 0 0 24px 8px color-mix(in srgb, var(--color-neon-primary) 35%, transparent); animation: result-orb-drift 18s ease-in-out infinite; }
+.results-orb-field span:nth-child(3n) { background: var(--color-neon-secondary); box-shadow: 0 0 24px 8px color-mix(in srgb, var(--color-neon-secondary) 35%, transparent); }
+.results-orb-field span:nth-child(4n) { width: 7px; height: 7px; animation-duration: 23s; }
+.results-orb-field span:nth-child(1) { left: 4%; top: 8%; animation-delay: -2s; }
+.results-orb-field span:nth-child(2) { left: 88%; top: 12%; animation-delay: -11s; }
+.results-orb-field span:nth-child(3) { left: 16%; top: 18%; animation-delay: -7s; }
+.results-orb-field span:nth-child(4) { left: 76%; top: 25%; animation-delay: -16s; }
+.results-orb-field span:nth-child(5) { left: 8%; top: 34%; animation-delay: -4s; }
+.results-orb-field span:nth-child(6) { left: 94%; top: 39%; animation-delay: -13s; }
+.results-orb-field span:nth-child(7) { left: 25%; top: 47%; animation-delay: -9s; }
+.results-orb-field span:nth-child(8) { left: 68%; top: 53%; animation-delay: -19s; }
+.results-orb-field span:nth-child(9) { left: 5%; top: 61%; animation-delay: -6s; }
+.results-orb-field span:nth-child(10) { left: 90%; top: 67%; animation-delay: -15s; }
+.results-orb-field span:nth-child(11) { left: 20%; top: 74%; animation-delay: -3s; }
+.results-orb-field span:nth-child(12) { left: 79%; top: 81%; animation-delay: -21s; }
+.results-orb-field span:nth-child(13) { left: 11%; top: 90%; animation-delay: -12s; }
+.results-orb-field span:nth-child(14) { left: 58%; top: 94%; animation-delay: -8s; }
+
+.results-energy-field span { position: absolute; width: 2px; height: 150px; border-radius: 99px; background: linear-gradient(180deg, transparent, var(--color-neon-primary), transparent); opacity: .28; transform: rotate(28deg); animation: energy-rise 11s linear infinite; }
+.results-energy-field span:nth-child(1) { left: 12%; top: 80%; animation-delay: -2s; }
+.results-energy-field span:nth-child(2) { left: 38%; top: 55%; animation-delay: -7s; background: linear-gradient(180deg, transparent, var(--color-neon-secondary), transparent); }
+.results-energy-field span:nth-child(3) { left: 72%; top: 72%; animation-delay: -5s; }
+.results-energy-field span:nth-child(4) { left: 86%; top: 30%; animation-delay: -9s; background: linear-gradient(180deg, transparent, #e879f9, transparent); }
+
 @keyframes victory-rays { to { transform: translateX(-50%) rotate(360deg); } }
 @keyframes victory-pulse { 0%, 100% { opacity: .35; transform: translateX(-50%) scale(.9); } 50% { opacity: .8; transform: translateX(-50%) scale(1.08); } }
 @keyframes victory-sparkle { 0%, 100% { opacity: .2; transform: scale(.5); } 50% { opacity: 1; transform: scale(1.8); } }
+@keyframes result-orb-drift { 0%, 100% { transform: translate3d(0, 0, 0) scale(.7); opacity: .18; } 30% { transform: translate3d(35px, -42px, 0) scale(1.25); opacity: .65; } 65% { transform: translate3d(-28px, 30px, 0) scale(.9); opacity: .28; } }
+@keyframes energy-rise { 0% { transform: translateY(100px) rotate(28deg); opacity: 0; } 18%, 78% { opacity: .35; } 100% { transform: translateY(-240px) rotate(28deg); opacity: 0; } }
 
 .share-card-ambient {
   background:
