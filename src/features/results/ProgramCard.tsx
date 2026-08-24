@@ -66,28 +66,6 @@ export function ProgramCard({
           {result.overallScore >= 85 ? "Legendaria" : result.overallScore >= 70 ? "Épica" : "Rara"}
         </span>
       )}
-      {isExpanded && (
-        <div className="space-y-2 border-t border-[var(--color-border)]/60 pt-3 text-sm">
-          <div className="flex justify-between text-[var(--color-text-secondary)]">
-            <span>Personalidad</span>
-            <span className="font-bold text-[var(--color-text-primary)]">
-              {Math.round(result.fitBreakdown.personality)}
-            </span>
-          </div>
-          <div className="flex justify-between text-[var(--color-text-secondary)]">
-            <span>Aptitud técnica</span>
-            <span className="font-bold text-[var(--color-text-primary)]">
-              {Math.round(result.fitBreakdown.technical)}
-            </span>
-          </div>
-          <div className="flex justify-between text-[var(--color-text-secondary)]">
-            <span>Estilo de vida</span>
-            <span className="font-bold text-[var(--color-text-primary)]">
-              {Math.round(result.fitBreakdown.lifestyle)}
-            </span>
-          </div>
-        </div>
-      )}
     </>
   );
 

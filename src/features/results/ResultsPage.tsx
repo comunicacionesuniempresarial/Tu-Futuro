@@ -23,7 +23,6 @@ import { ConfettiTrigger } from "./ConfettiTrigger";
 import { ArchetypeCard } from "./ArchetypeCard";
 import { RadarChart } from "./RadarChart";
 import { ProgramCard } from "./ProgramCard";
-import { GapAnalysis } from "./GapAnalysis";
 import { RankingFull } from "./RankingFull";
 import { ShareCard, type ShareCardLayout } from "./ShareCard";
 import type { ShareCardData } from "@/lib/share-card/generate";
@@ -53,6 +52,7 @@ export function ResultsPage({ data }: { data: ResultsData }) {
   const [selectedProgramId, setSelectedProgramId] = useState<string | null>(
     null
   );
+  const [focusedProgramIndex, setFocusedProgramIndex] = useState(0);
   const [layout, setLayout] = useState<ShareCardLayout>("stories");
 
   // Show all programs deduped (no modality filter)
@@ -209,51 +209,35 @@ export function ResultsPage({ data }: { data: ResultsData }) {
               coincidencia. Toca una carrera para explorar qué tan bien encaja contigo.
             </p>
           </div>
-          <div className="flex flex-col items-center gap-4 md:flex-row md:items-end md:justify-center md:gap-0 md:-space-x-8 lg:-space-x-12">
-            {top3Programs.map((result, index) => (
-              <div
-                key={result.programId}
-                className={`relative ${
-                  index === 0 ? "md:z-30" : index === 1 ? "md:z-20" : "md:z-10"
-                } ${
-                  index === 0
-                    ? "md:order-2"
-                    : index === 1
-                      ? "md:order-1 md:rotate-[-6deg] md:origin-bottom-right"
-                      : "md:order-3 md:rotate-[6deg] md:origin-bottom-left"
-                }`}
-                style={
-                  prefersReduced
-                    ? undefined
-                    : { animationDelay: `${350 + index * 80}ms` }
-                }
-              >
-                <ProgramCard
-                  program={result.program}
-                  result={result}
-                  rank={index + 1}
-                  isExpanded={index === 0}
-                  modalityRecommendation={undefined}
-                  onClick={(program) =>
-                    setSelectedProgramId((current) =>
-                      current === program.id ? null : program.id
-                    )
-                  }
-                />
-              </div>
-            ))}
+          <div
+            className="program-carousel relative mx-auto h-auto min-h-[420px] max-w-[960px] md:h-[430px]"
+            onMouseLeave={() => setFocusedProgramIndex(0)}
+          >
+            {top3Programs.map((result, index) => {
+              const slot = (index - focusedProgramIndex + 3) % 3;
+              return (
+                <div
+                  key={result.programId}
+                  className={`program-carousel-card ${slot === 0 ? "program-carousel-center" : slot === 1 ? "program-carousel-right" : "program-carousel-left"} ${prefersReduced ? "" : "animate-slide-up"}`}
+                  style={prefersReduced ? undefined : { animationDelay: `${350 + index * 80}ms` }}
+                  onMouseEnter={() => setFocusedProgramIndex(index)}
+                  onFocus={() => setFocusedProgramIndex(index)}
+                >
+                  <ProgramCard
+                    program={result.program}
+                    result={result}
+                    rank={index + 1}
+                    isExpanded={slot === 0}
+                    modalityRecommendation={undefined}
+                    onClick={(program) => {
+                      setFocusedProgramIndex(index);
+                      setSelectedProgramId((current) => current === program.id ? null : program.id);
+                    }}
+                  />
+                </div>
+              );
+            })}
           </div>
-        </div>
-
-        {/* ── GAP ANALYSIS ── */}
-        <div
-          className={prefersReduced ? "" : "animate-slide-up"}
-          style={prefersReduced ? undefined : { animationDelay: "400ms" }}
-        >
-          <GapAnalysis
-            riasecProfile={data.riasecProfile}
-            topProgramIds={top3.map((result) => result.programId)}
-          />
         </div>
 
         {/* ── SHARE CARD ── */}

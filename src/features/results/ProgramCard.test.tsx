@@ -23,14 +23,14 @@ describe("ProgramCard", () => {
     expect(screen.getByText("92%")).toHaveAttribute("data-accent", "neon");
   });
 
-  it("shows the fit breakdown when expanded", () => {
+  it("keeps the focused card concise", () => {
     render(
       <ProgramCard program={program} result={result} rank={1} isExpanded />
     );
 
-    expect(screen.getByText(/personalidad/i)).toBeInTheDocument();
-    expect(screen.getByText(/aptitud técnica/i)).toBeInTheDocument();
-    expect(screen.getByText(/estilo de vida/i)).toBeInTheDocument();
+    expect(screen.queryByText(/personalidad/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/aptitud técnica/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/estilo de vida/i)).not.toBeInTheDocument();
   });
 
   it("shows the modality recommendation badge when provided", () => {

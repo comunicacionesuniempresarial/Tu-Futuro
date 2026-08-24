@@ -750,6 +750,53 @@ body {
   animation: radar-tooltip-in 180ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+.program-carousel {
+  isolation: isolate;
+}
+
+.program-carousel-card {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: min(330px, calc(100% - 2rem));
+  transform-origin: center bottom;
+  transition: transform 550ms cubic-bezier(0.22, 1, 0.36, 1), opacity 400ms ease, filter 400ms ease;
+}
+
+.program-carousel-center {
+  z-index: 30;
+  transform: translateX(-50%) translateY(0) scale(1.08);
+  filter: saturate(1.15) brightness(1.08);
+}
+
+.program-carousel-left,
+.program-carousel-right {
+  z-index: 10;
+  opacity: 0.72;
+  filter: saturate(0.7) brightness(0.8);
+}
+
+.program-carousel-left {
+  transform: translateX(calc(-50% - 245px)) translateY(54px) rotate(-7deg) scale(0.9);
+}
+
+.program-carousel-right {
+  transform: translateX(calc(-50% + 245px)) translateY(54px) rotate(7deg) scale(0.9);
+}
+
+.program-carousel-left:hover,
+.program-carousel-right:hover {
+  opacity: 1;
+  filter: saturate(1) brightness(1);
+}
+
+@media (max-width: 767px) {
+  .program-carousel { min-height: 0; display: flex; flex-direction: column; gap: 1rem; }
+  .program-carousel-card { position: relative; top: auto; left: auto; width: 100%; transform: none; opacity: 1; filter: none; }
+  .program-carousel-center { transform: none; }
+  .program-carousel-left, .program-carousel-right { transform: none; }
+}
+
 @keyframes radar-point-pulse {
   0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-neon-secondary) 35%, transparent); }
   50% { box-shadow: 0 0 0 7px color-mix(in srgb, var(--color-neon-secondary) 0%, transparent); }
