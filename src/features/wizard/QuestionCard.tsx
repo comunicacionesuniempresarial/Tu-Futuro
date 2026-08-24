@@ -106,7 +106,7 @@ function OptionCard({
       onClick={() => onChange(index)}
       aria-label={`${option} — opción ${String.fromCharCode(65 + index)}`}
       aria-pressed={selected}
-      className={`question-card mystic-card group relative flex flex-col justify-between aspect-[4/5] min-h-[250px] sm:min-h-[280px] md:min-h-[310px] rounded-2xl overflow-hidden text-center will-change-transform hover:-translate-y-3 hover:scale-[1.035] cursor-pointer ${
+      className={`question-card mystic-card group relative flex shrink-0 snap-center flex-col justify-between aspect-[4/5] min-h-[250px] w-[78vw] max-w-[300px] sm:w-auto sm:max-w-none sm:min-h-[280px] md:min-h-[310px] rounded-2xl overflow-hidden text-center will-change-transform hover:-translate-y-3 hover:scale-[1.035] cursor-pointer ${
         selected
           ? "neon-border mystic-card-glow ring-2 ring-[var(--color-neon-primary)] scale-[1.02]"
           : "border border-[var(--color-border)] hover:border-[var(--color-neon-primary)]/70 hover:shadow-[0_0_28px_color-mix(in_srgb,var(--color-neon-primary)_30%,transparent)]"
@@ -189,18 +189,18 @@ function OptionCard({
  */
 function getCardsGridClass(count: number): string {
   if (count === 5) {
-    return "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3.5 sm:gap-4 w-full max-w-6xl mx-auto justify-center auto-rows-fr";
+    return "question-options-grid flex snap-x snap-mandatory overflow-x-auto overscroll-x-contain px-1 pb-3 sm:grid sm:grid-cols-2 sm:overflow-visible md:grid-cols-3 lg:grid-cols-5 gap-3.5 sm:gap-4 w-full max-w-6xl mx-auto justify-start sm:justify-center auto-rows-fr";
   }
   if (count === 4) {
-    return "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full max-w-5xl mx-auto justify-center auto-rows-fr";
+    return "question-options-grid flex snap-x snap-mandatory overflow-x-auto overscroll-x-contain px-1 pb-3 sm:grid sm:grid-cols-2 sm:overflow-visible lg:grid-cols-4 gap-4 w-full max-w-5xl mx-auto justify-start sm:justify-center auto-rows-fr";
   }
   if (count === 2) {
-    return "grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-2xl mx-auto justify-center auto-rows-fr";
+    return "question-options-grid flex snap-x snap-mandatory overflow-x-auto overscroll-x-contain px-1 pb-3 sm:grid sm:grid-cols-2 sm:overflow-visible gap-4 w-full max-w-2xl mx-auto justify-start sm:justify-center auto-rows-fr";
   }
   if (count === 3) {
-    return "grid grid-cols-1 sm:grid-cols-3 gap-4 w-full max-w-4xl mx-auto justify-center auto-rows-fr";
+    return "question-options-grid flex snap-x snap-mandatory overflow-x-auto overscroll-x-contain px-1 pb-3 sm:grid sm:grid-cols-3 sm:overflow-visible gap-4 w-full max-w-4xl mx-auto justify-start sm:justify-center auto-rows-fr";
   }
-  return "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full max-w-4xl mx-auto justify-center auto-rows-fr";
+  return "question-options-grid flex snap-x snap-mandatory overflow-x-auto overscroll-x-contain px-1 pb-3 sm:grid sm:grid-cols-2 sm:overflow-visible lg:grid-cols-3 gap-4 w-full max-w-4xl mx-auto justify-start sm:justify-center auto-rows-fr";
 }
 
 /**

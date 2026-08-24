@@ -964,6 +964,20 @@ body {
   animation: radar-tooltip-in 180ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+.question-options-grid {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.question-options-grid::-webkit-scrollbar { display: none; }
+
+@media (max-width: 639px) {
+  .question-options-grid .question-card {
+    min-height: min(380px, 54vh);
+    height: min(380px, 54vh);
+  }
+}
+
 .program-carousel {
   isolation: isolate;
 }
