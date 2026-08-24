@@ -31,10 +31,11 @@ describe("ArchetypeCard", () => {
   it("shows the affinity badge with a neon accent", () => {
     render(<ArchetypeCard archetype={archetype} affinity={87} />);
 
-    expect(screen.getByText(/87% de afinidad/)).toHaveAttribute(
+    expect(screen.getByText(/87% de encaje/)).toHaveAttribute(
       "data-accent",
       "neon"
     );
+    expect(screen.getByText(/calculada sobre tu perfil completo/i)).toBeInTheDocument();
   });
 
   it("lists related archetypes with their similarity", () => {

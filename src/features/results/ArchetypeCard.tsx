@@ -31,6 +31,10 @@ export function ArchetypeCard({
     topLabels.length >= 3
       ? `Tus dimensiones dominantes son ${topLabels[0]}, ${topLabels[1]} y ${topLabels[2]}. ${archetype.name} se construye sobre esa combinación: refleja cómo piensas, cómo decides y cómo afrontas los retos, y por eso sus rasgos te resultan tan familiares.`
       : archetype.description;
+  const affinityContext =
+    topLabels.length >= 3
+      ? `Se apoya en ${topLabels[0]}, ${topLabels[1]} y ${topLabels[2]}`
+      : "Calculada sobre tu perfil completo";
 
   return (
     <div
@@ -45,12 +49,17 @@ export function ArchetypeCard({
         </span>
 
         {typeof affinity === "number" && (
-          <span
-            data-accent="neon"
-            className="inline-block rounded-full border border-[var(--color-neon-primary)]/50 bg-[var(--color-deep)]/80 px-3 py-1 text-xs font-bold text-[var(--color-neon-primary)] shadow-lg backdrop-blur-md"
-          >
-            {affinity}% de afinidad con tu perfil
-          </span>
+          <div className="rounded-full border border-[var(--color-neon-primary)]/50 bg-[var(--color-deep)]/80 px-3 py-1 text-right shadow-lg backdrop-blur-md">
+            <span
+              data-accent="neon"
+              className="block text-xs font-bold text-[var(--color-neon-primary)]"
+            >
+              {affinity}% de encaje
+            </span>
+            <span className="block text-[10px] font-medium leading-tight text-[var(--color-text-secondary)]">
+              {affinityContext}
+            </span>
+          </div>
         )}
       </div>
 
