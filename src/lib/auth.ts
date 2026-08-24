@@ -69,7 +69,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        const email = credentials?.email as string;
+        const email = String(credentials?.email ?? "").trim().toLowerCase();
         const password = credentials?.password as string;
 
         if (!email || !password) return null;
@@ -114,6 +114,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   ],
   session: {
     strategy: "jwt",
+    maxAge: 8 * 60 * 60,
+  },
+  jwt: {
+    maxAge: 8 * 60 * 60,
   },
   pages: {
     signIn: "/admin/login",
