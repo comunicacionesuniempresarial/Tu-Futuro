@@ -215,11 +215,23 @@ export function ResultsPage({ data }: { data: ResultsData }) {
           >
             {top3Programs.map((result, index) => {
               const slot = (index - focusedProgramIndex + 3) % 3;
+              const carouselStyle = prefersReduced
+                ? undefined
+                : {
+                    zIndex: slot === 0 ? 30 : 10,
+                    opacity: slot === 0 ? 1 : 0.72,
+                    transform:
+                      slot === 0
+                        ? "translateX(-50%) translateY(0) scale(1.08)"
+                        : slot === 1
+                          ? "translateX(calc(-50% + 245px)) translateY(54px) rotate(7deg) scale(.9)"
+                          : "translateX(calc(-50% - 245px)) translateY(54px) rotate(-7deg) scale(.9)",
+                  };
               return (
                 <div
                   key={result.programId}
                   className={`program-carousel-card ${slot === 0 ? "program-carousel-center" : slot === 1 ? "program-carousel-right" : "program-carousel-left"} ${prefersReduced ? "" : "animate-slide-up"}`}
-                  style={prefersReduced ? undefined : { animationDelay: `${350 + index * 80}ms` }}
+                  style={{ ...carouselStyle, ...(prefersReduced ? {} : { animationDelay: `${350 + index * 80}ms` }) }}
                   onMouseEnter={() => setFocusedProgramIndex(index)}
                   onFocus={() => setFocusedProgramIndex(index)}
                 >
