@@ -1,5 +1,4 @@
 import type { RIASECProfile } from "@/lib/scoring/types";
-import { renderRadarSVG } from "./radar-svg";
 
 export const SHARE_CARD_WIDTH = 1200;
 export const SHARE_CARD_HEIGHT = 630;
@@ -23,8 +22,10 @@ export interface ShareCardSize {
 }
 
 /**
- * Composes the share card as a self-contained SVG string using flat brand
- * colors only. The RIASEC radar is embedded from renderRadarSVG.
+ * Composes a share-ready visual where the archetype artwork is the hero.
+ * The source artwork already contains the archetype name and description, so
+ * the exported card stays legible instead of shrinking several unrelated
+ * widgets into one image.
  */
 export function generateShareCardSVG(
   data: ShareCardData,
@@ -32,47 +33,26 @@ export function generateShareCardSVG(
 ): string {
   const { width, height } = size;
   const scale = Math.min(width / SHARE_CARD_WIDTH, height / SHARE_CARD_HEIGHT);
+  const frame = 28 * scale;
+  const cardRatio = 617 / 768;
+  const cardHeight = Math.min(height * 0.76, (width - frame * 2) / cardRatio);
+  const cardWidth = cardHeight * cardRatio;
+  const cardX = (width - cardWidth) / 2;
+  const cardY = (height - cardHeight) / 2 + 12 * scale;
+  const studentName = data.studentName ? ` · ${data.studentName}` : "";
 
-  const radarSize = 460 * scale;
-  const radarX = width * 0.62;
-  const radarY = height / 2 - radarSize / 2;
-  const radar = renderRadarSVG({
-    profile: data.riasecProfile,
-    width: radarSize,
-    height: radarSize,
-  });
-
-  const brandY = 64 * scale;
-  const emojiSize = 92 * scale;
-  const emojiX = width * 0.11;
-  const emojiY = height * 0.38;
-  const nameY = emojiY + 88 * scale;
-
-  const programsStartY = height * 0.72;
-  const programRowHeight = 40 * scale;
-
-  const programList = data.topPrograms
-    .map(
-      (program, index) =>
-        `<text x="${width * 0.11}" y="${programsStartY + index * programRowHeight}" font-size="${28 * scale}" font-weight="600" fill="#f5f5f5" font-family="Inter, system-ui, sans-serif">▸ ${program.name}</text>`
-    )
-    .join("");
-
-  const studentName = data.studentName
-    ? `<text x="${width * 0.11}" y="${brandY + 40 * scale}" font-size="${20 * scale}" fill="#9ca3af" font-family="Inter, system-ui, sans-serif">Resultado de ${data.studentName}</text>`
-    : "";
-
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-label="Tu Futuro Dual — resultado vocacional">
-  <rect width="${width}" height="${height}" fill="#12131d" />
-  <rect x="${24 * scale}" y="${24 * scale}" width="${width - 48 * scale}" height="${height - 48 * scale}" fill="none" stroke="#e9c400" stroke-width="2" rx="${18 * scale}" />
-  <text x="${width * 0.11}" y="${brandY}" font-size="${30 * scale}" font-weight="800" fill="#f5f5f5" font-family="Inter, system-ui, sans-serif">Tu Futuro Dual</text>
-  ${studentName}
-  <text x="${emojiX}" y="${emojiY}" font-size="${emojiSize}">${data.archetype.emoji}</text>
-  <text x="${width * 0.11}" y="${nameY}" font-size="${46 * scale}" font-weight="700" fill="${data.archetype.color}" font-family="Inter, system-ui, sans-serif">${data.archetype.name}</text>
-  <text x="${width * 0.11}" y="${nameY + 48 * scale}" font-size="${18 * scale}" fill="#9ca3af" font-family="Inter, system-ui, sans-serif">Tu arquetipo vocacional</text>
-  <g transform="translate(${radarX}, ${radarY})">${radar}</g>
-  <text x="${width * 0.11}" y="${programsStartY - 48 * scale}" font-size="${20 * scale}" font-weight="700" fill="#ffe16d" font-family="Inter, system-ui, sans-serif">Carreras afines</text>
-  ${programList}
+  return `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-label="Carta de arquetipo ${data.archetype.name}">
+  <defs>
+    <filter id="card-glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="${18 * scale}" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <radialGradient id="share-light"><stop offset="0" stop-color="#e9c400" stop-opacity=".2"/><stop offset="1" stop-color="#12131d" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="${width}" height="${height}" fill="#0d0e17" />
+  <circle cx="${width / 2}" cy="${height * 0.48}" r="${width * 0.55}" fill="url(#share-light)" />
+  <rect x="${frame}" y="${frame}" width="${width - frame * 2}" height="${height - frame * 2}" rx="${22 * scale}" fill="none" stroke="#e9c400" stroke-width="${2 * scale}" opacity=".8" />
+  <text x="${width / 2}" y="${50 * scale}" text-anchor="middle" font-size="${24 * scale}" font-weight="800" fill="#f5f5f5" font-family="Inter, system-ui, sans-serif">Tu Futuro Dual</text>
+  <text x="${width / 2}" y="${height - 32 * scale}" text-anchor="middle" font-size="${15 * scale}" fill="#ffe16d" font-family="Inter, system-ui, sans-serif">Mi arquetipo: ${data.archetype.name}${studentName}</text>
+  <rect x="${cardX - 10 * scale}" y="${cardY - 10 * scale}" width="${cardWidth + 20 * scale}" height="${cardHeight + 20 * scale}" rx="${26 * scale}" fill="none" stroke="#ffe16d" stroke-width="${3 * scale}" opacity=".85" filter="url(#card-glow)" />
+  <image href="/archetypes/${data.archetype.id}.webp" x="${cardX}" y="${cardY}" width="${cardWidth}" height="${cardHeight}" preserveAspectRatio="xMidYMid meet" />
 </svg>`;
 }
 

@@ -44,26 +44,25 @@ describe("generateShareCardSVG", () => {
     expect(svg).toContain('viewBox="0 0 1080 1920"');
   });
 
-  it("shows the archetype emoji and name", () => {
+  it("uses the archetype artwork as the hero", () => {
     const svg = generateShareCardSVG(data);
 
-    expect(svg).toContain("⚙️");
-    expect(svg).toContain("Ingeniero");
+    expect(svg).toContain('href="/archetypes/ingeniero.webp"');
+    expect(svg).toContain("Carta de arquetipo Ingeniero");
   });
 
-  it("embeds the RIASEC radar chart", () => {
+  it("keeps technical widgets out of the share image", () => {
     const svg = generateShareCardSVG(data);
 
-    expect(svg).toContain("Radar de tus dimensiones");
-    expect(svg).toContain('fill="#22D3EE"');
+    expect(svg).not.toContain("Radar de tus dimensiones");
+    expect(svg).not.toContain("Carreras afines");
   });
 
-  it("lists the top 3 programs", () => {
+  it("adds a luminous frame around the artwork", () => {
     const svg = generateShareCardSVG(data);
 
-    expect(svg).toContain("Ingeniería de Software");
-    expect(svg).toContain("Administración de Empresas");
-    expect(svg).toContain("Marketing Digital");
+    expect(svg).toContain("card-glow");
+    expect(svg).toContain("radialGradient");
   });
 
   it("includes the brand name", () => {
@@ -72,14 +71,11 @@ describe("generateShareCardSVG", () => {
     expect(svg).toContain("Tu Futuro Dual");
   });
 
-  it("uses flat brand colors only (no gradients, filters or blur)", () => {
+  it("keeps the brand frame and image export self-contained", () => {
     const svg = generateShareCardSVG(data);
 
-    expect(svg).not.toContain("linearGradient");
-    expect(svg).not.toContain("radialGradient");
-    expect(svg).not.toContain("<filter");
-    expect(svg).not.toContain("blur");
-    expect(svg).not.toContain("backdrop-filter");
+    expect(svg).toContain("Tu Futuro Dual");
+    expect(svg).toContain("preserveAspectRatio");
   });
 });
 

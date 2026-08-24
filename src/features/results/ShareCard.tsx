@@ -44,6 +44,7 @@ export function ShareCard({ data, layout = "default" }: ShareCardProps) {
 
   return (
     <div data-share-card="true" data-layout={layout}>
+      <p className="sr-only">{data.archetype.emoji} {data.archetype.name}</p>
       <div
         className="share-card-preview relative overflow-hidden rounded-2xl border border-[var(--color-neon-primary)]/30 bg-[var(--color-deep)] p-2 shadow-[0_0_32px_color-mix(in_srgb,var(--color-neon-primary)_12%,transparent)]"
         style={{ aspectRatio: `${size.width} / ${size.height}` }}
