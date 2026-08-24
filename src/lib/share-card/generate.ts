@@ -35,10 +35,10 @@ export function generateShareCardSVG(
   const scale = Math.min(width / SHARE_CARD_WIDTH, height / SHARE_CARD_HEIGHT);
   const frame = 28 * scale;
   const cardRatio = 617 / 768;
-  const cardHeight = Math.min(height * 0.76, (width - frame * 2) / cardRatio);
+  const cardHeight = Math.min(height * 0.82, (width - frame * 1.5) / cardRatio);
   const cardWidth = cardHeight * cardRatio;
   const cardX = (width - cardWidth) / 2;
-  const cardY = (height - cardHeight) / 2 + 12 * scale;
+  const cardY = Math.max(82 * scale, (height - cardHeight) / 2);
   const studentName = data.studentName ? ` · ${data.studentName}` : "";
 
   return `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-label="Carta de arquetipo ${data.archetype.name}">
@@ -51,7 +51,8 @@ export function generateShareCardSVG(
   <rect x="${frame}" y="${frame}" width="${width - frame * 2}" height="${height - frame * 2}" rx="${22 * scale}" fill="none" stroke="#e9c400" stroke-width="${2 * scale}" opacity=".8" />
   <text x="${width / 2}" y="${50 * scale}" text-anchor="middle" font-size="${24 * scale}" font-weight="800" fill="#f5f5f5" font-family="Inter, system-ui, sans-serif">Tu Futuro Dual</text>
   <text x="${width / 2}" y="${height - 32 * scale}" text-anchor="middle" font-size="${15 * scale}" fill="#ffe16d" font-family="Inter, system-ui, sans-serif">Mi arquetipo: ${data.archetype.name}${studentName}</text>
-  <rect x="${cardX - 10 * scale}" y="${cardY - 10 * scale}" width="${cardWidth + 20 * scale}" height="${cardHeight + 20 * scale}" rx="${26 * scale}" fill="none" stroke="#ffe16d" stroke-width="${3 * scale}" opacity=".85" filter="url(#card-glow)" />
+  <rect x="${cardX - 14 * scale}" y="${cardY - 14 * scale}" width="${cardWidth + 28 * scale}" height="${cardHeight + 28 * scale}" rx="${30 * scale}" fill="none" stroke="#ffe16d" stroke-width="${4 * scale}" opacity=".95" filter="url(#card-glow)" />
+  <rect x="${cardX - 5 * scale}" y="${cardY - 5 * scale}" width="${cardWidth + 10 * scale}" height="${cardHeight + 10 * scale}" rx="${24 * scale}" fill="none" stroke="#22D3EE" stroke-width="${1.5 * scale}" opacity=".55" />
   <image href="/archetypes/${data.archetype.id}.webp" x="${cardX}" y="${cardY}" width="${cardWidth}" height="${cardHeight}" preserveAspectRatio="xMidYMid meet" />
 </svg>`;
 }
