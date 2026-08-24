@@ -3,8 +3,8 @@
 Plataforma de orientación vocacional para la Fundación Universitaria
 Empresarial de la Cámara de Comercio de Bogotá (Uniempresarial). El
 estudiante completa un test de 15 preguntas basado en el modelo RIASEC
-y obtiene una recomendación personalizada de carrera y modalidad
-(presencial / virtual) dentro del Modelo Dual.
+y obtiene un arquetipo, un perfil de aptitudes y valores, y recomendaciones
+personalizadas de programas dentro del Modelo Dual.
 
 ## Stack
 
@@ -16,7 +16,7 @@ y obtiene una recomendación personalizada de carrera y modalidad
 - **Auth**: NextAuth v5 beta (credentials provider, JWT session)
 - **BD**: Supabase (Postgres) via `@supabase/supabase-js`
 - **Export**: ExcelJS 4 (decorado con identidad de marca)
-- **Tests**: Vitest 4 (139 tests de lógica de scoring)
+- **Tests**: Vitest 4 (277 tests automatizados)
 
 ## Estructura
 
@@ -40,9 +40,9 @@ src/
     supabase.ts           # Cliente Supabase (service_role, server-only)
     auth.ts               # NextAuth config (brute-force protection)
     schemas.ts            # Zod: LeadPayloadSchema, LeadFormSchema, etc.
-    programs.ts           # Catálogo de 7 carreras (presencial + virtual)
-    scoring/              # Algoritmos de scoring (RIASEC, aptitudes, valores)
-    questions/            # Banco de 15 preguntas
+    programs.ts           # Catálogo de programas presenciales y virtuales
+    scoring/              # Scoring RIASEC, aptitudes, valores y arquetipos
+    questions/            # Banco de 15 preguntas en 3 capas
   components/
     test/TestWizard.tsx   # Orquestador del test
     lead/LeadFormStep.tsx # Captura de datos del lead (form unificado)
@@ -58,8 +58,8 @@ supabase/
 ### 1. Clonar e instalar
 
 ```bash
-git clone https://github.com/DevCodeLone0/PROYECTOUEMPRESARIAL.git
-cd PROYECTOUEMPRESARIAL
+git clone https://github.com/comunicacionesuniempresarial/Tu-Futuro.git
+cd Tu-Futuro
 npm install
 ```
 
@@ -95,7 +95,7 @@ npm run dev    # http://localhost:3000
 ### 5. Producción (build local)
 
 ```bash
-npm run build  # tsc --noEmit + vitest run + next build
+npm run build  # tsc --noEmit + next build
 npm start      # servidor de producción en :3000
 ```
 
@@ -112,12 +112,12 @@ npm start      # servidor de producción en :3000
 ## Tests
 
 ```bash
-npm test           # 139 tests, vitest run
+npm test           # 277 tests, vitest run
 npm run test:watch # modo watch
 ```
 
 Los tests cubren la lógica de scoring: RIASEC, arquetipos, aptitudes,
-modality, y el pipeline completo.
+valores, recomendaciones de programas y el pipeline completo.
 
 ## Modos
 

@@ -157,7 +157,7 @@ export const useTestStore = create<TestState>()(
         archetypeId: state.archetypeId,
         isCompleted: state.isCompleted,
       }),
-      // Migration: detect old 16-question format and reset via merge.
+      // Migration: detect old persisted question formats and reset via merge.
       // Using `merge` avoids calling actions inside onRehydrateStorage,
       // which can throw because `set` is not bound there.
       merge: (persistedState, currentState) => {

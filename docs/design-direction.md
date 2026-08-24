@@ -105,7 +105,7 @@ XP como moneda común (todo alimenta todo); recompensa entregada *antes* de cerr
 - Neon-lit cityscapes, densidad, contraste duro.
 - Anti-autoritarismo DIY: el estudiante "hackea" su propio futuro — la narrativa del test debe empoderarlo como protagonista que descubre, no como sujeto evaluado.
 
-**Traducción a producto:** el test es un "scanner de identidad" — el estudiante es el héroe que recorre un mapa de 4 capas y al final recibe su "clase vocacional" (arquetipo). No es un examen; es un viaje de autodescubrimiento.
+**Traducción a producto:** el test es un "scanner de identidad" — el estudiante es el héroe que recorre 3 capas y al final recibe su "clase vocacional" (arquetipo). No es un examen; es un viaje de autodescubrimiento.
 
 ---
 
@@ -134,13 +134,13 @@ XP como moneda común (todo alimenta todo); recompensa entregada *antes* de cerr
 - **Display:** Sora / Space Grotesk (ya en uso), extrabold, tracking-tight. H1 gigante con gradiente cian→violeta. Palabra en **itálica serif** (ej. "tu *clase*") como acento editorial (patrón Stripe).
 - **Body:** Inter, 16-18px, gris claro `#9CA3AF` sobre oscuro.
 - **Eyebrow labels:** small-caps, tracking-widest, cian, tamaño 12px — arriba de cada sección ("CAPA 01 · INTERESES").
-- **Números grandes:** 01-04 en display gigante con color apagado (patrón numeración + figuras).
+- **Números grandes:** 01-03 en display gigante con color apagado (patrón numeración + figuras).
 
 ### 5.3 Layout
 
 - **Grilla 8pt** en todo el sistema (padding, gaps, radii múltiplos de 8; radios ~12-16px).
 - **Hero:** asimétrico (texto izq + visual centro-der) con el PRODUCTO real (el test corriendo) como protagonista — no stock.
-- **Secciones con numeración de fase** ("FASE 01 — DESCUBRE" ... "FASE 04 — COMPARTE").
+- **Secciones con numeración de fase** ("FASE 01 — DESCUBRE" ... "FASE 03 — REVELA").
 - **Bento grid** en resultados: card grande (arquetipo) + cards chicas (programas, modalidad, radar) con tags.
 - **Bordes visibles 1px** (borde nítido cian/violeta al 15-20%) como señal de craft — sombras solo en momentos de elevación (hover de card).
 
@@ -175,7 +175,7 @@ Basado en las 15 mecánicas de la investigación, priorizadas por impacto/costo:
 5. **Barra anticipatoria**: siempre visible, con hitos animados (ya tenemos GamifiedProgress — sumar shimmer/hitos)
 
 **Pacing:**
-6. **Capas = niveles**: 4 capas, cada una con momento de unlock (badge + chime + sparkle) — reemplaza la LayerTransition actual
+6. **Capas = niveles**: 3 capas, cada una con momento de unlock (badge + chime + sparkle) — reemplaza la LayerTransition actual
 7. **Breather beat**: 2s de respiro entre capas (ya existe la transición — pulirla)
 8. **Dilemas reales**: reescribir preguntas como "no good choice" (ya el question bank está en tono casual — profundizar)
 

@@ -226,7 +226,7 @@ describe("runScoringPipeline — social profile", () => {
     expect(result.rankedResults[0].programId).not.toBe("ing-software");
   });
 
-  it("recommends presencial modality (Q23=presencial, Q24=very uncomfortable)", () => {
+  it("keeps the derived recommendation compatible with the three-layer result", () => {
     const result = runScoringPipeline(SOCIAL_ANSWERS);
     expect(result.modalityResult.recommendation).toBe("presencial");
   });
@@ -241,11 +241,9 @@ describe("runScoringPipeline — leader profile", () => {
     return {
       Q1: 1, Q2: 1, Q3: 0, Q4: 1, Q5: 2,
       // Layer 2: Aptitudes — team coordination options
-      Q13: 3, Q14: 3, Q15: 3, Q16: 3, Q17: 3,
-      // Layer 3: Values — leadership work style, high autonomy, risk-tolerant
-      Q18: 4, Q19: 2, Q20: 4, Q21: 1, Q22: 2,
-      // Layer 4: Modality — presencial
-      Q23: 0, Q24: 2, Q25: 1,
+      Q13: 0, Q14: 1, Q15: 0, Q16: 2, Q17: 0,
+      // Layer 3: Values — leadership work style, autonomy and risk tolerance
+      Q18: 1, Q19: 1, Q20: 1, Q21: 1, Q22: 2,
     };
   })();
 

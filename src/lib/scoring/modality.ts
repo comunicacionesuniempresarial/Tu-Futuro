@@ -1,9 +1,9 @@
 /**
- * Modality Advisor — presencial vs. virtual recommendation.
+ * Legacy modality compatibility — presencial vs. virtual recommendation.
  *
- * Uses a dual-signal architecture:
- *   1. Direct signal (Q23-Q25): explicit preference and access
- *   2. Derived signal (Q18-Q22): lifestyle values correlated with modality
+ * The current product has three test layers and no Q23-Q25 questions. The
+ * direct-signal helpers remain only for compatibility with historical lead
+ * data and tests; the active pipeline does not read them.
  *
  * All functions are pure — no side effects, no external dependencies.
  */
@@ -25,7 +25,7 @@ export interface ModalityScore {
 // ═══════════════════════════════════════════════════════════
 
 /**
- * Compute the direct modality signal from Layer 4 questions (Q23-Q25).
+ * Compute the historical direct modality signal from legacy Q23-Q25 answers.
  *
  * Q23 (environment): 0=Presencial-leaning(+2p), 1=Virtual-leaning(+2v), 2=No pref(0). Weight: 0.5
  * Q24 (autonomy):    1-2=Needs structure(+1p), 3=Neutral(0), 4-5=Self-directed(+1v). Weight: 0.3
@@ -205,7 +205,7 @@ function signalDirection(
  *   - medium: only one signal is decisive, no conflict
  *   - low:    signals conflict (direct still wins)
  *
- * @param directScore - Direct signal from Q23-Q25
+ * @param directScore - Legacy direct signal, normally empty for new tests
  * @param derivedScore - Derived signal from Q18-Q22 + RIASEC
  * @returns ModalityResult with recommendation, confidence, explanation
  */
