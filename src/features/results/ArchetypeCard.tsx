@@ -35,30 +35,10 @@ export function ArchetypeCard({
   return (
     <div
       data-theme="dark"
-      className="mystic-card group card-foil relative overflow-hidden rounded-3xl border border-[var(--color-neon-primary)]/50 shadow-[0_0_60px_color-mix(in_srgb,var(--color-neon-primary)_20%,transparent)] flex flex-col min-h-[560px] cursor-default"
+      className="mystic-card group card-foil relative overflow-hidden rounded-3xl border border-[var(--color-neon-primary)]/50 bg-[var(--color-deep)]/90 px-4 py-5 shadow-[0_0_60px_color-mix(in_srgb,var(--color-neon-primary)_25%,transparent)] sm:px-8 sm:py-7 cursor-default"
     >
-      {/* ── Full-bleed background image ── */}
-      <img
-        src={`/archetypes/${archetype.id}.webp`}
-        alt={`Ilustración del arquetipo ${archetype.name}`}
-        loading="lazy"
-        className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105 z-0"
-      />
-
-      {/* ── Scrim: heavy gradient from bottom so text is crystal clear ── */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 z-10 bg-gradient-to-t from-[var(--color-deep)]/98 via-[var(--color-deep)]/78 to-[var(--color-deep)]/25"
-      />
-
-      {/* ── Golden foil sheen on hover ── */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 z-10 bg-[linear-gradient(135deg,color-mix(in_srgb,var(--color-neon-primary)_12%,transparent),transparent_55%)] pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-      />
-
       {/* ── Badges top row ── */}
-      <div className="relative z-20 flex items-start justify-between p-5">
+      <div className="relative z-20 flex items-start justify-between gap-3 px-1 pb-4 sm:px-2">
         <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--color-neon-primary)]/50 bg-[var(--color-deep)]/80 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-[var(--color-neon-primary)] shadow-lg backdrop-blur-md">
           <span aria-hidden="true">{archetype.emoji}</span>
           <span>Arquetipo Mítico</span>
@@ -74,21 +54,24 @@ export function ArchetypeCard({
         )}
       </div>
 
-      {/* ── Content anchored to bottom ── */}
-      <div className="relative z-20 mt-auto p-6 md:p-8 space-y-5 text-center">
-        {/* Title */}
-        <div className="space-y-2">
-          <h2 className="font-display text-4xl font-bold text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)] md:text-5xl leading-tight">
-            {archetype.name}
-          </h2>
-          <div className="h-1 w-20 mx-auto bg-[linear-gradient(135deg,var(--color-neon-primary),var(--color-neon-secondary))] rounded-full" />
+      {/* The artwork is a real card asset; contain preserves its frame and typography. */}
+      <div className="relative z-20 mx-auto w-full max-w-[390px] [perspective:1000px]">
+        <div className="relative aspect-[617/768] animate-card-reveal transition-transform duration-500 ease-out group-hover:-translate-y-2 group-hover:rotate-[1deg]">
+          <div aria-hidden="true" className="absolute -inset-4 rounded-[2.5rem] bg-[var(--color-neon-primary)]/20 blur-2xl opacity-70 transition-opacity duration-500 group-hover:opacity-100" />
+          <h2 className="sr-only">{archetype.name}</h2>
+          <img
+            src={`/archetypes/${archetype.id}.webp`}
+            alt={`Carta del arquetipo ${archetype.name}`}
+            loading="lazy"
+            className="relative h-full w-full object-contain drop-shadow-[0_24px_28px_rgba(0,0,0,0.65)]"
+          />
         </div>
+      </div>
 
-        {/* Description — frosted glass box */}
-        <div className="rounded-xl bg-black/55 backdrop-blur-md border border-white/15 p-4 shadow-lg">
-          <p className="text-sm sm:text-base leading-relaxed text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.8)]">
-            {whyText}
-          </p>
+      {/* Supporting explanation stays outside the artwork, so the card remains readable. */}
+      <div className="relative z-20 mx-auto mt-5 w-full max-w-2xl space-y-5 text-center">
+        <div className="rounded-2xl border border-white/15 bg-black/50 p-4 shadow-lg backdrop-blur-md sm:p-5">
+          <p className="text-sm leading-relaxed text-white sm:text-base">{whyText}</p>
         </div>
 
         {/* Related Archetypes */}

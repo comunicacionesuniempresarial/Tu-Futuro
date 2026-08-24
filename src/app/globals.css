@@ -688,6 +688,28 @@ body {
   animation: persona-pop 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+@keyframes card-reveal {
+  0% {
+    opacity: 0;
+    transform: translateY(28px) rotateX(14deg) rotateZ(-3deg) scale(0.92);
+    filter: brightness(0.55) saturate(0.7);
+  }
+  65% {
+    opacity: 1;
+    transform: translateY(-8px) rotateX(-2deg) rotateZ(1deg) scale(1.025);
+    filter: brightness(1.12) saturate(1.12);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotateX(0) rotateZ(0) scale(1);
+    filter: brightness(1) saturate(1);
+  }
+}
+
+.animate-card-reveal {
+  animation: card-reveal 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
 /* ── Brand gradient (oro→turquesa) ── */
 .brand-gradient {
   background: linear-gradient(135deg, var(--color-neon-primary), var(--color-neon-secondary));
