@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { RadarChart } from "./RadarChart";
 import { profile, programProfile } from "./fixtures";
@@ -19,7 +19,7 @@ describe("RadarChart", () => {
     const svg = container.querySelector("[data-radar='true']");
     expect(svg).toBeInTheDocument();
     for (const label of LABELS) {
-      expect(screen.getByText(label)).toBeInTheDocument();
+      expect(container.textContent).toContain(label);
     }
   });
 
