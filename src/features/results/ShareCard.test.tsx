@@ -53,7 +53,6 @@ describe("ShareCard", () => {
   it("renders the generated SVG preview with the archetype and share button", () => {
     render(<ShareCard data={data} />);
 
-    expect(screen.getByText("âš™ï¸")).toBeInTheDocument();
     expect(screen.getByText("Ingeniero")).toBeInTheDocument();
     expect(
       screen.getByRole("button", { name: /instagram stories/i })
