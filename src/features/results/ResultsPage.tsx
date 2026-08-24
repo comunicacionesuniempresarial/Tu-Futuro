@@ -131,7 +131,7 @@ export function ResultsPage({ data }: { data: ResultsData }) {
       <div aria-hidden="true" className="ambient-rays" />
       <div aria-hidden="true" className="ambient-stars"><span className="star" /><span className="star" /><span className="star" /><span className="star-spark" /><span className="star-spark" /></div>
       <div aria-hidden="true" className="results-orb-field">
-        {Array.from({ length: 14 }, (_, index) => <span key={index} />)}
+        {Array.from({ length: 26 }, (_, index) => <span key={index} />)}
       </div>
       <div aria-hidden="true" className="results-energy-field"><span /><span /><span /><span /></div>
       <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
@@ -297,57 +297,11 @@ export function ResultsPage({ data }: { data: ResultsData }) {
 
         {/* ── ACTIONS ── */}
         <div
-          className={`grid grid-cols-1 gap-6 lg:grid-cols-2 ${
+          className={`mx-auto max-w-xl ${
             prefersReduced ? "" : "animate-slide-up"
           }`}
           style={prefersReduced ? undefined : { animationDelay: "550ms" }}
         >
-          {/* Invoca tu Cupo */}
-          <div className="space-y-4 glass-panel rounded-2xl border border-[var(--color-neon-secondary)]/30 p-6">
-            <h3 className="font-display text-lg font-bold text-[var(--color-neon-secondary)]">
-              Invoca tu Cupo
-            </h3>
-            <p className="text-sm text-[var(--color-text-secondary)]">
-              Dejá tus datos y te contactamos para asegurar tu lugar en la carrera.
-            </p>
-            <div className="space-y-3">
-              <div>
-                <label className="block text-sm font-semibold text-[var(--color-text-muted)] mb-1">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  placeholder="tu@email.com"
-                  className="w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-deep)]/50 px-4 py-3 text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] focus:border-[var(--color-neon-primary)] focus:outline-none focus:ring-1 focus:ring-[var(--color-neon-primary)]/50 transition-colors"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-semibold text-[var(--color-text-muted)] mb-1">
-                  Carrera
-                </label>
-                <div className="w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-deep)]/30 px-4 py-3 text-[var(--color-text-secondary)]">
-                  {top3Programs.length > 0 ? top3Programs[0].program.name : "—"}
-                </div>
-              </div>
-              <div>
-                <label className="block text-sm font-semibold text-[var(--color-text-muted)] mb-1">
-                  Teléfono
-                </label>
-                <input
-                  type="tel"
-                  placeholder="3XX XXX XXXX"
-                  className="w-full rounded-xl border border-[var(--color-border)] bg-[var(--color-deep)]/50 px-4 py-3 text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] focus:border-[var(--color-neon-primary)] focus:outline-none focus:ring-1 focus:ring-[var(--color-neon-primary)]/50 transition-colors"
-                />
-              </div>
-            </div>
-            <button
-              type="button"
-              className="w-full rounded-2xl bg-[var(--color-neon-primary)] px-6 py-3.5 text-lg font-bold text-[var(--color-deep)] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_24px_color-mix(in_srgb,var(--color-neon-primary)_40%,transparent)]"
-            >
-              Invocar ✦
-            </button>
-          </div>
-
           {/* Navigation actions */}
           <div className="space-y-4 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)]/80 p-6">
             <div className="space-y-3">

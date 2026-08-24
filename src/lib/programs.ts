@@ -44,7 +44,7 @@ export const programs: Program[] = [
     whyDualModel:
       "En el Modelo Dual rotas por departamentos reales: finanzas, mercadeo, talento humano y operaciones. Cada rotación es un semestre de experiencia empresarial que nadie más tiene al graduarse.",
     displayOrder: 3,
-    image: "/images/programs/internacionales.webp",
+    image: "/images/programs/admin-business.webp",
   },
   {
     id: "negocios-internacionales",
@@ -92,7 +92,7 @@ export const programs: Program[] = [
     whyDualModel:
       "En el Modelo Dual gestionas campañas reales para empresas reales. Creas contenido, analizas métricas y construyes estrategias de marketing que generan resultados medibles desde el primer día.",
     displayOrder: 7,
-    image: "/images/programs/marketing.webp",
+    image: "/images/programs/admin-virtual.webp",
   },
   {
     id: "ing-software-virtual",
