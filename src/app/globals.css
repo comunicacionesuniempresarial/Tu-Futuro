@@ -716,8 +716,50 @@ body {
 }
 
 .share-card-stage {
-  min-height: 360px;
+  width: min(100%, 640px);
+  max-height: min(620px, 68vh);
+  min-height: 300px;
 }
+
+.share-card-shell { width: 100%; }
+
+.results-victory::before,
+.results-victory::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  top: 0;
+  width: min(90vw, 900px);
+  height: 700px;
+  pointer-events: none;
+  transform: translateX(-50%);
+  background: repeating-conic-gradient(from -8deg at 50% 0%, color-mix(in srgb, var(--color-neon-primary) 12%, transparent) 0deg 2deg, transparent 2deg 12deg);
+  opacity: .22;
+  filter: blur(1px);
+  animation: victory-rays 12s linear infinite;
+}
+
+.results-victory::after {
+  width: 520px;
+  height: 520px;
+  top: 80px;
+  background: radial-gradient(circle, color-mix(in srgb, var(--color-neon-secondary) 13%, transparent), transparent 68%);
+  filter: blur(30px);
+  animation: victory-pulse 4s ease-in-out infinite;
+}
+
+.victory-sparkles { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+.victory-sparkles span { position: absolute; width: 5px; height: 5px; border-radius: 999px; background: var(--color-neon-primary); box-shadow: 0 0 18px 4px var(--color-neon-primary); animation: victory-sparkle 3.5s ease-in-out infinite; }
+.victory-sparkles span:nth-child(1) { left: 12%; top: 18%; animation-delay: -.8s; }
+.victory-sparkles span:nth-child(2) { left: 84%; top: 24%; background: var(--color-neon-secondary); box-shadow: 0 0 18px 4px var(--color-neon-secondary); animation-delay: -2s; }
+.victory-sparkles span:nth-child(3) { left: 19%; top: 55%; animation-delay: -1.5s; }
+.victory-sparkles span:nth-child(4) { left: 91%; top: 62%; background: #e879f9; box-shadow: 0 0 18px 4px #e879f9; animation-delay: -2.7s; }
+.victory-sparkles span:nth-child(5) { left: 72%; top: 12%; animation-delay: -3s; }
+
+@keyframes victory-rays { to { transform: translateX(-50%) rotate(360deg); } }
+@keyframes victory-pulse { 0%, 100% { opacity: .35; transform: translateX(-50%) scale(.9); } 50% { opacity: .8; transform: translateX(-50%) scale(1.08); } }
+@keyframes victory-sparkle { 0%, 100% { opacity: .2; transform: scale(.5); } 50% { opacity: 1; transform: scale(1.8); } }
 
 .share-card-ambient {
   background:

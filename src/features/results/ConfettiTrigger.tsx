@@ -21,9 +21,14 @@ export function ConfettiTrigger() {
 
     firedRef.current = true;
     void confetti({
-      particleCount: 120,
-      spread: 70,
-      origin: { y: 0.6 },
+      particleCount: 220,
+      spread: 110,
+      startVelocity: 48,
+      gravity: 0.72,
+      ticks: 320,
+      scalar: 1.15,
+      colors: ["#FFE16D", "#22D3EE", "#E879F9", "#FFFFFF"],
+      origin: { y: 0.58 },
     });
   }, []);
 

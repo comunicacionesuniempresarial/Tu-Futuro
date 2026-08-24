@@ -40,7 +40,7 @@ export function ShareCard({ data, layout = "default" }: ShareCardProps) {
   return (
     <div data-share-card="true" data-layout={layout} className="share-card-shell">
       <div
-        className="share-card-preview share-card-stage group relative flex items-center justify-center overflow-hidden rounded-[2rem] border border-white/10 bg-[#0b0c14] p-5 shadow-[0_20px_70px_rgba(0,0,0,.45)] sm:p-8"
+        className="share-card-preview share-card-stage group relative mx-auto flex items-center justify-center overflow-hidden rounded-[2rem] border border-white/10 bg-[#0b0c14] p-5 shadow-[0_20px_70px_rgba(0,0,0,.45)] sm:p-8"
         style={{ aspectRatio: `${size.width} / ${size.height}` }}
       >
         <div aria-hidden="true" className="share-card-ambient absolute inset-0" />

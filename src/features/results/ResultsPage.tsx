@@ -125,7 +125,7 @@ export function ResultsPage({ data }: { data: ResultsData }) {
   );
 
   return (
-    <div data-theme="dark" className="min-h-screen bg-[var(--color-bg)] text-[var(--color-text-primary)] relative overflow-hidden">
+    <div data-theme="dark" className="results-victory min-h-screen bg-[var(--color-bg)] text-[var(--color-text-primary)] relative overflow-hidden">
       {/* Ambient Canvas */}
       <div aria-hidden="true" className="ambient-bg" />
       <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
@@ -135,6 +135,7 @@ export function ResultsPage({ data }: { data: ResultsData }) {
       </div>
 
       <ConfettiTrigger />
+      <div className="victory-sparkles" aria-hidden="true"><span /><span /><span /><span /><span /></div>
       <BrandHeader />
 
       <main className="relative z-10 mx-auto max-w-5xl px-4 pt-24 pb-16 space-y-10">
