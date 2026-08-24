@@ -388,6 +388,19 @@ body {
 .ambient-stars .star-spark:nth-child(4) { left: 22%; top: 68%; animation-delay: -1.2s; }
 .ambient-stars .star-spark:nth-child(5) { left: 87%; top: 58%; animation-delay: -3.2s; }
 
+.landing-energy { position: absolute; inset: 0; z-index: 1; overflow: hidden; pointer-events: none; }
+.landing-energy span { position: absolute; top: 110%; width: 2px; height: 190px; background: linear-gradient(180deg, transparent, var(--color-neon-primary), transparent); opacity: .3; transform: rotate(22deg); animation: landing-energy-rise 9s linear infinite; }
+.landing-energy span:nth-child(1) { left: 8%; animation-delay: -1s; }
+.landing-energy span:nth-child(2) { left: 21%; animation-delay: -6s; background: linear-gradient(180deg, transparent, var(--color-neon-secondary), transparent); }
+.landing-energy span:nth-child(3) { left: 36%; animation-delay: -3s; }
+.landing-energy span:nth-child(4) { left: 49%; animation-delay: -8s; background: linear-gradient(180deg, transparent, #e879f9, transparent); }
+.landing-energy span:nth-child(5) { left: 63%; animation-delay: -4s; }
+.landing-energy span:nth-child(6) { left: 76%; animation-delay: -7s; background: linear-gradient(180deg, transparent, var(--color-neon-secondary), transparent); }
+.landing-energy span:nth-child(7) { left: 88%; animation-delay: -2s; }
+.landing-energy span:nth-child(8) { left: 94%; animation-delay: -5s; background: linear-gradient(180deg, transparent, #e879f9, transparent); }
+
+@keyframes landing-energy-rise { 0% { transform: translateY(0) rotate(22deg); opacity: 0; } 18%, 78% { opacity: .45; } 100% { transform: translateY(-900px) rotate(22deg); opacity: 0; } }
+
 .landing-experience .glass-panel,
 .landing-experience .mystic-card,
 .results-victory .glass-panel,

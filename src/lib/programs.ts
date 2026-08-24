@@ -92,7 +92,7 @@ export const programs: Program[] = [
     whyDualModel:
       "En el Modelo Dual gestionas campañas reales para empresas reales. Creas contenido, analizas métricas y construyes estrategias de marketing que generan resultados medibles desde el primer día.",
     displayOrder: 7,
-    image: "/images/programs/admin-virtual.webp",
+    image: "/images/programs/marketing.webp",
   },
   {
     id: "ing-software-virtual",
@@ -116,7 +116,7 @@ export const programs: Program[] = [
     whyDualModel:
       "En el Modelo Dual virtual gestionas proyectos empresariales reales de forma remota. Aprendes liderazgo digital, herramientas de gestión y tomas de decisiones con impacto real.",
     displayOrder: 9,
-    image: "/images/programs/marketing.webp",
+    image: "/images/programs/admin-virtual.webp",
   },
   {
     id: "negocios-turisticos-virtual",

@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, act } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import LandingPage from "./LandingPage";
 
 describe("LandingPage", () => {
@@ -52,23 +52,21 @@ describe("LandingPage", () => {
     }));
   }
 
-  it("renders exactly 3 section landmarks (Hero, Como funciona, Archetypes + CTA)", () => {
+  it("renders the focused hero experience", () => {
     mockMatchMedia(false);
 
     render(<LandingPage />);
 
-    expect(screen.getAllByRole("region")).toHaveLength(2);
+    expect(screen.getAllByRole("region")).toHaveLength(1);
   });
 
-  it("shows the archetype showcase, each exactly once", () => {
+  it("keeps the landing free of the archetype spoiler block", () => {
     mockMatchMedia(false);
 
     render(<LandingPage />);
 
-    expect(screen.getAllByText("El Constructor")).toHaveLength(1);
-    expect(screen.getAllByText("El Investigador")).toHaveLength(1);
-    expect(screen.getAllByText("El Creador")).toHaveLength(1);
-    expect(screen.getAllByText("El Conector")).toHaveLength(1);
+    expect(screen.queryByText("El Constructor")).not.toBeInTheDocument();
+    expect(screen.queryByText("El Investigador")).not.toBeInTheDocument();
   });
 
   it("renders no social proof counter or testimonial", () => {
@@ -90,12 +88,11 @@ describe("LandingPage", () => {
     expect(screen.queryByText("Las 4 Capas del Poder")).not.toBeInTheDocument();
   });
 
-  it("shows the archetype showcase and the CTA to start the test", () => {
+  it("shows the CTA to start the test", () => {
     mockMatchMedia(false);
 
     render(<LandingPage />);
 
-    expect(screen.getByText("El Constructor")).toBeInTheDocument();
     const cta = screen.getByRole("link", { name: /✨ Inicia el test/ });
     expect(cta).toHaveAttribute("href", "/test");
   });
@@ -103,12 +100,10 @@ describe("LandingPage", () => {
   it("starts the narrative hidden and reveals sections as they enter the viewport", () => {
     mockMatchMedia(false);
 
-    const callbacks: IntersectionObserverCallback[] = [];
     mockIntersectionObserver.mockImplementation(function (
       this: unknown,
       cb: IntersectionObserverCallback
     ) {
-      callbacks.push(cb);
       (this as Record<string, unknown>).callback = cb;
       return {
         observe: mockObserve,
@@ -124,26 +119,8 @@ describe("LandingPage", () => {
     const { container } = render(<LandingPage />);
 
     const sections = container.querySelectorAll("section");
-    expect(sections).toHaveLength(2);
+    expect(sections).toHaveLength(1);
     expect(sections[0]).toHaveAttribute("data-entrance", "animated");
-    expect(sections[1]).toHaveAttribute("data-revealed", "false");
-
-    act(() => {
-      callbacks.forEach((callback, index) => {
-        callback(
-          [
-            {
-              isIntersecting: true,
-              target: sections[index + 1],
-              intersectionRatio: 0.5,
-            } as unknown as IntersectionObserverEntry,
-          ],
-          mockIntersectionObserver.mock.results[index].value
-        );
-      });
-    });
-
-    expect(sections[1]).toHaveAttribute("data-revealed", "true");
   });
 
   it("fires onStart when the final CTA is activated", () => {
