@@ -106,7 +106,7 @@ function OptionCard({
       onClick={() => onChange(index)}
       aria-label={`${option} — opción ${String.fromCharCode(65 + index)}`}
       aria-pressed={selected}
-      className={`mystic-card group relative flex flex-col justify-between min-h-[220px] sm:min-h-[245px] md:min-h-[270px] rounded-2xl overflow-hidden text-center will-change-transform hover:-translate-y-2 hover:scale-[1.025] cursor-pointer ${
+      className={`question-card mystic-card group relative flex flex-col justify-between aspect-[4/5] min-h-[250px] sm:min-h-[280px] md:min-h-[310px] rounded-2xl overflow-hidden text-center will-change-transform hover:-translate-y-3 hover:scale-[1.035] cursor-pointer ${
         selected
           ? "neon-border mystic-card-glow ring-2 ring-[var(--color-neon-primary)] scale-[1.02]"
           : "border border-[var(--color-border)] hover:border-[var(--color-neon-primary)]/70 hover:shadow-[0_0_28px_color-mix(in_srgb,var(--color-neon-primary)_30%,transparent)]"
