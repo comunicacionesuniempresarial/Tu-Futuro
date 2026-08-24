@@ -14,11 +14,11 @@ import { describe, it, expect } from "vitest";
 import { runScoringPipeline } from "../scoring/pipeline";
 
 const ANALYTICAL = { Q13: 0, Q14: 1, Q15: 1, Q16: 1, Q17: 1 };
-const SOCIAL = { Q13: 3, Q14: 3, Q15: 3, Q16: 3, Q17: 3 };
-const CREATIVE = { Q13: 2, Q14: 2, Q15: 2, Q16: 2, Q17: 2 };
-const PLANNING = { Q14: 0, Q16: 0, Q17: 0, Q15: 2 };
+const SOCIAL = { Q13: 0, Q14: 1, Q15: 0, Q16: 0, Q17: 0 };
+const CREATIVE = { Q13: 1, Q14: 0 };
+const PLANNING = { Q13: 0, Q14: 2, Q15: 0, Q16: 2 };
 const ANALYTICAL_PROFILE = { Q13: 0, Q14: 0, Q15: 1, Q16: 1, Q17: 1 };
-const SOCIAL_PROFILE = { Q13: 3, Q14: 3, Q15: 3, Q16: 3, Q17: 3 };
+const SOCIAL_PROFILE = { Q13: 0, Q14: 1, Q15: 0, Q16: 0, Q17: 0 };
 
 describe("aptitude vector — direction regression", () => {
   it("analytical picks score logical highest", () => {

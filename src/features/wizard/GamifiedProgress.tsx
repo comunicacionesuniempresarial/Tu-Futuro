@@ -35,7 +35,7 @@ interface GamifiedProgressProps {
 }
 
 /**
- * Game-style HP bar: 25 neon segments grouped by layer (12/5/5/3).
+ * Game-style HP bar: 15 neon segments grouped by the three layers (5/5/5).
  * The active segment glows; completing a layer fires a short scale pulse.
  * All animation is transform-only and suppressed under reduced motion.
  */

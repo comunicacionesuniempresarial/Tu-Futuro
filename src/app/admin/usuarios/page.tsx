@@ -14,7 +14,10 @@ export default function AdminUsersPage() {
     if (response.ok) setUsers((await response.json()).users);
     else setMessage("Solo un super administrador puede gestionar usuarios.");
   };
-  useEffect(() => { void load(); }, []);
+  useEffect(() => {
+    const timer = window.setTimeout(() => { void load(); }, 0);
+    return () => window.clearTimeout(timer);
+  }, []);
 
   const create = async (event: React.FormEvent) => {
     event.preventDefault();

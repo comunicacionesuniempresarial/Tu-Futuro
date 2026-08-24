@@ -72,14 +72,14 @@ export interface Archetype {
 export interface Question {
   /** Unique identifier, e.g. "Q1". */
   id: string;
-  /** Layer this question belongs to (1-4). */
-  layer: 1 | 2 | 3 | 4;
+  /** Layer this question belongs to (1-3). */
+  layer: 1 | 2 | 3;
   /**
    * Primary dimension this question measures.
    * - Layer 1: one of the 6 RIASEC dimension letters.
    * - Layer 2: descriptive key (e.g. 'logical', 'communication').
    * - Layer 3: descriptive key (e.g. 'autonomy', 'values').
-   * - Layer 4: 'modality'.
+   * Modality is derived from Layer 3; it is not a fourth question layer.
    */
   dimension: string;
   /** Question format. */

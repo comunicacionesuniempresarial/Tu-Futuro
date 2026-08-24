@@ -4,8 +4,8 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type { RIASECProfile, ModalityResult } from "@/lib/scoring/types";
 
-// ── Layer boundaries (0-indexed question positions) ──
-// New distribution: 5 questions per layer (1-5, 6-10, 11-15)
+// ── Layer boundaries (1-indexed question positions) ──
+// Three layers with five questions each: 1-5, 6-10, 11-15.
 const LAYER_BOUNDARIES = [5, 10] as const; // Q5→Q6, Q10→Q11
 
 export const TOTAL_STEPS = 15;
@@ -40,9 +40,9 @@ export function isLayerBoundary(position: number): boolean {
 }
 
 interface TestState {
-  // Current step (1-indexed: 1 = first question, 25 = last question)
+  // Current step (1-indexed: 1 = first question, 15 = last question)
   step: number;
-  // Current layer (1-4)
+  // Current layer (1-3)
   currentLayer: 1 | 2 | 3;
   // Answers keyed by question ID — all numeric (option index or 1-based likert)
   answers: Record<string, number>;
@@ -71,21 +71,21 @@ interface TestState {
 }
 
 /**
- * Detect old format by checking if any answer key matches the old Q16
- * free-text pattern (string value) or if answers contain keys beyond Q25.
+ * Detect old formats so persisted answers cannot be interpreted with the
+ * current three-layer question bank.
  */
 function detectOldFormat(answers: Record<string, string | number>): boolean {
   // Old format had Q16 as a free-text question (string value)
   const q16Value = answers["Q16"];
   if (typeof q16Value === "string" && q16Value.length > 0) return true;
 
-  // Also detect if there are numeric answers that don't map to new Q1-Q25
+  // Also detect if there are numeric answers outside the current Q1-Q22 bank.
   const numericKeys = Object.keys(answers).filter((k) => /^Q\d+$/.test(k));
   const maxQ = Math.max(
     0,
     ...numericKeys.map((k) => parseInt(k.replace("Q", ""), 10))
   );
-  if (maxQ > 25) return true;
+  if (maxQ > 22) return true;
 
   return false;
 }

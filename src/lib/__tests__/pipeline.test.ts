@@ -19,11 +19,11 @@ import type { RIASECDimension } from "../scoring/types";
 
 /**
  * Pick, for each Layer 1 question, the option whose riasecWeights has
- * the highest value for `targetDim`. Layers 2-4 use the supplied answer.
+ * the highest value for `targetDim`. Layers 2-3 use the supplied answer.
  */
 function answersWithDominantLayer1(
   targetDim: RIASECDimension,
-  layer2To4: Record<string, number>
+  layer2To3: Record<string, number>
 ): Record<string, number> {
   const answers: Record<string, number> = {};
   for (const q of QUESTION_BANK.filter((q) => q.layer === 1)) {
@@ -39,39 +39,35 @@ function answersWithDominantLayer1(
     });
     answers[q.id] = bestOption;
   }
-  Object.assign(answers, layer2To4);
+  Object.assign(answers, layer2To3);
   return answers;
 }
 
-const ENGINEER_LAYER2_TO_4: Record<string, number> = {
+const ENGINEER_LAYER2_TO_3: Record<string, number> = {
   // Layer 2: Aptitudes — logical, planning, solo focus
   Q13: 0, Q14: 0, Q15: 1, Q16: 1, Q17: 1,
-  // Layer 3: Values — autonomy high, solo work, fixed schedule, helping
-  Q18: 4, Q19: 0, Q20: 0, Q21: 1, Q22: 3,
-  // Layer 4: Modality — virtual
-  Q23: 1, Q24: 4, Q25: 0,
+  // Layer 3: Values — flexible, analytical and self-directed choices
+  Q18: 1, Q19: 0, Q20: 0, Q21: 0, Q22: 1,
 };
 
 // Engineer profile: alternate R-dominant and I-dominant picks (since Q1-Q12 measure both)
 const ENGINEER_ANSWERS: Record<string, number> = (() => {
   // Use R as dominant for the 12 Layer-1 questions; I will also be high because
   // R and I frequently co-occur in the option weights.
-  return answersWithDominantLayer1("R", ENGINEER_LAYER2_TO_4);
+  return answersWithDominantLayer1("R", ENGINEER_LAYER2_TO_3);
 })();
 
 const SOCIAL_ANSWERS: Record<string, number> = (() => {
   return answersWithDominantLayer1("S", {
     // Layer 2: Aptitudes — social/team options
-    Q13: 3, Q14: 3, Q15: 3, Q16: 3, Q17: 3,
-    // Layer 3: Values — helping, fixed schedule
-    Q18: 0, Q19: 3, Q20: 0, Q21: 0, Q22: 3,
-    // Layer 4: Modality — presencial
-    Q23: 0, Q24: 0, Q25: 1,
+    Q13: 0, Q14: 1, Q15: 0, Q16: 0, Q17: 0,
+    // Layer 3: Values — helping, social and collaborative choices
+    Q18: 0, Q19: 1, Q20: 0, Q21: 1, Q22: 0,
   });
 })();
 
 const ALL_OPTION_ZERO: Record<string, number> = Object.fromEntries(
-  Array.from({ length: 25 }, (_, i) => [`Q${i + 1}`, 0])
+  Array.from({ length: 22 }, (_, i) => [`Q${i + 1}`, 0])
 );
 
 // ═══════════════════════════════════════════════════════════
@@ -197,9 +193,10 @@ describe("runScoringPipeline — engineer profile", () => {
     expect(top1.fitBreakdown.lifestyle).toBeGreaterThan(0);
   });
 
-  it("recommends virtual modality (Q23=virtual, Q24=very comfortable)", () => {
+  it("keeps the legacy modality field compatible with the three-layer result", () => {
     const result = runScoringPipeline(ENGINEER_ANSWERS);
-    expect(result.modalityResult.recommendation).toBe("virtual");
+    expect(["presencial", "virtual"]).toContain(result.modalityResult.recommendation);
+    expect(["high", "medium", "low"]).toContain(result.modalityResult.confidence);
   });
 });
 
@@ -215,8 +212,6 @@ describe("runScoringPipeline — social profile", () => {
 
   it("ranks negocios-turisticos above mean", () => {
     const result = runScoringPipeline(SOCIAL_ANSWERS);
-    const scores = result.rankedResults.map((r) => r.overallScore);
-    const mean = scores.reduce((a, b) => a + b, 0) / scores.length;
     const turismo = result.rankedResults.find(
       (r) => r.programId === "negocios-turisticos"
     );

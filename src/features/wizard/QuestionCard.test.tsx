@@ -41,9 +41,9 @@ const likertQuestion: Question = {
 };
 
 const binaryQuestion: Question = {
-  id: "Q23",
-  layer: 4,
-  dimension: "modality",
+  id: "Q21",
+  layer: 3,
+  dimension: "schedule",
   type: "binary",
   text: "¿Preferís estudiar presencial?",
   options: ["Sí", "No"],

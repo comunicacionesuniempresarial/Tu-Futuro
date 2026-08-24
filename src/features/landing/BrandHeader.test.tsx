@@ -20,11 +20,10 @@ describe("BrandHeader", () => {
     expect(testLink).toHaveAttribute("href", "/test");
   });
 
-  it("links the account icon to the admissions panel", () => {
+  it("does not expose the admissions panel in the public header", () => {
     render(<BrandHeader />);
 
-    const accountLink = screen.getByRole("link", { name: "Panel de admisiones" });
-    expect(accountLink).toHaveAttribute("href", "/admin/login");
+    expect(screen.queryByRole("link", { name: "Panel de admisiones" })).not.toBeInTheDocument();
     expect(screen.queryByText("settings")).not.toBeInTheDocument();
   });
 });

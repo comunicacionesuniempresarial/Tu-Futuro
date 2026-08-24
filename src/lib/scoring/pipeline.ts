@@ -37,7 +37,6 @@ import { QUESTION_BANK } from "../questions/question-bank";
 import { PROGRAM_PROFILES } from "./programs-matrix";
 import { normalizeProfile, rankPrograms } from "./riasec";
 import {
-  computeDirectSignal,
   computeDerivedSignal,
   recommendModality,
 } from "./modality";
@@ -253,10 +252,13 @@ export function runScoringPipeline(
   // ── Layer 1: RIASEC Profile ──
   const riasecProfile = computeRiasecProfile(answers);
 
-  // ── Layer 4: Modality ──
-  const directSignal = computeDirectSignal(answers);
+  // Modality is a derived recommendation from the three-layer test.
+  // There is no fourth question layer anymore.
   const derivedSignal = computeDerivedSignal(answers, riasecProfile);
-  const modalityResult = recommendModality(directSignal, derivedSignal);
+  const modalityResult = recommendModality(
+    { presencial: 0, virtual: 0 },
+    derivedSignal
+  );
 
   // ── Archetype ──
   const archetype = determineArchetype(riasecProfile);

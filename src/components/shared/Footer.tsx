@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 interface FooterProps {
   disclaimer?: string;
 }
@@ -17,12 +19,12 @@ export function Footer({ disclaimer }: FooterProps) {
           aria-label="Enlaces del sitio"
           className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm font-semibold text-slate-700"
         >
-          <a
+          <Link
             href="/"
             className="transition-colors hover:text-[#c99a00]"
           >
             Inicio
-          </a>
+          </Link>
           <a href="/privacidad" className="transition-colors hover:text-[#c99a00]">Privacidad y datos</a>
           <a href="/terminos" className="transition-colors hover:text-[#c99a00]">Términos de uso</a>
           <a href="/admin/login" className="transition-colors hover:text-[#c99a00]">Acceso de admisiones</a>
