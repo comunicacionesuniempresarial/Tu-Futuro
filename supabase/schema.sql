@@ -88,6 +88,9 @@ for each row execute function public.set_updated_at();
 -- Row Level Security: sin policies → solo service_role (el servidor) accede.
 -- El cliente nunca toca Supabase directamente; todo pasa por los API routes.
 alter table public.leads enable row level security;
+-- Defensa adicional: estas tablas solo se consultan desde los Route Handlers
+-- con la clave privada; no deben quedar expuestas por el Data API público.
+revoke all on table public.leads from anon, authenticated;
 
 -- ── Usuarios del panel de admisiones ──
 -- Las contraseñas se guardan como hash scrypt + salt; nunca en texto plano.
@@ -106,6 +109,7 @@ create table if not exists public.admin_users (
 create index if not exists admin_users_email_idx on public.admin_users (lower(email));
 create index if not exists admin_users_role_idx on public.admin_users (role);
 alter table public.admin_users enable row level security;
+revoke all on table public.admin_users from anon, authenticated;
 
 drop trigger if exists admin_users_set_updated_at on public.admin_users;
 create trigger admin_users_set_updated_at

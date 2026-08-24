@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { createAdminUser, deleteAdminUser, listAdminUsers, updateAdminUser } from "@/lib/supabase";
 import { getAdminRole, hashAdminPassword } from "@/lib/admin-rbac";
+import { isSameOrigin } from "@/lib/request-security";
 
 const NO_STORE = { "Cache-Control": "no-store" };
 const UserSchema = z.object({
@@ -26,6 +27,7 @@ export async function GET() {
 }
 
 export async function POST(request: NextRequest) {
+  if (!isSameOrigin(request)) return NextResponse.json({ error: "Origen no permitido" }, { status: 403, headers: NO_STORE });
   const denied = await requireSuperAdmin();
   if (denied) return denied;
   const parsed = UserSchema.safeParse(await request.json().catch(() => null));
@@ -38,6 +40,7 @@ export async function POST(request: NextRequest) {
 }
 
 export async function PATCH(request: NextRequest) {
+  if (!isSameOrigin(request)) return NextResponse.json({ error: "Origen no permitido" }, { status: 403, headers: NO_STORE });
   const denied = await requireSuperAdmin();
   if (denied) return denied;
   const body = await request.json().catch(() => null) as { id?: string; nombre?: string; role?: "super_admin" | "advisor"; activo?: boolean; password?: string } | null;
@@ -52,6 +55,7 @@ export async function PATCH(request: NextRequest) {
 }
 
 export async function DELETE(request: NextRequest) {
+  if (!isSameOrigin(request)) return NextResponse.json({ error: "Origen no permitido" }, { status: 403, headers: NO_STORE });
   const denied = await requireSuperAdmin();
   if (denied) return denied;
   const body = await request.json().catch(() => null) as { id?: string } | null;

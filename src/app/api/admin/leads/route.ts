@@ -3,6 +3,7 @@ import { z } from "zod";
 import { auth } from "@/lib/auth";
 import { deleteLead, getLeads, updateLead, type LeadRow } from "@/lib/supabase";
 import { LeadUpdateSchema } from "@/lib/schemas";
+import { isSameOrigin } from "@/lib/request-security";
 
 const NO_STORE = { "Cache-Control": "no-store" };
 
@@ -143,6 +144,7 @@ export async function GET(request: NextRequest) {
 }
 
 export async function PATCH(request: NextRequest) {
+  if (!isSameOrigin(request)) return NextResponse.json({ error: "Origen no permitido" }, { status: 403, headers: NO_STORE });
   const denied = await requireAdmin();
   if (denied) return denied;
 
@@ -186,6 +188,7 @@ export async function PATCH(request: NextRequest) {
 }
 
 export async function DELETE(request: NextRequest) {
+  if (!isSameOrigin(request)) return NextResponse.json({ error: "Origen no permitido" }, { status: 403, headers: NO_STORE });
   const denied = await requireAdmin();
   if (denied) return denied;
 

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { LeadPayloadSchema } from "@/lib/schemas";
 import { upsertLead, type LeadRowInsert } from "@/lib/supabase";
+import { clientIp, MAX_JSON_BODY_BYTES } from "@/lib/request-security";
 
 // Simple in-memory rate limiter
 const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
@@ -28,11 +29,7 @@ export async function POST(request: NextRequest) {
   // Rate limiting por IP real. En Vercel, x-vercel-forwarded-for ya viene
   // saneado por la plataforma (x-forwarded-for es spoofeable por el cliente).
   // El Map es por-instancia: en serverless multi-instancia es un límite blando.
-  const ip =
-    request.headers.get("x-vercel-forwarded-for")?.split(",")[0]?.trim() ||
-    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
-    request.headers.get("x-real-ip") ||
-    "unknown";
+  const ip = clientIp(request);
 
   if (!checkRateLimit(ip)) {
     return NextResponse.json(
@@ -42,6 +39,10 @@ export async function POST(request: NextRequest) {
   }
 
   try {
+    const contentLength = Number(request.headers.get("content-length") || 0);
+    if (contentLength > MAX_JSON_BODY_BYTES) {
+      return NextResponse.json({ error: "Solicitud demasiado grande" }, { status: 413 });
+    }
     let body: unknown;
     try {
       body = await request.json();
