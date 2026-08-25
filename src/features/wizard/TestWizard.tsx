@@ -200,6 +200,12 @@ export default function TestWizard({ esPrueba = false }: { esPrueba?: boolean })
         setSlideDirection("next");
         nextStep();
       }, 300);
+    } else {
+      // On the final answer, preserve the selection feedback briefly and go
+      // directly to the form without requiring an extra click.
+      autoAdvanceTimer.current = setTimeout(() => {
+        runScoring();
+      }, 300);
     }
   };
 

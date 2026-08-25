@@ -69,7 +69,19 @@ function AnswerStamp({ prefersReduced }: { prefersReduced: boolean }) {
 function QuestionTitle({ text }: { text: string }) {
   return (
     <div className="glass-panel holographic-glow w-full max-w-3xl mx-auto rounded-2xl p-4 md:p-5 mb-3 flex flex-col items-center text-center relative">
-      <span className="material-symbols-outlined text-[var(--color-neon-secondary)] text-2xl mb-1 opacity-80">menu_book</span>
+      <svg
+        aria-hidden="true"
+        className="mb-1 h-7 w-7 text-[var(--color-neon-secondary)] opacity-80"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={1.8}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5v-16Z" />
+        <path d="M4 5.5v16M8 7h8M8 11h8" />
+      </svg>
       <h2 className="font-display text-2xl md:text-4xl font-bold text-[var(--color-neon-primary)] drop-shadow-[0_0_18px_color-mix(in_srgb,var(--color-neon-primary)_35%,transparent)] leading-tight">
         {text}
       </h2>
