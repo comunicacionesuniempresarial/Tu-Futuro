@@ -44,26 +44,26 @@
   --font-body: var(--font-body, "DM Sans", sans-serif);
 
   /* Core Dark Canvas — Material 3 dark */
-  --color-bg: #12131d;              /* surface-dim — lienzo base */
-  --color-surface: #1e1f2a;         /* surface-container — cards */
-  --color-surface-elevated: #282935;/* surface-container-high — hover/elevado */
-  --color-surface-bright: #383844;
-  --color-surface-variant: #333440;
-  --color-deep: #0c0d18;            /* surface-container-lowest — profundidad */
-  --color-surface-low: #1a1b26;
+  --color-bg: #0d1024;              /* lienzo nocturno con matiz violeta */
+  --color-surface: #1d1b35;         /* cards con más color y profundidad */
+  --color-surface-elevated: #2d2850;/* hover/elevado */
+  --color-surface-bright: #493d70;
+  --color-surface-variant: #39315b;
+  --color-deep: #080a1b;            /* profundidad */
+  --color-surface-low: #15142b;
 
   /* Borders — 1px nítidos, outline-variant (craft: bordes visibles) */
-  --color-border: #484456;
-  --color-border-subtle: #333440;
+  --color-border: #685c91;
+  --color-border-subtle: #463b6e;
 
   /* Text */
-  --color-text-primary: #e2e1f1;    /* on-surface */
-  --color-text-secondary: #cac3d9;  /* on-surface-variant */
-  --color-text-muted: #938ea2;      /* outline */
+  --color-text-primary: #fff8e8;    /* on-surface */
+  --color-text-secondary: #e2daf7;  /* on-surface-variant */
+  --color-text-muted: #b5acce;      /* outline */
 
   /* Duelo Accents — UN SOLO protagonista decorativo: el ORO */
-  --color-neon-primary: #ffe16d;    /* ORO — acciones, progreso, hover, focus */
-  --color-neon-secondary: #3adccc;  /* TURQUESA — profundidad, gradientes, decorativo */
+  --color-neon-primary: #ffd84d;    /* ORO — acciones, progreso, hover, focus */
+  --color-neon-secondary: #36efd1;  /* TURQUESA — profundidad, gradientes, decorativo */
 
   /* Semantic — Material 3 */
   --color-success: #4ade80;
@@ -81,8 +81,8 @@
   --color-teal: #3adccc;
   --color-teal-deep: #00766d;
   --color-primary-lav: #ccbeff;
-  --color-primary-container: #7042f8;
-  --color-secondary-container: #ffdb3c;
+  --color-primary-container: #8b5cf6;
+  --color-secondary-container: #ffd43b;
   --color-on-secondary-container: #725f00;
   --color-tertiary-container: #00766d;
   --color-on-tertiary-container: #77ffef;
@@ -444,9 +444,9 @@ body {
   overflow: hidden;
   pointer-events: none;
   background:
-    radial-gradient(720px 420px at 18% 12%, color-mix(in srgb, var(--color-gold-dim) 10%, transparent), transparent 62%),
-    radial-gradient(680px 460px at 85% 8%, color-mix(in srgb, var(--color-teal-deep) 13%, transparent), transparent 58%),
-    radial-gradient(760px 520px at 55% 96%, color-mix(in srgb, var(--color-primary-container) 11%, transparent), transparent 62%);
+    radial-gradient(720px 420px at 18% 12%, color-mix(in srgb, var(--color-gold-dim) 18%, transparent), transparent 62%),
+    radial-gradient(680px 460px at 85% 8%, color-mix(in srgb, var(--color-teal-deep) 22%, transparent), transparent 58%),
+    radial-gradient(760px 520px at 55% 96%, color-mix(in srgb, var(--color-primary-container) 20%, transparent), transparent 62%);
 }
 
 .ambient-bg::before {
@@ -454,8 +454,8 @@ body {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(color-mix(in srgb, var(--color-gold) 5%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in srgb, var(--color-gold) 5%, transparent) 1px, transparent 1px);
+    linear-gradient(color-mix(in srgb, var(--color-gold) 8%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--color-teal) 7%, transparent) 1px, transparent 1px);
   background-size: 56px 56px;
   mask-image: radial-gradient(760px 520px at 50% 30%, black, transparent 78%);
   -webkit-mask-image: radial-gradient(760px 520px at 50% 30%, black, transparent 78%);

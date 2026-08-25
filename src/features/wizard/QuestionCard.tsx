@@ -82,7 +82,7 @@ function QuestionTitle({ text }: { text: string }) {
         <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5v-16Z" />
         <path d="M4 5.5v16M8 7h8M8 11h8" />
       </svg>
-      <h2 className="font-display text-2xl md:text-4xl font-bold text-[var(--color-neon-primary)] drop-shadow-[0_0_18px_color-mix(in_srgb,var(--color-neon-primary)_35%,transparent)] leading-tight">
+      <h2 className="font-display text-2xl md:text-4xl font-black text-[var(--color-neon-primary)] drop-shadow-[0_0_22px_color-mix(in_srgb,var(--color-neon-primary)_48%,transparent)] leading-tight">
         {text}
       </h2>
       <div className="mt-2 h-1 w-20 mx-auto bg-[linear-gradient(135deg,var(--color-neon-primary),var(--color-neon-secondary))] rounded-full" />
@@ -146,8 +146,8 @@ function OptionCard({
         aria-hidden="true"
         className={`absolute inset-0 z-10 transition-opacity duration-300 ${
           selected
-            ? "bg-gradient-to-t from-[var(--color-deep)]/98 via-[var(--color-deep)]/85 to-[var(--color-deep)]/50"
-            : "bg-gradient-to-t from-[var(--color-deep)]/95 via-[var(--color-deep)]/75 to-[var(--color-deep)]/35 group-hover:from-[var(--color-deep)]/92 group-hover:via-[var(--color-deep)]/65"
+            ? "bg-gradient-to-t from-[var(--color-deep)]/88 via-[var(--color-deep)]/68 to-[var(--color-deep)]/25"
+            : "bg-gradient-to-t from-[var(--color-deep)]/82 via-[var(--color-deep)]/58 to-[var(--color-deep)]/15 group-hover:from-[var(--color-deep)]/76 group-hover:via-[var(--color-deep)]/48"
         }`}
       />
 
@@ -165,7 +165,7 @@ function OptionCard({
           className={`w-9 h-9 rounded-xl flex items-center justify-center text-sm font-black transition-all duration-300 shadow-lg backdrop-blur-md ${
             selected
               ? "bg-[linear-gradient(135deg,var(--color-neon-primary),var(--color-neon-secondary))] text-[var(--color-deep)] shadow-[0_0_16px_color-mix(in_srgb,var(--color-neon-primary)_70%,transparent)]"
-              : "bg-black/65 text-white/95 border border-white/20 group-hover:border-[var(--color-neon-primary)]/60 group-hover:bg-black/85"
+              : "bg-[var(--color-deep)]/80 text-[var(--color-text-primary)] border border-white/25 group-hover:border-[var(--color-neon-primary)]/75 group-hover:bg-[var(--color-deep)]/95"
           }`}
         >
           {String.fromCharCode(65 + index)}
@@ -174,8 +174,8 @@ function OptionCard({
 
       {/* Contenido de texto: caja de texto con fondo translúcido y tipografía grande y clara */}
       <div className="relative z-20 flex flex-1 flex-col items-center justify-center px-3.5 py-2 sm:px-4 sm:py-3 text-center">
-        <div className="w-full rounded-xl bg-black/55 backdrop-blur-md border border-white/15 p-4 sm:p-5 group-hover:border-[var(--color-neon-primary)]/40 transition-colors shadow-lg">
-            <p className="font-bold text-lg sm:text-xl md:text-[21px] leading-snug tracking-tight text-white text-balance drop-shadow-[0_2px_6px_rgba(0,0,0,0.7)]">
+        <div className="w-full rounded-xl bg-[var(--color-deep)]/82 backdrop-blur-md border border-white/25 p-4 sm:p-5 group-hover:border-[var(--color-neon-primary)]/65 transition-colors shadow-[0_8px_24px_rgba(0,0,0,0.35)]">
+            <p className="font-black text-lg sm:text-xl md:text-[21px] leading-snug tracking-tight text-[var(--color-text-primary)] text-balance drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
               {option}
             </p>
         </div>
