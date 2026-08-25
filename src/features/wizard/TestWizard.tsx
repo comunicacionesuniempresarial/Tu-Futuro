@@ -7,7 +7,6 @@ import {
 } from "@/stores/test-store";
 import { QUESTION_BANK } from "@/lib/questions/question-bank";
 import { runScoringPipeline } from "@/lib/scoring/pipeline";
-import GamifiedProgress from "./GamifiedProgress";
 import QuestionCard from "./QuestionCard";
 import LayerTransition from "./LayerTransition";
 import { useRouter } from "next/navigation";
@@ -408,7 +407,15 @@ export default function TestWizard({ esPrueba = false }: { esPrueba?: boolean })
               <span className="hidden sm:inline text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--color-neon-secondary)] shrink-0">
                 ✦ Energía Mística
               </span>
-              <div className="h-2 flex-1 min-w-0 rounded-full bg-[var(--color-surface-elevated)] overflow-hidden relative">
+              <div
+                role="progressbar"
+                aria-label="Energía mística"
+                aria-valuemin={0}
+                aria-valuemax={TOTAL_STEPS}
+                aria-valuenow={displayStep}
+                data-motion={prefersReduced ? "static" : "animated"}
+                className="h-2 flex-1 min-w-0 rounded-full bg-[var(--color-surface-elevated)] overflow-hidden relative"
+              >
                 <div
                   className="mana-bar-fill h-full rounded-full"
                   style={{ transform: `scaleX(${Math.min(100, (displayStep / TOTAL_STEPS) * 100)}%)` }}
@@ -471,20 +478,15 @@ export default function TestWizard({ esPrueba = false }: { esPrueba?: boolean })
             </div>
 
             <div className="space-y-2 min-w-0">
-              <GamifiedProgress
-                currentStep={displayStep}
-                totalSteps={TOTAL_STEPS}
-                currentLayer={currentLayer}
-              />
               {!isDisclaimer && (
                 <LayerIndicator layer={currentLayer} />
               )}
               {!isDisclaimer && (
-                <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-center">
-                  <p className="text-xs font-semibold text-[var(--color-neon-secondary)]" aria-live="polite">
+                <div className="mt-2 flex flex-col items-center justify-center gap-1 rounded-xl border border-[var(--color-neon-secondary)]/25 bg-[var(--color-neon-secondary)]/10 px-4 py-2 text-center shadow-[0_0_22px_color-mix(in_srgb,var(--color-neon-secondary)_12%,transparent)]">
+                  <p className="text-sm sm:text-base font-bold text-[var(--color-neon-primary)] drop-shadow-[0_0_10px_color-mix(in_srgb,var(--color-neon-primary)_35%,transparent)]" aria-live="polite">
                     {ENCOURAGEMENTS[Math.min(ENCOURAGEMENTS.length - 1, Math.floor(displayStep / 4))]}
                   </p>
-                  <span className="text-[10px] uppercase tracking-[0.16em] text-[var(--color-text-secondary)]/70">
+                  <span className="text-[10px] uppercase tracking-[0.16em] text-[var(--color-text-secondary)]/80">
                     {currentLayer}/3 fases
                   </span>
                 </div>

@@ -29,7 +29,7 @@ const layer1Questions: Question[] = [
       "Proponer un plan épico y que todos se suban",
       "Charlar con un amigo y ayudarlo con un problema",
       "Inventar algo que a nadie se le hubiera ocurrido",
-      "Ponerme a investigar un tema hasta entenderlo por completo",
+      "Investigar un tema hasta entenderlo",
     ],
     images: [
       "/images/cards/forge.webp",
@@ -55,11 +55,11 @@ const layer1Questions: Question[] = [
     type: "single-choice",
     text: "Organizan una feria en tu barrio. ¿Qué te gustaría hacer?",
     options: [
-      "Montar los puestos y asegurarme de que todo funcione",
+      "Montar los puestos y hacer que todo funcione",
       "Recibir a todos para que se sientan bienvenidos",
       "Conseguir los mejores precios con los vendedores",
       "Decorar el espacio y que quede increíble",
-      "Controlar el presupuesto y que nada se pase del límite",
+      "Controlar el presupuesto",
     ],
     images: [
       "/images/cards/forge.webp",
@@ -116,9 +116,9 @@ const layer1Questions: Question[] = [
     text: "Te toca un proyecto grupal en el colegio. ¿En qué rol te sientes en tu zona?",
     options: [
       "El que arma la maqueta y la deja perfecta",
-      "El que investiga el porqué de las cosas con datos",
+      "El que investiga las cosas con datos",
       "El que diseña todo para que se vea único",
-      "El que ayuda a los que van perdidos hasta que entiendan",
+      "El que ayuda a quienes van perdidos",
       "El que motiva al grupo para que la presentación sea brutal",
     ],
     images: [
@@ -145,11 +145,11 @@ const layer1Questions: Question[] = [
     type: "single-choice",
     text: "¿Dónde podrías perderte por horas sin mirar el celular?",
     options: [
-      "En un taller armando y desarmando cosas con las manos",
+      "En un taller armando cosas con mis manos",
       "En un espacio sin reglas donde dar rienda suelta a mis ideas",
       "En un estudio lleno de colores y materiales para crear",
       "En un lugar donde me escuchen y pueda orientar a otros",
-      "En una reunión donde mi propuesta termine siendo la elegida",
+      "En una reunión defendiendo mi propuesta",
     ],
     images: [
       "/images/cards/forge.webp",
@@ -414,11 +414,11 @@ const baseQuestionBank: Question[] = [
 
 /** Copy and answer structure approved in the accompanying test guide. */
 const GUIDE_COPY: Record<string, Partial<Question>> = {
-  Q1: { text: "Les asignan un trabajo en grupo importante para final de periodo. ¿Qué rol terminas haciendo naturalmente?", options: ["Pongo las fechas, divido las partes y mantengo todo ordenado.", "Diseño las diapositivas o la presentación para que se vea genial.", "Investigo la información difícil y verifico que los datos sean correctos."], images: ["/images/cards/forge.webp", "/images/cards/forest.webp", "/images/cards/potions.webp"], riasecWeights: [{R:0,I:0,A:0,S:0,E:0,C:1},{R:0,I:0,A:1,S:0,E:0,C:0},{R:0,I:1,A:0,S:0,E:0,C:0}] },
-  Q2: { text: "Es fin de semana y no tienes tareas pendientes. ¿Qué prefieres hacer?", options: ["Desarmar o arreglar algo físico, como la bici, la PC o un control.", "Reunirme con amigos para charlar o ayudar a alguien que lo necesita."], images: ["/images/cards/forge.webp", "/images/cards/swamp.webp"], riasecWeights: [{R:1,I:0,A:0,S:0,E:0,C:0},{R:0,I:0,A:0,S:1,E:0,C:0}] },
-  Q3: { text: "En la feria de proyectos del colegio, ¿en cuál de estos roles te sentirías más a gusto?", options: ["Presentar el stand, hablar con la gente y vender la idea del grupo.", "Atender al público y asegurarme de que todos estén cómodos.", "Explicar el funcionamiento técnico o la demostración del experimento."], images: ["/images/cards/storm.webp", "/images/cards/swamp.webp", "/images/cards/potions.webp"], riasecWeights: [{R:0,I:0,A:0,S:0,E:1,C:0},{R:0,I:0,A:0,S:1,E:0,C:0},{R:0,I:1,A:0,S:0,E:0,C:0}] },
-  Q4: { text: "Si un dispositivo o una aplicación empieza a fallar, ¿qué haces primero?", options: ["Intento arreglarlo, reinicio o busco un tutorial para resolverlo.", "Le pregunto a alguien que sepa más o pido ayuda a un amigo."], images: ["/images/cards/forge.webp", "/images/cards/swamp.webp"], riasecWeights: [{R:.7,I:.3,A:0,S:0,E:0,C:0},{R:0,I:0,A:0,S:1,E:0,C:0}] },
-  Q5: { text: "Te dan libertad total para elegir el tema de una exposición escolar. ¿Qué camino eliges?", options: ["Crear una historia original, una ilustración, un cómic o un cortometraje.", "Investigar un fenómeno científico, tecnológico o misterio poco conocido.", "Proponer una idea de emprendimiento útil para mejorar el colegio."], images: ["/images/cards/forest.webp", "/images/cards/potions.webp", "/images/cards/storm.webp"], riasecWeights: [{R:0,I:0,A:1,S:0,E:0,C:0},{R:0,I:1,A:0,S:0,E:0,C:0},{R:0,I:0,A:0,S:0,E:1,C:0}] },
+   Q1: { text: "En un trabajo grupal, ¿qué rol asumes naturalmente?", options: ["Organizo fechas y reparto tareas.", "Diseño la presentación.", "Investigo y verifico los datos."], images: ["/images/cards/forge.webp", "/images/cards/forest.webp", "/images/cards/potions.webp"], riasecWeights: [{R:0,I:0,A:0,S:0,E:0,C:1},{R:0,I:0,A:1,S:0,E:0,C:0},{R:0,I:1,A:0,S:0,E:0,C:0}] },
+   Q2: { text: "Es fin de semana y no tienes tareas. ¿Qué prefieres?", options: ["Arreglar algo, como la bici o la PC.", "Reunirme con amigos o ayudar a alguien."], images: ["/images/cards/forge.webp", "/images/cards/swamp.webp"], riasecWeights: [{R:1,I:0,A:0,S:0,E:0,C:0},{R:0,I:0,A:0,S:1,E:0,C:0}] },
+   Q3: { text: "En una feria escolar, ¿qué rol prefieres?", options: ["Presentar el stand y vender la idea.", "Atender al público.", "Explicar el experimento."], images: ["/images/cards/storm.webp", "/images/cards/swamp.webp", "/images/cards/potions.webp"], riasecWeights: [{R:0,I:0,A:0,S:0,E:1,C:0},{R:0,I:0,A:0,S:1,E:0,C:0},{R:0,I:1,A:0,S:0,E:0,C:0}] },
+   Q4: { text: "Si un dispositivo falla, ¿qué haces primero?", options: ["Lo arreglo, reinicio o busco un tutorial.", "Pido ayuda a alguien que sepa más."], images: ["/images/cards/forge.webp", "/images/cards/swamp.webp"], riasecWeights: [{R:.7,I:.3,A:0,S:0,E:0,C:0},{R:0,I:0,A:0,S:1,E:0,C:0}] },
+   Q5: { text: "¿Qué tema elegirías para una exposición?", options: ["Crear una historia, cómic o cortometraje.", "Investigar un fenómeno o misterio.", "Proponer un emprendimiento para el colegio."], images: ["/images/cards/forest.webp", "/images/cards/potions.webp", "/images/cards/storm.webp"], riasecWeights: [{R:0,I:0,A:1,S:0,E:0,C:0},{R:0,I:1,A:0,S:0,E:0,C:0},{R:0,I:0,A:0,S:0,E:1,C:0}] },
   Q13: { text: "¿Qué tan identificado te sientes con esta frase? Prefiero tener una guía clara antes que inventarme todo desde cero.", options: ["Totalmente de acuerdo: me da seguridad saber qué se espera.", "En desacuerdo: prefiero improvisar y hacerlo a mi propio estilo."], images: ["/images/cards/forge.webp", "/images/cards/forest.webp"], aptitudeWeights: [[0,1,0,0],[0,0,1,0]] },
   Q14: { text: "En un torneo o concurso del colegio, ¿cómo aportas más al equipo?", options: ["Diseño el logo, la camiseta, la pancarta o la estética.", "Animo a la gente, organizo la estrategia y motivo al grupo.", "Llevo la lista, los horarios y me aseguro de que nada se olvide."], images: ["/images/cards/forest.webp", "/images/cards/swamp.webp", "/images/cards/forge.webp"], aptitudeWeights: [[0,0,1,0],[0,.5,0,.5],[0,1,0,0]] },
   Q15: { text: "Cuando quieres aprender una habilidad nueva por tu cuenta, ¿qué prefieres?", options: ["Ponerla en práctica de inmediato con herramientas o simuladores.", "Leer artículos y ver videos para entender la teoría antes de empezar."], images: ["/images/cards/forge.webp", "/images/cards/potions.webp"], aptitudeWeights: [[.7,.3,0,0],[1,0,0,0]] },
