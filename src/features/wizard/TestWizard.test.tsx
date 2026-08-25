@@ -96,6 +96,11 @@ describe("TestWizard (features/wizard)", () => {
     }, { timeout: 3000 });
   }
 
+  function startTest() {
+    fireEvent.click(screen.getByRole("button", { name: /Entendido, empezar/ }));
+    fireEvent.click(screen.getByRole("button", { name: "¡Estoy listo!" }));
+  }
+
   it("shows the disclaimer first with the gamified progress at zero", () => {
     render(<TestWizard />);
 
@@ -109,7 +114,7 @@ describe("TestWizard (features/wizard)", () => {
   it("starts the test and shows Q1 with progress updated", () => {
     render(<TestWizard />);
 
-    fireEvent.click(screen.getByRole("button", { name: /Entendido, empezar/ }));
+    startTest();
 
     expect(
       screen.getByText(QUESTION_BANK[0].text)
@@ -120,7 +125,7 @@ describe("TestWizard (features/wizard)", () => {
 
   it("transitions Q1 → Q2 and updates progress without scoring", async () => {
     render(<TestWizard />);
-    fireEvent.click(screen.getByRole("button", { name: /Entendido, empezar/ }));
+    startTest();
 
     await answerAndAdvance();
 
@@ -133,7 +138,7 @@ describe("TestWizard (features/wizard)", () => {
 
   it("does not advance when the current question is unanswered", () => {
     render(<TestWizard />);
-    fireEvent.click(screen.getByRole("button", { name: /Entendido, empezar/ }));
+    startTest();
 
     // No auto-advance indicator shown when unanswered
     expect(screen.queryByText("Avanzando…")).not.toBeInTheDocument();
@@ -144,7 +149,7 @@ describe("TestWizard (features/wizard)", () => {
 
   it("goes back to Q1 with a reverse transition", async () => {
     render(<TestWizard />);
-    fireEvent.click(screen.getByRole("button", { name: /Entendido, empezar/ }));
+    startTest();
 
     await answerAndAdvance();
     expect(
@@ -163,7 +168,7 @@ describe("TestWizard (features/wizard)", () => {
 
   it("shows the layer transition between layers 1 and 2, then continues", async () => {
     render(<TestWizard />);
-    fireEvent.click(screen.getByRole("button", { name: /Entendido, empezar/ }));
+    startTest();
 
     // Answer Q1..Q5 to complete layer 1.
     for (let i = 0; i < 5; i += 1) {
@@ -173,12 +178,11 @@ describe("TestWizard (features/wizard)", () => {
 
     // Land on step 6 → layer 2 transition screen.
     expect(
-      await screen.findByRole("heading", { name: "Aptitudes" })
+      await screen.findByRole("heading", { name: "¡Te estás luciendo!" })
     ).toBeInTheDocument();
-    expect(screen.getByText("Capa 2 de 3")).toBeInTheDocument();
     expect(mockRunScoring).not.toHaveBeenCalled();
 
-    fireEvent.click(screen.getByRole("button", { name: "Continuar" }));
+    fireEvent.click(screen.getByRole("button", { name: "¡Estoy listo!" }));
 
     expect(
       await screen.findByText(QUESTION_BANK[5].text)
@@ -189,7 +193,7 @@ describe("TestWizard (features/wizard)", () => {
 
   it("runs the scoring pipeline exactly once on the final step and persists results", async () => {
     render(<TestWizard />);
-    fireEvent.click(screen.getByRole("button", { name: /Entendido, empezar/ }));
+    startTest();
 
     // Answer Q1..Q14 with auto-advance, dismissing the layer
     // transition screens that appear after Q5 and Q10.
@@ -197,22 +201,18 @@ describe("TestWizard (features/wizard)", () => {
       await screen.findByText(QUESTION_BANK[i].text);
       await answerAndAdvance();
       if (i === 4 || i === 9) {
-        await screen.findByRole("button", { name: "Continuar" });
-        fireEvent.click(screen.getByRole("button", { name: "Continuar" }));
+        await screen.findByRole("button", { name: "¡Estoy listo!" });
+        fireEvent.click(screen.getByRole("button", { name: "¡Estoy listo!" }));
       }
     }
 
-    // Land on Q15 → answer and click Finalizar (last question, no auto-advance).
+    // Land on Q15 → answer and advance automatically after the feedback.
     expect(
       await screen.findByText(QUESTION_BANK[14].text)
     ).toBeInTheDocument();
     answerCurrent();
 
-    // Finalizar must be clicked on the last question
-    expect(screen.getByRole("button", { name: "Finalizar" })).toBeInTheDocument();
-    fireEvent.click(screen.getByRole("button", { name: "Finalizar" }));
-
-    expect(mockRunScoring).toHaveBeenCalledTimes(1);
+    await waitFor(() => expect(mockRunScoring).toHaveBeenCalledTimes(1));
     const persisted = sessionStorage.getItem("tufuturo-results");
     expect(persisted).not.toBeNull();
     expect(JSON.parse(persisted!)).toMatchObject({
@@ -234,7 +234,7 @@ describe("TestWizard (features/wizard)", () => {
     }));
 
     const { container } = render(<TestWizard />);
-    fireEvent.click(screen.getByRole("button", { name: /Entendido, empezar/ }));
+    startTest();
 
     expect(
       screen.getByText(QUESTION_BANK[0].text)
@@ -249,7 +249,7 @@ describe("TestWizard (features/wizard)", () => {
 
   it("auto-advances to the next question ~300ms after selecting an answer", async () => {
     render(<TestWizard />);
-    fireEvent.click(screen.getByRole("button", { name: /Entendido, empezar/ }));
+    startTest();
 
     const stepBefore = useTestStore.getState().step;
 
@@ -273,7 +273,7 @@ describe("TestWizard (features/wizard)", () => {
 
   it("cancels auto-advance when user selects a different answer", async () => {
     render(<TestWizard />);
-    fireEvent.click(screen.getByRole("button", { name: /Entendido, empezar/ }));
+    startTest();
 
     const stepBefore = useTestStore.getState().step;
 

@@ -3,7 +3,6 @@
 import {
   useTestStore,
   TOTAL_STEPS,
-  LAYER_NAMES,
 } from "@/stores/test-store";
 import { QUESTION_BANK } from "@/lib/questions/question-bank";
 import { runScoringPipeline } from "@/lib/scoring/pipeline";
@@ -13,27 +12,6 @@ import { useRouter } from "next/navigation";
 import { AnimatePresence, motion, MotionConfig } from "motion/react";
 import { useReducedMotion } from "@/features/shared/hooks/useReducedMotion";
 import { useRef, useCallback, useEffect, useState } from "react";
-
-/** Layer indicator badge shown in the header */
-function LayerIndicator({ layer }: { layer: 1 | 2 | 3 }) {
-  return (
-    <div className="flex items-center gap-2">
-      {[1, 2, 3].map((l) => (
-        <div
-          key={l}
-          className={`h-1.5 rounded-full transition-all duration-500 ${
-            l <= layer
-              ? "bg-[linear-gradient(135deg,var(--color-neon-primary),var(--color-neon-secondary))]"
-              : "bg-[var(--color-neon-secondary)]/15"
-            } ${l === layer ? "w-8" : "w-4"}`}
-        />
-      ))}
-      <span className="text-[var(--color-text-secondary)] text-xs font-medium ml-1">
-        {LAYER_NAMES[layer]}
-      </span>
-    </div>
-  );
-}
 
 /**
  * Gamified wizard: HP-bar progress (GamifiedProgress), per-answer feedback
@@ -46,6 +24,11 @@ const ENCOURAGEMENTS = [
   "Buena jugada. Sigue con lo primero que pienses.",
   "Tu resultado empieza a tomar forma.",
   "Ufff, vas muy bien. Rómpela en el siguiente nivel.",
+  "El modelo dual te espera!!!!",
+  "Vamos vamoss!!!",
+  "No la pienses!",
+  "Esa es la actitud, confia en tu instinto",
+  "Rompela, este es tu momento",
 ];
 
 export default function TestWizard({ esPrueba = false }: { esPrueba?: boolean }) {
@@ -70,6 +53,7 @@ export default function TestWizard({ esPrueba = false }: { esPrueba?: boolean })
   // Track which layer transitions have been dismissed so we don't re-show them
   // when the user navigates back and forth.
   const [dismissedTransitions, setDismissedTransitions] = useState<Set<number>>(new Set());
+  const [dismissedIntro, setDismissedIntro] = useState(false);
 
   const currentQuestion = step >= 1 && step <= TOTAL_STEPS
     ? QUESTION_BANK[step - 1]
@@ -101,6 +85,13 @@ export default function TestWizard({ esPrueba = false }: { esPrueba?: boolean })
       : null;
 
   const showTransition = transitionLayer !== null && !isDisclaimer;
+  const showIntroTransition =
+    disclaimerAccepted &&
+    step === 1 &&
+    Object.keys(answers).length === 0 &&
+    !dismissedIntro &&
+    !isDisclaimer;
+  const showAnyTransition = showIntroTransition || showTransition;
 
   // Auto-advance timeout ref — cleared if user changes selection before it fires
   const autoAdvanceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -267,6 +258,11 @@ export default function TestWizard({ esPrueba = false }: { esPrueba?: boolean })
 
     // If on a layer transition screen, dismiss it and stay on the same step
     // so the user can answer the first question of the new layer.
+    if (showIntroTransition) {
+      setDismissedIntro(true);
+      return;
+    }
+
     if (showTransition && transitionLayer !== null) {
       setDismissedTransitions((prev) => new Set(prev).add(step));
       return;
@@ -321,7 +317,7 @@ export default function TestWizard({ esPrueba = false }: { esPrueba?: boolean })
   const canGoBack = step > 1 && !isDisclaimer;
   const canGoNext =
     isDisclaimer ||
-    showTransition ||
+    showAnyTransition ||
     (currentQuestion && answers[currentQuestion.id] !== undefined);
 
   // Determine display step for progress bar
@@ -484,10 +480,7 @@ export default function TestWizard({ esPrueba = false }: { esPrueba?: boolean })
             </div>
 
             <div className="space-y-2 min-w-0">
-              {!isDisclaimer && (
-                <LayerIndicator layer={currentLayer} />
-              )}
-              {!isDisclaimer && (
+              {!isDisclaimer && !showAnyTransition && (
                 <div className="mt-2 flex flex-col items-center justify-center gap-1 rounded-xl border border-[var(--color-neon-secondary)]/25 bg-[var(--color-neon-secondary)]/10 px-4 py-2 text-center shadow-[0_0_22px_color-mix(in_srgb,var(--color-neon-secondary)_12%,transparent)]">
                   <p className="text-sm sm:text-base font-bold text-[var(--color-neon-primary)] drop-shadow-[0_0_10px_color-mix(in_srgb,var(--color-neon-primary)_35%,transparent)]" aria-live="polite">
                     {ENCOURAGEMENTS[Math.min(ENCOURAGEMENTS.length - 1, Math.floor(displayStep / 4))]}
@@ -553,15 +546,15 @@ export default function TestWizard({ esPrueba = false }: { esPrueba?: boolean })
           )}
 
           {/* Layer Transition Screen */}
-          {!isDisclaimer && showTransition && transitionLayer && (
+          {!isDisclaimer && showAnyTransition && (transitionLayer || showIntroTransition) && (
             <LayerTransition
-              layer={transitionLayer}
+              layer={transitionLayer ?? 1}
               onContinue={handleNext}
             />
           )}
 
           {/* Questions */}
-          {!isDisclaimer && !showTransition && currentQuestion && (
+          {!isDisclaimer && !showAnyTransition && currentQuestion && (
             <div className="space-y-5">
               {/* Warning banner for missing questions */}
               {warningMessage && (

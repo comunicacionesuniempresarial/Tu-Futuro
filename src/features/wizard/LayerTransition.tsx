@@ -2,52 +2,37 @@
 
 import { AnimatePresence, motion, MotionConfig } from "motion/react";
 import { useReducedMotion } from "@/features/shared/hooks/useReducedMotion";
-import { LAYER_NAMES, LAYER_DESCRIPTIONS } from "@/stores/test-store";
 
 interface LayerTransitionProps {
   layer: 1 | 2 | 3;
   onContinue: () => void;
 }
 
-/** Layer icon per layer — simple line SVGs, kept from the previous theme. */
-function LayerIcon({ layer }: { layer: 1 | 2 | 3 }) {
-  const cls = "w-10 h-10 text-[var(--color-deep)]";
-  switch (layer) {
-    case 1:
-      return (
-        <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-          <circle cx="12" cy="12" r="9" />
-          <circle cx="12" cy="12" r="5" />
-          <circle cx="12" cy="12" r="1.5" fill="currentColor" />
-        </svg>
-      );
-    case 2:
-      return (
-        <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-          <path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z" />
-        </svg>
-      );
-    case 3:
-      return (
-        <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-          <path d="M6 3h12l4 6-10 12L2 9l4-6z" />
-          <path d="M2 9h20" />
-          <path d="M12 21 8 9l4-6 4 6-4 12" />
-        </svg>
-      );
-  }
-}
+const STUDGARD_MESSAGES = {
+  1: {
+    title: "¡Eso es, vamos con toda!",
+    message: "Ya diste el primer paso. Sigue respondiendo con el corazón: aquí empieza lo que te hace único.",
+    image: "/images/studgard/studgard-open.png",
+  },
+  2: {
+    title: "¡Te estás luciendo!",
+    message: "Ya conocemos un poco de lo que te mueve. Ahora vamos a descubrir todo lo que puedes lograr.",
+    image: "/images/studgard/studgard-thumbs-up.png",
+  },
+  3: {
+    title: "¡Lo tienes al alcance!",
+    message: "Falta muy poco para conocer tu camino. Da este último paso y prepárate para sorprenderte.",
+    image: "/images/studgard/studgard-pointing.png",
+  },
+} as const;
 
-/**
- * Layer transition screen shown between wizard layers.
- * Framer Motion enter/exit (spring) between layer panels, transform/opacity
- * only, fully suppressed under prefers-reduced-motion.
- */
+/** Studgard's game-style intermission between test missions. */
 export default function LayerTransition({
   layer,
   onContinue,
 }: LayerTransitionProps) {
   const prefersReduced = useReducedMotion();
+  const dialogue = STUDGARD_MESSAGES[layer];
 
   return (
     <MotionConfig reducedMotion={prefersReduced ? "always" : "never"}>
@@ -58,45 +43,90 @@ export default function LayerTransition({
           data-motion={prefersReduced ? "static" : "animated"}
           initial={prefersReduced ? false : { opacity: 0, y: 28, scale: 0.98 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={
-            prefersReduced
-              ? undefined
-              : { opacity: 0, y: -28, scale: 0.98 }
-          }
+          exit={prefersReduced ? undefined : { opacity: 0, y: -28, scale: 0.98 }}
           transition={{ type: "spring", stiffness: 260, damping: 26, mass: 0.9 }}
-          className="space-y-8 will-change-transform"
+          className="relative mx-auto grid min-h-0 max-w-5xl items-center gap-1 overflow-hidden rounded-[2rem] border border-[var(--color-neon-secondary)]/35 bg-[radial-gradient(circle_at_28%_42%,color-mix(in_srgb,var(--color-neon-secondary)_14%,transparent),transparent_38%),linear-gradient(120deg,color-mix(in_srgb,var(--color-surface)_94%,transparent),color-mix(in_srgb,var(--color-deep)_92%,transparent))] px-4 py-4 shadow-[0_0_55px_color-mix(in_srgb,var(--color-neon-secondary)_16%,transparent)] sm:gap-2 sm:px-8 sm:py-6 lg:grid-cols-[1.05fr_.95fr] lg:px-12"
         >
-          <div className="glass-panel rounded-3xl p-8 md:p-12 space-y-6 text-center shadow-[0_8px_40px_rgba(0,0,0,0.45)]">
-            <div className="relative w-24 h-24 mx-auto">
-              {!prefersReduced && (
-                <span
-                  aria-hidden="true"
-                  className="absolute inset-0 rounded-2xl border-2 border-[var(--color-neon-primary)]/40 animate-ring-expand"
-                />
-              )}
-              <div className="relative w-24 h-24 rounded-2xl bg-[linear-gradient(135deg,var(--color-neon-primary),var(--color-neon-secondary))] flex items-center justify-center shadow-[0_0_30px_color-mix(in_srgb,var(--color-neon-primary)_35%,transparent)]">
-                <LayerIcon layer={layer} />
-              </div>
+          <motion.div
+            aria-hidden="true"
+            className="pointer-events-none absolute -left-20 top-1/2 h-64 w-64 -translate-y-1/2 rounded-full bg-[var(--color-neon-secondary)]/10 blur-3xl"
+            animate={prefersReduced ? undefined : { scale: [0.85, 1.2, 0.85], opacity: [0.35, 0.7, 0.35] }}
+            transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.div
+            aria-hidden="true"
+            className="pointer-events-none absolute right-1/4 top-8 h-2 w-2 rounded-full bg-[var(--color-neon-primary)] shadow-[0_0_18px_var(--color-neon-primary)]"
+            animate={prefersReduced ? undefined : { scale: [1, 2.4, 1], opacity: [0.4, 1, 0.4] }}
+            transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+          />
+          {!prefersReduced && [
+            ["12%", "18%", "0.2s"], ["25%", "82%", "0.8s"], ["58%", "12%", "1.1s"],
+            ["76%", "70%", "0.4s"], ["88%", "42%", "1.6s"], ["40%", "94%", "1.9s"],
+          ].map(([top, left, delay], index) => (
+            <motion.span
+              key={index}
+              aria-hidden="true"
+              className="pointer-events-none absolute h-1.5 w-1.5 rounded-full bg-[var(--color-neon-secondary)] shadow-[0_0_12px_var(--color-neon-secondary)]"
+              style={{ top, left }}
+              animate={{ y: [0, -18, 0], opacity: [0.2, 1, 0.2], scale: [0.7, 1.4, 0.7] }}
+              transition={{ duration: 2.8 + index * 0.35, delay: Number.parseFloat(delay), repeat: Infinity, ease: "easeInOut" }}
+            />
+          ))}
+
+          <div className="relative z-10 flex flex-col items-center text-center lg:items-start lg:text-left">
+            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[var(--color-neon-secondary)]/45 bg-[var(--color-neon-secondary)]/10 px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-neon-secondary)] shadow-[0_0_18px_color-mix(in_srgb,var(--color-neon-secondary)_18%,transparent)]">
+              <span className="h-2 w-2 animate-pulse rounded-full bg-[var(--color-neon-primary)]" />
+              Studgard en línea
             </div>
-            <div>
-              <p className="text-[var(--color-neon-secondary)] text-sm font-bold uppercase tracking-widest mb-2">
-                Capa {layer} de 3
-              </p>
-              <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-[var(--color-neon-primary)] drop-shadow-[0_0_18px_color-mix(in_srgb,var(--color-neon-primary)_35%,transparent)]">
-                {LAYER_NAMES[layer]}
+
+            <motion.div
+              className="relative w-full max-w-xl rounded-[1.75rem] border-2 border-[var(--color-neon-primary)]/65 bg-[var(--color-deep)]/90 px-5 py-5 shadow-[0_0_32px_color-mix(in_srgb,var(--color-neon-primary)_18%,transparent)] sm:px-8 sm:py-8"
+              initial={prefersReduced ? false : { opacity: 0, x: -24, scale: 0.94 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              transition={{ type: "spring", stiffness: 240, damping: 22, delay: 0.18 }}
+            >
+              <span aria-hidden="true" className="absolute -bottom-4 left-12 h-7 w-7 rotate-45 border-b-2 border-r-2 border-[var(--color-neon-primary)]/65 bg-[var(--color-deep)]/90" />
+              <h2 className="font-display text-3xl font-black leading-tight text-[var(--color-neon-primary)] drop-shadow-[0_0_18px_color-mix(in_srgb,var(--color-neon-primary)_42%,transparent)] sm:text-4xl lg:text-5xl">
+                {dialogue.title}
               </h2>
-            </div>
-            <p className="text-[var(--color-text-secondary)] text-xl md:text-2xl leading-relaxed max-w-lg mx-auto">
-              {LAYER_DESCRIPTIONS[layer]}
-            </p>
+              <p className="mt-5 text-lg font-semibold leading-relaxed text-[var(--color-text-primary)] sm:text-xl">
+                {dialogue.message}
+              </p>
+              {!prefersReduced && (
+                <div aria-hidden="true" className="mt-5 flex h-4 items-end gap-1 opacity-70">
+                  {[0, 1, 2, 3, 4, 5, 6].map((bar) => (
+                    <motion.span
+                      key={bar}
+                      className="w-1 rounded-full bg-[var(--color-neon-secondary)]"
+                      animate={{ height: [5, 10 + (bar % 3) * 4, 5] }}
+                      transition={{ duration: 0.8, delay: bar * 0.08, repeat: Infinity, ease: "easeInOut" }}
+                    />
+                  ))}
+                </div>
+              )}
+            </motion.div>
+
+            <button
+              onClick={onContinue}
+              className="relative z-10 mt-6 w-full max-w-xl rounded-2xl bg-[linear-gradient(135deg,var(--color-neon-primary),var(--color-neon-secondary))] py-3.5 font-black text-[var(--color-deep)] shadow-[0_0_30px_color-mix(in_srgb,var(--color-neon-primary)_35%,transparent)] transition-transform duration-150 hover:scale-[1.02] active:scale-[0.98] sm:mt-8 sm:py-4"
+            >
+              ¡Estoy listo! <span aria-hidden="true">→</span>
+            </button>
           </div>
 
-          <button
-            onClick={onContinue}
-            className="w-full font-bold py-4 rounded-2xl text-[var(--color-text-primary)] bg-[linear-gradient(135deg,var(--color-neon-primary),var(--color-neon-secondary))] transition-transform duration-150 will-change-transform hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_24px_color-mix(in_srgb,var(--color-neon-primary)_35%,transparent)]"
-          >
-            Continuar
-          </button>
+          <div className="relative z-10 flex h-[210px] items-end justify-center sm:h-[300px] lg:h-[500px]">
+            {!prefersReduced && (
+              <div aria-hidden="true" className="absolute bottom-8 h-24 w-64 rounded-full bg-[var(--color-neon-primary)]/20 blur-3xl" />
+            )}
+            <motion.img
+              src={dialogue.image}
+              alt="Studgard, tu guía del duelo"
+              className={`relative h-full w-auto object-contain drop-shadow-[0_18px_28px_rgba(0,0,0,0.5)] ${prefersReduced ? "" : "animate-float"}`}
+              initial={prefersReduced ? false : { opacity: 0, scale: 0.88, y: 22 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ type: "spring", stiffness: 220, damping: 20, delay: 0.12 }}
+            />
+          </div>
         </motion.div>
       </AnimatePresence>
     </MotionConfig>
