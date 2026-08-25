@@ -1125,6 +1125,28 @@ body {
   background: linear-gradient(135deg, var(--color-neon-primary), var(--color-neon-secondary));
 }
 
+/* ── Mobile GPU budget: retain the atmosphere without continuous decoration ── */
+@media (max-width: 767px) {
+  .landing-energy,
+  .ambient-rays,
+  .ambient-stars,
+  .particle {
+    display: none;
+  }
+
+  .ambient-bg::before {
+    display: none;
+  }
+
+  .question-card::after {
+    animation: none;
+  }
+
+  .question-card {
+    box-shadow: 0 12px 24px color-mix(in srgb, var(--color-deep) 62%, transparent), inset 0 0 0 1px rgba(255,255,255,.04);
+  }
+}
+
 /* ── Reduced motion: respeta la preferencia del sistema ── */
 @media (prefers-reduced-motion: reduce) {
   *,

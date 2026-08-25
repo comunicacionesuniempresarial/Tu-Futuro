@@ -115,7 +115,7 @@ export default function AdminLayout({
         {/* Mobile header */}
         <div className="flex-1 flex flex-col">
           <header className="md:hidden flex items-center justify-between p-4 border-b border-slate-200/70 bg-white/90 backdrop-blur-md">
-            <Link href="/" className="flex items-center gap-2">
+            <Link href="/" className="flex items-center gap-1 sm:gap-2">
               <div className="w-8 h-8 bg-gradient-to-br from-[#22D3EE] to-[#E879F9] rounded-lg flex items-center justify-center font-bold text-xs text-white">
                 UF
               </div>
@@ -133,7 +133,7 @@ export default function AdminLayout({
                     key={item.href}
                     href={item.href}
                     aria-label={item.label}
-                    className={`p-2 rounded-lg transition-colors ${
+                    className={`flex min-h-11 min-w-11 items-center justify-center rounded-lg transition-colors ${
                       isActive
                         ? "bg-[#22D3EE]/10 text-[#22D3EE]"
                         : "text-slate-400 hover:text-[#E879F9]"
@@ -146,7 +146,7 @@ export default function AdminLayout({
               <button
                 onClick={() => signOut({ callbackUrl: "/admin/login" })}
                 aria-label="Cerrar sesión"
-                className="p-2 rounded-lg text-slate-400 hover:text-[#22D3EE] hover:bg-[#22D3EE]/10 transition-colors"
+                className="flex min-h-11 min-w-11 items-center justify-center rounded-lg text-slate-400 hover:text-[#22D3EE] hover:bg-[#22D3EE]/10 transition-colors"
               >
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />

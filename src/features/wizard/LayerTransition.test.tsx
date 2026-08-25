@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import LayerTransition from "./LayerTransition";
 
 describe("LayerTransition", () => {
@@ -21,59 +21,36 @@ describe("LayerTransition", () => {
     }));
   }
 
-  it("renders the layer panel with name, description and continue button", () => {
+  it("renders Studgard's motivational dialogue and primary action", () => {
     mockMatchMedia(false);
-
     render(<LayerTransition layer={2} onContinue={vi.fn()} />);
 
-    expect(screen.getByText("Capa 2 de 3")).toBeInTheDocument();
-    expect(
-      screen.getByRole("heading", { name: "Aptitudes" })
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText("Ufff, vas muy bien. Ahora descubre lo que se te da especialmente bien.")
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("button", { name: "Continuar" })
-    ).toBeInTheDocument();
+    expect(screen.getByText("Studgard en línea")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "¡Te estás luciendo!" })).toBeInTheDocument();
+    expect(screen.getByText(/Ahora vamos a descubrir todo lo que puedes lograr/)).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "¡Estoy listo!" })).toBeInTheDocument();
   });
 
-  it("fires onContinue when the user continues", () => {
+  it("fires onContinue when the user is ready", () => {
     mockMatchMedia(false);
-
     const onContinue = vi.fn();
     render(<LayerTransition layer={1} onContinue={onContinue} />);
 
-    fireEvent.click(screen.getByRole("button", { name: "Continuar" }));
-
+    fireEvent.click(screen.getByRole("button", { name: "¡Estoy listo!" }));
     expect(onContinue).toHaveBeenCalledTimes(1);
   });
 
   it("marks the transition animated when motion is allowed", () => {
     mockMatchMedia(false);
-
-    const { container } = render(
-      <LayerTransition layer={1} onContinue={vi.fn()} />
-    );
-
-    expect(container.querySelector("[data-layer-transition]")).toHaveAttribute(
-      "data-motion",
-      "animated"
-    );
+    const { container } = render(<LayerTransition layer={1} onContinue={vi.fn()} />);
+    expect(container.querySelector("[data-layer-transition]")).toHaveAttribute("data-motion", "animated");
   });
 
-  it("switches to the next layer panel on layer change", async () => {
+  it("updates Studgard's dialogue when the layer changes", async () => {
     mockMatchMedia(false);
-
-    const { rerender } = render(
-      <LayerTransition layer={2} onContinue={vi.fn()} />
-    );
-
+    const { rerender } = render(<LayerTransition layer={2} onContinue={vi.fn()} />);
     rerender(<LayerTransition layer={3} onContinue={vi.fn()} />);
 
-    expect(
-      await screen.findByRole("heading", { name: "Valores y Estilo de Vida" })
-    ).toBeInTheDocument();
+    expect(await screen.findByRole("heading", { name: "¡Lo tienes al alcance!" })).toBeInTheDocument();
   });
-
-  });
+});

@@ -268,7 +268,33 @@ export default function LeadsTable({
             No se encontraron leads
           </div>
         ) : (
-          <div className="overflow-x-auto">
+          <>
+          <div className="divide-y divide-slate-100 md:hidden">
+            {leads.map((lead) => (
+              <button
+                key={lead.id}
+                type="button"
+                onClick={() => onSelectLead(lead)}
+                className="w-full px-4 py-4 text-left transition-colors hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#22D3EE]"
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <div className="min-w-0">
+                    <p className="truncate font-medium text-slate-900">{lead.nombre}</p>
+                    <p className="truncate text-sm text-slate-500">{lead.email}</p>
+                  </div>
+                  <span className="shrink-0 text-sm font-bold text-[#E879F9]">{lead.compatibilidad_1}%</span>
+                </div>
+                <div className="mt-3 flex flex-wrap items-center gap-2 text-xs text-slate-500">
+                  <span>{lead.arquetipo}</span>
+                  <span aria-hidden="true">•</span>
+                  <span>{modalityLabel(lead.modality)}</span>
+                  <span className={"inline-flex rounded-full px-2.5 py-1 font-medium " + statusBadgeClasses(lead.estado)}>{statusLabel(lead.estado)}</span>
+                </div>
+                <p className="mt-2 text-xs text-slate-400">{new Date(lead.timestamp).toLocaleDateString("es-CO")}</p>
+              </button>
+            ))}
+          </div>
+          <div className="hidden overflow-x-auto md:block">
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-slate-200/70 bg-slate-50/60">
@@ -339,12 +365,13 @@ export default function LeadsTable({
               </tbody>
             </table>
           </div>
+          </>
         )}
       </div>
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="text-sm text-slate-500">
             {total} leads encontrados
           </div>
@@ -352,7 +379,7 @@ export default function LeadsTable({
             <button
               onClick={() => setPage(Math.max(1, page - 1))}
               disabled={page === 1}
-              className="px-4 py-2 rounded-xl bg-white border border-slate-200 text-slate-600 hover:text-[#E879F9] hover:border-[#E879F9]/40 disabled:opacity-30 disabled:cursor-not-allowed text-sm transition-all duration-300 shadow-sm"
+              className="min-h-11 px-4 py-2 rounded-xl bg-white border border-slate-200 text-slate-600 hover:text-[#E879F9] hover:border-[#E879F9]/40 disabled:opacity-30 disabled:cursor-not-allowed text-sm transition-all duration-300 shadow-sm"
             >
               Anterior
             </button>
@@ -362,7 +389,7 @@ export default function LeadsTable({
             <button
               onClick={() => setPage(Math.min(totalPages, page + 1))}
               disabled={page === totalPages}
-              className="px-4 py-2 rounded-xl bg-white border border-slate-200 text-slate-600 hover:text-[#E879F9] hover:border-[#E879F9]/40 disabled:opacity-30 disabled:cursor-not-allowed text-sm transition-all duration-300 shadow-sm"
+              className="min-h-11 px-4 py-2 rounded-xl bg-white border border-slate-200 text-slate-600 hover:text-[#E879F9] hover:border-[#E879F9]/40 disabled:opacity-30 disabled:cursor-not-allowed text-sm transition-all duration-300 shadow-sm"
             >
               Siguiente
             </button>

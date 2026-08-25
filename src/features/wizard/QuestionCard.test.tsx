@@ -1,4 +1,4 @@
-import { render, fireEvent } from "@testing-library/react";
+﻿import { render, fireEvent } from "@testing-library/react";
 import QuestionCard from "./QuestionCard";
 import type { Question } from "@/lib/scoring/types";
 
@@ -238,9 +238,10 @@ describe("QuestionCard", () => {
     // Images are on the inner image area [data-card-image], not on the button itself
     const imageAreas = container.querySelectorAll("[data-card-image]");
     expect(imageAreas).toHaveLength(3);
-    expect(imageAreas[0]).toHaveStyle({ backgroundImage: "url('/images/cards/forge.webp')" });
-    expect(imageAreas[1]).toHaveStyle({ backgroundImage: "url('/images/cards/forest.webp')" });
-    expect(imageAreas[2]).toHaveStyle({ backgroundImage: "url('/images/cards/swamp.webp')" });
+    expect(imageAreas[0]).toHaveAttribute("data-card-image", "/images/cards/forge.webp");
+    expect(imageAreas[1]).toHaveAttribute("data-card-image", "/images/cards/forest.webp");
+    expect(imageAreas[2]).toHaveAttribute("data-card-image", "/images/cards/swamp.webp");
+    expect(imageAreas[0].querySelector("img")).toBeInTheDocument();
   });
 
   it("renders cards without images when images array is absent (backward compatible)", () => {

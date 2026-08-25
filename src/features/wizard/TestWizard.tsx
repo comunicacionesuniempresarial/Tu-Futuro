@@ -324,7 +324,7 @@ export default function TestWizard({ esPrueba = false }: { esPrueba?: boolean })
   const displayStep = isDisclaimer ? 0 : step;
 
   return (
-    <div className="min-h-screen md:h-screen bg-[var(--color-bg)] flex flex-col relative md:overflow-hidden">
+    <div className="min-h-[100dvh] bg-[var(--color-bg)] flex flex-col relative overflow-x-clip">
       {/* Ambient duel background — rayos de luz, estrellas, partículas y orbes */}
       <div aria-hidden="true" className="ambient-bg" />
       {!prefersReduced && (
@@ -402,10 +402,10 @@ export default function TestWizard({ esPrueba = false }: { esPrueba?: boolean })
 
       {/* Header with progress */}
       <div className="sticky top-0 z-40 glass">
-        <div className="w-full px-3 sm:px-6 py-3 sm:py-4 relative">
+        <div className="w-full overflow-x-clip px-3 py-3 sm:px-6 sm:py-4 relative">
           <div className="space-y-3">
             {/* Mana bar — energía mística del duelo */}
-            <div className="flex items-center gap-2 sm:gap-3">
+            <div className="grid grid-cols-[minmax(0,1fr)_auto_auto] items-center gap-2 sm:flex sm:gap-3">
               <span className="hidden sm:inline text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--color-neon-secondary)] shrink-0">
                 ✦ Energía Mística
               </span>
@@ -445,7 +445,7 @@ export default function TestWizard({ esPrueba = false }: { esPrueba?: boolean })
                   />
                 ))}
               </div>
-              <span className="text-xs font-bold text-[var(--color-text-secondary)] shrink-0 tabular-nums">
+              <span className="hidden min-[420px]:inline text-xs font-bold text-[var(--color-text-secondary)] shrink-0 tabular-nums">
                 {isDisclaimer
                   ? "Intro"
                   : `Pregunta ${displayStep} de ${TOTAL_STEPS}`}
@@ -453,7 +453,7 @@ export default function TestWizard({ esPrueba = false }: { esPrueba?: boolean })
               {/* Audio toggle */}
               <button
                 onClick={toggleAudio}
-                className="flex items-center justify-center w-8 h-8 text-[var(--color-text-secondary)] hover:text-[var(--color-neon-secondary)] transition-colors shrink-0"
+                className="flex min-h-11 min-w-11 items-center justify-center rounded-xl text-[var(--color-text-secondary)] transition-colors hover:text-[var(--color-neon-secondary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-neon-primary)] shrink-0"
                 aria-label={audioPlaying ? "Pausar música" : "Reproducir música"}
               >
                 {audioPlaying ? (
@@ -469,7 +469,7 @@ export default function TestWizard({ esPrueba = false }: { esPrueba?: boolean })
               {/* Abandonar el duelo — texto completo en sm+, solo X en mobile */}
               <button
                 onClick={requestAbandon}
-                className="flex items-center justify-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.12em] px-2 sm:px-3 py-1.5 rounded-lg border border-[var(--color-border)] text-[var(--color-text-secondary)] hover:border-[var(--color-error)] hover:text-[var(--color-error)] transition-colors shrink-0"
+                className="flex min-h-11 min-w-11 items-center justify-center gap-1.5 rounded-xl border border-[var(--color-border)] px-2 py-1.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-[var(--color-text-secondary)] transition-colors hover:border-[var(--color-error)] hover:text-[var(--color-error)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-neon-primary)] shrink-0"
                 aria-label="Abandonar duelo"
               >
                 <svg className="w-4 h-4 sm:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -496,14 +496,14 @@ export default function TestWizard({ esPrueba = false }: { esPrueba?: boolean })
       </div>
 
       {/* Content */}
-      <div className="flex-1 md:flex md:items-center md:justify-center px-4 pt-6 pb-4 md:py-6 relative z-10 md:overflow-hidden">
+      <div className="flex-1 px-4 pb-6 pt-5 sm:px-6 sm:pt-6 lg:flex lg:items-center lg:justify-center lg:py-6 relative z-10 overflow-x-clip">
         <div className="w-full max-w-6xl mx-auto">
           {/* Disclaimer */}
           {isDisclaimer && (
             <div className="max-w-3xl mx-auto space-y-6">
               <div className="rounded-2xl p-6 md:p-8 border border-[var(--color-border)] space-y-5 bg-[var(--color-surface)]/80 backdrop-blur-xl">
-                <h2 className="text-2xl md:text-3xl font-bold text-[var(--color-text-primary)] flex items-center gap-3">
-                  <span className="w-12 h-12 rounded-xl flex items-center justify-center text-xl text-[var(--color-text-secondary)]">
+                <h2 className="flex min-w-0 items-start gap-3 text-xl font-bold text-[var(--color-text-primary)] sm:text-2xl md:text-3xl">
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-xl text-[var(--color-text-secondary)] sm:h-12 sm:w-12">
                     <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
                       <path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" />
                       <path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" />
@@ -512,7 +512,7 @@ export default function TestWizard({ esPrueba = false }: { esPrueba?: boolean })
                       <path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2" />
                     </svg>
                   </span>
-                  Descargo de Responsabilidad
+                  <span className="min-w-0 break-words">Descargo de Responsabilidad</span>
                 </h2>
                 <div className="space-y-3 text-[var(--color-text-secondary)] text-lg md:text-xl leading-relaxed">
                   <p>
@@ -612,32 +612,12 @@ export default function TestWizard({ esPrueba = false }: { esPrueba?: boolean })
                   </button>
                 )}
 
-                {step === TOTAL_STEPS ? (
-                  <button
-                    onClick={handleNext}
-                    disabled={!canGoNext}
-                    className={`flex-1 flex items-center justify-center gap-2 py-3.5 rounded-2xl font-bold transition-transform duration-150 will-change-transform ${
-                      canGoNext
-                        ? `text-[var(--color-text-primary)] bg-[linear-gradient(135deg,var(--color-neon-primary),var(--color-neon-secondary))] hover:scale-[1.02] active:scale-[0.98] ${
-                            prefersReduced ? "" : "animate-breathe-glow"
-                          }`
-                        : "bg-[var(--color-surface)] text-[var(--color-text-secondary)]/50 cursor-not-allowed"
-                    }`}
-                  >
-                    Finalizar
-                  </button>
-                ) : (
-                  /* Non-final questions: auto-advance handles progression.
-                     Show a subtle visual indicator while the auto-advance timer is pending. */
-                  <div
-                    className="flex-1 flex items-center justify-center py-3.5 rounded-2xl font-bold text-[var(--color-text-secondary)]/40"
-                    aria-live="polite"
-                  >
-                    {canGoNext && (
-                      <span className="text-sm">Avanzando…</span>
-                    )}
-                  </div>
-                )}
+                <div
+                  className="flex min-h-12 flex-1 items-center justify-center rounded-2xl py-3.5 font-bold text-[var(--color-text-secondary)]/40"
+                  aria-live="polite"
+                >
+                  {canGoNext && <span className="text-sm">Avanzando…</span>}
+                </div>
               </div>
             </div>
           )}

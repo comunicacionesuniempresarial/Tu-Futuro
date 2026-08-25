@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import type { CSSProperties } from "react";
 import { useReducedMotion } from "@/features/shared/hooks/useReducedMotion";
 import type { Question } from "@/lib/scoring/types";
@@ -127,16 +128,17 @@ function OptionCard({
       {/* Fondo completo detrás de las letras (Full-bleed card art) */}
       <div
         data-card-image={image ?? undefined}
-        className="absolute inset-0 z-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-110"
-        style={
-          image
-            ? {
-                backgroundImage: `url('${image}')`,
-              }
-            : undefined
-        }
+        className="absolute inset-0 z-0 overflow-hidden"
       >
-        {!image && (
+        {image ? (
+          <Image
+            src={image}
+            alt=""
+            fill
+            sizes="(max-width: 639px) 78vw, (max-width: 1023px) 50vw, 25vw"
+            className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-110"
+          />
+        ) : (
           <div className="absolute inset-0 bg-[linear-gradient(145deg,var(--color-surface-elevated),var(--color-deep))]" />
         )}
       </div>

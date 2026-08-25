@@ -57,3 +57,10 @@ next-env.d.ts
 
 # dev server log
 dev-server.log
+# Local Pi runtime state
+.atl/
+
+# local responsive/performance audit artifacts
+/.codegraph/
+/.ui-audit/
+*.log

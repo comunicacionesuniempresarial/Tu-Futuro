@@ -51,6 +51,7 @@ describe("components/test/TestWizard (delegate)", () => {
     ).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole("button", { name: /Entendido, empezar/ }));
+    fireEvent.click(screen.getByRole("button", { name: "¡Estoy listo!" }));
 
     expect(
       screen.getByText(QUESTION_BANK[0].text)

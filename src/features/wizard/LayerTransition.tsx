@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { AnimatePresence, motion, MotionConfig } from "motion/react";
 import { useReducedMotion } from "@/features/shared/hooks/useReducedMotion";
 
@@ -12,17 +13,17 @@ const STUDGARD_MESSAGES = {
   1: {
     title: "¡Eso es, vamos con toda!",
     message: "Ya diste el primer paso. Sigue respondiendo con el corazón: aquí empieza lo que te hace único.",
-    image: "/images/studgard/studgard-open.png",
+    image: { src: "/images/studgard/studgard-open.png", width: 1214, height: 1149 },
   },
   2: {
     title: "¡Te estás luciendo!",
     message: "Ya conocemos un poco de lo que te mueve. Ahora vamos a descubrir todo lo que puedes lograr.",
-    image: "/images/studgard/studgard-thumbs-up.png",
+    image: { src: "/images/studgard/studgard-thumbs-up.png", width: 740, height: 1148 },
   },
   3: {
     title: "¡Lo tienes al alcance!",
     message: "Falta muy poco para conocer tu camino. Da este último paso y prepárate para sorprenderte.",
-    image: "/images/studgard/studgard-pointing.png",
+    image: { src: "/images/studgard/studgard-pointing.png", width: 1143, height: 1376 },
   },
 } as const;
 
@@ -108,24 +109,32 @@ export default function LayerTransition({
 
             <button
               onClick={onContinue}
-              className="relative z-10 mt-6 w-full max-w-xl rounded-2xl bg-[linear-gradient(135deg,var(--color-neon-primary),var(--color-neon-secondary))] py-3.5 font-black text-[var(--color-deep)] shadow-[0_0_30px_color-mix(in_srgb,var(--color-neon-primary)_35%,transparent)] transition-transform duration-150 hover:scale-[1.02] active:scale-[0.98] sm:mt-8 sm:py-4"
+              className="relative z-10 mt-6 min-h-12 w-full max-w-xl rounded-2xl bg-[linear-gradient(135deg,var(--color-neon-primary),var(--color-neon-secondary))] py-3.5 font-black text-[var(--color-deep)] shadow-[0_0_30px_color-mix(in_srgb,var(--color-neon-primary)_35%,transparent)] transition-transform duration-150 hover:scale-[1.02] active:scale-[0.98] sm:mt-8 sm:py-4"
             >
               ¡Estoy listo! <span aria-hidden="true">→</span>
             </button>
           </div>
 
-          <div className="relative z-10 flex h-[210px] items-end justify-center sm:h-[300px] lg:h-[500px]">
+          <div className="relative z-10 flex h-[190px] items-end justify-center sm:h-[300px] lg:h-[500px]">
             {!prefersReduced && (
               <div aria-hidden="true" className="absolute bottom-8 h-24 w-64 rounded-full bg-[var(--color-neon-primary)]/20 blur-3xl" />
             )}
-            <motion.img
-              src={dialogue.image}
-              alt="Studgard, tu guía del duelo"
-              className={`relative h-full w-auto object-contain drop-shadow-[0_18px_28px_rgba(0,0,0,0.5)] ${prefersReduced ? "" : "animate-float"}`}
+            <motion.div
+              className={`relative h-full ${prefersReduced ? "" : "animate-float"}`}
               initial={prefersReduced ? false : { opacity: 0, scale: 0.88, y: 22 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ type: "spring", stiffness: 220, damping: 20, delay: 0.12 }}
-            />
+            >
+              <Image
+                src={dialogue.image.src}
+                width={dialogue.image.width}
+                height={dialogue.image.height}
+                sizes="(max-width: 639px) 70vw, (max-width: 1023px) 50vw, 42vw"
+                preload
+                alt="Studgard, tu guía del duelo"
+                className="h-full w-auto object-contain drop-shadow-[0_18px_28px_rgba(0,0,0,0.5)]"
+              />
+            </motion.div>
           </div>
         </motion.div>
       </AnimatePresence>

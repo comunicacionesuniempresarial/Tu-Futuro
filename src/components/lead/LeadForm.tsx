@@ -172,52 +172,61 @@ export default function LeadForm({
 
       {/* Nombre */}
       <div className="space-y-2">
-        <label className="block text-base font-semibold text-[var(--color-text-primary)]">
+        <label htmlFor="lead-nombre" className="block text-base font-semibold text-[var(--color-text-primary)]">
           Nombre de Invocador
         </label>
         <input
+          id="lead-nombre"
           type="text"
           value={formData.nombre}
+          aria-invalid={Boolean(errors.nombre)}
+          aria-describedby={errors.nombre ? "lead-nombre-error" : undefined}
           onChange={(e) => handleChange("nombre", e.target.value)}
           className="w-full p-4 rounded-xl bg-[var(--color-bg)]/60 border border-[var(--color-border)] text-[var(--color-text-primary)] placeholder-[var(--color-text-secondary)] focus:border-[var(--color-neon-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-neon-primary)]/20 transition-all text-lg"
           placeholder="Tu nombre"
         />
         {errors.nombre && (
-          <p className="text-sm text-red-500">{errors.nombre}</p>
+          <p id="lead-nombre-error" role="alert" className="text-sm text-red-500">{errors.nombre}</p>
         )}
       </div>
 
       {/* Email */}
       <div className="space-y-2">
-        <label className="block text-base font-semibold text-[var(--color-text-primary)]">
+        <label htmlFor="lead-email" className="block text-base font-semibold text-[var(--color-text-primary)]">
           Orbe de Comunicación
         </label>
         <input
+          id="lead-email"
           type="email"
           value={formData.email}
+          aria-invalid={Boolean(errors.email)}
+          aria-describedby={errors.email ? "lead-email-error" : undefined}
           onChange={(e) => handleChange("email", e.target.value)}
           className="w-full p-4 rounded-xl bg-[var(--color-bg)]/60 border border-[var(--color-border)] text-[var(--color-text-primary)] placeholder-[var(--color-text-secondary)] focus:border-[var(--color-neon-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-neon-primary)]/20 transition-all text-lg"
           placeholder="tu@email.com"
         />
         {errors.email && (
-          <p className="text-sm text-red-500">{errors.email}</p>
+          <p id="lead-email-error" role="alert" className="text-sm text-red-500">{errors.email}</p>
         )}
       </div>
 
       {/* Celular */}
       <div className="space-y-2">
-        <label className="block text-base font-semibold text-[var(--color-text-primary)]">
+        <label htmlFor="lead-celular" className="block text-base font-semibold text-[var(--color-text-primary)]">
           Celular
         </label>
         <input
+          id="lead-celular"
           type="tel"
           value={formData.celular}
+          aria-invalid={Boolean(errors.celular)}
+          aria-describedby={errors.celular ? "lead-celular-error" : undefined}
           onChange={(e) => handleChange("celular", e.target.value)}
           className="w-full p-4 rounded-xl bg-[var(--color-bg)]/60 border border-[var(--color-border)] text-[var(--color-text-primary)] placeholder-[var(--color-text-secondary)] focus:border-[var(--color-neon-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-neon-primary)]/20 transition-all text-lg"
           placeholder="3XX XXX XXXX"
         />
         {errors.celular && (
-          <p className="text-sm text-red-500">{errors.celular}</p>
+          <p id="lead-celular-error" role="alert" className="text-sm text-red-500">{errors.celular}</p>
         )}
       </div>
 
@@ -225,8 +234,11 @@ export default function LeadForm({
       <div className="space-y-2">
         <label className="flex items-start gap-3 cursor-pointer">
           <input
+            id="lead-consentimiento"
             type="checkbox"
             checked={formData.consentimiento}
+            aria-invalid={Boolean(errors.consentimiento)}
+            aria-describedby={errors.consentimiento ? "lead-consentimiento-error" : undefined}
             onChange={(e) => handleChange("consentimiento", e.target.checked)}
             className="mt-1 w-5 h-5 rounded border-[var(--color-border)] bg-[var(--color-bg)] text-[var(--color-neon-primary)] focus:ring-[var(--color-neon-primary)]"
           />
@@ -254,7 +266,7 @@ export default function LeadForm({
           </span>
         </label>
         {errors.consentimiento && (
-          <p className="text-sm text-red-500">{errors.consentimiento}</p>
+          <p id="lead-consentimiento-error" role="alert" className="text-sm text-red-500">{errors.consentimiento}</p>
         )}
       </div>
 
