@@ -12,6 +12,11 @@ const question: Question = {
   options: ["Opción A", "Opción B"],
 };
 
+const questionWithImages: Question = {
+  ...question,
+  images: ["/images/test-card-a.webp", "/images/test-card-b.webp"],
+};
+
 describe("components/test/QuestionCard (delegate)", () => {
   beforeEach(() => {
     window.matchMedia = vi.fn().mockImplementation((query: string) => ({
@@ -47,6 +52,22 @@ describe("components/test/QuestionCard (delegate)", () => {
     expect(container.querySelector('[data-option="1"]')).toHaveAttribute(
       "data-selected",
       "true"
+    );
+  });
+
+  it("loads visible option art eagerly with tight sizing hints", () => {
+    const { container } = render(
+      <DelegateQuestionCard question={questionWithImages} value={undefined} onChange={vi.fn()} />
+    );
+
+    const image = container.querySelector('[data-card-image="/images/test-card-a.webp"] img');
+
+    expect(image).toBeTruthy();
+    expect(image).toHaveAttribute("loading", "eager");
+    expect(image).toHaveAttribute("decoding", "async");
+    expect(image).toHaveAttribute(
+      "sizes",
+      "(max-width: 639px) 78vw, (max-width: 1023px) 50vw, 300px"
     );
   });
 });

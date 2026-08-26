@@ -332,7 +332,7 @@ export default function TestWizard({ esPrueba = false }: { esPrueba?: boolean })
           {/* Rayos de luz giratorios */}
           <div aria-hidden="true" className="ambient-rays" />
           {/* Estrellas titilantes */}
-          <div aria-hidden="true" className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+          <div aria-hidden="true" className="ambient-stars">
             {[
               { top: "8%", left: "6%", size: 3, delay: "0s", duration: "3.2s" },
               { top: "14%", left: "92%", size: 2, delay: "0.6s", duration: "4.1s" },
@@ -380,6 +380,7 @@ export default function TestWizard({ esPrueba = false }: { esPrueba?: boolean })
               />
             ))}
           </div>
+          <div aria-hidden="true" className="ambient-constellations" />
         </>
       )}
       {!prefersReduced && (

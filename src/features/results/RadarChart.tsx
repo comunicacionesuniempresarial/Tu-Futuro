@@ -80,10 +80,10 @@ export function RadarChart({
               <button
                 key={dimension}
                 type="button"
-                className={`radar-point absolute flex h-7 w-7 items-center justify-center rounded-full border text-[10px] font-black transition-all ${
+                className={`radar-point absolute flex h-11 w-11 items-center justify-center rounded-full border text-[10px] font-black transition-all ${
                   isActive
-                    ? "z-30 scale-150 border-white bg-[var(--color-neon-primary)] text-[var(--color-deep)] shadow-[0_0_24px_var(--color-neon-primary)]"
-                    : "z-10 border-[var(--color-neon-secondary)] bg-[var(--color-deep)] text-[var(--color-neon-secondary)] hover:z-20 hover:scale-125 hover:shadow-[0_0_18px_var(--color-neon-secondary)]"
+                    ? "z-30 border-white bg-[var(--color-neon-primary)] text-[var(--color-deep)] shadow-[0_0_24px_var(--color-neon-primary)]"
+                    : "z-10 border-[var(--color-neon-secondary)] bg-[var(--color-deep)] text-[var(--color-neon-secondary)] hover:z-20 hover:shadow-[0_0_18px_var(--color-neon-secondary)]"
                 }`}
                 style={{ left: `${(point.x / 420) * 100}%`, top: `${(point.y / 420) * 100}%`, transform: "translate(-50%, -50%)" }}
                 onMouseEnter={() => setActiveDimension(dimension)}

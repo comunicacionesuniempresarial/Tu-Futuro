@@ -76,7 +76,7 @@ export default function Hero({ onStart }: HeroProps) {
           {/* Titular serif — la marquesina del Duelo */}
           <h1
             id="hero-heading"
-            className="font-display text-5xl font-extrabold leading-[0.95] tracking-tight lg:text-7xl xl:text-8xl"
+            className="font-display text-3xl sm:text-5xl font-extrabold leading-[0.95] tracking-tight lg:text-7xl xl:text-8xl"
           >
             <span className="block">Descubre tu</span>
             <span className="block text-[var(--color-neon-primary)] drop-shadow-[0_0_24px_color-mix(in_srgb,var(--color-neon-primary)_40%,transparent)]">

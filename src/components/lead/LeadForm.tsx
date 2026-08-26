@@ -242,7 +242,7 @@ export default function LeadForm({
             onChange={(e) => handleChange("consentimiento", e.target.checked)}
             className="mt-1 w-5 h-5 rounded border-[var(--color-border)] bg-[var(--color-bg)] text-[var(--color-neon-primary)] focus:ring-[var(--color-neon-primary)]"
           />
-          <span className="text-xs text-[var(--color-text-secondary)] leading-relaxed">
+          <span className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
             <strong className="text-[var(--color-text-primary)]">
               Acepto el tratamiento de mis datos personales
             </strong>{" "}

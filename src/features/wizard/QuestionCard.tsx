@@ -135,7 +135,10 @@ function OptionCard({
             src={image}
             alt=""
             fill
-            sizes="(max-width: 639px) 78vw, (max-width: 1023px) 50vw, 25vw"
+            sizes="(max-width: 639px) 78vw, (max-width: 1023px) 50vw, 300px"
+            loading="eager"
+            decoding="async"
+            quality={60}
             className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-110"
           />
         ) : (

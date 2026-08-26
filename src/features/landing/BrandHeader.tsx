@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { usePathname } from "next/navigation";
 
 const navLinks = [
@@ -15,6 +15,9 @@ export default function BrandHeader() {
   const pathname = usePathname();
   const [hasResult, setHasResult] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const menuNavRef = useRef<HTMLElement>(null);
+  const menuContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const syncResult = () => setHasResult(Boolean(window.sessionStorage.getItem("tufuturo-results")));
@@ -26,6 +29,63 @@ export default function BrandHeader() {
   useEffect(() => {
     setMenuOpen(false);
   }, [pathname]);
+
+  const closeMenu = useCallback(() => {
+    setMenuOpen(false);
+    menuButtonRef.current?.focus();
+  }, []);
+
+  /* Escape key closes the menu */
+  useEffect(() => {
+    if (!menuOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        closeMenu();
+        return;
+      }
+      /* Focus trap: Tab cycles within the mobile menu */
+      if (e.key === "Tab" && menuNavRef.current) {
+        const focusable = menuNavRef.current.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        );
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [menuOpen, closeMenu]);
+
+  /* Move focus into the menu when it opens */
+  useEffect(() => {
+    if (menuOpen) {
+      const firstLink = menuNavRef.current?.querySelector<HTMLElement>("a, button");
+      firstLink?.focus();
+    }
+  }, [menuOpen]);
+
+  /* Click outside closes the menu */
+  useEffect(() => {
+    if (!menuOpen) return;
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        menuContainerRef.current &&
+        !menuContainerRef.current.contains(e.target as Node)
+      ) {
+        closeMenu();
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [menuOpen, closeMenu]);
 
   const visibleLinks = navLinks.filter((link) => link.label !== "Mi resultado" || hasResult);
   const isActive = (path: string) =>
@@ -49,7 +109,7 @@ export default function BrandHeader() {
       data-persistent="true"
       className="fixed top-0 z-50 w-full border-b border-[var(--color-border)] bg-[var(--color-surface-container-lowest,var(--color-deep))]/80 backdrop-blur-xl"
     >
-      <div className="relative mx-auto flex w-full max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6 sm:py-4">
+      <div ref={menuContainerRef} className="relative mx-auto flex w-full max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6 sm:py-4">
         <Link
           href="/"
           aria-label="TuFuturoDual - Inicio"
@@ -63,6 +123,7 @@ export default function BrandHeader() {
         </nav>
 
         <button
+          ref={menuButtonRef}
           type="button"
           aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}
           aria-expanded={menuOpen}
@@ -79,6 +140,7 @@ export default function BrandHeader() {
 
         {menuOpen && (
           <nav
+            ref={menuNavRef}
             id="public-navigation-mobile"
             aria-label="Navegación principal móvil"
             className="absolute left-3 right-3 top-full mt-2 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-2 shadow-2xl md:hidden"
