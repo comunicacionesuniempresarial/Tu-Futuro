@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { LeadFormSchema } from "@/lib/schemas";
+import AnimatedPlaceholder from "@/features/shared/ui/AnimatedPlaceholder";
 
 interface LeadFormProps {
   scores: {
@@ -145,8 +146,7 @@ export default function LeadForm({
           ¡Gracias, {formData.nombre}!
         </h3>
         <p className="text-[var(--color-text-secondary)] text-lg leading-relaxed">
-          Tu contrato quedó sellado. El equipo de admisiones de Uniempresarial
-          te contactará pronto.
+          Tu resultado está guardado. Podés verlo ahora.
         </p>
         <a
           href="/resultados"
@@ -165,26 +165,30 @@ export default function LeadForm({
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="mb-6">
         <h3 className="text-2xl font-black text-[var(--color-text-primary)]">
-          ¿Listo para reclamar tu destino?
+          Un paso más
         </h3>
-        <p className="text-base text-[var(--color-text-secondary)] mt-1">Registrá tu Nombre de Invocador para recibir orientación personalizada</p>
+        <p className="text-base text-[var(--color-text-secondary)] mt-1">Solo necesitamos tus datos para guardar tu resultado</p>
       </div>
 
       {/* Nombre */}
       <div className="space-y-2">
         <label htmlFor="lead-nombre" className="block text-base font-semibold text-[var(--color-text-primary)]">
-          Nombre de Invocador
+          Tu nombre
         </label>
-        <input
-          id="lead-nombre"
-          type="text"
-          value={formData.nombre}
-          aria-invalid={Boolean(errors.nombre)}
-          aria-describedby={errors.nombre ? "lead-nombre-error" : undefined}
-          onChange={(e) => handleChange("nombre", e.target.value)}
-          className="w-full p-4 rounded-xl bg-[var(--color-bg)]/60 border border-[var(--color-border)] text-[var(--color-text-primary)] placeholder-[var(--color-text-secondary)] focus:border-[var(--color-neon-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-neon-primary)]/20 transition-all text-lg"
-          placeholder="Tu nombre"
-        />
+        <div className="relative">
+          <input
+            id="lead-nombre"
+            type="text"
+            value={formData.nombre}
+            aria-invalid={Boolean(errors.nombre)}
+            aria-describedby={errors.nombre ? "lead-nombre-error" : undefined}
+            onChange={(e) => handleChange("nombre", e.target.value)}
+            className="relative z-10 w-full p-4 rounded-xl bg-[var(--color-bg)]/60 border border-[var(--color-border)] text-[var(--color-text-primary)] focus:border-[var(--color-neon-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-neon-primary)]/20 transition-all text-lg"
+          />
+          {!formData.nombre && (
+            <AnimatedPlaceholder texts={["Ingresa tu nombre", "Tu nombre", "Nombre completo"]} />
+          )}
+        </div>
         {errors.nombre && (
           <p id="lead-nombre-error" role="alert" className="text-sm text-red-500">{errors.nombre}</p>
         )}
@@ -193,18 +197,22 @@ export default function LeadForm({
       {/* Email */}
       <div className="space-y-2">
         <label htmlFor="lead-email" className="block text-base font-semibold text-[var(--color-text-primary)]">
-          Orbe de Comunicación
+          Tu correo
         </label>
-        <input
-          id="lead-email"
-          type="email"
-          value={formData.email}
-          aria-invalid={Boolean(errors.email)}
-          aria-describedby={errors.email ? "lead-email-error" : undefined}
-          onChange={(e) => handleChange("email", e.target.value)}
-          className="w-full p-4 rounded-xl bg-[var(--color-bg)]/60 border border-[var(--color-border)] text-[var(--color-text-primary)] placeholder-[var(--color-text-secondary)] focus:border-[var(--color-neon-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-neon-primary)]/20 transition-all text-lg"
-          placeholder="tu@email.com"
-        />
+        <div className="relative">
+          <input
+            id="lead-email"
+            type="email"
+            value={formData.email}
+            aria-invalid={Boolean(errors.email)}
+            aria-describedby={errors.email ? "lead-email-error" : undefined}
+            onChange={(e) => handleChange("email", e.target.value)}
+            className="w-full p-4 rounded-xl bg-[var(--color-bg)]/60 border border-[var(--color-border)] text-[var(--color-text-primary)] focus:border-[var(--color-neon-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-neon-primary)]/20 transition-all text-lg"
+          />
+          {!formData.email && (
+            <AnimatedPlaceholder texts={["Ingresa tu correo", "Tu correo electrónico", "Correo"]} />
+          )}
+        </div>
         {errors.email && (
           <p id="lead-email-error" role="alert" className="text-sm text-red-500">{errors.email}</p>
         )}
@@ -213,18 +221,22 @@ export default function LeadForm({
       {/* Celular */}
       <div className="space-y-2">
         <label htmlFor="lead-celular" className="block text-base font-semibold text-[var(--color-text-primary)]">
-          Celular
+          Tu celular
         </label>
-        <input
-          id="lead-celular"
-          type="tel"
-          value={formData.celular}
-          aria-invalid={Boolean(errors.celular)}
-          aria-describedby={errors.celular ? "lead-celular-error" : undefined}
-          onChange={(e) => handleChange("celular", e.target.value)}
-          className="w-full p-4 rounded-xl bg-[var(--color-bg)]/60 border border-[var(--color-border)] text-[var(--color-text-primary)] placeholder-[var(--color-text-secondary)] focus:border-[var(--color-neon-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-neon-primary)]/20 transition-all text-lg"
-          placeholder="3XX XXX XXXX"
-        />
+        <div className="relative">
+          <input
+            id="lead-celular"
+            type="tel"
+            value={formData.celular}
+            aria-invalid={Boolean(errors.celular)}
+            aria-describedby={errors.celular ? "lead-celular-error" : undefined}
+            onChange={(e) => handleChange("celular", e.target.value)}
+            className="w-full p-4 rounded-xl bg-[var(--color-bg)]/60 border border-[var(--color-border)] text-[var(--color-text-primary)] focus:border-[var(--color-neon-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-neon-primary)]/20 transition-all text-lg"
+          />
+          {!formData.celular && (
+            <AnimatedPlaceholder texts={["Ingresa tu celular", "Tu número de celular", "Celular"]} />
+          )}
+        </div>
         {errors.celular && (
           <p id="lead-celular-error" role="alert" className="text-sm text-red-500">{errors.celular}</p>
         )}
@@ -283,7 +295,7 @@ export default function LeadForm({
         disabled={isSubmitting}
         className="card-glow w-full py-4 rounded-xl font-bold brand-gradient text-[var(--color-deep)] text-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        {isSubmitting ? "Enviando..." : "Reclamar Destino"}
+        {isSubmitting ? "Guardando..." : "Guardar resultado"}
       </button>
     </form>
   );

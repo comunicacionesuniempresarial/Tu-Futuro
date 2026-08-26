@@ -19,13 +19,13 @@ export function Footer({ disclaimer }: FooterProps) {
           sizes="(max-width: 640px) 100vw, 256px"
           className="h-auto w-64 max-w-full object-contain"
         />
-        <nav aria-label="Enlaces del sitio" className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm font-semibold text-slate-700">
-          <Link href="/" className="transition-colors hover:text-[#c99a00]">Inicio</Link>
-          <a href="/privacidad" className="transition-colors hover:text-[#c99a00]">Privacidad y datos</a>
-          <a href="/terminos" className="transition-colors hover:text-[#c99a00]">Términos de uso</a>
-          <a href="/admin/login" className="transition-colors hover:text-[#c99a00]">Acceso de admisiones</a>
-          <a href="/test" className="transition-colors hover:text-[#c99a00]">Inicia el test</a>
-          <a href="https://uniempresarial.edu.co/pregrados-presenciales/" target="_blank" rel="noreferrer" className="transition-colors hover:text-[#c99a00]">Programas Uniempresarial</a>
+        <nav aria-label="Enlaces del sitio" className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm font-semibold text-[var(--color-text-secondary)]">
+          <Link href="/" className="transition-colors hover:text-[var(--color-neon-primary)]">Inicio</Link>
+          <Link href="/privacidad" className="transition-colors hover:text-[var(--color-neon-primary)]">Privacidad y datos</Link>
+          <Link href="/terminos" className="transition-colors hover:text-[var(--color-neon-primary)]">Términos de uso</Link>
+          <Link href="/admin/login" className="transition-colors hover:text-[var(--color-neon-primary)]">Acceso de admisiones</Link>
+          <Link href="/test" className="transition-colors hover:text-[var(--color-neon-primary)]">Inicia el test</Link>
+          <a href="https://uniempresarial.edu.co/pregrados-presenciales/" target="_blank" rel="noreferrer" className="transition-colors hover:text-[var(--color-neon-primary)]">Programas Uniempresarial</a>
         </nav>
         <p className="text-xs text-slate-500">&copy; 2026 TuFuturoDual · Una experiencia de Uniempresarial</p>
       </div>

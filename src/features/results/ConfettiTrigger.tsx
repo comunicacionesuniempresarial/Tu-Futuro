@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import confetti from "canvas-confetti";
+import { useReducedMotion } from "@/features/shared/hooks/useReducedMotion";
 
 /**
  * Fires the victory confetti exactly once per mount, unless the user
@@ -9,15 +10,10 @@ import confetti from "canvas-confetti";
  */
 export function ConfettiTrigger() {
   const firedRef = useRef(false);
+  const prefersReduced = useReducedMotion();
 
   useEffect(() => {
-    if (firedRef.current) return;
-
-    const reduceMotion =
-      typeof window.matchMedia === "function" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    if (reduceMotion) return;
+    if (firedRef.current || prefersReduced) return;
 
     firedRef.current = true;
     void confetti({
@@ -30,7 +26,7 @@ export function ConfettiTrigger() {
       colors: ["#FFE16D", "#22D3EE", "#E879F9", "#FFFFFF"],
       origin: { y: 0.58 },
     });
-  }, []);
+  }, [prefersReduced]);
 
   return null;
 }

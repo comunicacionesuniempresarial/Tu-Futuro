@@ -101,8 +101,8 @@ export const LeadPayloadSchema = z.object({
     .max(3, { error: "El top 3 no puede tener más de 3 carreras" }),
   // Idempotencia del cliente: mismo requestId no duplica
   requestId: z.string().max(100, { error: "El requestId no puede superar 100 caracteres" }).optional(),
-  // Marca interna: los leads de prueba no se envían desde el form (el admin decide)
-  esPrueba: z.boolean().optional(),
+  // esPrueba: ELIMINADO del schema público. Solo el admin puede marcar leads
+  // como prueba via PATCH. Un cliente externo no debe controlar este campo.
 });
 
 export type LeadPayload = z.infer<typeof LeadPayloadSchema>;

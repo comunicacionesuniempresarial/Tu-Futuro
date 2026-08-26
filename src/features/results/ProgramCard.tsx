@@ -85,22 +85,15 @@ export function ProgramCard({
 
   if (onClick) {
     return (
-      <div
-        role="button"
-        tabIndex={0}
+      <button
+        type="button"
         data-theme="dark"
         onClick={() => onClick(program)}
-        onKeyDown={(event) => {
-          if (event.key === "Enter" || event.key === " ") {
-            event.preventDefault();
-            onClick(program);
-          }
-        }}
         aria-label={`${program.name} — ranking ${rank}, ${Math.round(result.overallScore)}% de afinidad`}
-        className={`${baseClassName} cursor-pointer transition-colors hover:border-[var(--color-neon-primary)]/50`}
+        className={`${baseClassName} cursor-pointer transition-colors hover:border-[var(--color-neon-primary)]/50 text-left`}
       >
         {innerExpanded}
-      </div>
+      </button>
     );
   }
 

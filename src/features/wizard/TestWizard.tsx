@@ -102,8 +102,10 @@ export default function TestWizard({ esPrueba = false }: { esPrueba?: boolean })
   // In-UI warning banner for missing questions (replaces alert())
   const [warningMessage, setWarningMessage] = useState<string | null>(null);
 
-  // Abandon confirmation dialog
+  // Abandon confirmation dialog + focus restoration
   const [showAbandonConfirm, setShowAbandonConfirm] = useState(false);
+  const abandonTriggerRef = useRef<HTMLButtonElement>(null);
+  const abandonDialogRef = useRef<HTMLDivElement>(null);
 
   // Audio for test (Route 66) — se descarga recién cuando el usuario acepta
   // iniciar el test o toca el toggle (opt-in explícito, ~8MB no son gratis).
@@ -120,6 +122,20 @@ export default function TestWizard({ esPrueba = false }: { esPrueba?: boolean })
       }
     };
   }, []);
+
+  // Focus trap for Abandon Dialog: focus the first button when dialog opens,
+  // restore focus to the trigger button when it closes.
+  useEffect(() => {
+    if (showAbandonConfirm && abandonDialogRef.current) {
+      // Focus the first focusable element inside the dialog (the "Seguir" button)
+      const firstButton = abandonDialogRef.current.querySelector("button") as HTMLButtonElement | null;
+      firstButton?.focus();
+    }
+    if (!showAbandonConfirm && abandonTriggerRef.current) {
+      // Restore focus to the trigger when dialog closes
+      abandonTriggerRef.current.focus();
+    }
+  }, [showAbandonConfirm]);
 
   const ensureAudio = useCallback(() => {
     if (!audioRef.current) {
@@ -469,6 +485,7 @@ export default function TestWizard({ esPrueba = false }: { esPrueba?: boolean })
               </button>
               {/* Abandonar el duelo — texto completo en sm+, solo X en mobile */}
               <button
+                ref={abandonTriggerRef}
                 onClick={requestAbandon}
                 className="flex min-h-11 min-w-11 items-center justify-center gap-1.5 rounded-xl border border-[var(--color-border)] px-2 py-1.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-[var(--color-text-secondary)] transition-colors hover:border-[var(--color-error)] hover:text-[var(--color-error)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-neon-primary)] shrink-0"
                 aria-label="Abandonar duelo"
@@ -623,24 +640,42 @@ export default function TestWizard({ esPrueba = false }: { esPrueba?: boolean })
             </div>
           )}
 
-          {/* Abandon Confirmation Dialog */}
+          {/* Abandon Confirmation Dialog — WCAG compliant */}
           {showAbandonConfirm && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+            <div
+              ref={abandonDialogRef}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="abandon-dialog-title"
+              aria-describedby="abandon-dialog-desc"
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+              onKeyDown={(e) => {
+                if (e.key === "Escape") setShowAbandonConfirm(false);
+              }}
+            >
               <div className="w-full max-w-sm rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 shadow-xl space-y-4">
-                <h3 className="text-lg font-bold text-[var(--color-text-primary)] text-center">
+                <h3
+                  id="abandon-dialog-title"
+                  className="text-lg font-bold text-[var(--color-text-primary)] text-center"
+                >
                   ¿Abandonar el duelo?
                 </h3>
-                <p className="text-sm text-[var(--color-text-secondary)] text-center">
+                <p
+                  id="abandon-dialog-desc"
+                  className="text-sm text-[var(--color-text-secondary)] text-center"
+                >
                   Perderás todo el progreso del test. Esta acción no se puede deshacer.
                 </p>
                 <div className="flex gap-3">
                   <button
+                    type="button"
                     onClick={() => setShowAbandonConfirm(false)}
                     className="flex-1 py-3 rounded-xl font-semibold border border-[var(--color-border)] text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-elevated)] transition-colors"
                   >
                     Seguir
                   </button>
                   <button
+                    type="button"
                     onClick={confirmAbandon}
                     className="flex-1 py-3 rounded-xl font-semibold bg-[var(--color-error)]/20 text-[var(--color-error)] border border-[var(--color-error)]/40 hover:bg-[var(--color-error)]/30 transition-colors"
                   >

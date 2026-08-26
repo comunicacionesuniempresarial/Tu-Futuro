@@ -3,7 +3,12 @@
 import { useEffect, useState } from "react";
 
 export function useReducedMotion(): boolean {
-  const [prefersReduced, setPrefersReduced] = useState(false);
+  const [prefersReduced, setPrefersReduced] = useState(() => {
+    // Sync initial state with browser on first render (no SSR mismatch).
+    // Server always returns false; client hydrates to the real value.
+    if (typeof window === "undefined") return false;
+    return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  });
 
   useEffect(() => {
     if (typeof window === "undefined") return;

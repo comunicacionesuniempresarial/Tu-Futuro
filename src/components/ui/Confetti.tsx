@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import confetti from "canvas-confetti";
+import { useReducedMotion } from "@/features/shared/hooks/useReducedMotion";
 
 interface ConfettiProps {
   active?: boolean;
@@ -9,11 +10,10 @@ interface ConfettiProps {
 
 export default function Confetti({ active = true }: ConfettiProps) {
   const hasFired = useRef(false);
+  const prefersReduced = useReducedMotion();
 
   useEffect(() => {
-    if (!active || hasFired.current) return;
-    // Respeta la preferencia del sistema de reducir animaciones
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!active || hasFired.current || prefersReduced) return;
     hasFired.current = true;
 
     const duration = 4000;
@@ -49,9 +49,8 @@ export default function Confetti({ active = true }: ConfettiProps) {
 
     frame();
 
-    // Cancela el loop si el componente se desmonta antes de los 4s
     return () => cancelAnimationFrame(rafId);
-  }, [active]);
+  }, [active, prefersReduced]);
 
   return null;
 }

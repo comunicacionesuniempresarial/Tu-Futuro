@@ -11,7 +11,7 @@ vi.mock("canvas-confetti", () => ({ default: confettiMock }));
 const stubMatchMedia = (matches: boolean) => {
   vi.stubGlobal(
     "matchMedia",
-    vi.fn().mockReturnValue({ matches, addEventListener: vi.fn() })
+    vi.fn().mockReturnValue({ matches, addEventListener: vi.fn(), removeEventListener: vi.fn() })
   );
 };
 

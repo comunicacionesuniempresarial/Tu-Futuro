@@ -98,7 +98,12 @@ export default function BrandHeader() {
         {link.label}
       </a>
     ) : (
-      <Link key={link.label} href={link.href} className={className}>
+      <Link
+        key={link.label}
+        href={link.href}
+        className={className}
+        aria-current={pathname === link.href ? "page" : undefined}
+      >
         {link.label}
       </Link>
     );

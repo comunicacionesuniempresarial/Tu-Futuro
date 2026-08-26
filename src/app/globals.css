@@ -1,38 +1,55 @@
 @import "tailwindcss";
 
+/* Tailwind v4 theme: expone tokens reales al motor de utilities.
+   Los valores deben ser LITERALES, no var() self-references. */
 @theme inline {
-  --font-display: var(--font-display);
-  --font-heading: var(--font-heading);
-  --font-body: var(--font-body);
-  --color-bg: var(--color-bg);
-  --color-surface: var(--color-surface);
-  --color-surface-elevated: var(--color-surface-elevated);
-  --color-surface-bright: var(--color-surface-bright);
-  --color-surface-variant: var(--color-surface-variant);
-  --color-deep: var(--color-deep);
-  --color-border: var(--color-border);
-  --color-border-subtle: var(--color-border-subtle);
-  --color-text-primary: var(--color-text-primary);
-  --color-text-secondary: var(--color-text-secondary);
-  --color-text-muted: var(--color-text-muted);
-  --color-neon-primary: var(--color-neon-primary);
-  --color-neon-secondary: var(--color-neon-secondary);
-  --color-gold: var(--color-gold);
-  --color-gold-dim: var(--color-gold-dim);
-  --color-teal: var(--color-teal);
-  --color-teal-deep: var(--color-teal-deep);
-  --color-primary-lav: var(--color-primary-lav);
-  --color-primary-container: var(--color-primary-container);
-  --color-secondary-container: var(--color-secondary-container);
-  --color-on-secondary-container: var(--color-on-secondary-container);
-  --color-tertiary-container: var(--color-tertiary-container);
-  --color-on-tertiary-container: var(--color-on-tertiary-container);
-  --color-success: var(--color-success);
-  --color-warning: var(--color-warning);
-  --color-error: var(--color-error);
-  --color-error-container: var(--color-error-container);
-  --color-brand-red: var(--color-brand-red);
-  --color-brand-blue: var(--color-brand-blue);
+  /* Fonts — Next.js inyecta --font-display en <html> */
+  --font-display: "Fraunces", serif;
+  --font-heading: "Fraunces", serif;
+  --font-body: "DM Sans", sans-serif;
+
+  /* Core Dark Canvas — Material 3 dark */
+  --color-bg: #0d1024;
+  --color-surface: #1d1b35;
+  --color-surface-elevated: #2d2850;
+  --color-surface-bright: #493d70;
+  --color-surface-variant: #39315b;
+  --color-deep: #080a1b;
+
+  /* Borders */
+  --color-border: #685c91;
+  --color-border-subtle: #463b6e;
+
+  /* Text */
+  --color-text-primary: #fff8e8;
+  --color-text-secondary: #e2daf7;
+  --color-text-muted: #b5acce;
+
+  /* Accents */
+  --color-neon-primary: #ffd84d;
+  --color-neon-secondary: #36efd1;
+  --color-gold: #ffe16d;
+  --color-gold-dim: #e9c400;
+  --color-teal: #3adccc;
+  --color-teal-deep: #00766d;
+
+  /* Semantic — Material 3 */
+  --color-success: #4ade80;
+  --color-warning: #fbbf24;
+  --color-error: #ffb4ab;
+  --color-error-container: #93000a;
+
+  /* Brand */
+  --color-brand-red: #d51933;
+  --color-brand-blue: #0033a5;
+
+  /* M3 container tokens */
+  --color-primary-lav: #e8def8;
+  --color-primary-container: #4f378b;
+  --color-secondary-container: #4a4458;
+  --color-on-secondary-container: #e8e0f0;
+  --color-tertiary-container: #393b63;
+  --color-on-tertiary-container: #f0f0ff;
 }
 
 /* ── CSS Custom Properties: TuFuturoDual — "El Duelo de Destinos" ──
@@ -1234,6 +1251,25 @@ body {
 :focus-visible {
   outline: 2px solid var(--color-neon-primary);
   outline-offset: 2px;
+}
+
+/* ── Animated placeholder (lead form) ── */
+.animated-placeholder {
+  color: var(--color-text-muted);
+  font-style: italic;
+  animation: placeholder-pulse 2.2s ease-in-out infinite;
+}
+
+@keyframes placeholder-pulse {
+  0%, 100% { opacity: 0.45; }
+  50% { opacity: 0.75; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animated-placeholder {
+    animation: none;
+    opacity: 0.6;
+  }
 }
 
 .footer-brand {

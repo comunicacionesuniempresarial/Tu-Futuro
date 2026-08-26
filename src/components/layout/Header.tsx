@@ -1,10 +1,49 @@
 "use client";
 
 import Link from "next/link";
-import { useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 
 export default function Header({ audioButton }: { audioButton?: ReactNode }) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const menuNavRef = useRef<HTMLElement | null>(null);
+
+  /* Focus trap inside mobile menu */
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setMobileOpen(false);
+        menuButtonRef.current?.focus();
+        return;
+      }
+      if (e.key === "Tab" && menuNavRef.current) {
+        const focusable = menuNavRef.current.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        );
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [mobileOpen]);
+
+  /* Move focus into menu on open */
+  useEffect(() => {
+    if (mobileOpen) {
+      const firstLink = menuNavRef.current?.querySelector<HTMLElement>("a, button");
+      firstLink?.focus();
+    }
+  }, [mobileOpen]);
 
   const navLinks = [
     { href: "/", label: "Inicio" },
@@ -73,7 +112,7 @@ export default function Header({ audioButton }: { audioButton?: ReactNode }) {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-sm font-medium text-[#0a0a0a] hover:text-[#E879F9] transition-colors py-2"
+                className="text-sm font-medium text-[var(--color-text-primary)] hover:text-[var(--color-neon-primary)] transition-colors py-2"
               >
                 {link.label}
               </Link>
@@ -84,7 +123,7 @@ export default function Header({ audioButton }: { audioButton?: ReactNode }) {
           {audioButton}
 
           {/* Divisor ligero */}
-          <span className="h-5 w-px bg-slate-200" aria-hidden="true" />
+          <span className="h-5 w-px bg-[var(--color-border)]" aria-hidden="true" />
 
           <div className="flex items-center gap-3" aria-label="Redes sociales">
             {socialLinks.map((social) => (
@@ -94,7 +133,7 @@ export default function Header({ audioButton }: { audioButton?: ReactNode }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={social.label}
-                className="text-slate-600 hover:text-[#22D3EE] transition-colors p-2"
+                className="text-[var(--color-text-secondary)] hover:text-[var(--color-neon-secondary)] transition-colors p-2"
               >
                 {social.icon}
               </a>
@@ -106,34 +145,36 @@ export default function Header({ audioButton }: { audioButton?: ReactNode }) {
         <div className="md:hidden flex items-center gap-2">
           {audioButton}
           <button
+            ref={menuButtonRef}
             className="flex flex-col gap-1.5 p-2.5 -mr-2"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label={mobileOpen ? "Cerrar menú" : "Abrir menú"}
             aria-expanded={mobileOpen}
+            aria-controls="header-mobile-nav"
           >
-            <span className="w-6 h-0.5 bg-[#0a0a0a] transition-transform" style={{ transform: mobileOpen ? "rotate(45deg) translate(4px, 4px)" : "none" }} />
-            <span className="w-6 h-0.5 bg-[#0a0a0a]" style={{ opacity: mobileOpen ? 0 : 1 }} />
-            <span className="w-6 h-0.5 bg-[#0a0a0a] transition-transform" style={{ transform: mobileOpen ? "rotate(-45deg) translate(4px, -4px)" : "none" }} />
+            <span className="w-6 h-0.5 bg-[var(--color-text-primary)] transition-transform" style={{ transform: mobileOpen ? "rotate(45deg) translate(4px, 4px)" : "none" }} />
+            <span className="w-6 h-0.5 bg-[var(--color-text-primary)]" style={{ opacity: mobileOpen ? 0 : 1 }} />
+            <span className="w-6 h-0.5 bg-[var(--color-text-primary)] transition-transform" style={{ transform: mobileOpen ? "rotate(-45deg) translate(4px, -4px)" : "none" }} />
           </button>
         </div>
       </div>
 
       {/* Mobile Menu */}
       {mobileOpen && (
-        <div className="md:hidden bg-white border-t border-slate-100 px-6 py-4 animate-fade-in">
-          <nav className="flex flex-col gap-1" aria-label="Navegación móvil">
+        <div className="md:hidden bg-[var(--color-surface)] border-t border-[var(--color-border)] px-6 py-4 animate-fade-in">
+          <nav ref={menuNavRef} id="header-mobile-nav" className="flex flex-col gap-1" aria-label="Navegación móvil">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-base font-medium text-[#0a0a0a] hover:text-[#E879F9] transition-colors py-2.5"
+                className="text-base font-medium text-[var(--color-text-primary)] hover:text-[var(--color-neon-primary)] transition-colors py-2.5"
                 onClick={() => setMobileOpen(false)}
               >
                 {link.label}
               </Link>
             ))}
           </nav>
-          <div className="flex items-center gap-4 pt-3 mt-2 border-t border-slate-100" aria-label="Redes sociales">
+          <div className="flex items-center gap-4 pt-3 mt-2 border-t border-[var(--color-border)]" aria-label="Redes sociales">
             {socialLinks.map((social) => (
               <a
                 key={social.label}
@@ -141,7 +182,7 @@ export default function Header({ audioButton }: { audioButton?: ReactNode }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={social.label}
-                className="text-slate-600 hover:text-[#22D3EE] transition-colors p-1.5"
+                className="text-[var(--color-text-secondary)] hover:text-[var(--color-neon-secondary)] transition-colors p-1.5"
               >
                 {social.icon}
               </a>

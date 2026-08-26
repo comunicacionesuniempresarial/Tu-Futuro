@@ -98,7 +98,9 @@ export async function POST(request: NextRequest) {
       riasec_e: data.riasecProfile.E,
       riasec_c: data.riasecProfile.C,
       requestId: data.requestId,
-      esPrueba: data.esPrueba ?? false,
+      // esPrueba siempre false para leads del formulario público.
+      // Solo el admin puede marcar como prueba via PATCH.
+      esPrueba: false,
     };
 
     const { ok, id } = await upsertLead(leadRow);

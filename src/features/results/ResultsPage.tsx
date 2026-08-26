@@ -105,10 +105,12 @@ export function ResultsPage({ data }: { data: ResultsData }) {
   }, [data]);
 
   const top3 = filteredResults.slice(0, 3);
-  const top3Programs = top3.map((result) => ({
-    ...result,
-    program: getProgramById(result.programId)!,
-  }));
+  const top3Programs = top3
+    .map((result) => {
+      const program = getProgramById(result.programId);
+      return program ? { ...result, program } : null;
+    })
+    .filter(Boolean) as Array<ScoringResult & { program: NonNullable<ReturnType<typeof getProgramById>> }>;
 
   const affinity = Math.round(
     cosineSimilarity(
