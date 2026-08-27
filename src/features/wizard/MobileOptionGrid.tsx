@@ -119,12 +119,12 @@ function MobileOptionBlock({
       }}
       aria-label={`${option} — opción ${String.fromCharCode(65 + index)}`}
       aria-pressed={selected}
-      className="flex items-center justify-center text-center p-4 aspect-[4/3] rounded-2xl font-black text-lg transition-all duration-200 cursor-pointer overflow-hidden"
+      className="flex items-center justify-center text-center p-5 rounded-2xl font-black text-base sm:text-lg transition-all duration-200 cursor-pointer min-h-[100px]"
       style={{
         backgroundColor: OPTION_BACKGROUNDS[index] ?? OPTION_BACKGROUNDS[0],
       }}
     >
-      <span className="text-[var(--color-text-primary)] drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] line-clamp-2">
+      <span className="text-[var(--color-text-primary)] drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
         {option}
       </span>
     </button>
