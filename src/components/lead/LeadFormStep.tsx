@@ -171,14 +171,7 @@ export default function LeadFormStep({ esPrueba = false }: { esPrueba?: boolean 
             />
           </div>
 
-          <div className="text-center mt-6">
-            <button
-              onClick={() => router.push("/resultados")}
-              className="text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-neon-secondary)] transition-colors font-medium min-h-11 px-4 py-2"
-            >
-              Omitir por ahora →
-            </button>
-          </div>
+
         </div>
       </main>
     </div>
