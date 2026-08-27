@@ -1,6 +1,11 @@
 ﻿import { render, fireEvent } from "@testing-library/react";
 import QuestionCard from "./QuestionCard";
 import type { Question } from "@/lib/scoring/types";
+import { useIsMobile } from "@/features/shared/hooks/useIsMobile";
+
+vi.mock("@/features/shared/hooks/useIsMobile", () => ({
+  useIsMobile: vi.fn(() => false),
+}));
 
 const singleChoiceQuestion: Question = {
   id: "Q1",

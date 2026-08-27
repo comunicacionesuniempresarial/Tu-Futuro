@@ -4,6 +4,8 @@ import Image from "next/image";
 import type { CSSProperties } from "react";
 import { useReducedMotion } from "@/features/shared/hooks/useReducedMotion";
 import type { Question } from "@/lib/scoring/types";
+import { useIsMobile } from "@/features/shared/hooks/useIsMobile";
+import MobileOptionGrid from "./MobileOptionGrid";
 
 interface QuestionCardProps {
   question: Question;
@@ -16,7 +18,7 @@ interface QuestionCardProps {
  * Transform-only pop-in plus a golden glow and a tiny sparkle burst;
  * rendered static under reduced motion. Visual only — never changes the value.
  */
-function AnswerStamp({ prefersReduced }: { prefersReduced: boolean }) {
+export function AnswerStamp({ prefersReduced }: { prefersReduced: boolean }) {
   const sparks = Array.from({ length: 8 }, (_, index) => {
     const angle = (index / 8) * Math.PI * 2;
     return {
@@ -204,7 +206,7 @@ function OptionCard({
  * 4 opciones -> grid 4 columnas en lg
  * 2 opciones -> grid 2 columnas
  */
-function getCardsGridClass(count: number): string {
+function getDesktopGridClass(count: number): string {
   if (count === 5) {
     return "question-options-grid flex snap-x snap-mandatory overflow-x-auto overscroll-x-contain px-1 pb-3 sm:grid sm:grid-cols-2 sm:overflow-visible md:grid-cols-3 lg:grid-cols-5 gap-3.5 sm:gap-4 w-full max-w-6xl mx-auto justify-start sm:justify-center auto-rows-fr";
   }
@@ -230,30 +232,38 @@ export default function QuestionCard({
   onChange,
 }: QuestionCardProps) {
   const prefersReduced = useReducedMotion();
+  const isMobile = useIsMobile();
 
   // Single choice
   if (question.type === "single-choice" && question.options) {
     const visibleOptions = question.options.slice(0, 4);
-    const gridClass = getCardsGridClass(visibleOptions.length);
     return (
       <div className="space-y-4">
         <QuestionTitle text={question.text} />
-        <div className={gridClass}>
-          {visibleOptions.map((option, index) => {
-            const selected = value === index;
-            return (
-              <OptionCard
-                key={index}
-                option={option}
-                index={index}
-                selected={selected}
-                image={question.images?.[index]}
-                onChange={onChange}
-                prefersReduced={prefersReduced}
-              />
-            );
-          })}
-        </div>
+        {isMobile ? (
+          <MobileOptionGrid
+            options={visibleOptions}
+            value={value}
+            onChange={onChange}
+          />
+        ) : (
+          <div className={getDesktopGridClass(visibleOptions.length)}>
+            {visibleOptions.map((option, index) => {
+              const selected = value === index;
+              return (
+                <OptionCard
+                  key={index}
+                  option={option}
+                  index={index}
+                  selected={selected}
+                  image={question.images?.[index]}
+                  onChange={onChange}
+                  prefersReduced={prefersReduced}
+                />
+              );
+            })}
+          </div>
+        )}
       </div>
     );
   }
@@ -261,54 +271,68 @@ export default function QuestionCard({
   // Likert 5-point
   if (question.type === "likert-5" && question.options) {
     // Likert values are 1-based (1–5); OptionCard sends 0-based index.
-    const likertChange = (idx: number) => onChange([1, 2, 3, 5][idx] ?? 5);
-    const visibleOptions = question.options.slice(0, 4);
-    const gridClass = getCardsGridClass(visibleOptions.length);
+    const likertChange = (idx: number) => onChange([1, 2, 3, 4, 5][idx] ?? 5);
+    const visibleOptions = question.options.slice(0, 5);
     return (
       <div className="space-y-5">
         <QuestionTitle text={question.text} />
-        <div className={gridClass}>
-          {visibleOptions.map((option, index) => {
-            const selected = value === index + 1;
-            return (
-              <OptionCard
-                key={index}
-                option={option}
-                index={index}
-                selected={selected}
-                image={question.images?.[index]}
-                onChange={likertChange}
-                prefersReduced={prefersReduced}
-              />
-            );
-          })}
-        </div>
+        {isMobile ? (
+          <MobileOptionGrid
+            options={visibleOptions}
+            value={value}
+            onChange={likertChange}
+          />
+        ) : (
+          <div className={getDesktopGridClass(visibleOptions.length)}>
+            {visibleOptions.map((option, index) => {
+              const selected = value === index + 1;
+              return (
+                <OptionCard
+                  key={index}
+                  option={option}
+                  index={index}
+                  selected={selected}
+                  image={question.images?.[index]}
+                  onChange={likertChange}
+                  prefersReduced={prefersReduced}
+                />
+              );
+            })}
+          </div>
+        )}
       </div>
     );
   }
 
   // Binary
   if (question.type === "binary" && question.options) {
-    const gridClass = getCardsGridClass(question.options.length);
     return (
       <div className="space-y-5">
         <QuestionTitle text={question.text} />
-        <div className={gridClass}>
-          {question.options.map((option, index) => {
-            const selected = value === index;
-            return (
-              <OptionCard
-                key={index}
-                option={option}
-                index={index}
-                selected={selected}
-                image={question.images?.[index]}
-                onChange={onChange}
-                prefersReduced={prefersReduced}
-              />
-            );
-          })}
-        </div>
+        {isMobile ? (
+          <MobileOptionGrid
+            options={question.options}
+            value={value}
+            onChange={onChange}
+          />
+        ) : (
+          <div className={getDesktopGridClass(question.options.length)}>
+            {question.options.map((option, index) => {
+              const selected = value === index;
+              return (
+                <OptionCard
+                  key={index}
+                  option={option}
+                  index={index}
+                  selected={selected}
+                  image={question.images?.[index]}
+                  onChange={onChange}
+                  prefersReduced={prefersReduced}
+                />
+              );
+            })}
+          </div>
+        )}
       </div>
     );
   }
