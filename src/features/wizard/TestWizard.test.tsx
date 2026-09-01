@@ -90,7 +90,7 @@ describe("TestWizard (features/wizard)", () => {
   async function answerAndAdvance() {
     const stepBefore = useTestStore.getState().step;
     answerCurrent();
-    // Wait for the store and visible question to advance. Layer boundaries show Studgard instead.
+    // Wait for the store and visible question to advance. Layer boundaries show Sttutgart instead.
     await waitFor(() => {
       expect(useTestStore.getState().step).toBe(stepBefore + 1);
     }, { timeout: 3000 });
