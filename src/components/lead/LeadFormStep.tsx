@@ -145,10 +145,10 @@ export default function LeadFormStep({ esPrueba = false }: { esPrueba?: boolean 
               ✦ Paso final
             </span>
             <h1 className="font-display text-4xl lg:text-5xl font-bold tracking-tight mb-3 text-[var(--color-neon-primary)] drop-shadow-[0_0_20px_color-mix(in_srgb,var(--color-neon-primary)_35%,transparent)]">
-              Guardá tu resultado
+              Guarda tu resultado
             </h1>
             <p className="text-[var(--color-text-secondary)] text-lg md:text-xl font-medium">
-              Registrate para que no pierdas tu análisis.
+              Regístrate para que no pierdas tu análisis.
             </p>
           </div>
 
