@@ -168,9 +168,9 @@ export default function Hero({ onStart }: HeroProps) {
               <div className="card-foil magical-float relative w-72 aspect-[2/3] rounded-2xl border border-[var(--color-neon-primary)]/60 bg-[var(--color-deep)] overflow-hidden shadow-[0_24px_60px_-12px_rgba(0,0,0,0.7)]">
                 <div className="absolute inset-0">
                   <img
-                    src="/archetypes/visionario.webp"
+                    src="/archetypes/visionarioheader.png"
                     alt=""
-                    loading="lazy"
+                    loading="eager"
                     className="h-full w-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-deep)] via-transparent to-transparent" />
@@ -183,7 +183,7 @@ export default function Hero({ onStart }: HeroProps) {
                 </div>
                 <div className="absolute bottom-6 inset-x-6 flex flex-col items-center gap-2 text-center z-10">
                   <div className="font-display text-2xl font-bold text-[var(--color-text-primary)] drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-                    Tu destino te espera
+                    ¡Tu destino te espera!
                   </div>
                   <div className="text-xs text-[var(--color-text-secondary)] drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
                     ¿Qué carta invocarás?

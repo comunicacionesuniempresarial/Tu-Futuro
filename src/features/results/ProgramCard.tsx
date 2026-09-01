@@ -81,7 +81,7 @@ export function ProgramCard({
   );
 
   const baseClassName =
-    "w-full text-left rounded-2xl border border-[var(--color-border)]/70 bg-[var(--color-surface)]/70 p-5 space-y-3 backdrop-blur-sm";
+    "w-full text-left rounded-2xl border border-[var(--color-border)]/70 bg-[var(--color-surface)]/90 p-5 space-y-3";
 
   if (onClick) {
     return (

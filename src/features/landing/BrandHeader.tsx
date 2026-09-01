@@ -112,7 +112,7 @@ export default function BrandHeader() {
   return (
     <header
       data-persistent="true"
-      className="fixed top-0 z-50 w-full border-b border-[var(--color-border)] bg-[var(--color-surface-container-lowest,var(--color-deep))]/80 backdrop-blur-xl"
+      className="fixed top-0 z-50 w-full border-b border-[var(--color-border)] bg-[var(--color-surface-container-lowest,var(--color-deep))]/95"
     >
       <div ref={menuContainerRef} className="relative mx-auto flex w-full max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6 sm:py-4">
         <Link

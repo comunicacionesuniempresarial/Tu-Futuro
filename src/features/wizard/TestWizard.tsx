@@ -356,12 +356,6 @@ export default function TestWizard({ esPrueba = false }: { esPrueba?: boolean })
               { top: "32%", left: "14%", size: 2, delay: "0.9s", duration: "4.4s" },
               { top: "42%", left: "88%", size: 2, delay: "1.8s", duration: "3.9s" },
               { top: "52%", left: "34%", size: 3, delay: "0.3s", duration: "4.7s" },
-              { top: "60%", left: "7%", size: 2, delay: "2.1s", duration: "3.4s" },
-              { top: "68%", left: "96%", size: 2, delay: "1.5s", duration: "4.2s" },
-              { top: "76%", left: "55%", size: 3, delay: "0.7s", duration: "3.8s" },
-              { top: "85%", left: "24%", size: 2, delay: "2.4s", duration: "4.6s" },
-              { top: "12%", left: "40%", size: 2, delay: "1.1s", duration: "5.0s" },
-              { top: "38%", left: "58%", size: 2, delay: "0.4s", duration: "3.5s" },
             ].map((s, i) => (
               <span
                 key={i}
@@ -379,9 +373,7 @@ export default function TestWizard({ esPrueba = false }: { esPrueba?: boolean })
             {/* Destellos de estrella (cruz de 4 puntas) */}
             {[
               { top: "18%", left: "22%", delay: "0.8s", duration: "5.2s" },
-              { top: "28%", left: "70%", delay: "1.6s", duration: "6.1s" },
               { top: "48%", left: "12%", delay: "0.2s", duration: "5.8s" },
-              { top: "66%", left: "82%", delay: "2.2s", duration: "5.5s" },
               { top: "82%", left: "46%", delay: "1.1s", duration: "6.4s" },
             ].map((s, i) => (
               <span
@@ -401,7 +393,7 @@ export default function TestWizard({ esPrueba = false }: { esPrueba?: boolean })
       )}
       {!prefersReduced && (
         <div aria-hidden="true" className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-          {[0, 1, 2, 3, 4].map((i) => (
+          {[0, 2].map((i) => (
             <span
               key={i}
               className="particle"
@@ -445,10 +437,6 @@ export default function TestWizard({ esPrueba = false }: { esPrueba?: boolean })
                   { left: "28%", bottom: "14%", delay: "1.1s", duration: "2.4s" },
                   { left: "45%", bottom: "5%", delay: "0.7s", duration: "1.5s" },
                   { left: "58%", bottom: "18%", delay: "1.8s", duration: "2.1s" },
-                  { left: "72%", bottom: "10%", delay: "0.2s", duration: "2.8s" },
-                  { left: "85%", bottom: "16%", delay: "1.4s", duration: "1.9s" },
-                  { left: "35%", bottom: "3%", delay: "0.9s", duration: "2.6s" },
-                  { left: "93%", bottom: "7%", delay: "1.6s", duration: "2.2s" },
                 ].map((s, i) => (
                   <div
                     key={i}
@@ -519,7 +507,7 @@ export default function TestWizard({ esPrueba = false }: { esPrueba?: boolean })
           {/* Disclaimer */}
           {isDisclaimer && (
             <div className="max-w-3xl mx-auto space-y-6">
-              <div className="rounded-2xl p-6 md:p-8 border border-[var(--color-border)] space-y-5 bg-[var(--color-surface)]/80 backdrop-blur-xl">
+              <div className="rounded-2xl p-6 md:p-8 border border-[var(--color-border)] space-y-5 bg-[var(--color-surface)]/95">
                 <h2 className="flex min-w-0 items-start gap-3 text-xl font-bold text-[var(--color-text-primary)] sm:text-2xl md:text-3xl">
                   <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-xl text-[var(--color-text-secondary)] sm:h-12 sm:w-12">
                     <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
@@ -601,8 +589,8 @@ export default function TestWizard({ esPrueba = false }: { esPrueba?: boolean })
                       prefersReduced
                         ? undefined
                         : slideDirection === "next"
-                          ? { opacity: 0, x: -60 }
-                          : { opacity: 0, x: 60 }
+                          ? { opacity: 0, x: -60, transition: { duration: 0.15 } }
+                          : { opacity: 0, x: 60, transition: { duration: 0.15 } }
                     }
                     transition={{ type: "spring", stiffness: 300, damping: 30 }}
                     className="will-change-transform"
@@ -648,7 +636,7 @@ export default function TestWizard({ esPrueba = false }: { esPrueba?: boolean })
               aria-modal="true"
               aria-labelledby="abandon-dialog-title"
               aria-describedby="abandon-dialog-desc"
-              className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4"
               onKeyDown={(e) => {
                 if (e.key === "Escape") setShowAbandonConfirm(false);
               }}

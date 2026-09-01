@@ -43,13 +43,13 @@ export function ArchetypeCard({
     >
       {/* ── Badges top row ── */}
       <div className="relative z-20 flex items-start justify-between gap-3 px-1 pb-4 sm:px-2">
-        <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--color-neon-primary)]/50 bg-[var(--color-deep)]/80 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-[var(--color-neon-primary)] shadow-lg backdrop-blur-md">
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--color-neon-primary)]/50 bg-[var(--color-deep)]/80 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-[var(--color-neon-primary)] shadow-lg ">
           <span aria-hidden="true">{archetype.emoji}</span>
           <span>Arquetipo Mítico</span>
         </span>
 
         {typeof affinity === "number" && (
-          <div className="rounded-full border border-[var(--color-neon-primary)]/50 bg-[var(--color-deep)]/80 px-3 py-1 text-right shadow-lg backdrop-blur-md">
+          <div className="rounded-full border border-[var(--color-neon-primary)]/50 bg-[var(--color-deep)]/80 px-3 py-1 text-right shadow-lg ">
             <span
               data-accent="neon"
               className="block text-xs font-bold text-[var(--color-neon-primary)]"
@@ -80,7 +80,7 @@ export function ArchetypeCard({
 
       {/* Supporting explanation stays outside the artwork, so the card remains readable. */}
       <div className="relative z-20 mx-auto mt-5 w-full max-w-2xl space-y-5 text-center">
-        <div className="rounded-2xl border border-white/15 bg-black/50 p-4 shadow-lg backdrop-blur-md sm:p-5">
+        <div className="rounded-2xl border border-white/15 bg-black/50 p-4 shadow-lg  sm:p-5">
           <p className="text-sm leading-relaxed text-white sm:text-base">{whyText}</p>
         </div>
 
@@ -93,7 +93,7 @@ export function ArchetypeCard({
             {relatedArchetypes.map(({ archetype: related, similarity }) => (
               <div
                 key={related.id}
-                className="flex items-center justify-between rounded-xl border border-white/10 bg-black/50 backdrop-blur-sm px-4 py-2 hover:border-[var(--color-neon-primary)]/40 transition-colors"
+                className="flex items-center justify-between rounded-xl border border-white/10 bg-black/50 px-4 py-2 hover:border-[var(--color-neon-primary)]/40 transition-colors"
               >
                 <span className="flex items-center gap-2 text-sm font-semibold text-white">
                   <span aria-hidden="true">{related.emoji}</span>
@@ -117,7 +117,7 @@ export function ArchetypeCard({
               {topDimensions.map((dimension) => (
                 <span
                   key={dimension.dim}
-                  className="rounded-full border border-[var(--color-neon-primary)]/50 bg-black/50 backdrop-blur-sm px-3 py-1 text-xs font-bold text-[var(--color-neon-primary)]"
+                  className="rounded-full border border-[var(--color-neon-primary)]/50 bg-black/50 px-3 py-1 text-xs font-bold text-[var(--color-neon-primary)]"
                 >
                   {dimension.label}
                 </span>

@@ -19,8 +19,8 @@ interface QuestionCardProps {
  * rendered static under reduced motion. Visual only — never changes the value.
  */
 export function AnswerStamp({ prefersReduced }: { prefersReduced: boolean }) {
-  const sparks = Array.from({ length: 8 }, (_, index) => {
-    const angle = (index / 8) * Math.PI * 2;
+  const sparks = Array.from({ length: 4 }, (_, index) => {
+    const angle = (index / 4) * Math.PI * 2;
     return {
       tx: `${(Math.cos(angle) * 26).toFixed(1)}px`,
       ty: `${(Math.sin(angle) * 26).toFixed(1)}px`,
@@ -121,7 +121,7 @@ function OptionCard({
       onClick={() => onChange(index)}
       aria-label={`${option} — opción ${String.fromCharCode(65 + index)}`}
       aria-pressed={selected}
-      className={`question-card mystic-card group relative flex shrink-0 snap-center flex-col justify-between aspect-[4/5] min-h-[250px] w-[78vw] max-w-[300px] sm:w-auto sm:max-w-none sm:min-h-[280px] md:min-h-[310px] rounded-2xl overflow-hidden text-center will-change-transform hover:-translate-y-3 hover:scale-[1.035] active:scale-[0.985] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-neon-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-bg)] cursor-pointer ${
+      className={`question-card mystic-card group relative flex shrink-0 snap-center flex-col justify-between aspect-[4/5] min-h-[250px] w-[78vw] max-w-[300px] sm:w-auto sm:max-w-none sm:min-h-[280px] md:min-h-[310px] rounded-2xl overflow-hidden text-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-neon-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-bg)] cursor-pointer ${
         selected
           ? "neon-border mystic-card-glow ring-2 ring-[var(--color-neon-primary)] scale-[1.02]"
           : "border border-[var(--color-border)] hover:border-[var(--color-neon-primary)]/70 hover:shadow-[0_0_28px_color-mix(in_srgb,var(--color-neon-primary)_30%,transparent)]"
@@ -138,7 +138,7 @@ function OptionCard({
             alt=""
             fill
             sizes="(max-width: 639px) 78vw, (max-width: 1023px) 50vw, 300px"
-            loading="eager"
+            loading={index === 0 ? "eager" : "lazy"}
             decoding="async"
             quality={60}
             className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-110"
@@ -169,7 +169,7 @@ function OptionCard({
       {/* Letra de la opción (A, B, C, D, E) en la esquina superior derecha */}
       <div className="relative z-20 flex justify-end p-3 sm:p-4">
         <span
-          className={`w-9 h-9 rounded-xl flex items-center justify-center text-sm font-black transition-all duration-300 shadow-lg backdrop-blur-md ${
+          className={`w-9 h-9 rounded-xl flex items-center justify-center text-sm font-black transition-all duration-300 shadow-lg ${
             selected
               ? "bg-[linear-gradient(135deg,var(--color-neon-primary),var(--color-neon-secondary))] text-[var(--color-deep)] shadow-[0_0_16px_color-mix(in_srgb,var(--color-neon-primary)_70%,transparent)]"
               : "bg-[var(--color-deep)]/80 text-[var(--color-text-primary)] border border-white/25 group-hover:border-[var(--color-neon-primary)]/75 group-hover:bg-[var(--color-deep)]/95"
@@ -181,7 +181,7 @@ function OptionCard({
 
       {/* Contenido de texto: caja de texto con fondo translúcido y tipografía grande y clara */}
       <div className="relative z-20 flex flex-1 flex-col items-center justify-center px-3.5 py-2 sm:px-4 sm:py-3 text-center">
-        <div className="w-full rounded-xl bg-[var(--color-deep)]/82 backdrop-blur-md border border-white/25 p-4 sm:p-5 group-hover:border-[var(--color-neon-primary)]/65 transition-colors shadow-[0_8px_24px_rgba(0,0,0,0.35)]">
+        <div className="w-full rounded-xl bg-[var(--color-deep)]/95 border border-white/25 p-4 sm:p-5 group-hover:border-[var(--color-neon-primary)]/65 transition-colors shadow-[0_8px_24px_rgba(0,0,0,0.35)]">
             <p className="font-black text-lg sm:text-xl md:text-[21px] leading-snug tracking-tight text-[var(--color-text-primary)] text-balance drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
               {option}
             </p>

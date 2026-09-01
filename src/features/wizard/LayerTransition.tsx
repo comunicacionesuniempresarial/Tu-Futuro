@@ -12,16 +12,16 @@ interface LayerTransitionProps {
 const STUDGARD_MESSAGES = {
   1: {
     title: "¡Eso es, vamos con toda!",
-    message: "Ya diste el primer paso. Sigue respondiendo con el corazón: aquí empieza lo que te hace único.",
+    message: "Empecemos a responder y descubramos juntos tu FuturoDual, no hay respuestas correctas, solo respuestas...",
     image: { src: "/images/studgard/studgard-open.png", width: 1214, height: 1149 },
   },
   2: {
-    title: "¡Te estás luciendo!",
-    message: "Ya conocemos un poco de lo que te mueve. Ahora vamos a descubrir todo lo que puedes lograr.",
+    title: "¡Te estás luciendo,!",
+    message: "¡¡¡Sigamos avanzando!!!.",
     image: { src: "/images/studgard/studgard-thumbs-up.png", width: 740, height: 1148 },
   },
   3: {
-    title: "¡Lo tienes al alcance!",
+    title: "¡Ya casi!",
     message: "Falta muy poco para conocer tu camino. Da este último paso y prepárate para sorprenderte.",
     image: { src: "/images/studgard/studgard-pointing.png", width: 1143, height: 1376 },
   },
@@ -62,7 +62,6 @@ export default function LayerTransition({
           />
           {!prefersReduced && [
             ["12%", "18%", "0.2s"], ["25%", "82%", "0.8s"], ["58%", "12%", "1.1s"],
-            ["76%", "70%", "0.4s"], ["88%", "42%", "1.6s"], ["40%", "94%", "1.9s"],
           ].map(([top, left, delay], index) => (
             <motion.span
               key={index}
@@ -77,7 +76,7 @@ export default function LayerTransition({
           <div className="relative z-10 flex flex-col items-center text-center lg:items-start lg:text-left">
             <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[var(--color-neon-secondary)]/45 bg-[var(--color-neon-secondary)]/10 px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-neon-secondary)] shadow-[0_0_18px_color-mix(in_srgb,var(--color-neon-secondary)_18%,transparent)]">
               <span className="h-2 w-2 animate-pulse rounded-full bg-[var(--color-neon-primary)]" />
-              Studgard en línea
+              "Studgard" - online
             </div>
 
             <motion.div
@@ -95,7 +94,7 @@ export default function LayerTransition({
               </p>
               {!prefersReduced && (
                 <div aria-hidden="true" className="mt-5 flex h-4 items-end gap-1 opacity-70">
-                  {[0, 1, 2, 3, 4, 5, 6].map((bar) => (
+                  {[0, 1, 2, 3].map((bar) => (
                     <motion.span
                       key={bar}
                       className="w-1 rounded-full bg-[var(--color-neon-secondary)]"
@@ -130,7 +129,7 @@ export default function LayerTransition({
                 width={dialogue.image.width}
                 height={dialogue.image.height}
                 sizes="(max-width: 639px) 70vw, (max-width: 1023px) 50vw, 42vw"
-                preload
+                priority
                 alt="Studgard, tu guía del duelo"
                 className="h-full w-auto object-contain drop-shadow-[0_18px_28px_rgba(0,0,0,0.5)]"
               />

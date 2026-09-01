@@ -50,7 +50,7 @@ export function GapAnalysis({
   return (
     <div
       data-theme="dark"
-      className="rounded-3xl border border-[var(--color-border)]/70 bg-[var(--color-surface)]/70 p-8 space-y-4 backdrop-blur-sm"
+      className="rounded-3xl border border-[var(--color-border)]/70 bg-[var(--color-surface)]/90 p-8 space-y-4"
     >
       <h3 className="text-sm font-bold uppercase tracking-wider text-[var(--color-text-muted)]">
         Lo que podrías fortalecer

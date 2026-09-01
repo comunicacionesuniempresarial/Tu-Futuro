@@ -172,13 +172,13 @@ export function ResultsPage({ data }: { data: ResultsData }) {
       <div aria-hidden="true" className="ambient-rays" />
       <div aria-hidden="true" className="ambient-stars"><span className="star" /><span className="star" /><span className="star" /><span className="star-spark" /><span className="star-spark" /></div>
       <div aria-hidden="true" className="results-orb-field">
-        {Array.from({ length: 26 }, (_, index) => <span key={index} />)}
+        {Array.from({ length: 8 }, (_, index) => <span key={index} />)}
       </div>
-      <div aria-hidden="true" className="results-energy-field"><span /><span /><span /><span /></div>
+      <div aria-hidden="true" className="results-energy-field"><span /><span /></div>
       <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
-        <div className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full bg-[var(--color-neon-primary)]/5 blur-[140px]" />
-        <div className="absolute top-1/3 -right-40 w-[540px] h-[540px] rounded-full bg-[var(--color-neon-secondary)]/8 blur-[150px]" />
-        <div className="absolute bottom-10 left-1/3 w-[460px] h-[460px] rounded-full bg-[var(--color-primary-container)]/8 blur-[130px]" />
+        <div className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full bg-[var(--color-neon-primary)]/5 blur-[140px]" style={{ willChange: "transform", contain: "layout style paint" }} />
+        <div className="absolute top-1/3 -right-40 w-[540px] h-[540px] rounded-full bg-[var(--color-neon-secondary)]/8 blur-[150px]" style={{ willChange: "transform", contain: "layout style paint" }} />
+        <div className="absolute bottom-10 left-1/3 w-[460px] h-[460px] rounded-full bg-[var(--color-primary-container)]/8 blur-[130px]" style={{ willChange: "transform", contain: "layout style paint" }} />
       </div>
 
       <ConfettiTrigger />

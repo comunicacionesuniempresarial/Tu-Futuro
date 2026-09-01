@@ -30,7 +30,7 @@ export function ModalityCard({ modality }: ModalityCardProps) {
         </h3>
         <span
           data-accent="neon"
-          className="inline-flex items-center rounded-full border border-[var(--color-neon-primary)]/40 bg-[var(--color-neon-primary)]/10 px-3 py-1 text-xs font-bold text-[var(--color-neon-primary)] shadow-sm backdrop-blur-md"
+          className="inline-flex items-center rounded-full border border-[var(--color-neon-primary)]/40 bg-[var(--color-neon-primary)]/10 px-3 py-1 text-xs font-bold text-[var(--color-neon-primary)] shadow-sm"
         >
           {CONFIDENCE_LABELS[modality.confidence]}
         </span>

@@ -114,7 +114,7 @@ export default function AdminLayout({
 
         {/* Mobile header */}
         <div className="flex-1 flex flex-col">
-          <header className="md:hidden flex items-center justify-between p-4 border-b border-slate-200/70 bg-white/90 backdrop-blur-md">
+          <header className="md:hidden flex items-center justify-between p-4 border-b border-slate-200/70 bg-white/95">
             <Link href="/" className="flex items-center gap-1 sm:gap-2">
               <div className="w-8 h-8 bg-gradient-to-br from-[#22D3EE] to-[#E879F9] rounded-lg flex items-center justify-center font-bold text-xs text-white">
                 UF

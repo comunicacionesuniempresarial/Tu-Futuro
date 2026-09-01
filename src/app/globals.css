@@ -246,21 +246,14 @@ body {
 
 /* ── Glass panel (TCG) ── */
 .glass {
-  background: color-mix(in srgb, var(--color-deep) 80%, transparent);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(8, 10, 27, 0.88);
   border: 1px solid var(--color-border);
 }
 
 .glass-panel {
-  background: linear-gradient(
-    165deg,
-    color-mix(in srgb, var(--color-surface) 92%, transparent),
-    color-mix(in srgb, var(--color-deep) 92%, transparent)
-  );
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  background: linear-gradient(165deg, rgba(29, 27, 53, 0.92), rgba(8, 10, 27, 0.92));
   border: 1px solid color-mix(in srgb, var(--color-border) 70%, transparent);
+  contain: layout style;
 }
 
 /* ── Golden border — 1px nítido, gradiente oro→turquesa ── */
@@ -305,7 +298,8 @@ body {
   border: 1px solid color-mix(in srgb, var(--color-neon-secondary) 28%, var(--color-border));
   background: var(--color-deep);
   box-shadow: 0 16px 30px color-mix(in srgb, var(--color-deep) 65%, transparent), inset 0 0 0 1px rgba(255,255,255,.04);
-  transition: transform 500ms cubic-bezier(.22, 1, .36, 1), box-shadow 500ms ease, border-color 400ms ease;
+  transition: transform 200ms cubic-bezier(.22, 1, .36, 1), box-shadow 300ms ease, border-color 300ms ease;
+  contain: layout style;
 }
 
 .question-card::before {
@@ -328,7 +322,6 @@ body {
   color: var(--color-neon-primary);
   font-size: 12px;
   opacity: .55;
-  animation: card-sparkle 2.8s ease-in-out infinite;
   pointer-events: none;
 }
 
@@ -342,6 +335,10 @@ body {
 .question-card[data-selected="true"]::before {
   border-color: color-mix(in srgb, var(--color-neon-primary) 65%, transparent);
   box-shadow: inset 0 0 18px color-mix(in srgb, var(--color-neon-primary) 12%, transparent);
+}
+
+.question-card:hover::after {
+  animation: card-sparkle 2.8s ease-in-out infinite;
 }
 
 @keyframes card-sparkle { 0%, 100% { opacity: .3; transform: scale(.8) rotate(0deg); } 50% { opacity: 1; transform: scale(1.25) rotate(18deg); } }
@@ -363,6 +360,7 @@ body {
   );
   filter: blur(26px);
   opacity: 0.55;
+  will-change: transform;
   animation: foil-sweep 9s linear infinite;
 }
 
@@ -459,6 +457,7 @@ body {
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
+  contain: layout style paint;
   background:
     radial-gradient(720px 420px at 18% 12%, color-mix(in srgb, var(--color-gold-dim) 18%, transparent), transparent 62%),
     radial-gradient(680px 460px at 85% 8%, color-mix(in srgb, var(--color-teal-deep) 22%, transparent), transparent 58%),
@@ -482,6 +481,7 @@ body {
   inset: 0;
   pointer-events: none;
   overflow: hidden;
+  contain: layout style paint;
 }
 
 .ambient-constellations::before,
@@ -532,7 +532,7 @@ body {
 .experience-canvas > .ambient-bg,
 .experience-canvas > .ambient-rays { z-index: -3; }
 .experience-canvas > .ambient-stars { z-index: -2; overflow: hidden; pointer-events: none; }
-.ambient-stars { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.ambient-stars { position: absolute; inset: 0; overflow: hidden; pointer-events: none; contain: layout style paint; }
 
 .ambient-stars .star:nth-child(1) { left: 9%; top: 22%; width: 4px; height: 4px; animation-duration: 4.5s; }
 .ambient-stars .star:nth-child(2) { left: 78%; top: 28%; width: 3px; height: 3px; animation-duration: 5.5s; animation-delay: -2s; }
@@ -540,7 +540,7 @@ body {
 .ambient-stars .star-spark:nth-child(4) { left: 22%; top: 68%; animation-delay: -1.2s; }
 .ambient-stars .star-spark:nth-child(5) { left: 87%; top: 58%; animation-delay: -3.2s; }
 
-.landing-energy { position: absolute; inset: 0; z-index: 1; overflow: hidden; pointer-events: none; }
+.landing-energy { position: absolute; inset: 0; z-index: 1; overflow: hidden; pointer-events: none; contain: layout style paint; }
 .landing-energy span { position: absolute; top: 110%; width: 2px; height: 190px; background: linear-gradient(180deg, transparent, var(--color-neon-primary), transparent); opacity: .3; transform: rotate(22deg); animation: landing-energy-rise 9s linear infinite; }
 .landing-energy span:nth-child(1) { left: 8%; animation-delay: -1s; }
 .landing-energy span:nth-child(2) { left: 21%; animation-delay: -6s; background: linear-gradient(180deg, transparent, var(--color-neon-secondary), transparent); }
@@ -571,9 +571,11 @@ body {
 /* ── Rayos de luz animados desde el centro superior ── */
 .ambient-rays {
   position: absolute;
-  inset: -40%;
+  inset: -20%;
   z-index: 0;
   pointer-events: none;
+  contain: strict;
+  will-change: transform;
   background: conic-gradient(
     from 0deg,
     transparent 0deg,
@@ -620,6 +622,7 @@ body {
   opacity: 0;
   animation: star-twinkle ease-in-out infinite;
   pointer-events: none;
+  will-change: transform, opacity;
 }
 
 @keyframes star-twinkle {
@@ -642,6 +645,7 @@ body {
   pointer-events: none;
   opacity: 0;
   animation: star-sparkle ease-in-out infinite;
+  will-change: transform, opacity;
 }
 
 .star-spark::before,
@@ -687,6 +691,8 @@ body {
   opacity: 0.5;
   animation: particle-rise linear infinite;
   pointer-events: none;
+  contain: layout style paint;
+  will-change: transform, opacity;
 }
 
 @keyframes particle-rise {
@@ -714,6 +720,7 @@ body {
     inset 0 0 8px color-mix(in srgb, var(--color-teal) 25%, transparent);
   transform-origin: left;
   transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
 }
 
 /* ── Holographic glow (carta de pregunta) ── */
@@ -747,6 +754,7 @@ body {
   position: relative;
   isolation: isolate;
   transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease, border-color 0.3s ease;
+  contain: layout style;
 }
 
 .mystic-card::after {
@@ -755,6 +763,7 @@ body {
   inset: -120%;
   z-index: 15;
   pointer-events: none;
+  clip-path: inset(0);
   background: linear-gradient(
     115deg,
     transparent 25%,
@@ -846,15 +855,25 @@ body {
 @keyframes breathe-glow {
   0%,
   100% {
-    box-shadow: 0 0 14px color-mix(in srgb, var(--color-neon-primary) 25%, transparent);
+    opacity: 0.56;
   }
   50% {
-    box-shadow: 0 0 30px color-mix(in srgb, var(--color-neon-primary) 45%, transparent);
+    opacity: 1;
   }
 }
 
 .animate-breathe-glow {
+  position: relative;
+}
+
+.animate-breathe-glow::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  box-shadow: 0 0 30px color-mix(in srgb, var(--color-neon-primary) 45%, transparent);
   animation: breathe-glow 2.6s ease-in-out infinite;
+  pointer-events: none;
+  z-index: -1;
 }
 
 /* ── Expanding ring (layer unlock) ── */
@@ -918,10 +937,18 @@ body {
   position: relative;
   overflow: hidden;
   box-shadow: 0 0 30px color-mix(in srgb, var(--color-neon-primary) 8%, transparent);
-  animation: radar-stage-glow 5s ease-in-out infinite;
 }
 
-@keyframes radar-stage-glow { 0%, 100% { box-shadow: 0 0 22px color-mix(in srgb, var(--color-neon-primary) 7%, transparent); } 50% { box-shadow: 0 0 42px color-mix(in srgb, var(--color-neon-primary) 16%, transparent); } }
+.radar-stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  box-shadow: 0 0 42px color-mix(in srgb, var(--color-neon-primary) 16%, transparent);
+  animation: radar-stage-glow 5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes radar-stage-glow { 0%, 100% { opacity: 0.44; } 50% { opacity: 1; } }
 
 .share-card-stage {
   width: min(100%, 640px);
@@ -979,7 +1006,7 @@ body {
   animation: victory-pulse 4s ease-in-out infinite;
 }
 
-.victory-sparkles { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+.victory-sparkles { position: absolute; inset: 0; z-index: 1; pointer-events: none; contain: layout style paint; }
 .victory-sparkles span { position: absolute; width: 5px; height: 5px; border-radius: 999px; background: var(--color-neon-primary); box-shadow: 0 0 18px 4px var(--color-neon-primary); animation: victory-sparkle 3.5s ease-in-out infinite; }
 .victory-sparkles span:nth-child(1) { left: 12%; top: 18%; animation-delay: -.8s; }
 .victory-sparkles span:nth-child(2) { left: 84%; top: 24%; background: var(--color-neon-secondary); box-shadow: 0 0 18px 4px var(--color-neon-secondary); animation-delay: -2s; }
@@ -988,7 +1015,7 @@ body {
 .victory-sparkles span:nth-child(5) { left: 72%; top: 12%; animation-delay: -3s; }
 
 .results-orb-field,
-.results-energy-field { position: absolute; inset: 0; z-index: 1; overflow: hidden; pointer-events: none; }
+.results-energy-field { position: absolute; inset: 0; z-index: 1; overflow: hidden; pointer-events: none; contain: layout style paint; }
 .results-orb-field span { position: absolute; width: 16px; height: 16px; border-radius: 50%; background: var(--color-neon-primary); opacity: .52; filter: blur(2px); box-shadow: 0 0 30px 10px color-mix(in srgb, var(--color-neon-primary) 48%, transparent); animation: result-orb-drift 18s ease-in-out infinite; }
 .results-orb-field span:nth-child(3n) { background: var(--color-neon-secondary); box-shadow: 0 0 30px 10px color-mix(in srgb, var(--color-neon-secondary) 48%, transparent); }
 .results-orb-field span:nth-child(4n) { width: 7px; height: 7px; animation-duration: 23s; }
@@ -1187,6 +1214,29 @@ body {
 /* ── Brand gradient (oro→turquesa) ── */
 .brand-gradient {
   background: linear-gradient(135deg, var(--color-neon-primary), var(--color-neon-secondary));
+}
+
+/* ── Desktop GPU performance tier: trim animated background layers ── */
+@media (min-width: 768px) {
+  /* Slower rays rotation = fewer GPU composites per second */
+  .ambient-rays {
+    animation-duration: 120s;
+  }
+
+  /* Hide every other energy beam (8 → 4) */
+  .landing-energy span:nth-child(odd) {
+    display: none;
+  }
+
+  /* Hide every other star (12 → 6) */
+  .ambient-stars .star:nth-child(odd) {
+    display: none;
+  }
+
+  /* Hide every other star-spark (5 → 2) */
+  .ambient-stars .star-spark:nth-child(odd) {
+    display: none;
+  }
 }
 
 /* ── Mobile GPU budget: retain the atmosphere without continuous decoration ── */
