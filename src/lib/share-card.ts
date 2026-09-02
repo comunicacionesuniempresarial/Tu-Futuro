@@ -1,5 +1,6 @@
 export const SHARE_CARD_FILENAME = "tufuturo-resultado.png";
 export const SHARE_CARD_JPG_FILENAME = "tufuturo-resultado.jpg";
+const LOGO_PATH = "/brand/uniempresarial-logo.png";
 
 export interface ShareCardData {
   archetype: {
@@ -18,7 +19,7 @@ const escapeXml = (value: string): string =>
     "'": "&apos;",
   })[character] ?? character);
 
-export function generateShareCardSVG({ archetype, topProgram }: ShareCardData): string {
+export function generateShareCardSVG({ archetype, topProgram }: ShareCardData, logoHref = LOGO_PATH): string {
   const name = escapeXml(archetype.name);
   const emoji = escapeXml(archetype.emoji);
   const program = topProgram ? `Tu mejor coincidencia: ${escapeXml(topProgram)}` : "Descubre tu futuro profesional";
@@ -31,7 +32,8 @@ export function generateShareCardSVG({ archetype, topProgram }: ShareCardData): 
   <rect width="1080" height="1350" fill="url(#background)"/>
   <circle cx="180" cy="170" r="280" fill="#fff" opacity=".08"/><circle cx="940" cy="1130" r="330" fill="#fff" opacity=".08"/>
   <rect x="54" y="54" width="972" height="1242" rx="52" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="3"/>
-  <text x="540" y="160" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="44" font-weight="800" letter-spacing="7">UNIEMPRESARIAL</text>
+  <rect x="330" y="84" width="420" height="116" rx="24" fill="#fff" opacity=".98" filter="url(#glow)"/>
+  <image href="${escapeXml(logoHref)}" x="350" y="99" width="380" height="86" preserveAspectRatio="xMidYMid meet"/>
   <text x="540" y="225" text-anchor="middle" fill="#ffe16d" font-family="Arial, sans-serif" font-size="28" font-weight="700" letter-spacing="3">TU FUTURO DUAL</text>
   <circle cx="540" cy="560" r="210" fill="#fff" fill-opacity=".14" stroke="#ffe16d" stroke-width="7" filter="url(#glow)"/>
   <text x="540" y="620" text-anchor="middle" font-size="250">${emoji}</text>

@@ -14,6 +14,7 @@ interface ShareCardProps {
 }
 
 type Status = "idle" | "preparing" | "done" | "error";
+const LOGO_PATH = "/brand/uniempresarial-logo.png";
 
 const downloadBlob = (blob: Blob, filename: string) => {
   const url = URL.createObjectURL(blob);
@@ -27,8 +28,18 @@ const downloadBlob = (blob: Blob, filename: string) => {
 export default function ShareCard({ data }: ShareCardProps) {
   const [status, setStatus] = useState<Status>("idle");
 
-  const createImage = async (type: "image/png" | "image/jpeg") =>
-    svgToImageBlob(generateShareCardSVG(data), type);
+  const createImage = async (type: "image/png" | "image/jpeg") => {
+    const logoResponse = await fetch(LOGO_PATH);
+    if (!logoResponse.ok) throw new Error("No se pudo cargar el logo institucional");
+    const logoBlob = await logoResponse.blob();
+    const logoDataUrl = await new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(String(reader.result));
+      reader.onerror = () => reject(new Error("No se pudo preparar el logo institucional"));
+      reader.readAsDataURL(logoBlob);
+    });
+    return svgToImageBlob(generateShareCardSVG(data, logoDataUrl), type);
+  };
 
   const handleShare = () => {
     setStatus("preparing");
@@ -66,7 +77,9 @@ export default function ShareCard({ data }: ShareCardProps) {
   return (
     <section className="rounded-3xl overflow-hidden border border-[#0033A5]/20 bg-white shadow-sm">
       <div className="bg-gradient-to-br from-[#0033A5] via-[#182c72] to-[#D51933] px-6 py-8 text-center text-white">
-        <p className="text-sm font-extrabold tracking-[0.2em]">UNIEMPRESARIAL</p>
+        <div className="mx-auto inline-flex rounded-xl bg-white px-4 py-2 shadow-[0_0_20px_rgba(255,255,255,0.75),0_0_34px_rgba(255,225,109,0.55)]">
+          <img src={LOGO_PATH} alt="Uniempresarial" className="h-12 w-auto object-contain" />
+        </div>
         <p className="mt-1 text-xs font-bold tracking-[0.12em] text-[#ffe16d]">TU FUTURO DUAL</p>
         <div className="mx-auto mt-6 flex h-24 w-24 items-center justify-center rounded-full border-4 border-[#ffe16d] bg-white/15 text-5xl shadow-lg">
           {data.archetype.emoji}

@@ -370,23 +370,20 @@ export default function ResultadosPage() {
           }}
         />
 
-        {/* Compact statistics */}
+        {/* Matching career statistics */}
         <section className="rounded-3xl border border-slate-200/70 bg-white p-6 shadow-sm">
-          <h2 className="text-xl font-black text-slate-900">Tus estadísticas</h2>
-          <div className="mt-5 space-y-4">
-            {[
-              ["Afinidad de personalidad", top3[0]?.fitBreakdown.personality],
-              ["Afinidad técnica", top3[0]?.fitBreakdown.technical],
-              ["Afinidad con tu estilo de vida", top3[0]?.fitBreakdown.lifestyle],
-            ].map(([label, score]) => {
-              const value = typeof score === "number" ? Math.max(0, Math.min(100, score)) : 0;
+          <h2 className="text-xl font-black text-slate-900">Tus estadísticas de coincidencia</h2>
+          <div className="mt-5">
+            {top3WithProgram.map((result, index) => {
+              const score = Math.max(0, Math.min(100, result.overallScore));
               return (
-                <div key={label as string} className="flex items-center gap-3 text-sm">
-                  <span className="min-w-0 flex-1 text-slate-600">{label}</span>
-                  <div className="h-2 w-24 overflow-hidden rounded-full bg-slate-100 sm:w-40">
-                    <div className="h-full rounded-full bg-gradient-to-r from-[#D51933] to-[#0033A5]" style={{ width: `${value}%` }} />
+                <div key={result.programId}>
+                  {index > 0 && <div className="my-4 h-px bg-slate-200" />}
+                  <div className="flex items-center gap-3 text-sm">
+                    <span className="w-6 font-black text-[#D51933]">{index + 1}</span>
+                    <span className="min-w-0 flex-1 font-semibold text-slate-700">{result.program.name}</span>
+                    <strong className="text-[#0033A5]">{Math.round(score)}%</strong>
                   </div>
-                  <strong className="w-10 text-right text-[#0033A5]">{Math.round(value)}%</strong>
                 </div>
               );
             })}
