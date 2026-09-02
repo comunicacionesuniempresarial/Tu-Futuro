@@ -24,7 +24,7 @@ import RadarChart from "@/components/results/RadarChart";
 import ModalityCard from "@/components/results/ModalityCard";
 import ProgramCard from "@/components/results/ProgramCard";
 import GapAnalysis from "@/components/results/GapAnalysis";
-import RankingFull from "@/components/results/RankingFull";
+import ShareCard from "@/components/results/ShareCard";
 
 interface ResultsData {
   riasecProfile: RIASECProfile;
@@ -363,11 +363,35 @@ export default function ResultadosPage() {
             .map((r) => r.programId)}
         />
 
-        {/* Full ranking */}
-        <RankingFull
-          results={filteredResults}
-          modalityRecommendation={confidence === "low" ? undefined : recommendation}
+        <ShareCard
+          data={{
+            archetype: data.archetype,
+            topProgram: top3WithProgram[0]?.program.name,
+          }}
         />
+
+        {/* Compact statistics */}
+        <section className="rounded-3xl border border-slate-200/70 bg-white p-6 shadow-sm">
+          <h2 className="text-xl font-black text-slate-900">Tus estadísticas</h2>
+          <div className="mt-5 space-y-4">
+            {[
+              ["Afinidad de personalidad", top3[0]?.fitBreakdown.personality],
+              ["Afinidad técnica", top3[0]?.fitBreakdown.technical],
+              ["Afinidad con tu estilo de vida", top3[0]?.fitBreakdown.lifestyle],
+            ].map(([label, score]) => {
+              const value = typeof score === "number" ? Math.max(0, Math.min(100, score)) : 0;
+              return (
+                <div key={label as string} className="flex items-center gap-3 text-sm">
+                  <span className="min-w-0 flex-1 text-slate-600">{label}</span>
+                  <div className="h-2 w-24 overflow-hidden rounded-full bg-slate-100 sm:w-40">
+                    <div className="h-full rounded-full bg-gradient-to-r from-[#D51933] to-[#0033A5]" style={{ width: `${value}%` }} />
+                  </div>
+                  <strong className="w-10 text-right text-[#0033A5]">{Math.round(value)}%</strong>
+                </div>
+              );
+            })}
+          </div>
+        </section>
 
         {/* CTA */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
