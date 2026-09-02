@@ -1,7 +1,9 @@
 import { useCallback } from "react";
 import {
   SHARE_CARD_FILENAME,
+  SHARE_CARD_JPG_FILENAME,
   generateShareCardSVG,
+  svgToJpegBlob,
   svgToPngBlob,
   type ShareCardData,
 } from "@/lib/share-card/generate";
@@ -10,6 +12,10 @@ import type { ShareCardSize } from "@/lib/share-card/generate";
 export interface ShareOptions {
   data: ShareCardData;
   size?: ShareCardSize;
+  onSuccess?: () => void;
+  onError?: (error: Error) => void;
+}
+export interface DownloadOptions extends Omit<ShareOptions, "onSuccess" | "onError"> {
   onSuccess?: () => void;
   onError?: (error: Error) => void;
 }
@@ -25,6 +31,24 @@ const downloadBlob = (blob: Blob): void => {
   anchor.click();
   URL.revokeObjectURL(url);
 };
+
+const downloadJpegBlob = (blob: Blob): void => {
+  const url = URL.createObjectURL(blob);
+  const anchor = document.createElement("a");
+  anchor.href = url;
+  anchor.download = SHARE_CARD_JPG_FILENAME;
+  anchor.click();
+  URL.revokeObjectURL(url);
+};
+
+export function useDownloadShareCard(): (options: DownloadOptions) => Promise<void> {
+  return useCallback(async ({ data, size, onSuccess, onError }) => {
+    try {
+      downloadJpegBlob(await svgToJpegBlob(generateShareCardSVG(data, size)));
+      onSuccess?.();
+    } catch (error) { onError?.(toError(error)); }
+  }, []);
+}
 
 const copyToClipboard = async (blob: Blob): Promise<void> => {
   const item = new ClipboardItem({ "image/png": blob });

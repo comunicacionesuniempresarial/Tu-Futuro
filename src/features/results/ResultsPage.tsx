@@ -23,7 +23,6 @@ import { ConfettiTrigger } from "./ConfettiTrigger";
 import { ArchetypeCard } from "./ArchetypeCard";
 import { RadarChart } from "./RadarChart";
 import { ProgramCard } from "./ProgramCard";
-import { RankingFull } from "./RankingFull";
 import { ShareCard } from "./ShareCard";
 import type { ShareCardData } from "@/lib/share-card/generate";
 
@@ -81,7 +80,7 @@ function buildMatchReason(
 /**
  * Renders the full results experience for a hydrated ResultsData payload:
  * dark/neon cards, custom SVG radar with program overlay, confetti reveal,
- * share card with layout control, ranking and gap analysis.
+ * share card with layout control and compact statistics.
  */
 export function ResultsPage({ data }: { data: ResultsData }) {
   const { resetTest } = useTestStore();
@@ -309,14 +308,21 @@ export function ResultsPage({ data }: { data: ResultsData }) {
           <ShareCard data={shareData} layout="stories" />
         </div>
 
-        {/* ── FULL RANKING ── */}
+        {/* ── COMPACT STATS ── */}
         <div
           className={`results-lazy-section ${prefersReduced ? "" : "animate-slide-up"}`}
         >
-          <RankingFull
-            results={filteredResults}
-            modalityRecommendation={undefined}
-          />
+          <div className="glass-panel rounded-3xl border border-[var(--color-border)] p-6">
+            <h2 className="font-display text-2xl font-bold text-[var(--color-neon-primary)]">Tus estadísticas</h2>
+            <div className="mt-5 space-y-4">
+              {Object.entries(data.rankedResults[0]?.fitBreakdown ?? {}).map(([key, value]) => (
+                <div key={key}>
+                  <div className="mb-1 flex justify-between text-sm"><span className="capitalize text-[var(--color-text-secondary)]">{key}</span><strong className="text-[var(--color-neon-primary)]">{Math.round(value * 100)}%</strong></div>
+                  <div className="h-2 overflow-hidden rounded-full bg-white/10"><div className="h-full rounded-full bg-[linear-gradient(90deg,var(--color-neon-secondary),var(--color-neon-primary))]" style={{ width: `${Math.max(0, Math.min(100, value * 100))}%` }} /></div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* ── ACTIONS ── */}

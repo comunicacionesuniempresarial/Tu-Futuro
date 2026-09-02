@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useShareCard } from "@/features/shared/hooks/useShareCard";
+import { useDownloadShareCard, useShareCard } from "@/features/shared/hooks/useShareCard";
 import type { ShareCardData } from "@/lib/share-card/generate";
 
 export type ShareCardLayout = "default" | "stories" | "feed";
@@ -24,6 +24,7 @@ type ShareStatus = "idle" | "sharing" | "done" | "error";
 
 export function ShareCard({ data, layout = "default" }: ShareCardProps) {
   const share = useShareCard();
+  const download = useDownloadShareCard();
   const size = SHARE_CARD_LAYOUT_SIZES[layout];
   const [status, setStatus] = useState<ShareStatus>("idle");
 
@@ -36,6 +37,10 @@ export function ShareCard({ data, layout = "default" }: ShareCardProps) {
       onError: () => setStatus("error"),
     });
   };
+  const handleDownload = () => {
+    setStatus("sharing");
+    void download({ data, size, onSuccess: () => setStatus("done"), onError: () => setStatus("error") });
+  };
 
   return (
     <div data-share-card="true" data-layout={layout} className="share-card-shell">
@@ -44,6 +49,7 @@ export function ShareCard({ data, layout = "default" }: ShareCardProps) {
         style={{ aspectRatio: `${size.width} / ${size.height}` }}
       >
         <div aria-hidden="true" className="share-card-ambient absolute inset-0" />
+        <div className="absolute top-4 z-20 text-center font-display text-xl font-black tracking-[0.16em] text-[#ffe16d] drop-shadow-[0_0_16px_rgba(255,225,109,.8)] sm:top-6 sm:text-3xl">UNIEMPRESARIAL</div>
         <div className="share-card-art relative z-10 flex h-full w-full items-center justify-center">
           <img
             src={`/archetypes/${data.archetype.id}.webp`}
@@ -54,14 +60,17 @@ export function ShareCard({ data, layout = "default" }: ShareCardProps) {
         </div>
         <div aria-hidden="true" className="share-card-shine pointer-events-none absolute inset-0 z-20" />
       </div>
+      <div className="mt-4 flex justify-center gap-3">
       <button
         type="button"
         onClick={handleShare}
         disabled={status === "sharing"}
-        className="share-card-button card-glow mx-auto mt-4 inline-flex w-auto min-w-40 items-center justify-center gap-2 rounded-xl border border-[var(--color-neon-primary)]/70 bg-[linear-gradient(135deg,var(--color-neon-primary),var(--color-neon-secondary))] px-7 py-3 text-sm font-extrabold text-[var(--color-deep)] shadow-[0_10px_30px_color-mix(in_srgb,var(--color-neon-primary)_22%,transparent)] transition-[transform,box-shadow] duration-200 hover:scale-[1.03] hover:shadow-[0_14px_38px_color-mix(in_srgb,var(--color-neon-primary)_35%,transparent)] active:scale-[0.97] disabled:cursor-wait disabled:opacity-60"
+        className="share-card-button card-glow inline-flex min-w-36 items-center justify-center gap-2 rounded-xl border border-[var(--color-neon-primary)]/70 bg-[linear-gradient(135deg,var(--color-neon-primary),var(--color-neon-secondary))] px-6 py-3 text-sm font-extrabold text-[var(--color-deep)] transition-[transform,box-shadow] duration-200 hover:scale-[1.03] disabled:cursor-wait disabled:opacity-60"
       >
         {status === "sharing" ? "Preparando…" : "Compartir"}
       </button>
+      <button type="button" onClick={handleDownload} disabled={status === "sharing"} aria-label="Descargar carta como JPG" className="inline-flex min-w-36 items-center justify-center rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] px-6 py-3 text-sm font-bold text-[var(--color-text-primary)] transition hover:border-[var(--color-neon-primary)] hover:text-[var(--color-neon-primary)] disabled:opacity-60">Descargar</button>
+      </div>
       <p className="mt-3 text-center text-xs text-[var(--color-text-secondary)]">
         En celular se abrirá el menú para elegir Instagram. En computador se descargará la imagen.
       </p>

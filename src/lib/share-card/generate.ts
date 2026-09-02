@@ -3,6 +3,7 @@ import type { RIASECProfile } from "@/lib/scoring/types";
 export const SHARE_CARD_WIDTH = 1200;
 export const SHARE_CARD_HEIGHT = 630;
 export const SHARE_CARD_FILENAME = "tufuturo-resultado.png";
+export const SHARE_CARD_JPG_FILENAME = "tufuturo-resultado.jpg";
 
 async function inlineSvgImages(svg: string): Promise<string> {
   if (typeof window === "undefined" || !svg.includes('href="/archetypes/')) return svg;
@@ -79,7 +80,8 @@ export function generateShareCardSVG(
   <rect width="${width}" height="${height}" fill="#0d0e17" />
   <circle cx="${width / 2}" cy="${height * 0.48}" r="${width * 0.55}" fill="url(#share-light)" />
   ${outerFrame}
-  <text x="${width / 2}" y="${isPortrait ? 92 * scale : 50 * scale}" text-anchor="middle" font-size="${isPortrait ? 30 * scale : 24 * scale}" font-weight="800" fill="#f5f5f5" font-family="Inter, system-ui, sans-serif">Tu Futuro Dual</text>
+  <text x="${width / 2}" y="${isPortrait ? 78 * scale : 44 * scale}" text-anchor="middle" font-size="${isPortrait ? 28 * scale : 22 * scale}" font-weight="900" letter-spacing="${3 * scale}px" fill="#ffe16d" filter="url(#card-glow)" font-family="Inter, system-ui, sans-serif">UNIEMPRESARIAL</text>
+  <text x="${width / 2}" y="${isPortrait ? 112 * scale : 70 * scale}" text-anchor="middle" font-size="${isPortrait ? 22 * scale : 18 * scale}" font-weight="800" fill="#f5f5f5" font-family="Inter, system-ui, sans-serif">Tu Futuro Dual</text>
   <text x="${width / 2}" y="${height - (isPortrait ? 72 : 32) * scale}" text-anchor="middle" font-size="${isPortrait ? 18 * scale : 15 * scale}" fill="#ffe16d" font-family="Inter, system-ui, sans-serif">Mi arquetipo: ${data.archetype.name}${studentName}</text>
   ${cardGlow}
   <image href="/archetypes/${data.archetype.id}.webp" x="${cardX}" y="${cardY}" width="${cardWidth}" height="${cardHeight}" preserveAspectRatio="xMidYMid meet" />
@@ -119,6 +121,35 @@ export async function svgToPngBlob(svg: string): Promise<Blob> {
         if (blob) resolve(blob);
         else reject(new Error("No se pudo exportar la carta como PNG"));
       }, "image/png");
+    });
+  } finally {
+    URL.revokeObjectURL(objectUrl);
+  }
+}
+
+export async function svgToJpegBlob(svg: string): Promise<Blob> {
+  const resolvedSvg = await inlineSvgImages(svg);
+  const svgBlob = new Blob([resolvedSvg], { type: "image/svg+xml;charset=utf-8" });
+  const objectUrl = URL.createObjectURL(svgBlob);
+  const width = Number(svg.match(/\bwidth="([\d.]+)/)?.[1] ?? SHARE_CARD_WIDTH);
+  const height = Number(svg.match(/\bheight="([\d.]+)/)?.[1] ?? SHARE_CARD_HEIGHT);
+  try {
+    const image = new Image();
+    await new Promise<void>((resolve, reject) => {
+      image.onload = () => resolve();
+      image.onerror = () => reject(new Error("No se pudo cargar la carta para descargar"));
+      image.src = objectUrl;
+    });
+    const canvas = document.createElement("canvas");
+    canvas.width = width;
+    canvas.height = height;
+    const context = canvas.getContext("2d");
+    if (!context) throw new Error("Canvas 2D context is not available");
+    context.fillStyle = "#0d0e17";
+    context.fillRect(0, 0, width, height);
+    context.drawImage(image, 0, 0, width, height);
+    return await new Promise<Blob>((resolve, reject) => {
+      canvas.toBlob((blob) => blob ? resolve(blob) : reject(new Error("No se pudo exportar la carta como JPG")), "image/jpeg", 0.92);
     });
   } finally {
     URL.revokeObjectURL(objectUrl);
