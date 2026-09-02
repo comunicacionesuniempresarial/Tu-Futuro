@@ -75,14 +75,23 @@ export function generateShareCardSVG(
   <defs>
     <filter id="card-glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="${18 * scale}" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
     <radialGradient id="share-light"><stop offset="0" stop-color="#e9c400" stop-opacity=".2"/><stop offset="1" stop-color="#12131d" stop-opacity="0"/></radialGradient>
+    <linearGradient id="share-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#111321"/><stop offset=".58" stop-color="#0b1420"/><stop offset="1" stop-color="#17120d"/></linearGradient>
+    <pattern id="portrait-grid" width="44" height="44" patternUnits="userSpaceOnUse"><path d="M44 0H0V44" fill="none" stroke="#ffe16d" stroke-opacity=".08" stroke-width="1" /></pattern>
   </defs>
   <title>Tu Futuro Dual — Carta de arquetipo ${data.archetype.name}</title>
-  <rect width="${width}" height="${height}" fill="#0d0e17" />
+  <rect width="${width}" height="${height}" fill="${isPortrait ? "url(#share-bg)" : "#0d0e17"}" />
   <circle cx="${width / 2}" cy="${height * 0.48}" r="${width * 0.55}" fill="url(#share-light)" />
+  ${isPortrait ? `<g aria-hidden="true" opacity=".9">
+    <rect x="0" y="${height * 0.62}" width="${width}" height="${height * 0.38}" fill="url(#portrait-grid)" />
+    <circle cx="${width * 0.08}" cy="${height * 0.78}" r="${width * 0.2}" fill="#e9c400" opacity=".1" filter="url(#card-glow)" />
+    <circle cx="${width * 0.92}" cy="${height * 0.86}" r="${width * 0.24}" fill="#ef1640" opacity=".09" filter="url(#card-glow)" />
+    <path d="M${width * 0.08} ${height * 0.78}H${width * 0.35}M${width * 0.65} ${height * 0.86}H${width * 0.92}" stroke="#ffe16d" stroke-opacity=".5" stroke-width="2" />
+    <circle cx="${width * 0.12}" cy="${height * 0.9}" r="4" fill="#ffe16d" /><circle cx="${width * 0.88}" cy="${height * 0.72}" r="3" fill="#ef1640" />
+  </g>` : ""}
   ${outerFrame}
   <rect x="${frame}" y="${frame}" width="${width - frame * 2}" height="${brandBandHeight}" rx="${12 * scale}" fill="#fff" />
   <image href="/brand/uniempresarial-logo.png" x="${width * 0.08}" y="${frame + 8 * scale}" width="${width * 0.84}" height="${brandBandHeight - 16 * scale}" preserveAspectRatio="xMidYMid meet" />
-  ${isPortrait ? `<text x="${width / 2}" y="${height - 72 * scale}" text-anchor="middle" font-size="${18 * scale}" fill="#ffe16d" font-family="Inter, system-ui, sans-serif">Mi arquetipo: ${data.archetype.name}${studentName}</text>` : ""}
+  ${isPortrait ? `<text x="${width / 2}" y="${cardY + cardHeight + 46 * scale}" text-anchor="middle" font-size="${18 * scale}" fill="#ffe16d" font-family="Inter, system-ui, sans-serif">Mi arquetipo: ${data.archetype.name}${studentName}</text>` : ""}
   ${cardGlow}
   <image href="/archetypes/${data.archetype.id}.webp" x="${cardX}" y="${cardY}" width="${cardWidth}" height="${cardHeight}" preserveAspectRatio="xMidYMid meet" />
 </svg>`;
