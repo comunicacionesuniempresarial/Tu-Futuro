@@ -1,4 +1,4 @@
-﻿import { render, screen, fireEvent, act, waitFor } from "@testing-library/react";
+import { render, screen, fireEvent, act, waitFor } from "@testing-library/react";
 import { MotionGlobalConfig } from "motion/react";
 import TestWizard from "./TestWizard";
 import { useTestStore } from "@/stores/test-store";
@@ -90,7 +90,7 @@ describe("TestWizard (features/wizard)", () => {
   async function answerAndAdvance() {
     const stepBefore = useTestStore.getState().step;
     answerCurrent();
-    // Wait for the store and visible question to advance. Layer boundaries show Sttutgart instead.
+    // Wait for the store and visible question to advance. Layer boundaries show Stuttgart instead.
     await waitFor(() => {
       expect(useTestStore.getState().step).toBe(stepBefore + 1);
     }, { timeout: 3000 });

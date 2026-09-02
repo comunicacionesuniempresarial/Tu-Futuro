@@ -21,11 +21,11 @@ describe("LayerTransition", () => {
     }));
   }
 
-  it("renders Sttutgart's motivational dialogue and primary action", () => {
+  it("renders Stuttgart's motivational dialogue and primary action", () => {
     mockMatchMedia(false);
     render(<LayerTransition layer={2} onContinue={vi.fn()} />);
 
-    expect(screen.getByText(/Sttutgart.*online/)).toBeInTheDocument();
+    expect(screen.getByText(/Stuttgart.*online/)).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: /Te estás luciendo/ })).toBeInTheDocument();
     expect(screen.getByText(/Sigamos avanzando/)).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "¡Estoy listo!" })).toBeInTheDocument();
@@ -46,7 +46,7 @@ describe("LayerTransition", () => {
     expect(container.querySelector("[data-layer-transition]")).toHaveAttribute("data-motion", "animated");
   });
 
-  it("updates Sttutgart's dialogue when the layer changes", async () => {
+  it("updates Stuttgart's dialogue when the layer changes", async () => {
     mockMatchMedia(false);
     const { rerender } = render(<LayerTransition layer={2} onContinue={vi.fn()} />);
     rerender(<LayerTransition layer={3} onContinue={vi.fn()} />);

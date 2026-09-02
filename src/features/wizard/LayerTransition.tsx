@@ -9,7 +9,7 @@ interface LayerTransitionProps {
   onContinue: () => void;
 }
 
-const STTUTGART_MESSAGES = {
+const STUTTGART_MESSAGES = {
   1: {
     title: "¡Eso es, vamos con toda!",
     message: "Empecemos a responder y descubramos juntos tu FuturoDual, no hay respuestas correctas, solo respuestas...",
@@ -27,13 +27,13 @@ const STTUTGART_MESSAGES = {
   },
 } as const;
 
-/** Sttutgart's game-style intermission between test missions. */
+/** Stuttgart's game-style intermission between test missions. */
 export default function LayerTransition({
   layer,
   onContinue,
 }: LayerTransitionProps) {
   const prefersReduced = useReducedMotion();
-  const dialogue = STTUTGART_MESSAGES[layer];
+  const dialogue = STUTTGART_MESSAGES[layer];
 
   return (
     <MotionConfig reducedMotion={prefersReduced ? "always" : "never"}>
@@ -76,7 +76,7 @@ export default function LayerTransition({
           <div className="relative z-10 flex flex-col items-center text-center lg:items-start lg:text-left">
             <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[var(--color-neon-secondary)]/45 bg-[var(--color-neon-secondary)]/10 px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-[var(--color-neon-secondary)] shadow-[0_0_18px_color-mix(in_srgb,var(--color-neon-secondary)_18%,transparent)]">
               <span className="h-2 w-2 animate-pulse rounded-full bg-[var(--color-neon-primary)]" />
-              "Sttutgart" - online
+              "Stuttgart" - online
             </div>
 
             <motion.div
@@ -130,7 +130,7 @@ export default function LayerTransition({
                 height={dialogue.image.height}
                 sizes="(max-width: 639px) 70vw, (max-width: 1023px) 50vw, 42vw"
                 priority
-                alt="Sttutgart, tu guía del duelo"
+                alt="Stuttgart, tu guía del duelo"
                 className="h-full w-auto object-contain drop-shadow-[0_18px_28px_rgba(0,0,0,0.5)]"
               />
             </motion.div>
