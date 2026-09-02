@@ -59,7 +59,7 @@ export function generateShareCardSVG(
   const cardRatio = 617 / 768;
   const cardY = brandBandHeight + 12 * scale;
   const cardHeight = isPortrait
-    ? Math.min(height * 0.72, (width * 0.94) / cardRatio)
+    ? Math.min(height * 0.76, (width * 0.94) / cardRatio, height - cardY - 72 * scale)
     : Math.min(height - cardY - 4 * scale, (width - frame * 1.5) / cardRatio);
   const cardWidth = cardHeight * cardRatio;
   const cardX = (width - cardWidth) / 2;
