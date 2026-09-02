@@ -81,9 +81,8 @@ export function generateShareCardSVG(
   <rect width="${width}" height="${height}" fill="#0d0e17" />
   <circle cx="${width / 2}" cy="${height * 0.48}" r="${width * 0.55}" fill="url(#share-light)" />
   ${outerFrame}
-  <rect x="${frame}" y="${frame}" width="${width - frame * 2}" height="${brandBandHeight}" rx="${18 * scale}" fill="#fff" fill-opacity=".08" stroke="#fff" stroke-opacity=".24" />
-  <ellipse cx="${width / 2}" cy="${frame + brandBandHeight / 2}" rx="${width * .25}" ry="${brandBandHeight * .32}" fill="#fff" opacity=".48" filter="url(#card-glow)" />
-  <image href="/brand/uniempresarial-logo.png" x="${width * 0.2}" y="${frame + 8 * scale}" width="${width * 0.6}" height="${brandBandHeight - 16 * scale}" preserveAspectRatio="xMidYMid meet" filter="url(#card-glow)" />
+  <ellipse cx="${width / 2}" cy="${frame + brandBandHeight / 2}" rx="${width * .34}" ry="${brandBandHeight * .28}" fill="#fff" opacity=".22" filter="url(#card-glow)" />
+  <image href="/brand/uniempresarial-logo.png" x="${width * 0.08}" y="${frame + 8 * scale}" width="${width * 0.84}" height="${brandBandHeight - 16 * scale}" preserveAspectRatio="xMidYMid meet" filter="url(#card-glow)" />
   <text x="${width / 2}" y="${frame + brandBandHeight + 28 * scale}" text-anchor="middle" font-size="${isPortrait ? 22 * scale : 18 * scale}" font-weight="800" fill="#f5f5f5" font-family="Inter, system-ui, sans-serif">Tu Futuro Dual</text>
   <text x="${width / 2}" y="${height - (isPortrait ? 72 : 32) * scale}" text-anchor="middle" font-size="${isPortrait ? 18 * scale : 15 * scale}" fill="#ffe16d" font-family="Inter, system-ui, sans-serif">Mi arquetipo: ${data.archetype.name}${studentName}</text>
   ${cardGlow}

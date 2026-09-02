@@ -45,13 +45,13 @@ export function ShareCard({ data, layout = "default" }: ShareCardProps) {
   return (
     <div data-share-card="true" data-layout={layout} className="share-card-shell">
       <div
-        className="share-card-preview share-card-stage group relative mx-auto flex items-center justify-center overflow-hidden rounded-[2rem] border border-white/10 bg-[#0b0c14] p-5 shadow-[0_20px_70px_rgba(0,0,0,.45)] sm:p-8"
+        className="share-card-preview share-card-stage group relative mx-auto flex flex-col items-center justify-start overflow-hidden rounded-[2rem] border border-white/10 bg-[#0b0c14] p-5 shadow-[0_20px_70px_rgba(0,0,0,.45)] sm:p-8"
         style={{ aspectRatio: `${size.width} / ${size.height}` }}
       >
         <div aria-hidden="true" className="share-card-ambient absolute inset-0" />
-        <div className="share-card-brand relative z-20 flex h-[18%] w-full shrink-0 items-center justify-center rounded-2xl border border-white/20 bg-white/[.08] px-4 py-3 shadow-[0_0_28px_rgba(255,225,109,.22)]">
-          <span aria-hidden="true" className="absolute inset-x-1/4 inset-y-1 rounded-full bg-white/70 blur-xl" />
-          <img src="/brand/uniempresarial-logo.png" alt="Uniempresarial" className="relative h-auto w-44 drop-shadow-[0_0_5px_rgba(255,255,255,.98)] drop-shadow-[0_0_18px_rgba(255,225,109,.85)] sm:w-64" />
+        <div className="share-card-brand relative z-20 flex h-[16%] w-full shrink-0 items-center justify-center px-2 py-2">
+          <span aria-hidden="true" className="absolute inset-x-1/4 inset-y-2 rounded-full bg-white/70 blur-2xl" />
+          <img src="/brand/uniempresarial-logo.png" alt="Uniempresarial" className="relative h-auto w-[86%] max-w-[34rem] drop-shadow-[0_0_7px_rgba(255,255,255,.98)] drop-shadow-[0_0_22px_rgba(255,225,109,.9)]" />
         </div>
         <div className="share-card-art relative z-10 flex min-h-0 flex-1 w-full items-center justify-center pt-3">
           <img
