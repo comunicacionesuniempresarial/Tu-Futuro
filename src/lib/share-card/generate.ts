@@ -55,16 +55,14 @@ export function generateShareCardSVG(
   const scale = Math.min(width / SHARE_CARD_WIDTH, height / SHARE_CARD_HEIGHT);
   const isPortrait = height / width > 1.15;
   const frame = 28 * scale;
-  const brandBandHeight = (isPortrait ? 170 : 104) * scale;
+  const brandBandHeight = (isPortrait ? 170 : 124) * scale;
   const cardRatio = 617 / 768;
   const cardHeight = isPortrait
     ? Math.min(height * 0.72, (width * 0.94) / cardRatio)
     : Math.min(height * 0.72, (width - frame * 1.5) / cardRatio);
   const cardWidth = cardHeight * cardRatio;
   const cardX = (width - cardWidth) / 2;
-  const cardY = isPortrait
-    ? Math.max(brandBandHeight + 18 * scale, (height - cardHeight) / 2)
-    : Math.max(brandBandHeight + 14 * scale, (height - cardHeight) / 2);
+  const cardY = brandBandHeight + 12 * scale;
   const studentName = data.studentName ? ` · ${data.studentName}` : "";
   const outerFrame = isPortrait
     ? ""
@@ -78,12 +76,12 @@ export function generateShareCardSVG(
     <filter id="card-glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="${18 * scale}" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
     <radialGradient id="share-light"><stop offset="0" stop-color="#e9c400" stop-opacity=".2"/><stop offset="1" stop-color="#12131d" stop-opacity="0"/></radialGradient>
   </defs>
+  <title>Tu Futuro Dual — Carta de arquetipo ${data.archetype.name}</title>
   <rect width="${width}" height="${height}" fill="#0d0e17" />
   <circle cx="${width / 2}" cy="${height * 0.48}" r="${width * 0.55}" fill="url(#share-light)" />
   ${outerFrame}
-  <ellipse cx="${width / 2}" cy="${frame + brandBandHeight / 2}" rx="${width * .34}" ry="${brandBandHeight * .28}" fill="#fff" opacity=".22" filter="url(#card-glow)" />
-  <image href="/brand/uniempresarial-logo.png" x="${width * 0.08}" y="${frame + 8 * scale}" width="${width * 0.84}" height="${brandBandHeight - 16 * scale}" preserveAspectRatio="xMidYMid meet" filter="url(#card-glow)" />
-  <text x="${width / 2}" y="${frame + brandBandHeight + 28 * scale}" text-anchor="middle" font-size="${isPortrait ? 22 * scale : 18 * scale}" font-weight="800" fill="#f5f5f5" font-family="Inter, system-ui, sans-serif">Tu Futuro Dual</text>
+  <rect x="${frame}" y="${frame}" width="${width - frame * 2}" height="${brandBandHeight}" rx="${12 * scale}" fill="#fff" />
+  <image href="/brand/uniempresarial-logo.png" x="${width * 0.08}" y="${frame + 8 * scale}" width="${width * 0.84}" height="${brandBandHeight - 16 * scale}" preserveAspectRatio="xMidYMid meet" />
   <text x="${width / 2}" y="${height - (isPortrait ? 72 : 32) * scale}" text-anchor="middle" font-size="${isPortrait ? 18 * scale : 15 * scale}" fill="#ffe16d" font-family="Inter, system-ui, sans-serif">Mi arquetipo: ${data.archetype.name}${studentName}</text>
   ${cardGlow}
   <image href="/archetypes/${data.archetype.id}.webp" x="${cardX}" y="${cardY}" width="${cardWidth}" height="${cardHeight}" preserveAspectRatio="xMidYMid meet" />
