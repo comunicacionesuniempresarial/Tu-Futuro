@@ -76,7 +76,7 @@ export default function ShareCard({ data }: ShareCardProps) {
 
   return (
     <section className="rounded-3xl overflow-hidden border border-[#0033A5]/20 bg-white shadow-sm">
-      <div className="bg-gradient-to-br from-[#0033A5] via-[#182c72] to-[#D51933] px-6 py-8 text-center text-white">
+      <div className="bg-gradient-to-br from-[#0033A5] via-[#182c72] to-[#D51933] px-6 py-6 text-center text-white">
         <div className="mx-auto inline-flex rounded-xl bg-white px-4 py-2 shadow-[0_0_20px_rgba(255,255,255,0.75),0_0_34px_rgba(255,225,109,0.55)]">
           <img src={LOGO_PATH} alt="Uniempresarial" className="h-12 w-auto object-contain" />
         </div>
