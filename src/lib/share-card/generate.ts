@@ -57,12 +57,12 @@ export function generateShareCardSVG(
   const frame = 28 * scale;
   const brandBandHeight = (isPortrait ? 170 : 124) * scale;
   const cardRatio = 617 / 768;
+  const cardY = brandBandHeight + 12 * scale;
   const cardHeight = isPortrait
     ? Math.min(height * 0.72, (width * 0.94) / cardRatio)
-    : Math.min(height * 0.72, (width - frame * 1.5) / cardRatio);
+    : Math.min(height - cardY - 4 * scale, (width - frame * 1.5) / cardRatio);
   const cardWidth = cardHeight * cardRatio;
   const cardX = (width - cardWidth) / 2;
-  const cardY = brandBandHeight + 12 * scale;
   const studentName = data.studentName ? ` · ${data.studentName}` : "";
   const outerFrame = isPortrait
     ? ""
@@ -82,7 +82,7 @@ export function generateShareCardSVG(
   ${outerFrame}
   <rect x="${frame}" y="${frame}" width="${width - frame * 2}" height="${brandBandHeight}" rx="${12 * scale}" fill="#fff" />
   <image href="/brand/uniempresarial-logo.png" x="${width * 0.08}" y="${frame + 8 * scale}" width="${width * 0.84}" height="${brandBandHeight - 16 * scale}" preserveAspectRatio="xMidYMid meet" />
-  <text x="${width / 2}" y="${height - (isPortrait ? 72 : 32) * scale}" text-anchor="middle" font-size="${isPortrait ? 18 * scale : 15 * scale}" fill="#ffe16d" font-family="Inter, system-ui, sans-serif">Mi arquetipo: ${data.archetype.name}${studentName}</text>
+  ${isPortrait ? `<text x="${width / 2}" y="${height - 72 * scale}" text-anchor="middle" font-size="${18 * scale}" fill="#ffe16d" font-family="Inter, system-ui, sans-serif">Mi arquetipo: ${data.archetype.name}${studentName}</text>` : ""}
   ${cardGlow}
   <image href="/archetypes/${data.archetype.id}.webp" x="${cardX}" y="${cardY}" width="${cardWidth}" height="${cardHeight}" preserveAspectRatio="xMidYMid meet" />
 </svg>`;
