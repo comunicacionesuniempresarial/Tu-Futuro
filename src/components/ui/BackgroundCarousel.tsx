@@ -68,7 +68,7 @@ export default function BackgroundCarousel({
                 autoPlay
                 muted
                 playsInline
-                preload="auto"
+                preload="metadata"
                 onEnded={goNext}
                 className="w-full h-full object-cover"
               />

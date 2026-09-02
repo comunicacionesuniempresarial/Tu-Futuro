@@ -114,7 +114,7 @@ export default function ProgramCard({
       <div className="px-5 pb-3">
         <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
           <div
-            className="h-full bg-gradient-to-r from-[#D51933] to-[#0033A5] rounded-full transition-all duration-700"
+            className="h-full bg-gradient-to-r from-[#D51933] to-[#0033A5] rounded-full"
             style={{ width: `${result.overallScore}%` }}
           />
         </div>
@@ -122,7 +122,7 @@ export default function ProgramCard({
 
       {/* Expanded content */}
       {expanded && (
-        <div className="px-5 pb-5 space-y-4 border-t border-slate-100 pt-4 animate-fade-in">
+        <div className="px-5 pb-5 space-y-4 border-t border-slate-100 pt-4">
           {/* Fit breakdown */}
           <div className="space-y-3">
             <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider">
@@ -154,7 +154,7 @@ export default function ProgramCard({
                     </div>
                     <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
                       <div
-                        className={`h-full rounded-full transition-all duration-700 ${color}`}
+                        className={`h-full rounded-full ${color}`}
                         style={{
                           width: `${value}%`,
                           opacity: isLowest ? 0.4 : 0.8,
