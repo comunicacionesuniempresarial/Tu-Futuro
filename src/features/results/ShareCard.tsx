@@ -49,7 +49,8 @@ export function ShareCard({ data, layout = "default" }: ShareCardProps) {
         style={{ aspectRatio: `${size.width} / ${size.height}` }}
       >
         <div aria-hidden="true" className="share-card-ambient absolute inset-0" />
-        <div className="absolute top-4 z-20 text-center font-display text-xl font-black tracking-[0.16em] text-[#ffe16d] drop-shadow-[0_0_16px_rgba(255,225,109,.8)] sm:top-6 sm:text-3xl">UNIEMPRESARIAL</div>
+        <div aria-hidden="true" className="absolute top-3 z-20 h-14 w-56 rounded-full bg-white/80 blur-xl sm:top-5 sm:h-20 sm:w-80" />
+        <img src="/brand/uniempresarial-logo.png" alt="Uniempresarial" className="absolute top-4 z-20 h-auto w-44 drop-shadow-[0_0_5px_rgba(255,255,255,.95)] drop-shadow-[0_0_18px_rgba(255,225,109,.8)] sm:top-6 sm:w-64" />
         <div className="share-card-art relative z-10 flex h-full w-full items-center justify-center">
           <img
             src={`/archetypes/${data.archetype.id}.webp`}

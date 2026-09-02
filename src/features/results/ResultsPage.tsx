@@ -314,11 +314,17 @@ export function ResultsPage({ data }: { data: ResultsData }) {
         >
           <div className="glass-panel rounded-3xl border border-[var(--color-border)] p-6">
             <h2 className="font-display text-2xl font-bold text-[var(--color-neon-primary)]">Tus estadísticas</h2>
-            <div className="mt-5 space-y-4">
-              {Object.entries(data.rankedResults[0]?.fitBreakdown ?? {}).map(([key, value]) => (
-                <div key={key}>
-                  <div className="mb-1 flex justify-between text-sm"><span className="capitalize text-[var(--color-text-secondary)]">{key}</span><strong className="text-[var(--color-neon-primary)]">{Math.round(value * 100)}%</strong></div>
-                  <div className="h-2 overflow-hidden rounded-full bg-white/10"><div className="h-full rounded-full bg-[linear-gradient(90deg,var(--color-neon-secondary),var(--color-neon-primary))]" style={{ width: `${Math.max(0, Math.min(100, value * 100))}%` }} /></div>
+            <div className="mt-4 divide-y divide-white/10">
+              {top3Programs.map((result, index) => (
+                <div key={result.programId} className="py-2.5 text-sm">
+                  <div className="flex items-center gap-3">
+                    <span className="w-5 shrink-0 text-xs font-bold text-[var(--color-text-secondary)]">{index + 1}</span>
+                    <span className="min-w-0 flex-1 truncate text-[var(--color-text-primary)]">{result.program.name}</span>
+                    <strong className="shrink-0 text-[var(--color-neon-primary)]">{Math.round(result.overallScore)}%</strong>
+                  </div>
+                  <div className="ml-8 mt-1.5 h-1 overflow-hidden rounded-full bg-white/10">
+                    <div className="h-full rounded-full bg-[linear-gradient(90deg,var(--color-neon-secondary),var(--color-neon-primary))]" style={{ width: `${Math.max(0, Math.min(100, result.overallScore))}%` }} />
+                  </div>
                 </div>
               ))}
             </div>
