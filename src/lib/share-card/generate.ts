@@ -55,15 +55,16 @@ export function generateShareCardSVG(
   const scale = Math.min(width / SHARE_CARD_WIDTH, height / SHARE_CARD_HEIGHT);
   const isPortrait = height / width > 1.15;
   const frame = 28 * scale;
+  const brandBandHeight = (isPortrait ? 170 : 104) * scale;
   const cardRatio = 617 / 768;
   const cardHeight = isPortrait
-    ? Math.min(height * 0.78, (width * 0.94) / cardRatio)
-    : Math.min(height * 0.82, (width - frame * 1.5) / cardRatio);
+    ? Math.min(height * 0.72, (width * 0.94) / cardRatio)
+    : Math.min(height * 0.72, (width - frame * 1.5) / cardRatio);
   const cardWidth = cardHeight * cardRatio;
   const cardX = (width - cardWidth) / 2;
   const cardY = isPortrait
-    ? Math.max(170 * scale, (height - cardHeight) / 2)
-    : Math.max(82 * scale, (height - cardHeight) / 2);
+    ? Math.max(brandBandHeight + 18 * scale, (height - cardHeight) / 2)
+    : Math.max(brandBandHeight + 14 * scale, (height - cardHeight) / 2);
   const studentName = data.studentName ? ` · ${data.studentName}` : "";
   const outerFrame = isPortrait
     ? ""
@@ -80,8 +81,10 @@ export function generateShareCardSVG(
   <rect width="${width}" height="${height}" fill="#0d0e17" />
   <circle cx="${width / 2}" cy="${height * 0.48}" r="${width * 0.55}" fill="url(#share-light)" />
   ${outerFrame}
-  <image href="/brand/uniempresarial-logo.png" x="${width * 0.2}" y="${isPortrait ? 12 * scale : 6 * scale}" width="${width * 0.6}" height="${isPortrait ? 72 * scale : 48 * scale}" preserveAspectRatio="xMidYMid meet" filter="url(#card-glow)" />
-  <text x="${width / 2}" y="${isPortrait ? 112 * scale : 70 * scale}" text-anchor="middle" font-size="${isPortrait ? 22 * scale : 18 * scale}" font-weight="800" fill="#f5f5f5" font-family="Inter, system-ui, sans-serif">Tu Futuro Dual</text>
+  <rect x="${frame}" y="${frame}" width="${width - frame * 2}" height="${brandBandHeight}" rx="${18 * scale}" fill="#fff" fill-opacity=".08" stroke="#fff" stroke-opacity=".24" />
+  <ellipse cx="${width / 2}" cy="${frame + brandBandHeight / 2}" rx="${width * .25}" ry="${brandBandHeight * .32}" fill="#fff" opacity=".48" filter="url(#card-glow)" />
+  <image href="/brand/uniempresarial-logo.png" x="${width * 0.2}" y="${frame + 8 * scale}" width="${width * 0.6}" height="${brandBandHeight - 16 * scale}" preserveAspectRatio="xMidYMid meet" filter="url(#card-glow)" />
+  <text x="${width / 2}" y="${frame + brandBandHeight + 28 * scale}" text-anchor="middle" font-size="${isPortrait ? 22 * scale : 18 * scale}" font-weight="800" fill="#f5f5f5" font-family="Inter, system-ui, sans-serif">Tu Futuro Dual</text>
   <text x="${width / 2}" y="${height - (isPortrait ? 72 : 32) * scale}" text-anchor="middle" font-size="${isPortrait ? 18 * scale : 15 * scale}" fill="#ffe16d" font-family="Inter, system-ui, sans-serif">Mi arquetipo: ${data.archetype.name}${studentName}</text>
   ${cardGlow}
   <image href="/archetypes/${data.archetype.id}.webp" x="${cardX}" y="${cardY}" width="${cardWidth}" height="${cardHeight}" preserveAspectRatio="xMidYMid meet" />

@@ -49,9 +49,11 @@ export function ShareCard({ data, layout = "default" }: ShareCardProps) {
         style={{ aspectRatio: `${size.width} / ${size.height}` }}
       >
         <div aria-hidden="true" className="share-card-ambient absolute inset-0" />
-        <div aria-hidden="true" className="absolute top-0 z-20 h-14 w-56 rounded-full bg-white/80 blur-xl sm:top-1 sm:h-20 sm:w-80" />
-        <img src="/brand/uniempresarial-logo.png" alt="Uniempresarial" className="absolute top-1 z-20 h-auto w-44 drop-shadow-[0_0_5px_rgba(255,255,255,.95)] drop-shadow-[0_0_18px_rgba(255,225,109,.8)] sm:top-2 sm:w-64" />
-        <div className="share-card-art relative z-10 flex h-full w-full items-center justify-center">
+        <div className="share-card-brand relative z-20 flex h-[18%] w-full shrink-0 items-center justify-center rounded-2xl border border-white/20 bg-white/[.08] px-4 py-3 shadow-[0_0_28px_rgba(255,225,109,.22)]">
+          <span aria-hidden="true" className="absolute inset-x-1/4 inset-y-1 rounded-full bg-white/70 blur-xl" />
+          <img src="/brand/uniempresarial-logo.png" alt="Uniempresarial" className="relative h-auto w-44 drop-shadow-[0_0_5px_rgba(255,255,255,.98)] drop-shadow-[0_0_18px_rgba(255,225,109,.85)] sm:w-64" />
+        </div>
+        <div className="share-card-art relative z-10 flex min-h-0 flex-1 w-full items-center justify-center pt-3">
           <img
             src={`/archetypes/${data.archetype.id}.webp`}
             alt={`Carta de arquetipo ${data.archetype.name}`}

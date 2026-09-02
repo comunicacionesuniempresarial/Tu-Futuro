@@ -265,10 +265,10 @@ export function ResultsPage({ data }: { data: ResultsData }) {
                     opacity: slot === 0 ? 1 : 0.72,
                     transform:
                       slot === 0
-                        ? "translateX(-50%) translateY(0) scale(1.08)"
+                        ? "translateX(-50%) translateY(0) scale(1.04)"
                         : slot === 1
-                          ? "translateX(calc(-50% + 245px)) translateY(54px) rotate(7deg) scale(.9)"
-                          : "translateX(calc(-50% - 245px)) translateY(54px) rotate(-7deg) scale(.9)",
+                          ? "translateX(calc(-50% + 180px)) translateY(30px) rotate(3deg) scale(.94)"
+                          : "translateX(calc(-50% - 180px)) translateY(30px) rotate(-3deg) scale(.94)",
                   };
               return (
                 <div
