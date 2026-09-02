@@ -16,15 +16,21 @@ export default function Confetti({ active = true }: ConfettiProps) {
     if (!active || hasFired.current || prefersReduced) return;
     hasFired.current = true;
 
-    const duration = 4000;
+    const duration = 2200;
     const end = Date.now() + duration;
 
     const colors = ["#00ff88", "#22D3EE", "#ff0080", "#fbbf24", "#00d4ff"];
 
     let rafId = 0;
+    let frameCount = 0;
     const frame = () => {
+      frameCount += 1;
+      if (frameCount % 2 === 0) {
+        rafId = requestAnimationFrame(frame);
+        return;
+      }
       confetti({
-        particleCount: 4,
+        particleCount: 3,
         angle: 60,
         spread: 60,
         origin: { x: 0, y: 0.7 },
@@ -33,7 +39,7 @@ export default function Confetti({ active = true }: ConfettiProps) {
         scalar: 1.2,
       });
       confetti({
-        particleCount: 4,
+        particleCount: 3,
         angle: 120,
         spread: 60,
         origin: { x: 1, y: 0.7 },
