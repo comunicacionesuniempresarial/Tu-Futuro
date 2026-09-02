@@ -305,7 +305,7 @@ export function ResultsPage({ data }: { data: ResultsData }) {
               Tu carta para compartir
             </h2>
           </div>
-          <ShareCard data={shareData} layout="stories" />
+          <ShareCard data={shareData} layout="feed" />
         </div>
 
         {/* ── COMPACT STATS ── */}

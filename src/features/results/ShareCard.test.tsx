@@ -63,13 +63,13 @@ describe("ShareCard", () => {
     const { rerender } = render(<ShareCard data={data} />);
     expect(document.querySelector("[data-layout]")).toHaveAttribute(
       "data-layout",
-      "default"
+      "feed"
     );
 
-    rerender(<ShareCard data={data} layout="stories" />);
+    rerender(<ShareCard data={data} layout="feed" />);
     expect(document.querySelector("[data-layout]")).toHaveAttribute(
       "data-layout",
-      "stories"
+      "feed"
     );
 
     rerender(<ShareCard data={data} layout="feed" />);
