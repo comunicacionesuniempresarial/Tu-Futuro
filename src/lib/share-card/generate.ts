@@ -6,8 +6,8 @@ export const SHARE_CARD_FILENAME = "tufuturo-resultado.png";
 export const SHARE_CARD_JPG_FILENAME = "tufuturo-resultado.jpg";
 
 async function inlineSvgImages(svg: string): Promise<string> {
-  if (typeof window === "undefined" || !svg.includes('href="/archetypes/')) return svg;
-  const imagePaths = [...svg.matchAll(/href="(\/archetypes\/[^\"]+)"/g)].map((match) => match[1]);
+  if (typeof window === "undefined") return svg;
+  const imagePaths = [...svg.matchAll(/href="(\/(?:archetypes|brand)\/[^\"]+)"/g)].map((match) => match[1]);
   let result = svg;
   for (const path of imagePaths) {
     const response = await fetch(new URL(path, window.location.origin));
@@ -80,7 +80,7 @@ export function generateShareCardSVG(
   <rect width="${width}" height="${height}" fill="#0d0e17" />
   <circle cx="${width / 2}" cy="${height * 0.48}" r="${width * 0.55}" fill="url(#share-light)" />
   ${outerFrame}
-  <text x="${width / 2}" y="${isPortrait ? 78 * scale : 44 * scale}" text-anchor="middle" font-size="${isPortrait ? 28 * scale : 22 * scale}" font-weight="900" letter-spacing="${3 * scale}px" fill="#ffe16d" filter="url(#card-glow)" font-family="Inter, system-ui, sans-serif">UNIEMPRESARIAL</text>
+  <image href="/brand/uniempresarial-logo.png" x="${width * 0.2}" y="${isPortrait ? 28 * scale : 18 * scale}" width="${width * 0.6}" height="${isPortrait ? 72 * scale : 48 * scale}" preserveAspectRatio="xMidYMid meet" filter="url(#card-glow)" />
   <text x="${width / 2}" y="${isPortrait ? 112 * scale : 70 * scale}" text-anchor="middle" font-size="${isPortrait ? 22 * scale : 18 * scale}" font-weight="800" fill="#f5f5f5" font-family="Inter, system-ui, sans-serif">Tu Futuro Dual</text>
   <text x="${width / 2}" y="${height - (isPortrait ? 72 : 32) * scale}" text-anchor="middle" font-size="${isPortrait ? 18 * scale : 15 * scale}" fill="#ffe16d" font-family="Inter, system-ui, sans-serif">Mi arquetipo: ${data.archetype.name}${studentName}</text>
   ${cardGlow}
